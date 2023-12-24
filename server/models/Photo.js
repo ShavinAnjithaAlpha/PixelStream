@@ -1,0 +1,60 @@
+const { defaultValueSchemable } = require("sequelize/types/utils");
+
+module.exports = (sequelize, DataTypes) => {
+  const Photo = sequelize.define("Photo", {
+    photoId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    photoUrl: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        isUrl: true,
+      },
+    },
+    photoTitle: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+    },
+    photoDes: {
+      type: DataTypes.STRING(512),
+      allowNull: true,
+      defaultValue: null,
+    },
+    photoSize: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        min: 0,
+      },
+    },
+
+    photoResolution: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+      validate: {
+        is: /[0-9]+X[0-9]+/i, // regex for resolution
+      },
+    },
+
+    capturedFrom: {
+      type: DataTypes.STRING(255),
+      allowNull: true,
+      defaultValue: "Unknown",
+    },
+    location: {
+      type: DataTypes.STRING(255),
+      allowNull: true,
+      defaultValue: "Unknown",
+    },
+  });
+
+  return Photo;
+};
