@@ -1,3 +1,6 @@
+const User = require("./User");
+const Photo = require("./Photo");
+
 module.exports = (sequelize, DataTypes) => {
   const UserLikes = sequelize.define("serLikes", {
     userId: {
@@ -23,6 +26,28 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
   });
+
+  // setup the association between User table and User Likes table as one-to-many relationship
+  User.hasMany(UserLikes, {
+    foreignKey: {
+      name: "userId",
+      allowNull: false,
+    },
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  });
+  UserLikes.belongsTo(User);
+
+  // setup the association between the Photo table and User Likes table as one-to-many relationship
+  Photo.hasMany(UserLikes, {
+    foreignKey: {
+      name: "photoId",
+      allowNull: false,
+    },
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  });
+  UserLikes.belongsTo(Photo);
 
   return UserLikes;
 };

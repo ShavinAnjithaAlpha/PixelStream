@@ -22,5 +22,15 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
 
+  // setup the association between Category table and Category table as one-to-many relationship
+  Category.hasMany(Category, {
+    foreignKey: {
+      name: "parentCategoryId",
+      allowNull: true,
+    },
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  });
+
   return Category;
 };
