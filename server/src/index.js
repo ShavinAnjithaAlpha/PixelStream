@@ -1,6 +1,6 @@
 const express = require("express");
 const port = process.env.port || 3000;
-const db = require("./models");
+const db = require("./api/models");
 
 const app = express();
 app.get("/", (req, res) => {
@@ -8,7 +8,7 @@ app.get("/", (req, res) => {
     "Welcome to PhotoShav! This is the public API endpoints of the PhotoShav Web App."
   );
 });
-require("./start/routes")(app); // create the routes
+require("./api/start/routes")(app); // create the routes
 
 // start the server by checking the existence of the database
 db.sequelize.sync().then(() => {
