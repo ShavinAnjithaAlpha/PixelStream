@@ -1,5 +1,3 @@
-const User = require("./User");
-
 module.exports = (sequleize, DataTypes) => {
   const Collection = sequleize.define("Collection", {
     collectionId: {
@@ -24,17 +22,6 @@ module.exports = (sequleize, DataTypes) => {
       allowNull: false,
     },
   });
-
-  // setup the association between the User table and Collection table as one-to-many relationship
-  User.hasMany(Collection, {
-    foreignKey: {
-      name: "userId",
-      allowNull: false,
-    },
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE",
-  });
-  Collection.belongsTo(User);
 
   return Collection;
 };

@@ -1,5 +1,3 @@
-const User = require("./User");
-
 module.exports = (sequelize, DataTypes) => {
   const UserAuth = sequelize.define("UserAuth", {
     userId: {
@@ -27,17 +25,6 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
   });
-
-  // setup the association between user auth table and uset table as one-to-one relationship
-  User.hasOne(UserAuth, {
-    foreignKey: {
-      name: "userId",
-      allowNull: false,
-    },
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE",
-  });
-  UserAuth.belongsTo(User);
 
   return UserAuth;
 };

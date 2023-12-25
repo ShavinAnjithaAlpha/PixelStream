@@ -6,6 +6,12 @@ app.get("/", (req, res) => {
   res.send("Hello, World!");
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+const db = require("./models");
+
+db.sequelize.sync().then(() => {
+  console.log("Drop and re-sync db.");
+  // start the server listening for requests in the port 3000
+  app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+  });
 });

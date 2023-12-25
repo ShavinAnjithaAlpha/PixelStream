@@ -1,5 +1,3 @@
-const { defaultValueSchemable } = require("sequelize/types/utils");
-
 module.exports = (sequelize, DataTypes) => {
   const Photo = sequelize.define("Photo", {
     photoId: {
@@ -55,6 +53,18 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: "Unknown",
     },
   });
+
+  Photo.associate = (models) => {
+    // setup the association between Photo table and PhotoStat table as one-to-one relationship
+    Photo.hasOne(models.PhotoStat, {
+      foreignKey: {
+        name: "photoId",
+        allowNull: false,
+      },
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE",
+    });
+  };
 
   return Photo;
 };

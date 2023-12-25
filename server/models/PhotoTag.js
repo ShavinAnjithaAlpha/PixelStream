@@ -1,6 +1,3 @@
-const Photo = require("./Photo");
-const Tag = require("./Tag");
-
 module.exports = (sequelize, DataTypes) => {
   const PhotoTag = sequelize.define("PhotoTag", {
     photoId: {
@@ -8,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       references: {
         // reference to the Photo table
-        model: "Photo",
+        model: "Photos",
         key: "photoId",
       },
     },
@@ -17,15 +14,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       references: {
         // reference to the Tag table
-        model: "Tag",
+        model: "Tags",
         key: "tagId",
       },
     },
   });
-
-  // setup the association between Photo tabel and Photo Tag table as many-to-many relationship
-  Photo.belongsToMany(Tag, { through: PhotoTag });
-  Tag.belongsToMany(Photo, { through: PhotoTag });
 
   return PhotoTag;
 };

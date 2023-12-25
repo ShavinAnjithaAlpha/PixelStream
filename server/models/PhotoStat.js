@@ -1,5 +1,3 @@
-const Photo = require("./Photo");
-
 module.exports = (sequelize, DataTypes) => {
   const PhotoStat = sequelize.define("PhotoStat", {
     photoId: {
@@ -31,17 +29,6 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 0,
     },
   });
-
-  // setup the association between Photo table and Photo Stat table as one-to-one relationship
-  Photo.hasOne(PhotoStat, {
-    foreignKey: {
-      name: "photoId",
-      allowNull: false,
-    },
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE",
-  });
-  PhotoStat.belongsTo(Photo);
 
   return PhotoStat;
 };

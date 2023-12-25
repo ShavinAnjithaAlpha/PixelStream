@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
     },
 
     location: {
-      tyepe: DataTypes.STRING(255),
+      type: DataTypes.STRING(255),
       allowNull: true,
       defaultVale: null,
     },
@@ -58,6 +58,38 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
   });
+
+  User.associate = (models) => {
+    // set the association between User and UserAuth table as one-to-one relationship
+    User.hasOne(models.UserAuth, {
+      foreignKey: {
+        name: "userId",
+        allowNull: false,
+      },
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE",
+    });
+
+    // set the associaition between User and Collection table as one-to-many relationship
+    User.hasMany(models.Collection, {
+      foreignKey: {
+        name: "userId",
+        allowNull: false,
+      },
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE",
+    });
+
+    // set the association between Photo and User table as one-to-many relationship
+    User.hasMany(models.Photo, {
+      foreignKey: {
+        name: "userId",
+        allowNull: false,
+      },
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE",
+    });
+  };
 
   return User;
 };

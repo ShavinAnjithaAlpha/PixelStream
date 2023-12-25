@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: "User",
+        model: "Users",
         key: "userId",
       },
     },
@@ -13,14 +13,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: "User",
+        model: "Users",
         key: "userId",
       },
     },
   });
-
-  // setup the association between User table and Followers table as many-to-many relationship
-  User.belongToMany(User, { through: Followers });
 
   return Followers;
 };
