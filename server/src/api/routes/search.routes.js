@@ -1,8 +1,14 @@
 const express = require("express");
 const router = express.Router();
 
-router.get("/", async (req, res) => {
-  res.send("Search");
-});
+const {
+  searchPhoto,
+  searchCollection,
+  searchUsers,
+} = require("../controllers/search.controller");
+
+router.get("/photos", searchPhoto);
+router.get("/collections", searchCollection);
+router.get("/users", searchUsers);
 
 module.exports = router;
