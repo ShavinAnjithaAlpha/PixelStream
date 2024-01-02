@@ -1,0 +1,34 @@
+@hostname = http://localhost
+@port = 3000
+@host = {{hostname}}:{{port}}
+@contentType = application/json
+@http = HTTP/1.1
+
+POST {{host}}/api/auth/register {{http}}
+Content-Type: {{contentType}}
+
+{
+    "username": "komudi",
+    "password": "komudi",
+    "email": "komudi.gimhani@gmail.com",
+    "firstname": "Komudi",
+    "lastname": "Gimhani",
+    "location": "Meetiyagoda, Sri Lanka",
+    "bio": "I am a model"
+}
+
+###
+
+
+POST {{host}}/api/auth/register {{http}}
+Content-Type: {{contentType}}
+
+{
+    "username": "supun",
+    "password": "gimhan",
+    "email": "supun.gimhan@gmail.com",
+    "firstname": "Supub",
+    "lastname": "Gimhan",
+    "location": "Uragaha, Sri Lanka",
+    "bio": "I am a engineering undergraduate."
+}
