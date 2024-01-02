@@ -9,7 +9,7 @@ async function checkUserExists(username, email) {
   // check if wither email or username exists in the system
   const user = await UserAuth.findOne({
     where: {
-      userName: username,
+      [Op.or]: [{ userName: username }, { email: email }],
     },
   });
 
@@ -56,7 +56,18 @@ async function createUser(data) {
   };
 }
 
+async function findUser(username, email) {
+  (username = username || ""), (email = email || "");
+
+  const user = await UserAuth.findOne({
+    where: { [Op.or]: [{ userName: username }, { email: email }] },
+  });
+
+  return user;
+}
+
 module.exports = {
   checkUserExists,
   createUser,
+  findUser,
 };

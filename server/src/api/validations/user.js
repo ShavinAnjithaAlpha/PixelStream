@@ -16,4 +16,16 @@ function validateUser(data) {
   return userSchema.validate(data);
 }
 
-module.exports = { validateUser };
+function validateAuth(data) {
+  const authSchema = Joi.object({
+    username: Joi.string().min(3).max(255),
+    email: Joi.string().email(),
+    password: Joi.string()
+      .pattern(new RegExp("^[a-zA-Z0-9]{3,30}$"))
+      .required(),
+  }).or("username", "email");
+
+  return authSchema.validate(data);
+}
+
+module.exports = { validateUser, validateAuth };
