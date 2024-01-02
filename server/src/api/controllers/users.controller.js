@@ -4,7 +4,9 @@ function getPortfolioOfUser(req, res) {}
 
 function getPhotosOfUser(req, res) {}
 
-function getLikesOfUsers(req, res) {}
+function getLikesOfUsers(req, res) {
+  res.send("This is the like page");
+}
 
 function getCollectionOfUser(req, res) {}
 
