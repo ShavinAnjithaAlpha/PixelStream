@@ -1,0 +1,17 @@
+@hostname = http://localhost
+@port = 3000
+@host = {{hostname}}:{{port}}
+@contentType = application/json
+@http = HTTP/1.1
+
+POST {{host}}/api/auth/register {{http}}
+Content-Type: {{contentType}}
+
+{
+    "username": "shavin",
+    "password": "shavin",
+    "email": "shavin.anjitha@gmail.com",
+    "firstname": "Shavin",
+    "lastname": "Anjitha",
+    "location": "Ambalangoda, Sri Lanka"
+}
