@@ -38,7 +38,7 @@ router.get("/:id/download", downloadPhoto);
 // endpoint for the upload a photo
 router.put("/", authorize, uploadPhoto);
 // endpoint for like and dislike a photo
-router.post("/:id/like", likeAPhoto);
-router.post("/:id/dislike", dislikeAPhoto);
+router.post("/:id/like", authorize, likeAPhoto);
+router.post("/:id/dislike", authorize, dislikeAPhoto);
 
 module.exports = router;

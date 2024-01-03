@@ -8,6 +8,21 @@ POST {{host}}/api/auth/register {{http}}
 Content-Type: {{contentType}}
 
 {
+    "username": "shavin",
+    "password": "shavin",
+    "email": "shavin.anjitha@gmail.com",
+    "firstname": "Shavin",
+    "lastname": "Anjitha",
+    "location": "Ambalangoda, Sri Lanka",
+    "bio": "I am a undergradiate at University of Moratuwa."
+}
+
+###
+
+POST {{host}}/api/auth/register {{http}}
+Content-Type: {{contentType}}
+
+{
     "username": "komudi",
     "password": "komudi",
     "email": "komudi.gimhani@gmail.com",
@@ -27,7 +42,7 @@ Content-Type: {{contentType}}
     "username": "supun",
     "password": "gimhan",
     "email": "supun.gimhan@gmail.com",
-    "firstname": "Supub",
+    "firstname": "Supun",
     "lastname": "Gimhan",
     "location": "Uragaha, Sri Lanka",
     "bio": "I am a engineering undergraduate."

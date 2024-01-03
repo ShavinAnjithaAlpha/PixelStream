@@ -12,3 +12,19 @@ Content-Type: {{contentType}}
     "limit": 3,
     "orderBy": "oldest"
 }
+
+### get photo ny its id
+@photoId = 5
+GET {{host}}/api/photos/{{photoId}} {{http}}
+Content-Type: {{contentType}}
+
+
+### like a photo
+@photoId = 2
+POST {{host}}/api/photos/{{photoId}}/like {{http}}
+Content-Type: {{contentType}}
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNoYXZpbiIsInVzZXJJZCI6MSwiaWF0IjoxNzA0MTkxNjMzLCJleHAiOjE3MDQ1NTE2MzN9.4Uhbvp3PCz8FA641_zvJLXYHHiKKa5EpYAItzQu9Mjg
+
+{
+    "rating" : 3
+}

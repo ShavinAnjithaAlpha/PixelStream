@@ -23,12 +23,28 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: 0,
     },
+    dislikes: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+    },
+
     avgRating: {
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 0,
     },
   });
+
+  PhotoStat.associate = (model) => {
+    PhotoStat.belongsTo(model.Photo, {
+      foreignKey: {
+        name: "photoId",
+        allowNull: false,
+      },
+      onDelete: "CASCADE",
+    });
+  };
 
   return PhotoStat;
 };
