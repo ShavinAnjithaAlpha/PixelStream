@@ -1,0 +1,17 @@
+@hostname = http://localhost
+@port = 3000
+@host = {{hostname}}:{{port}}
+@contentType = application/json
+@http = HTTP/1.1
+
+PUT {{host}}/api/photos {{http}}
+Content-Type: {{contentType}}
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNoYXZpbiIsInVzZXJJZCI6MSwiaWF0IjoxNzA0MTkxNjMzLCJleHAiOjE3MDQ1NTE2MzN9.4Uhbvp3PCz8FA641_zvJLXYHHiKKa5EpYAItzQu9Mjg
+
+
+{
+    "url": "D:\\Dev\\WebApps\\PhotoShav\\upload\\20231201_010108.jpg",
+    "title": "View of a colombo city",
+    "description": "This is the colombo of the Sri Lanka.",
+    "location": "Colombo, Sri Lanka"
+}

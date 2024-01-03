@@ -13,9 +13,9 @@ module.exports = (sequelize, DataTypes) => {
     photoUrl: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate: {
-        isUrl: true,
-      },
+      // validate: {
+      //   isUrl: true,
+      // },
     },
     photoTitle: {
       type: DataTypes.STRING(255),
@@ -38,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(255),
       allowNull: false,
       validate: {
-        is: /[0-9]+X[0-9]+/i, // regex for resolution
+        is: /[0-9]+x[0-9]+/i, // regex for resolution
       },
     },
 
