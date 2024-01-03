@@ -5,6 +5,7 @@ const {
   getPhoto,
   createPhoto,
   likePhoto,
+  dislikePhoto,
 } = require("../services/photoTable");
 
 async function getPhotos(req, res) {
@@ -77,10 +78,20 @@ async function likeAPhoto(req, res) {
     return res.status(400).send("Invalid rating");
   // now like the photo
   const avgRating = await likePhoto(photoId, userId, rating);
+  if (avgRating.error) return res.status(400).send(avgRating.error);
+
   res.json({ avgRating: avgRating });
 }
 
-function dislikeAPhoto(req, res) {}
+async function dislikeAPhoto(req, res) {
+  // extract the photo id to be disliked
+  const photoId = parseInt(req.params.id);
+  // now dislike the photo
+  const avgRating = await dislikePhoto(photoId, req.user.userId);
+  if (avgRating.error) return res.status(400).send(avgRating.error);
+
+  res.json({ avgRating: avgRating });
+}
 
 module.exports = {
   getPhotos,

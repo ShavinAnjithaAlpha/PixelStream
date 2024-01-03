@@ -2,6 +2,7 @@ const { Photo } = require("../models");
 const { User } = require("../models");
 const { PhotoStat } = require("../models");
 const { UserLikes } = require("../models");
+const { UserDisLikes } = require("../models");
 const sequelize = require("sequelize");
 
 async function fetchPhotos(page, limit, orderBy) {
@@ -129,6 +130,15 @@ async function likePhoto(photoId, userId, rating) {
     },
   });
 
+  const userDisLike = await UserDisLikes.findOne({
+    where: {
+      photoId: photoId,
+      userId: userId,
+    },
+  });
+
+  console.log("User Like: ", userLike);
+
   if (userLike) {
     // user like the photo, so change the image ratings
     if (rating) {
@@ -136,28 +146,79 @@ async function likePhoto(photoId, userId, rating) {
       await userLike.save();
     }
   } else {
+    console.log("finding the photo stat");
+    // user not liked the photo
+    const photoStat = await PhotoStat.findOne({ where: { photoId: photoId } });
+
+    if (!photoStat) return { error: "Photo not found" };
+    console.log("photo stat found");
+    // increment the like by 1
+    photoStat.likes += 1;
+    console.log("update the like database");
+    // save the photo stat
+    if (userDisLike) {
+      photoStat.dislikes -= 1; // decrement the like by 1
+      await userDisLike.destroy(); // delete the user like instance
+    }
+    await photoStat.save();
+    console.log("remove the dislike from the database");
+    // create a user like instance
+    const newUserLike = UserLikes.build({
+      photoId: photoId,
+      userId: userId,
+      userRating: rating,
+    });
+    await newUserLike.save();
+  }
+
+  const avgRating = await recalculatePhotoRating(photoId);
+  return avgRating;
+}
+
+async function dislikePhoto(photoId, userId) {
+  // first check whether the user has already liked the photo
+  const userDislike = await UserDisLikes.findOne({
+    where: {
+      photoId: photoId,
+      userId: userId,
+    },
+  });
+
+  const userLike = await UserLikes.findOne({
+    where: {
+      photoId: photoId,
+      userId: userId,
+    },
+  });
+
+  if (userDislike) return { error: "User already disliked the photo" };
+  if (!userDislike) {
     // user not liked the photo
     const photoStat = await PhotoStat.findOne({ where: { photoId: photoId } });
 
     if (!photoStat) return { error: "Photo not found" };
 
     // increment the like by 1
-    photoStat.likes += 1;
+    photoStat.dislikes += 1;
+    if (userLike) {
+      photoStat.likes -= 1; // decrement the like by 1
+      await userLike.destroy(); // delete the user like instance
+    }
     // save the photo stat
     await photoStat.save();
     // create a user like instance
-    const userLike = UserLikes.build({
+    const newUserDislike = UserDisLikes.build({
       photoId: photoId,
       userId: userId,
-      userRating: rating,
     });
-    await userLike.save();
-  }
+    await newUserDislike.save();
 
-  const rating = await recalculatePhotoRating(photoId);
-  return rating;
+    const avgRating = await recalculatePhotoRating(photoId);
+    return avgRating;
+  }
 }
 
+// recalculate the photo rating
 async function recalculatePhotoRating(photoId) {
   // now need to update the avg rating of the photo
   const photoStat = await PhotoStat.findOne({ where: { photoId: photoId } });
@@ -172,10 +233,10 @@ async function recalculatePhotoRating(photoId) {
   });
 
   // Update the average rating of the photo
-  photoStat.avgRating = avgRating[0].avgRating;
+  photoStat.avgRating = avgRating[0].avgRating || 0;
   await photoStat.save();
 
-  return avgRating[0].avgRating;
+  return avgRating[0].avgRating || 0;
 }
 
 module.exports = {
@@ -184,4 +245,5 @@ module.exports = {
   getRandomPhoto,
   getPhoto,
   likePhoto,
+  dislikePhoto,
 };

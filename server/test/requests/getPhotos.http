@@ -20,11 +20,17 @@ Content-Type: {{contentType}}
 
 
 ### like a photo
-@photoId = 2
-POST {{host}}/api/photos/{{photoId}}/like {{http}}
+@likedphotoId = 7
+POST {{host}}/api/photos/{{likedphotoId}}/like {{http}}
 Content-Type: {{contentType}}
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNoYXZpbiIsInVzZXJJZCI6MSwiaWF0IjoxNzA0MTkxNjMzLCJleHAiOjE3MDQ1NTE2MzN9.4Uhbvp3PCz8FA641_zvJLXYHHiKKa5EpYAItzQu9Mjg
 
 {
     "rating" : 3
 }
+
+### dislike a photo
+@dislikephotoId = 7
+POST {{host}}/api/photos/{{dislikephotoId}}/dislike {{http}}
+Content-Type: {{contentType}}
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNoYXZpbiIsInVzZXJJZCI6MSwiaWF0IjoxNzA0MTkxNjMzLCJleHAiOjE3MDQ1NTE2MzN9.4Uhbvp3PCz8FA641_zvJLXYHHiKKa5EpYAItzQu9Mjg
