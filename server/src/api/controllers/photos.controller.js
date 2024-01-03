@@ -1,10 +1,16 @@
 const { validatePhoto } = require("../validations/photo");
 const { extractMetaData } = require("../util/extractMetaData");
-const { createPhoto } = require("../services/photoTable");
+const { fetchPhotos, createPhoto } = require("../services/photoTable");
 
-function getPhotos(req, res) {
-  // get the photos from the photos table
-  // response with the fetched data of the photos
+async function getPhotos(req, res) {
+  // first get the page and limit query parameters also order by if exists
+  const page = parseInt(req.body.page) || 1;
+  const limit = parseInt(req.body.limit) || 10;
+  const orderBy = req.body.orderBy || "lastest";
+
+  // now get the photos from the database
+  const photos = await fetchPhotos(page, limit, orderBy);
+  return res.json(photos);
 }
 
 function getPhotoById(req, res) {}
@@ -25,12 +31,10 @@ async function uploadPhoto(req, res) {
 
   // now extract the necessary meta data from the uploaded image file
   const metadata = await extractMetaData(req.body.url);
-  console.log("metadata: ", metadata);
   if (metadata.error) {
     // if there is an error in extracting the meta data, then response with the error message
     return res.status(400).send(metadata.error);
   }
-  console.log(metadata);
 
   // now build the photo instance to be saved in the database and save to the database
   const photo = await createPhoto(req.body, metadata, req.user);

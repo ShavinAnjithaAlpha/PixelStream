@@ -1,0 +1,14 @@
+@hostname = http://localhost
+@port = 3000
+@host = {{hostname}}:{{port}}
+@contentType = application/json
+@http = HTTP/1.1
+
+GET {{host}}/api/photos {{http}}
+Content-Type: {{contentType}}
+
+{
+    "page": 1,
+    "limit": 3,
+    "orderBy": "oldest"
+}
