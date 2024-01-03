@@ -30,7 +30,6 @@ const {
 
 // endpoint for access the photos in various ways
 router.get("/", getPhotos);
-router.get("/:id", getPhotoById);
 router.get("/random", getRandomPhoto);
 // endpoint for get statictics about a given photo
 router.get("/:id/statistics", getPhotoStat);
@@ -42,5 +41,6 @@ router.put("/", authorize, uploadPhoto);
 // endpoint for like and dislike a photo
 router.post("/:id/like", authorize, likeAPhoto);
 router.post("/:id/dislike", authorize, dislikeAPhoto);
+router.get("/:id", getPhotoById);
 
 module.exports = router;

@@ -2,7 +2,9 @@ const { validatePhoto } = require("../validations/photo");
 const { extractMetaData } = require("../util/extractMetaData");
 const {
   fetchPhotos,
+  fetchPhotoStat,
   getPhoto,
+  fetchRandomPhoto,
   createPhoto,
   updateDownloadStat,
   markAsDownload,
@@ -27,21 +29,38 @@ async function getPhotoById(req, res) {
 
   // now get the photo from the database
   const photo = await getPhoto(photoId);
-  res.json(photo);
+  return res.json(photo);
 }
 
 async function getRandomPhoto(req, res) {
-  // first get the page and limit query parameters also order by if exists
+  // extract the relavant parameters from the request body
   const count = parseInt(req.body.count) || 1;
   const query = req.body.query || null;
   const username = req.body.username || null;
-  const topics = req.body.topics || null;
-  const collections = req.body.collections || null;
+  const collection = req.body.collection || null;
+  const topic = req.body.topic || null;
 
-  // now get the photos from the database
+  // now get the random photos from the database
+  const photos = await fetchRandomPhoto(
+    count,
+    query,
+    username,
+    collection,
+    topic
+  );
+  return res.json(photos);
 }
 
-async function getPhotoStat(req, res) {}
+async function getPhotoStat(req, res) {
+  // first get the photo id from the request parameter
+  const photoId = parseInt(req.params.id);
+
+  // now get the photo from the database
+  const stat = await fetchPhotoStat(photoId);
+  if (stat.error) return res.status(400).send(stat.error);
+
+  return res.json(stat);
+}
 
 async function downloadWithoutUser(req, res) {
   // first get the photo id from the request parameter

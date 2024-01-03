@@ -57,18 +57,13 @@ async function getPhoto(photoId) {
   return photo;
 }
 
-async function getRandomPhoto(count, query, username, topics, collections) {
+async function fetchRandomPhoto(count, query, username, topics, collections) {
   const photos = Photo.findAll({
-    where: {
-      photoTitle: query,
-    },
-    order: Sequelize.literal("rand()"),
+    limit: count,
+    order: sequelize.literal("rand()"),
     include: [
       {
         model: User,
-        where: {
-          username: username,
-        },
       },
       {
         model: PhotoStat,
@@ -77,6 +72,18 @@ async function getRandomPhoto(count, query, username, topics, collections) {
   });
 
   return photos;
+}
+
+async function fetchPhotoStat(photoId) {
+  const photoStat = await PhotoStat.findOne({
+    where: {
+      photoId: photoId,
+    },
+  });
+
+  if (!photoStat) return { error: "Photo not found" };
+
+  return photoStat;
 }
 
 async function createPhoto(data, metaData, user) {
@@ -275,8 +282,9 @@ async function recalculatePhotoRating(photoId) {
 
 module.exports = {
   fetchPhotos,
+  fetchPhotoStat,
   createPhoto,
-  getRandomPhoto,
+  fetchRandomPhoto,
   updateDownloadStat,
   markAsDownload,
   getPhoto,
