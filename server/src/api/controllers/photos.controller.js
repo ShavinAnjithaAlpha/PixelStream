@@ -4,6 +4,8 @@ const {
   fetchPhotos,
   getPhoto,
   createPhoto,
+  updateDownloadStat,
+  markAsDownload,
   likePhoto,
   dislikePhoto,
 } = require("../services/photoTable");
@@ -39,9 +41,29 @@ async function getRandomPhoto(req, res) {
   // now get the photos from the database
 }
 
-function getPhotoStat(req, res) {}
+async function getPhotoStat(req, res) {}
 
-function downloadPhoto(req, res) {}
+async function downloadWithoutUser(req, res) {
+  // first get the photo id from the request parameter
+  const photoId = parseInt(req.params.id);
+
+  const result = await updateDownloadStat(photoId);
+  if (result.error) return res.status(400).send(result.error);
+
+  return res.json(result);
+}
+
+async function downloadPhoto(req, res) {
+  // first get the photo id from the request parameter
+  const photoId = parseInt(req.params.id);
+  const userId = req.user.userId;
+
+  // now get the photo from the database
+  const result = await markAsDownload(photoId, userId);
+  if (result.error) return res.status(400).send(result.error);
+
+  return res.json(result);
+}
 
 async function uploadPhoto(req, res) {
   // first validate the request body
@@ -63,6 +85,12 @@ async function uploadPhoto(req, res) {
   res.json(photo);
 }
 
+/**
+ * Likes a photo and updates the average rating.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @returns {Promise<void>} - A promise that resolves when the photo is liked and the average rating is updated.
+ */
 async function likeAPhoto(req, res) {
   // get the photo id to be liked
   const photoId = parseInt(req.params.id);
@@ -83,6 +111,13 @@ async function likeAPhoto(req, res) {
   res.json({ avgRating: avgRating });
 }
 
+/**
+ * Dislikes a photo.
+ *
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @returns {Promise<void>} - A promise that resolves when the photo is disliked.
+ */
 async function dislikeAPhoto(req, res) {
   // extract the photo id to be disliked
   const photoId = parseInt(req.params.id);
@@ -98,6 +133,7 @@ module.exports = {
   getPhotoById,
   getRandomPhoto,
   getPhotoStat,
+  downloadWithoutUser,
   downloadPhoto,
   uploadPhoto,
   likeAPhoto,

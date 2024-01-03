@@ -3,6 +3,7 @@ const { User } = require("../models");
 const { PhotoStat } = require("../models");
 const { UserLikes } = require("../models");
 const { UserDisLikes } = require("../models");
+const { UserDownloads } = require("../models");
 const sequelize = require("sequelize");
 
 async function fetchPhotos(page, limit, orderBy) {
@@ -119,6 +120,39 @@ async function createPhoto(data, metaData, user) {
     downloads: photoStat.downloads,
     avgRatings: photoStat.avgRatings,
   };
+}
+
+async function updateDownloadStat(photoId) {
+  // fetch the photo stat instance from the database
+  const photoStat = await PhotoStat.findOne({
+    where: {
+      photoId: photoId,
+    },
+  });
+
+  if (!photoStat) return { error: "Photo not found" };
+
+  // increment the download by 1
+  photoStat.downloads += 1;
+  // save the photo stat
+  await photoStat.save();
+  return photoStat;
+}
+
+async function markAsDownload(photoId, userId) {
+  // update the photo stat by increase the download count
+  const photoStat = await updateDownloadStat(photoId);
+  if (photoStat.error) return photoStat;
+
+  // create new UserDownload instance
+  const userDownload = UserDownloads.build({
+    photoId: photoId,
+    userId: userId,
+  });
+  await userDownload.save();
+
+  // return the updated photo stat instance
+  return photoStat;
 }
 
 async function likePhoto(photoId, userId, rating) {
@@ -243,6 +277,8 @@ module.exports = {
   fetchPhotos,
   createPhoto,
   getRandomPhoto,
+  updateDownloadStat,
+  markAsDownload,
   getPhoto,
   likePhoto,
   dislikePhoto,
