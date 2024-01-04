@@ -15,10 +15,9 @@ const {
 
 async function getPhotos(req, res) {
   // first get the page and limit query parameters also order by if exists
-  const page = parseInt(req.body.page) || 1;
-  const limit = parseInt(req.body.limit) || 10;
-  const orderBy = req.body.orderBy || "lastest";
-
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
+  const orderBy = req.query.orderBy || "lastest";
   // now get the photos from the database
   const photos = await fetchPhotos(page, limit, orderBy);
   return res.json(photos);

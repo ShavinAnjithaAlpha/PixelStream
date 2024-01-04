@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 const { useEffect, useState } = require("react");
 
 function Home() {
+  const numButtons = 5;
   const [photos, setPhotos] = useState([]);
   let navigate = useNavigate();
 
@@ -14,9 +15,30 @@ function Home() {
     });
   }, []);
 
+  const handlePageChange = (page) => {
+    axios.get(`http://localhost:3000/api/photos?page=${page}`).then((res) => {
+      setPhotos(res.data);
+    });
+  };
+
   return (
     <div className="App">
       <h1>Photos</h1>
+
+      <div className="page-bar">
+        {Array.from({ length: numButtons }).map((_, index) => (
+          <button
+            key={index}
+            onClick={(e) => {
+              handlePageChange(index + 1);
+            }}
+          >
+            {" "}
+            {index + 1}
+          </button>
+        ))}
+      </div>
+
       <div className="photo-grid">
         {photos.map((photo) => (
           <div

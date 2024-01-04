@@ -40,3 +40,21 @@
   width: 500px;
   height: auto;
 }
+
+/* styling for page bar */
+.page-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.page-bar button {
+  background-color: #087dca;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 0 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
