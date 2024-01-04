@@ -1,9 +1,13 @@
 const express = require("express");
 require("dotenv").config();
+const path = require("path");
 const port = process.env.PORT || 3000;
 const db = require("./api/models");
 
 const app = express();
+// Serve static files from the "public" directory
+app.use("/upload", express.static(path.join(__dirname, "/upload")));
+
 app.get("/", (req, res) => {
   res.send(
     "Welcome to PhotoShav! This is the public API endpoints of the PhotoShav Web App."
