@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Photo from "./pages/Photo";
+import Login from "./pages/Login";
+import Registration from "./pages/Registration";
 import "./App.css";
 
 function App() {
@@ -17,6 +19,12 @@ function App() {
             <li className="navbar__item">
               <Link to="/about">About</Link>
             </li>
+            <li className="navbar__item">
+              <Link to="/login">Login</Link>
+            </li>
+            <li className="navbar__item">
+              <Link to="/signup">Signup</Link>
+            </li>
           </ul>
         </nav>
 
@@ -24,6 +32,8 @@ function App() {
           <Route path="/" exact element={<Home />} />
           <Route path="/about" exact element={<About />} />
           <Route path="/photo/:id" exact element={<Photo />} />
+          <Route path="/login" exact element={<Login />} />
+          <Route path="/signup" exact element={<Registration />} />
         </Routes>
       </Router>
     </div>

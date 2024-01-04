@@ -8,7 +8,7 @@ function validateUser(data) {
     firstname: Joi.string().min(3).max(255).required(),
     lastname: Joi.string().min(3).max(255).required(),
     location: Joi.string().max(255),
-    bio: Joi.string().max(255),
+    bio: Joi.string().max(512),
     profile: Joi.string(),
     personalsite: Joi.string().uri().max(255),
   });

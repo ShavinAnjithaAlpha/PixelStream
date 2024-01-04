@@ -1,0 +1,58 @@
+/* Login container */
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+/* Login form */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: auto;
+}
+
+.login-form .form-item {
+  margin-bottom: 20px;
+}
+
+/* Login form inputs */
+.login-form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Login form button */
+.login-form button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Login form button hover effect */
+.login-form button:hover {
+  background-color: #0056b3;
+}
+
+/* Error Message Component */
+.error-message {
+  color: red;
+  font-size: 0.9rem;
+  /* font-weight: bold; */
+  margin-top: 5px;
+  text-align: left;
+}
