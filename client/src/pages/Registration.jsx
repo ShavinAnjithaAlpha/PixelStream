@@ -51,16 +51,17 @@ function Registration() {
     if (data.bio === "") data.bio = null;
     if (data.profile === "") data.profile = null;
     if (data.personalsite === "") data.personalsite = null;
+    return data;
   };
 
   const handleSubmit = (values) => {
     // Handle form submission logic here
     // first clean the form data -- remove the empty string values
-    cleanData(values);
+    const cleanedValues = cleanData(values);
     // now make the api request to register the user
     console.log(values);
     axios
-      .post("http://localhost:3000/api/auth/register", values)
+      .post("http://localhost:3000/api/auth/register", cleanedValues)
       .then((res) => {
         console.log(res.data);
       })

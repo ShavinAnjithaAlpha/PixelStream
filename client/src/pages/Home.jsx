@@ -27,10 +27,7 @@ function Home() {
             }}
           >
             <h2>{photo.photoTitle}</h2>
-            <img
-              src="http://localhost:3000/upload/20231212_113419.jpg"
-              alt={photo.photoDes}
-            />
+            <img src={photo.photoUrl} alt={photo.photoDes} />
             <p>{photo.photoDes}</p>
             <b>{photo.location}</b>
           </div>

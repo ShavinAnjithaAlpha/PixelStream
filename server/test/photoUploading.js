@@ -1,101 +1,123 @@
-const fs = require("fs");
 const axios = require("axios");
+const fs = require("fs");
 
-const directoryPath = "D:\\Dev\\WebApps\\PhotoShav\\upload\\";
-// Replace with the actual directory path
+const directoryPath = "C:\\Users\\User\\Downloads\\public";
 
-const titles = [
-  "Beautiful Sunset",
-  "Exploring Nature",
-  "City Lights",
-  "Adventures Await",
-  "Serene Beach",
-  "Majestic Mountains",
-  "Urban Jungle",
-  "Tranquil Forest",
-  "Vibrant Street Art",
-  "Captivating Waterfall",
-  "Ancient Ruins",
-  "Colorful Landscapes",
-  "Hidden Gems",
-  "Rural Charm",
-  "Architectural Marvels",
-  "Wildlife Encounter",
-  "Picturesque Countryside",
-  "Iconic Landmarks",
-  "Magical Gardens",
-  "Aerial Perspectives",
-];
+function getRandomTitle() {
+  const titles = [
+    "Beautiful Sunset",
+    "City Lights",
+    "Nature's Beauty",
+    "Urban Exploration",
+    "Serene Landscape",
+    "Vibrant Colors",
+    "Hidden Gems",
+    "Majestic Mountains",
+    "Coastal Paradise",
+    "Enchanting Forest",
+    "Captivating Architecture",
+    "Tranquil Waters",
+    "Rural Charm",
+    "Aerial View",
+    "Historical Landmarks",
+    "Dreamy Clouds",
+    "Wildlife Encounter",
+    "Artistic Expression",
+    "Magical Moments",
+    "Stunning Reflections",
+    "Adventurous Spirit",
+    "Charming Streets",
+    "Serenity at its Best",
+    "Exquisite Details",
+    "Dramatic Skies",
+    "Peaceful Retreat",
+    "Dynamic Cityscape",
+    "Whimsical Beauty",
+    "Timeless Elegance",
+    "Natural Wonders",
+    "Architectural Marvels",
+  ];
 
-const descriptions = [
-  "A breathtaking view of the sunset over the horizon.",
-  "Exploring the beauty of nature and discovering hidden gems.",
-  "The vibrant lights of the city at night.",
-  "Embarking on exciting adventures and creating lasting memories.",
-  "Relaxing on a serene beach with crystal clear waters.",
-  "Witnessing the grandeur of majestic mountains.",
-  "Immersing in the hustle and bustle of the urban jungle.",
-  "Finding peace and tranquility in a lush forest.",
-  "Appreciating the creativity and colors of street art.",
-  "Being mesmerized by the power and beauty of a waterfall.",
-  "Exploring the remnants of ancient civilizations.",
-  "Marveling at the diverse and colorful landscapes.",
-  "Discovering hidden gems off the beaten path.",
-  "Experiencing the charm of rural life.",
-  "Admiring the architectural marvels of the world.",
-  "Encountering fascinating wildlife in their natural habitat.",
-  "Enjoying the picturesque beauty of the countryside.",
-  "Visiting iconic landmarks and capturing their essence.",
-  "Getting lost in the magic of enchanting gardens.",
-  "Seeing the world from a different perspective with aerial photography.",
-];
-
-const locations = [
-  "New York, USA",
-  "Paris, France",
-  "Tokyo, Japan",
-  "Sydney, Australia",
-  "Rio de Janeiro, Brazil",
-  "Cape Town, South Africa",
-  "Rome, Italy",
-  "Amsterdam, Netherlands",
-  "Bali, Indonesia",
-  "Machu Picchu, Peru",
-  "Santorini, Greece",
-  "Dubai, United Arab Emirates",
-  "Barcelona, Spain",
-  "Cairo, Egypt",
-  "Havana, Cuba",
-  "Reykjavik, Iceland",
-  "Moscow, Russia",
-  "Cape Verde",
-  "Banff National Park, Canada",
-  "Marrakech, Morocco",
-];
-
-const getRandomTitle = () => {
   return titles[Math.floor(Math.random() * titles.length)];
-};
-
-const getRandomDescription = () => {
-  return descriptions[Math.floor(Math.random() * descriptions.length)];
-};
-
-const getRandomLocation = () => {
-  return locations[Math.floor(Math.random() * locations.length)];
-};
-
-const photoData = [];
-
-for (let i = 0; i < 20; i++) {
-  const title = getRandomTitle();
-  const description = getRandomDescription();
-  const location = getRandomLocation();
-
-  photoData.push({ title, description, location });
 }
 
-console.log(photoData);
+function getRandomDescription() {
+  const descriptions = [
+    "A breathtaking photo that captures the essence of the moment.",
+    "An awe-inspiring scene that will leave you speechless.",
+    "A picture-perfect moment frozen in time.",
+    "A visual masterpiece that evokes a sense of wonder.",
+    "A stunning display of nature's beauty.",
+    "An enchanting image that tells a story.",
+    "A captivating view that will transport you to another world.",
+    "A work of art that celebrates the beauty of our surroundings.",
+    "A mesmerizing photo that demands your attention.",
+    "A snapshot of pure serenity and tranquility.",
+    "A glimpse into a world filled with endless possibilities.",
+    "A visual feast for the eyes.",
+    "A moment of pure bliss captured on camera.",
+    "A striking image that leaves a lasting impression.",
+    "A testament to the power of photography.",
+    "A window into a world of imagination and creativity.",
+    "A picture that speaks a thousand words.",
+    "A sight that will take your breath away.",
+    "A reminder of the beauty that surrounds us.",
+    "A snapshot of a fleeting moment in time.",
+    "A visual symphony of colors and textures.",
+    "A photo that captures the essence of a place or event.",
+    "A glimpse into the extraordinary.",
+    "A celebration of the ordinary made extraordinary.",
+    "A visual journey that invites you to explore.",
+    "A moment of pure joy frozen in time.",
+    "A reflection of the world as seen through the lens of a camera.",
+    "A testament to the power of observation and perspective.",
+    "A reminder of the beauty that lies in the details.",
+    "A snapshot of life's fleeting moments.",
+    "A visual escape from the ordinary.",
+  ];
+
+  return descriptions[Math.floor(Math.random() * descriptions.length)];
+}
+
+function getRandomLocation() {
+  const locations = [
+    "Paris, France",
+    "New York City, USA",
+    "Tokyo, Japan",
+    "Rome, Italy",
+    "Sydney, Australia",
+    "London, UK",
+    "Barcelona, Spain",
+    "Cape Town, South Africa",
+    "Rio de Janeiro, Brazil",
+    "Amsterdam, Netherlands",
+    "Dubai, UAE",
+    "San Francisco, USA",
+    "Bali, Indonesia",
+    "Prague, Czech Republic",
+    "Santorini, Greece",
+    "Havana, Cuba",
+    "Venice, Italy",
+    "Machu Picchu, Peru",
+    "Serengeti National Park, Tanzania",
+    "Great Barrier Reef, Australia",
+    "Grand Canyon, USA",
+    "Petra, Jordan",
+    "Marrakech, Morocco",
+    "Iguazu Falls, Argentina/Brazil",
+    "Chichen Itza, Mexico",
+    "Taj Mahal, India",
+    "Eiffel Tower, France",
+    "Mount Everest, Nepal",
+    "Victoria Falls, Zambia/Zimbabwe",
+    "Pyramids of Giza, Egypt",
+    "Niagara Falls, Canada/USA",
+  ];
+
+  return locations[Math.floor(Math.random() * locations.length)];
+}
+
+const photoData = [];
 
 fs.readdir(directoryPath, (err, files) => {
   if (err) {
@@ -105,7 +127,7 @@ fs.readdir(directoryPath, (err, files) => {
 
   files.forEach(async (file) => {
     const filePath = `${directoryPath}/${file}`;
-    const fileData = fs.readFileSync(filePath);
+    // const fileData = fs.readFileSync(filePath);
 
     try {
       const response = await axios.put(

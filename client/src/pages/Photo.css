@@ -1,0 +1,75 @@
+.photo-page {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  justify-content: center;
+  height: 100vh;
+  margin: auto;
+  margin-top: 0;
+}
+
+h1 {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+  color: darkslateblue;
+  text-align: left;
+  margin-left: 5rem;
+  border-left: 5px solid dodgerblue;
+  padding-left: 10px;
+}
+
+.photo-page .column {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: flex-start;
+  margin: 0 1rem;
+  width: 50%;
+}
+
+.photo-page img {
+  width: 90%;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+}
+
+.photo-page ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 1rem;
+  padding-left: 0;
+}
+
+.photo-page ul li {
+  margin: 0.4rem 0rem;
+  color: darkslateblue;
+  font-size: 1rem;
+}
+
+.photo-page .author {
+  font-size: 1.2rem;
+  text-align: left;
+}
+
+.photo-page .photo-des {
+  margin-top: 2rem;
+  font-size: 1.1rem;
+  margin-left: 2rem;
+}
+
+.photo-page .column .stat-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.photo-page .column .stat-bar .stat {
+  font-size: 1.1rem;
+  color: gray;
+  margin-right: 1rem;
+}
