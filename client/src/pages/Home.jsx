@@ -27,7 +27,9 @@ function Home() {
             }}
           >
             <h2>{photo.photoTitle}</h2>
-            <img src={photo.photoUrl} alt={photo.photoDes} />
+            <div className="photo-box">
+              <img src={photo.photoUrl} alt={photo.photoDes} />
+            </div>
             <p>{photo.photoDes}</p>
             <b>{photo.location}</b>
           </div>

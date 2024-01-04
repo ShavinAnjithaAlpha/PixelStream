@@ -15,7 +15,7 @@ body::-webkit-scrollbar {
 
 .navbar ul {
   list-style: none;
-  margin: 0;
+  margin: 1rem 0;
   padding: 0;
   display: flex;
   flex-direction: row;
