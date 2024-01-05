@@ -2,6 +2,7 @@ const { Collection } = require("../models");
 const { PhotoCollection } = require("../models");
 const { Photo } = require("../models");
 const { User } = require("../models");
+const { UserAuth } = require("../models");
 
 async function fetchCollections(page, limit) {
   const collections = await Collection.findAll({
@@ -10,6 +11,12 @@ async function fetchCollections(page, limit) {
     include: [
       {
         model: User,
+        include: [
+          {
+            model: UserAuth,
+            attributes: ["userName", "email"],
+          },
+        ],
       },
       {
         model: Photo,

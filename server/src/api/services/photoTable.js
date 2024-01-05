@@ -1,5 +1,6 @@
 const { Photo } = require("../models");
 const { User } = require("../models");
+const { UserAuth } = require("../models");
 const { PhotoStat } = require("../models");
 const { UserLikes } = require("../models");
 const { UserDisLikes } = require("../models");
@@ -29,6 +30,7 @@ async function fetchPhotos(page, limit, orderBy) {
     include: [
       {
         model: User,
+        include: [{ model: UserAuth, attributes: ["userName", "email"] }],
       },
       {
         model: PhotoStat,
@@ -47,6 +49,7 @@ async function getPhoto(photoId) {
     include: [
       {
         model: User,
+        include: [{ model: UserAuth, attributes: ["userName", "email"] }],
       },
       {
         model: PhotoStat,
@@ -64,6 +67,7 @@ async function fetchRandomPhoto(count, query, username, topics, collections) {
     include: [
       {
         model: User,
+        include: [{ model: UserAuth, attributes: ["userName", "email"] }],
       },
       {
         model: PhotoStat,
