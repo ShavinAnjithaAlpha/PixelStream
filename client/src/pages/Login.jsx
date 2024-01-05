@@ -1,3 +1,4 @@
+import axios from "axios";
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -15,8 +16,15 @@ function Login() {
   });
 
   const handleSubmit = (values) => {
-    // Handle form submission
-    console.log(values);
+    axios
+      .post("http://localhost:3000/api/auth/login", values)
+      .then((res) => {
+        console.log(res.data);
+        console.log("User logged in successfully!");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (

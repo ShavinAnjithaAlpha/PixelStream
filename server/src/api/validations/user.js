@@ -21,7 +21,7 @@ function validateAuth(data) {
     username: Joi.string().min(3).max(255),
     email: Joi.string().email(),
     password: Joi.string()
-      .pattern(new RegExp("^[a-zA-Z0-9]{3,30}$"))
+      .pattern(new RegExp("^[a-zA-Z0-9.,-/+*@_]{3,30}$"))
       .required(),
   }).or("username", "email");
 
