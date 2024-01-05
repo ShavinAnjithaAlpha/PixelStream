@@ -17,6 +17,11 @@ module.exports = (sequleize, DataTypes) => {
       allowNull: false,
     },
 
+    coverPhoto: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
