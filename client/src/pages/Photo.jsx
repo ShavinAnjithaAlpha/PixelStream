@@ -15,6 +15,22 @@ function Photo() {
     });
   }, [id]);
 
+  const handleDownload = () => {
+    // increase the download count
+    setPhoto({
+      ...photo,
+      PhotoStat: {
+        ...photo.PhotoStat,
+        downloads: photo.PhotoStat.downloads + 1,
+      },
+    });
+    console.log("photo is ", photo);
+    // send a request to the server to update the download count
+    axios.get(`http://localhost:3000/api/photos/${id}/get`).then((res) => {
+      // console.log(res.data);
+    });
+  };
+
   return (
     <>
       <h1>{photo.photoTitle}</h1>
@@ -22,12 +38,24 @@ function Photo() {
         <div className="column">
           <div className="photo-container">
             {photo ? (
-              <img src={photo.photoUrl} alt={photo.photoDes} />
+              <img
+                src={photo.photoUrl}
+                alt={photo.photoDes}
+                className="no-download"
+              />
             ) : (
               <p>Loading photo...</p>
             )}
           </div>
           <p className="photo-des">{photo.photoDes}</p>
+          <a
+            href={photo.photoUrl}
+            download
+            onClick={handleDownload}
+            className="download-link"
+          >
+            <button className="download-btn">Download</button>
+          </a>
         </div>
         <div className="column">
           {photo.PhotoStat ? (

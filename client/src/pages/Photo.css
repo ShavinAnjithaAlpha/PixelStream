@@ -73,3 +73,30 @@ h1 {
   color: gray;
   margin-right: 1rem;
 }
+
+img.no-download {
+  pointer-events: none;
+}
+
+/* download button styling */
+a.download-link {
+  text-decoration: none;
+}
+
+.download-link .download-btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  background-color: rgb(10, 164, 10);
+  color: white;
+  font-size: 1rem;
+  margin-top: 1rem;
+  margin-left: 2rem;
+  transition: background-color 0.1s ease-in-out;
+  border: none;
+}
+
+.download-link .download-btn:hover {
+  background-color: rgb(121, 189, 18);
+  cursor: pointer;
+}

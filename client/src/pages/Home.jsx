@@ -50,7 +50,11 @@ function Home() {
           >
             <h2>{photo.photoTitle}</h2>
             <div className="photo-box">
-              <img src={photo.photoUrl} alt={photo.photoDes} />
+              <img
+                src={photo.photoUrl}
+                alt={photo.photoDes}
+                className="no-download"
+              />
             </div>
             <p>{photo.photoDes}</p>
             <b>{photo.location}</b>
