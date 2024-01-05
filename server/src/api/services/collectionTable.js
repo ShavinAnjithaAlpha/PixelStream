@@ -1,6 +1,24 @@
 const { Collection } = require("../models");
 const { PhotoCollection } = require("../models");
 const { Photo } = require("../models");
+const { User } = require("../models");
+
+async function fetchCollections(page, limit) {
+  const collections = await Collection.findAll({
+    limit: limit,
+    offset: (page - 1) * limit,
+    include: [
+      {
+        model: User,
+      },
+      {
+        model: Photo,
+      },
+    ],
+  });
+
+  return collections;
+}
 
 async function newCollection(collectionData, userId) {
   // first check whether the collection exists in the database
@@ -92,6 +110,7 @@ async function collectionExists(title, userId) {
 }
 
 module.exports = {
+  fetchCollections,
   newCollection,
   addPhotos,
 };

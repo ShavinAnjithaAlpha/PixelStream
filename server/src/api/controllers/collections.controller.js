@@ -2,9 +2,21 @@ const {
   validateCollection,
   validateCollectionUpdate,
 } = require("../validations/collection");
-const { newCollection, addPhotos } = require("../services/collectionTable");
+const {
+  fetchCollections,
+  newCollection,
+  addPhotos,
+} = require("../services/collectionTable");
 
-function getCollections(req, res) {}
+async function getCollections(req, res) {
+  // get the query parameters page and per page
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
+
+  // get the collections from the database
+  const collections = await fetchCollections(page, limit);
+  return res.send(collections);
+}
 
 function getCollectionById(req, res) {}
 

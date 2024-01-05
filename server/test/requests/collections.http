@@ -4,6 +4,10 @@
 @contentType = application/json
 @http = HTTP/1.1
 
+### Get the collections;
+GET {{host}}/api/collections {{http}}
+Content-Type: {{contentType}}
+
 ### new collection
 POST {{host}}/api/collections {{http}}
 Content-Type: {{contentType}}
