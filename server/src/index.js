@@ -1,9 +1,9 @@
+require("newrelic");
 const express = require("express");
 const EventEmitter = require("events");
 const logger = require("./api/start/logger");
 require("dotenv").config();
 const path = require("path");
-require("newrelic");
 const port = process.env.PORT || 3000;
 const db = require("./api/models");
 const winston = require("winston/lib/winston/config");
@@ -23,7 +23,7 @@ process.on("unhandledRejection", (ex) => {
 
 const emitter = new EventEmitter();
 // Increase the limit to 15
-emitter.setMaxListeners(20);
+emitter.setMaxListeners(15);
 
 const app = express();
 // Serve static files from the "public" directory
