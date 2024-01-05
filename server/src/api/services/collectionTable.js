@@ -1,8 +1,12 @@
+const {
+  getPhotosOfCollection,
+} = require("../controllers/collections.controller");
 const { Collection } = require("../models");
 const { PhotoCollection } = require("../models");
 const { Photo } = require("../models");
 const { User } = require("../models");
 const { UserAuth } = require("../models");
+const { PhotoStat } = require("../models");
 
 async function fetchCollections(page, limit) {
   const collections = await Collection.findAll({
@@ -25,6 +29,101 @@ async function fetchCollections(page, limit) {
   });
 
   return collections;
+}
+
+async function fetchCollection(collectionId) {
+  const collection = await Collection.findOne({
+    where: {
+      collectionId: collectionId,
+    },
+    include: [
+      {
+        model: User,
+        include: [
+          {
+            model: UserAuth,
+            attributes: ["userName", "email"],
+          },
+        ],
+      },
+      {
+        model: Photo,
+      },
+    ],
+  });
+
+  if (!collection) return { error: `Invalid collection id ${collectionId}` };
+
+  return collection;
+}
+
+async function fetchCollectionByUser(userId) {
+  const collections = await Collection.findAll({
+    where: {
+      userId: userId,
+    },
+    include: [
+      {
+        model: User,
+        include: [
+          {
+            model: UserAuth,
+            attributes: ["userName", "email"],
+          },
+        ],
+      },
+      {
+        model: Photo,
+      },
+    ],
+  });
+
+  return collections;
+}
+
+async function fetchPhotosOfCollection(collectionId) {
+  const collection = await Collection.findOne({
+    where: {
+      collectionId: collectionId,
+    },
+    include: [
+      {
+        model: Photo,
+      },
+    ],
+  });
+
+  // return a error if the collection is not exists
+  if (!collection) return { error: `Invalid collection id ${collectionId}` };
+  // get the other collection of the user
+  const userCollections = await fetchCollectionByUser(collection.userId);
+  // now find the associated photos of the collection
+  const photos = await PhotoCollection.findAll({
+    where: {
+      collectionId: collectionId,
+    },
+    include: [
+      {
+        model: Photo,
+        include: [
+          {
+            model: User,
+            include: [
+              {
+                model: UserAuth,
+                attributes: ["userName", "email"],
+              },
+            ],
+          },
+          {
+            model: PhotoStat,
+          },
+        ],
+      },
+    ],
+  });
+
+  return { photos, userCollections };
 }
 
 async function newCollection(collectionData, userId) {
@@ -118,6 +217,8 @@ async function collectionExists(title, userId) {
 
 module.exports = {
   fetchCollections,
+  fetchCollection,
+  fetchPhotosOfCollection,
   newCollection,
   addPhotos,
 };

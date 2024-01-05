@@ -74,6 +74,17 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
     });
+
+    // setup the association between PhotoCollection and Photo table as many to many relationship
+    Photo.belongsToMany(models.Collection, {
+      through: models.PhotoCollection,
+      foreignKey: {
+        name: "photoId",
+        allowNull: false,
+      },
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE",
+    });
   };
 
   return Photo;

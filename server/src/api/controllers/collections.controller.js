@@ -4,6 +4,8 @@ const {
 } = require("../validations/collection");
 const {
   fetchCollections,
+  fetchCollection,
+  fetchPhotosOfCollection,
   newCollection,
   addPhotos,
 } = require("../services/collectionTable");
@@ -18,9 +20,32 @@ async function getCollections(req, res) {
   return res.send(collections);
 }
 
-function getCollectionById(req, res) {}
+async function getCollectionById(req, res) {
+  // extract the collection id from the request
+  const collectionId = parseInt(req.params.id);
 
-function getPhotosOfCollection(req, res) {}
+  // get the collection from the database
+  const collection = await fetchCollection(collectionId);
+  if (collection.error) {
+    return res.status(400).send(collection.error);
+  }
+
+  // return the collection
+  return res.json(collection);
+}
+
+async function getPhotosOfCollection(req, res) {
+  // extract the collection id from the request
+  const collectionId = parseInt(req.params.id);
+
+  // get the photos of the collection
+  const photos = await fetchPhotosOfCollection(collectionId);
+  if (photos.error) {
+    return res.status(400).send(photos.error);
+  }
+
+  return res.json(photos);
+}
 
 function gerRelatedCollections(req, res) {}
 

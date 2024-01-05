@@ -12,10 +12,10 @@ const {
 } = require("../controllers/collections.controller");
 const { authorize } = require("../middleware/auth");
 
-router.get("/", getCollections);
-router.get("/:id", getCollectionById);
-router.get(":id/photo", getPhotosOfCollection);
+router.get("/:id/photo", getPhotosOfCollection);
 router.get("/:id/related", gerRelatedCollections);
+router.get("/:id", getCollectionById);
+router.get("/", getCollections);
 router.delete("/:id", authorize, deleteCollection);
 router.put("/:id", authorize, updateCollection);
 router.post("/:id", authorize, addPhotoToCollection);
