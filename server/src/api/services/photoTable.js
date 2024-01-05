@@ -57,7 +57,25 @@ async function getPhoto(photoId) {
     ],
   });
 
+  if (!photo) return { error: `Invalid photo id ${photoId}` };
+  addView(photoId); // increment the view by 1
+
+  photo.PhotoStat.views += 1; // increment the view by 1
   return photo;
+}
+
+async function addView(photoId) {
+  // fetch the photo stat instance from the database
+  const photoStat = await PhotoStat.findOne({
+    where: {
+      photoId: photoId,
+    },
+  });
+
+  // increment the view by 1
+  photoStat.views += 1;
+  // save the photo stat
+  await photoStat.save();
 }
 
 async function fetchRandomPhoto(count, query, username, topics, collections) {

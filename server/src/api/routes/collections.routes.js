@@ -13,11 +13,11 @@ const {
 const { authorize } = require("../middleware/auth");
 
 router.get("/:id/photo", getPhotosOfCollection);
-router.get("/:id/related", gerRelatedCollections);
+router.get("/:id/related", gerRelatedCollections); // TODO: implement this
 router.get("/:id", getCollectionById);
 router.get("/", getCollections);
-router.delete("/:id", authorize, deleteCollection);
-router.put("/:id", authorize, updateCollection);
+router.delete("/:id", authorize, deleteCollection); // TODO: implement this
+router.put("/:id", authorize, updateCollection); // TODO: implement this
 router.post("/:id", authorize, addPhotoToCollection);
 router.post("/", authorize, createNewCollection);
 

@@ -30,7 +30,7 @@ const {
 
 // endpoint for access the photos in various ways
 router.get("/", getPhotos);
-router.get("/random", getRandomPhoto);
+router.get("/random", getRandomPhoto); // TODO: finish this
 // endpoint for get statictics about a given photo
 router.get("/:id/statistics", getPhotoStat);
 // endpoint for mark a download of a photo to the system

@@ -14,7 +14,7 @@ Content-Type: {{contentType}}
 }
 
 ### get photo ny its id
-@photoId = 5
+@photoId = 9
 GET {{host}}/api/photos/{{photoId}} {{http}}
 Content-Type: {{contentType}}
 
