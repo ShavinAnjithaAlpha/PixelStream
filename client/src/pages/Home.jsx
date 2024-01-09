@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const { useEffect, useState } = require("react");
 
 function Home() {
-  const numButtons = 5;
+  const numButtons = 10;
   const [photos, setPhotos] = useState([]);
   let navigate = useNavigate();
 
