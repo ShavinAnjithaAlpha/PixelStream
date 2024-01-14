@@ -13,8 +13,8 @@ const {
 router.get("/:username", getUserByUsername);
 router.get("/:username/portfolio", getPortfolioOfUser);
 router.get("/:username/photos", getPhotosOfUser);
-router.get("/:username/likes", authorize, getLikesOfUsers);
+router.get("/:username/likes", authorize, getLikesOfUsers); // TODO: implement this
 router.get("/:username/collections", getCollectionOfUser);
-router.get("/:username/statistics", getStatisticsOfUser);
+router.get("/:username/statistics", getStatisticsOfUser); // TODO: implement this
 
 module.exports = router;

@@ -8,6 +8,7 @@ const { User } = require("../models");
 const { UserAuth } = require("../models");
 const { PhotoStat } = require("../models");
 const { Op } = require("sequelize");
+const { getUserIdByUserName } = require("./userTable");
 
 async function fetchCollections(page, limit) {
   const collections = await Collection.findAll({
@@ -243,15 +244,28 @@ async function searchCollectionByQuery(query, page, limit) {
     ],
   });
 
-  // change the name of the photo field
-  for (let i = 0; i < collections.length; i++) {
-    let coverPhoto = collections[i].Photo;
-
-    collections[i].coverPhoto = coverPhoto;
-    delete collections[i].Photo;
-  }
-
   return collections;
+}
+
+// get the collection bu username
+async function fetchCollectionByUserName(username) {
+  // first get the user id by username
+  const userId = await getUserIdByUserName(username);
+  if (userId.error) return { error: userId.error };
+
+  // now fetch the collections of the user
+  const collections = await fetchCollectionByUser(userId);
+  return collections;
+}
+
+async function getCollectionCountOfUser(userId) {
+  const count = await Collection.count({
+    where: {
+      userId: userId,
+    },
+  });
+
+  return count;
 }
 
 module.exports = {
@@ -261,4 +275,6 @@ module.exports = {
   newCollection,
   addPhotos,
   searchCollectionByQuery,
+  fetchCollectionByUserName,
+  getCollectionCountOfUser,
 };

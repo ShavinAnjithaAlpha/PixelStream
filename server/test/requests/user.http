@@ -1,0 +1,21 @@
+@hostname = http://localhost
+@port = 3000
+@host = {{hostname}}:{{port}}
+@contentType = application/json
+@http = HTTP/1.1
+
+### get user by username
+@username = shavin
+GET {{host}}/api/users/{{username}} {{http}}
+
+### get the photos by username
+@username = komudi
+GET {{host}}/api/users/{{username}}/photos {{http}}
+
+
+### get the personal site of the user
+@username = komudi
+GET {{host}}/api/users/{{username}}/portfolio {{http}}
+
+### get collection of users
+GET {{host}}/api/users/shavin/collections {{http}}
