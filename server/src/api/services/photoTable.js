@@ -6,8 +6,9 @@ const { UserLikes } = require("../models");
 const { UserDisLikes } = require("../models");
 const { UserDownloads } = require("../models");
 const sequelize = require("sequelize");
+const { Op } = require("sequelize");
 
-async function fetchPhotos(page, limit, orderBy) {
+function getOrder(orderBy) {
   var field = "createdAt";
   var order = "DESC";
   if (orderBy == "latest") {
@@ -22,6 +23,12 @@ async function fetchPhotos(page, limit, orderBy) {
     field = "photoSize";
     order = "ASC";
   }
+
+  return { field, order };
+}
+
+async function fetchPhotos(page, limit, orderBy) {
+  const { field, order } = getOrder(orderBy);
 
   const photos = await Photo.findAll({
     offset: (page - 1) * limit,
@@ -200,8 +207,6 @@ async function likePhoto(photoId, userId, rating) {
     },
   });
 
-  console.log("User Like: ", userLike);
-
   if (userLike) {
     // user like the photo, so change the image ratings
     if (rating) {
@@ -302,6 +307,35 @@ async function recalculatePhotoRating(photoId) {
   return avgRating[0].avgRating || 0;
 }
 
+// function for fetching photos using search functionality
+async function fetchPhotoFromQuery(query, page, limit, orderBy) {
+  const { field, order } = getOrder(orderBy);
+
+  // get the photos from the database according to the query
+  const photos = await Photo.findAll({
+    offset: (page - 1) * limit,
+    limit: limit,
+    where: {
+      [Op.or]: [
+        { photoTitle: { [Op.like]: `%${query}%` } },
+        { photoDes: { [Op.like]: `%${query}%` } },
+      ],
+    },
+    include: [
+      {
+        model: User,
+        include: [{ model: UserAuth, attributes: ["userName", "email"] }],
+      },
+      {
+        model: PhotoStat,
+      },
+    ],
+    order: [[field, order]],
+  });
+
+  return photos;
+}
+
 module.exports = {
   fetchPhotos,
   fetchPhotoStat,
@@ -312,4 +346,5 @@ module.exports = {
   getPhoto,
   likePhoto,
   dislikePhoto,
+  fetchPhotoFromQuery,
 };

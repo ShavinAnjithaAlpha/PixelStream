@@ -1,5 +1,9 @@
 const express = require("express");
 const router = express.Router();
+const {
+  validateSearchPhoto,
+  validateSearchCollection,
+} = require("../validations/search");
 
 const {
   searchPhoto,
@@ -7,8 +11,8 @@ const {
   searchUsers,
 } = require("../controllers/search.controller");
 
-router.get("/photos", searchPhoto);
-router.get("/collections", searchCollection);
-router.get("/users", searchUsers);
+router.get("/photos", validateSearchPhoto, searchPhoto);
+router.get("/collections", validateSearchCollection, searchCollection);
+router.get("/users", searchUsers); // TODO: implement this
 
 module.exports = router;

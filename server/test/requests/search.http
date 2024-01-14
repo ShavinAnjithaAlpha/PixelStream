@@ -1,0 +1,14 @@
+@hostname = http://localhost
+@port = 3000
+@host = {{hostname}}:{{port}}
+@contentType = application/json
+@http = HTTP/1.1
+
+### search photo by query
+@query = page=1&limit=10&query=a
+GET {{host}}/api/search/photos?page=1&limit=10&query=s {{http}}
+
+
+### search the collection by query
+@cquery = page=1&limit=10&query=s
+GET {{host}}/api/search/collections?{{cquery}} {{http}}
