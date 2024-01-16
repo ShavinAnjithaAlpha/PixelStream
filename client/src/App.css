@@ -1,11 +1,13 @@
-.App {
-  text-align: center;
-}
+/* Google Fonts - Poppins */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
 
-.navbar {
-  background-color: #087dca;
-  color: #fff;
-  padding: 10px;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  list-style: none;
+  text-decoration: none;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -13,32 +15,53 @@ body::-webkit-scrollbar {
   display: none;
 }
 
-.navbar ul {
-  list-style: none;
-  margin: 1rem 0;
-  padding: 0;
+.App {
+  text-align: center;
+}
+
+/* nav bar styling */
+.nav {
+  display: flex;
+  width: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: #087ccaac;
+  padding: 20px 100px;
+  justify-content: space-between;
+}
+
+.nav .nav-links {
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
 }
 
-.navbar li {
-  display: inline-block;
-  margin-right: 10px;
-  font-size: 1.2rem;
-}
-
-.navbar li:hover {
-  cursor: pointer;
-  color: #000;
-}
-
-.navbar a {
-  color: #eae8e8;
-  text-decoration: none;
-  margin-left: 2rem;
-}
-
-.navbar a:hover {
+.nav .nav-links .nav-item {
+  margin: auto 20px;
   color: white;
+}
+
+.nav .logo {
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: whitesmoke;
+  font-style: normal;
+}
+
+.nav .nav-links .nav-item a {
+  color: white;
+  transition: all 0.2s ease-in-out;
+}
+
+.nav .nav-links .nav-item a:hover {
+  color: #9cc3ed;
+}
+
+.nav .nav-links .login {
+  margin: auto 20px;
+}
+
+.nav .nav-links .login a {
+  color: white;
+  font-style: normal;
 }
