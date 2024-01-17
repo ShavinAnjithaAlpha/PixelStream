@@ -89,7 +89,7 @@ function Photo() {
       <div className="photo-page">
         <div className="photo-container">
           <img
-            className="photo"
+            className="photo no-download"
             src={photo.photoUrl}
             alt={photo.photoDes}
             width={600}
@@ -98,7 +98,7 @@ function Photo() {
         </div>
         <div className="detail-tab">
           <div className="photo-detail-panel">
-            <ProfileCard />
+            {photo.User && <ProfileCard user={photo.User} />}
             <div className="title-tab">
               <h2>{photo.photoTitle}</h2>
               <div className="btn-bar">

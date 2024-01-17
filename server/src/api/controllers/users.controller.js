@@ -16,7 +16,7 @@ async function getUserByUsername(req, res) {
 
   // get the user from the database
   const user = await fetchUserByUsername(username);
-  if (user.error) res.status(400).send(user.error);
+  if (user.error) return res.status(400).send(user.error);
 
   // get the number of followers and followings
   const followersCount = await getNumberOfFollowers(user.userId);

@@ -29,7 +29,8 @@ function Login() {
     axios
       .post("http://localhost:3000/api/auth/login", values)
       .then((res) => {
-        console.log("User logged in successfully!");
+        // save the access token in the local storage for house keeping
+        localStorage.setItem("token", res.data.accessToken);
         // save the user's access token in the session storage
         setAuthState({
           user: res.data.accessToken,

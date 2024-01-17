@@ -3,14 +3,19 @@ import "./ProfileBadge.css";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
 function ProfileBadge({ user }) {
   const navigate = useNavigate();
   const [userData, setUserData] = useState([]);
 
   useEffect(() => {
+    // decode the access token provided by the context API
+    const decodedToken = jwtDecode(user);
+    const username = decodedToken.username;
+
     axios
-      .get(`http://localhost:3000/api/users/${user.username}`)
+      .get(`http://localhost:3000/api/users/${username}`)
       .then((res) => {
         setUserData(res.data);
       })
@@ -24,7 +29,7 @@ function ProfileBadge({ user }) {
   return (
     <div
       className="profile-badge"
-      onClick={() => navigate(`/user/${user.username}`)}
+      onClick={() => navigate(`/user/${userData.userName}`)}
     >
       <div className="profile-badge-photo">
         <img
@@ -33,11 +38,11 @@ function ProfileBadge({ user }) {
               ? userData.User.profilePic
               : defaultProfilePhotoUrl
           }
-          alt={user.username}
+          alt={userData.userName}
         />
       </div>
       <div className="profile-badge-info">
-        <h2>{user.username}</h2>
+        <h2>{userData.userName}</h2>
       </div>
     </div>
   );

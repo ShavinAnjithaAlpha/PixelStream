@@ -8,11 +8,14 @@ function App() {
   const [authState, setAuthState] = useState({ status: false });
 
   useEffect(() => {
-    if (sessionStorage.getItem("token")) {
+    console.log(localStorage.getItem("token"));
+    if (localStorage.getItem("token")) {
       setAuthState({
-        user: sessionStorage.getItem("token"),
+        user: localStorage.getItem("token"),
         status: true,
       });
+
+      console.log("User is logged access token is ", authState);
     }
   }, []);
 

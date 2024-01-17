@@ -13,16 +13,11 @@ import { AuthContext } from "./helpers/AuthContext";
 function Main() {
   const location = useLocation();
   const { setAuthState, authState } = useContext(AuthContext);
-  const user = {
-    username: "shavin",
-    photoUrl: "https://picsum.photos/200",
-  };
 
   // logout function
   const logout = () => {
-    sessionStorage.removeItem("token");
+    localStorage.removeItem("token");
     setAuthState({ status: false });
-    console.log("logout");
   };
 
   return (
@@ -56,7 +51,7 @@ function Main() {
               </i>
             ) : (
               <>
-                <ProfileBadge user={user} />
+                <ProfileBadge user={authState.user} />
                 <i className="logout" onClick={logout}>
                   Logout
                 </i>
