@@ -11,15 +11,17 @@ function Home() {
   let navigate = useNavigate();
 
   useEffect(() => {
-    axios.get("http://localhost:3000/api/photos").then((res) => {
+    axios.get("http://localhost:3000/api/photos?limit=12").then((res) => {
       setPhotos(res.data);
     });
   }, []);
 
   const handlePageChange = (page) => {
-    axios.get(`http://localhost:3000/api/photos?page=${page}`).then((res) => {
-      setPhotos(res.data);
-    });
+    axios
+      .get(`http://localhost:3000/api/photos?limit=12&page=${page}`)
+      .then((res) => {
+        setPhotos(res.data);
+      });
   };
 
   return (

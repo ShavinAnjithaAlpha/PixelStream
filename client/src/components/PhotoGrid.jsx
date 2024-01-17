@@ -6,7 +6,7 @@ function PhotoGrid({ photos }) {
   return (
     <div className="photo-grid">
       {photos.map((photo) => (
-        <PhotoCard photo={photo} />
+        <PhotoCard photo={photo} key={photo.photoId} />
       ))}
     </div>
   );

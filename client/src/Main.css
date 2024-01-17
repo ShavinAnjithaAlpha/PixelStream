@@ -12,6 +12,7 @@
   background-color: #087cca;
   padding: 20px 100px;
   justify-content: space-between;
+  z-index: 999999;
 }
 
 .nav .nav-links {

@@ -1,22 +1,19 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useRef } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import "./Login.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../helpers/AuthContext";
 
 function Login() {
   const loginContainer = useRef(null);
   const navigate = useNavigate();
   const [loginError, setLoginError] = useState(false);
 
-  useEffect(() => {
-    // loginContainer.current.style.backgroundImage = `url("/assets/img/snow-forest.jpg")`;
-    loginContainer.current.style.backgroundSize = "cover";
-    loginContainer.current.style.backdropFilter = "blur(5px)";
-  });
+  const { setAuthState } = useContext(AuthContext);
 
   const initialValues = {
     email: "",
@@ -34,7 +31,10 @@ function Login() {
       .then((res) => {
         console.log("User logged in successfully!");
         // save the user's access token in the session storage
-        sessionStorage.setItem("token", res.data.accessToken);
+        setAuthState({
+          user: res.data.accessToken,
+          status: true,
+        });
         // redirect to the Home page with successfull login
         navigate("/");
       })

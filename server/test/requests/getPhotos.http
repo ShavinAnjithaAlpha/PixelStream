@@ -4,14 +4,8 @@
 @contentType = application/json
 @http = HTTP/1.1
 
-GET {{host}}/api/photos {{http}}
+GET {{host}}/api/photos?limit=12&page=1 {{http}}
 Content-Type: {{contentType}}
-
-{
-    "page": 1,
-    "limit": 10,
-    "orderBy": "oldest"
-}
 
 ### get photo ny its id
 @photoId = 9
