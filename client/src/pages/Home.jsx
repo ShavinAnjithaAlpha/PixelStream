@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import "./Home.css";
+import PhotoGrid from "../components/PhotoGrid";
 import { useNavigate } from "react-router-dom";
 const { useEffect, useState } = require("react");
 
@@ -38,29 +39,7 @@ function Home() {
           </button>
         ))}
       </div>
-
-      <div className="photo-grid">
-        {photos.map((photo) => (
-          <div
-            key={photo.photoId}
-            className="photo-container"
-            onClick={() => {
-              navigate(`/photo/${photo.photoId}`);
-            }}
-          >
-            <h2>{photo.photoTitle}</h2>
-            <div className="photo-box">
-              <img
-                src={photo.photoUrl}
-                alt={photo.photoDes}
-                className="no-download"
-              />
-            </div>
-            <p>{photo.photoDes}</p>
-            <b>{photo.location}</b>
-          </div>
-        ))}
-      </div>
+      <PhotoGrid photos={photos} />
     </div>
   );
 }

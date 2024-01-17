@@ -1,11 +1,20 @@
 import axios from "axios";
-import React from "react";
+import React, { useEffect } from "react";
+import { useRef } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import "./Login.css";
 import { Link } from "react-router-dom";
 
 function Login() {
+  const loginContainer = useRef(null);
+
+  useEffect(() => {
+    // loginContainer.current.style.backgroundImage = `url("/assets/img/snow-forest.jpg")`;
+    loginContainer.current.style.backgroundSize = "cover";
+    loginContainer.current.style.backdropFilter = "blur(5px)";
+  });
+
   const initialValues = {
     email: "",
     password: "",
@@ -29,10 +38,7 @@ function Login() {
   };
 
   return (
-    <div className="login-container">
-      <div className="col">
-        <img src="/assets/img/dark-forest.jpg" alt="dark-forest"></img>
-      </div>
+    <div className="login-container" ref={loginContainer}>
       <div className="form-col">
         <div className="title">
           <h1>Log In</h1>
@@ -70,7 +76,18 @@ function Login() {
           </Form>
         </Formik>
         <div className="register-box">
-          <Link to="/signup">Don't have an account? Register here!</Link>
+          <p>Don't have an account?</p>
+          <p>
+            <Link to="/signup">Sign Up</Link>
+          </p>
+        </div>
+      </div>
+      <div className="col">
+        <img src="/assets/img/leafs.jpg" alt="dark-forest"></img>
+        <div className="logo">
+          <h1>
+            <Link to="/">PhotoShav</Link>
+          </h1>
         </div>
       </div>
     </div>

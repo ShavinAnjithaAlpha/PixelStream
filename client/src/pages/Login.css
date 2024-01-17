@@ -6,13 +6,11 @@
   justify-content: center;
   width: 100%;
   height: 100vh;
+  background-blend-mode: soft-light;
 }
 
 .login-container .col {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 60%;
+  width: 50%;
   height: 100%;
   margin: 0;
 }
@@ -23,11 +21,23 @@
   object-fit: cover;
 }
 
+.login-container .col .logo {
+  position: relative;
+  top: -100%;
+  left: -135%;
+}
+
+.login-container .col .logo h1 a {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #0056b3;
+}
+
 .login-container .form-col {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 40%;
+  width: 50%;
   height: 100%;
   margin: 0;
   justify-content: center;
@@ -57,12 +67,17 @@
 
 /* Login form inputs */
 .login-form input {
-  width: 300px;
-  height: 50px;
+  width: 350px;
+  height: 60px;
   padding: 15px 20px;
   margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 25px;
+  outline: none;
+}
+
+.login-form input:hover {
+  border: 2px solid dodgerblue;
 }
 
 .login-form input::placeholder {
@@ -72,8 +87,8 @@
 }
 /* Login form button */
 .login-form button {
-  width: 300px;
-  height: 50px;
+  width: 350px;
+  height: 60px;
   padding: 10px;
   background-color: #007bff;
   color: #fff;
@@ -96,4 +111,25 @@
   /* font-weight: bold; */
   margin-top: 5px;
   text-align: left;
+}
+
+/* register link styling */
+.login-container .form-col .register-box {
+  margin-top: 100px;
+}
+
+.login-container .form-col .register-box p {
+  font-size: 1rem;
+  color: gray;
+}
+
+.login-container .form-col .register-box a {
+  color: #007bff;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.login-container .form-col .register-box a:hover {
+  color: #0056b3;
 }

@@ -1,0 +1,29 @@
+.photo-container {
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  height: 500px;
+  margin: 0px;
+}
+
+.photo-container .title {
+  position: relative;
+  top: 50%;
+}
+
+.photo-container .title h2 {
+  font-size: 1.5em;
+  font-weight: 400;
+  margin: 0;
+  padding: 20px;
+  text-align: center;
+  color: white;
+}
+
+.photo-container img {
+  display: block;
+  width: 500px;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
