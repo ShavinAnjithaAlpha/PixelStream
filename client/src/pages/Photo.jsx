@@ -26,21 +26,6 @@ function Photo() {
     });
   }, [id]);
 
-  const handleDownload = () => {
-    // increase the download count
-    setPhoto({
-      ...photo,
-      PhotoStat: {
-        ...photo.PhotoStat,
-        downloads: photo.PhotoStat.downloads + 1,
-      },
-    });
-    // send a request to the server to update the download count
-    axios.get(`http://localhost:3000/api/photos/${id}/get`).then((res) => {
-      // console.log(res.data);
-    });
-  };
-
   return (
     <div className="photo-page">
       <div className="photo-container">

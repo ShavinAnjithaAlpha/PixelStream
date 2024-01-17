@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import UserProfile from "./pages/UserProfile";
 import ProfileBadge from "./components/ProfileBadge";
 import Registration from "./pages/Registration";
+import SearchBar from "./components/SearchBar";
 import "./Main.css";
 import { AuthContext } from "./helpers/AuthContext";
 
@@ -26,9 +27,11 @@ function Main() {
         <nav className="nav">
           <i className="logo">
             <Link to="/" className="logo">
-              PhotoShave
+              PhotoShav
             </Link>
           </i>
+
+          <SearchBar />
           <ul className="nav-links">
             <li className="nav-item">
               <Link to="/">Home</Link>
