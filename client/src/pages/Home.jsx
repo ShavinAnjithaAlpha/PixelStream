@@ -26,8 +26,6 @@ function Home() {
 
   return (
     <div className="App">
-      <h1>Photos</h1>
-
       <div className="page-bar">
         {Array.from({ length: numButtons }).map((_, index) => (
           <button

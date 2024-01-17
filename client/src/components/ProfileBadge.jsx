@@ -24,7 +24,7 @@ function ProfileBadge({ user }) {
       });
   }, []);
 
-  const defaultProfilePhotoUrl = "assets/img/default-profile-icon.png";
+  const defaultProfilePhotoUrl = "/assets/img/default-profile-icon.png";
 
   return (
     <div

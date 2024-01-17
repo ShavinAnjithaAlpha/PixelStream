@@ -7,7 +7,7 @@
 GET {{host}}/api/photos?limit=12&page=1 {{http}}
 Content-Type: {{contentType}}
 
-### get photo ny its id
+### get photo by its id
 @photoId = 9
 GET {{host}}/api/photos/{{photoId}} {{http}}
 Content-Type: {{contentType}}
@@ -38,7 +38,7 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNoYXZpbiIs
 
 
 ### download photo without a user
-@downloadphotoId_ = 1
+@downloadphotoId_ = 85
 GET {{host}}/api/photos/{{downloadphotoId_}}/get {{http}}
 Content-Type: {{contentType}}
 

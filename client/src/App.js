@@ -14,8 +14,6 @@ function App() {
         user: localStorage.getItem("token"),
         status: true,
       });
-
-      console.log("User is logged access token is ", authState);
     }
   }, []);
 
