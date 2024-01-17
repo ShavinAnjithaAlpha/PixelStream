@@ -1,0 +1,29 @@
+.download-button {
+  all: unset;
+  background-color: #00b2ff;
+  border-radius: 10px;
+  box-sizing: border-box;
+  height: 42px;
+  position: relative;
+  width: 155px;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.download-button:hover {
+  background-color: #00a1e6;
+}
+
+.download-button .text-wrapper {
+  color: #000000;
+  font-family: "Inter", Helvetica;
+  font-size: 16px;
+  font-weight: 400;
+  left: 3px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: 10px;
+  width: 149px;
+}

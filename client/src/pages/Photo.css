@@ -1,102 +1,116 @@
 .photo-page {
   display: flex;
   flex-direction: row;
-  align-items: start;
-  justify-content: center;
-  height: 100vh;
+  align-items: center;
+  justify-content: space-around;
   margin: auto;
-  margin-top: 0;
+  margin-top: 100px;
 }
 
-.photo-page h1 {
-  font-size: 2.2rem;
-  margin-bottom: 1rem;
-  color: darkslateblue;
-  text-align: left;
-  margin-left: 5rem;
-  border-left: 5px solid dodgerblue;
-  padding-left: 10px;
-}
-
-.photo-page .column {
+.photo-page .photo-container {
   display: flex;
   flex-direction: column;
-  justify-content: start;
-  align-items: flex-start;
-  margin: 0 1rem;
-  width: 50%;
-}
-
-.photo-page img {
-  width: 90%;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-}
-
-.photo-page ul {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  align-items: flex-start;
-  margin-top: 1rem;
-  padding-left: 0;
+  overflow: hidden;
+  border-radius: 5px;
 }
 
-.photo-page ul li {
-  margin: 0.4rem 0rem;
-  color: darkslateblue;
-  font-size: 1rem;
+.photoPage .photo-container .photo {
+  height: 900px;
+  width: 600px;
+  object-fit: cover;
 }
 
-.photo-page .author {
-  font-size: 1.2rem;
-  text-align: left;
+.photo-page .detail-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 }
 
-.photo-page .photo-des {
-  margin-top: 2rem;
-  font-size: 1.1rem;
-  margin-left: 2rem;
+.photo-page .detail-tab .photo-detail-panel {
+  width: 750px;
+  height: auto;
+  background-color: #080828;
+  border-radius: 30px;
+  padding: 20px 30px;
 }
 
-.photo-page .column .stat-bar {
+/* title tab styling  */
+.photo-page .detail-tab .photo-detail-panel .title-tab {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
+  margin: 20px 0px;
   align-items: center;
-  margin-top: 1rem;
 }
 
-.photo-page .column .stat-bar .stat {
-  font-size: 1.1rem;
-  color: gray;
-  margin-right: 1rem;
+.photo-page .detail-tab .photo-detail-panel .title-tab h2 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  text-align: left;
+  color: #fff;
 }
 
-img.no-download {
-  pointer-events: none;
+.photo-page .detail-tab .photo-detail-panel .title-tab .btn-bar {
+  display: flex;
+  flex-direction: row;
 }
 
-/* download button styling */
-a.download-link {
-  text-decoration: none;
-}
-
-.download-link .download-btn {
-  display: inline-block;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  background-color: rgb(10, 164, 10);
-  color: white;
-  font-size: 1rem;
-  margin-top: 1rem;
-  margin-left: 2rem;
-  transition: background-color 0.1s ease-in-out;
-  border: none;
-}
-
-.download-link .download-btn:hover {
-  background-color: rgb(121, 189, 18);
+.photo-page .detail-tab .photo-detail-panel .title-tab .btn-bar .btn {
+  background-color: #ffffff80;
+  display: flex;
+  border-radius: 15px;
+  height: 40px;
+  width: 40px;
+  margin-right: 15px;
+  transition: all 0.1s ease-in-out;
   cursor: pointer;
+}
+
+.photo-page .detail-tab .photo-detail-panel .title-tab .btn-bar .btn:hover {
+  background-color: #ffffffaa;
+}
+
+.photo-page .detail-tab .photo-detail-panel .title-tab .btn-bar .btn img {
+  height: 30px;
+  width: 30px;
+  object-fit: cover;
+  margin: auto;
+}
+
+/* end of title tab styling */
+
+.photo-page .detail-tab .photo-detail-panel p {
+  text-align: left;
+  color: #acacac;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.photo-page .detail-tab .photo-detail-panel .stat-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.photo-page .detail-list {
+  list-style: none;
+  margin-top: 35px;
+}
+
+.photo-page .detail-list li {
+  color: #ffffff80;
+  text-align: left;
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.photo-page .detail-list li .line {
+  margin-left: 10px;
+  align-self: center;
 }

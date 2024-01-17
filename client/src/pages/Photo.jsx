@@ -2,6 +2,14 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import ProfileBadge from "../components/ProfileBadge";
+import { StatCard } from "../components/StatCard";
+import { DownloadButton } from "../components/DownloadButton";
+import { ProfileCard } from "../components/ProfileCard";
+import { TagBar } from "../components/TagBar";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
+import CameraIcon from "@mui/icons-material/Camera";
 import "./Photo.css";
 
 function Photo() {
@@ -33,7 +41,7 @@ function Photo() {
 
   return (
     <>
-      <h1>{photo.photoTitle}</h1>
+      {/* <h1>{photo.photoTitle}</h1>
       <div className="photo-page">
         <div className="column">
           <div className="photo-container">
@@ -75,6 +83,84 @@ function Photo() {
             <li>Captured From: {photo.capturedFrom}</li>
             <li>Published: {photo.createdAt}</li>
           </ul>
+        </div>
+      </div> */}
+
+      <div className="photo-page">
+        <div className="photo-container">
+          <img
+            className="photo"
+            src={photo.photoUrl}
+            alt={photo.photoDes}
+            width={600}
+            height={600}
+          />
+        </div>
+        <div className="detail-tab">
+          <div className="photo-detail-panel">
+            <ProfileCard />
+            <div className="title-tab">
+              <h2>{photo.photoTitle}</h2>
+              <div className="btn-bar">
+                <div className="btn">
+                  <img
+                    src="/assets/img/icons8-favorite-96.png"
+                    className="img"
+                    alt="Like"
+                  />
+                </div>
+                <div className="btn">
+                  <img
+                    src="/assets/img/icons8-dislike-96.png"
+                    className="img"
+                    alt="DisLike"
+                  />
+                </div>
+                <div className="btn">
+                  <img
+                    src="/assets/img/icons8-plus-96.png"
+                    className="img"
+                    alt="Add To"
+                  />
+                </div>
+
+                <DownloadButton />
+              </div>
+            </div>
+            <p>{photo.photoDes}</p>
+            {photo.PhotoStat && (
+              <div className="stat-bar">
+                <StatCard labelName="View" labelValue={photo.PhotoStat.views} />
+                <StatCard
+                  labelName="Downloads"
+                  labelValue={photo.PhotoStat.downloads}
+                />
+                <StatCard
+                  labelName="Likes"
+                  labelValue={photo.PhotoStat.likes}
+                />
+                <StatCard
+                  labelName="Dislikes"
+                  labelValue={photo.PhotoStat.dislikes}
+                />
+              </div>
+            )}
+            <ul className="detail-list">
+              <li className="detail-item">
+                <CalendarTodayIcon />
+                <span className="line">Published on August , 2023</span>
+              </li>
+              <li className="detail-item">
+                <LocationOnIcon />
+                <span className="line">New York, United State</span>
+              </li>
+              <li className="detail-item">
+                <CameraIcon />
+                <span className="line">Sony 45EM</span>
+              </li>
+            </ul>
+            <TagBar />
+          </div>
         </div>
       </div>
     </>

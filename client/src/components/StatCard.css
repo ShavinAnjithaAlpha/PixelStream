@@ -1,0 +1,36 @@
+.photo-detail-card {
+  background-color: #2b7ddc;
+  border-radius: 15px;
+  box-shadow: 0px 0px 7.8px 2px #00000040;
+  height: 54px;
+  position: relative;
+  width: 154px;
+}
+
+.photo-detail-card .views {
+  color: #383232;
+  font-family: "Inter", Helvetica;
+  font-size: 15px;
+  font-weight: 400;
+  left: 29px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: 7px;
+  width: 96px;
+}
+
+.photo-detail-card .element {
+  color: #000000;
+  font-family: "Inter", Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 29px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: 26px;
+  width: 96px;
+}

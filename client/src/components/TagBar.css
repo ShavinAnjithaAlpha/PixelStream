@@ -1,0 +1,11 @@
+.tag-bar {
+  display: flex;
+  flex-direction: row;
+  height: 96px;
+  width: 100%;
+  flex-wrap: wrap;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 20px 0px;
+}

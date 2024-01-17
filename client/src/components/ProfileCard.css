@@ -1,0 +1,30 @@
+.component {
+  height: 40px;
+  position: relative;
+  width: 154px;
+  margin: 15px 20px;
+}
+
+.component .text-wrapper-2 {
+  color: #ffffff;
+  font-family: "Inter", Helvetica;
+  font-size: 16px;
+  font-weight: 400;
+  left: 53px;
+  letter-spacing: 0;
+  line-height: 18px;
+  position: absolute;
+  text-align: center;
+  top: 10px;
+  white-space: nowrap;
+}
+
+.component .default-profile-icon {
+  height: 40px;
+  left: 0;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  width: 40px;
+  border-radius: 50%;
+}
