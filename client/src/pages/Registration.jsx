@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import "./Registration.css";
+import { useNavigate } from "react-router-dom";
 
 function Registration() {
+  const navigation = useNavigate();
+  const [error, setError] = useState(false);
+
   const initialValues = {
     firstname: "",
     lastname: "",
@@ -68,13 +72,16 @@ function Registration() {
       })
       .then((res) => {
         console.log(res.data);
+        // redirect to the login page
+        navigation("/login");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => setError(true));
   };
 
   return (
     <div>
       <h2>Registration Form</h2>
+      {error && <p className="error-message">Invalid credentials</p>}
       <Formik
         initialValues={initialValues}
         onSubmit={handleSubmit}

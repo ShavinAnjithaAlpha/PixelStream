@@ -1,13 +1,16 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useRef } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import "./Login.css";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const loginContainer = useRef(null);
+  const navigate = useNavigate();
+  const [loginError, setLoginError] = useState(false);
 
   useEffect(() => {
     // loginContainer.current.style.backgroundImage = `url("/assets/img/snow-forest.jpg")`;
@@ -29,11 +32,14 @@ function Login() {
     axios
       .post("http://localhost:3000/api/auth/login", values)
       .then((res) => {
-        console.log(res.data);
         console.log("User logged in successfully!");
+        // save the user's access token in the session storage
+        sessionStorage.setItem("token", res.data.accessToken);
+        // redirect to the Home page with successfull login
+        navigate("/");
       })
       .catch((err) => {
-        console.log(err);
+        setLoginError(true);
       });
   };
 
@@ -49,6 +55,7 @@ function Login() {
           onSubmit={handleSubmit}
         >
           <Form className="login-form">
+            {loginError && <p className="login-error">Invalid credentials</p>}
             <div className="form-item">
               {/* <label htmlFor="email">Email</label> */}
               <Field type="email" id="email" name="email" placeholder="email" />
