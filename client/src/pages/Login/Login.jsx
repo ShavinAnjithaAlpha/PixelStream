@@ -1,10 +1,10 @@
-import axios from "../axios";
+import axios from "../../axios";
 import React, { useState, useContext, useRef } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../helpers/AuthContext";
+import { AuthContext } from "../../helpers/AuthContext";
 import "./Login.css";
 
 function Login() {

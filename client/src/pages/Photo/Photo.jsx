@@ -1,11 +1,11 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "../axios";
-import { StatCard } from "../components/StatCard";
-import { DownloadButton } from "../components/DownloadButton";
-import { ProfileCard } from "../components/ProfileCard";
-import { TagBar } from "../components/TagBar";
+import axios from "../../axios";
+import { StatCard } from "./components/StatCard";
+import { DownloadButton } from "./components/DownloadButton";
+import { ProfileCard } from "./components/ProfileCard";
+import { TagBar } from "../../components/TagBar";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import CameraIcon from "@mui/icons-material/Camera";

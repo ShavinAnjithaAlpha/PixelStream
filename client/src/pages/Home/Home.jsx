@@ -1,7 +1,7 @@
 import React from "react";
-import axios from "../axios";
+import axios from "../../axios";
 import "./Home.css";
-import PhotoGrid from "../components/PhotoGrid";
+import PhotoGrid from "../../components/PhotoGrid";
 const { useEffect, useState } = require("react");
 
 function Home() {
