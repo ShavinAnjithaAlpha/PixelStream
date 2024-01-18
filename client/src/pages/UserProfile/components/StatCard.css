@@ -1,0 +1,18 @@
+.profile-stat-card {
+  width: 100px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 0 10px;
+  padding: 10px;
+}
+
+.profile-stat-card .large {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.profile-stat-card .small {
+  font-size: 0.8rem;
+  color: #aaa;
+}
