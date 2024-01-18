@@ -4,7 +4,7 @@ import axios from "axios";
 // dotenv.config();
 
 const instance = axios.create({
-  baseURL: "http://localhost:3000/api/",
+  baseURL: "http://localhost:5000/api/",
 });
 
 export default instance;

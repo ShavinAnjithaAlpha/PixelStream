@@ -5,5 +5,13 @@
     "dotenv": "^16.3.1",
     "joi": "^17.11.0",
     "multer": "^1.4.5-lts.1"
+  },
+  "scripts": {
+    "client": "cd client && npm start",
+    "server": "cd server && npm start",
+    "dev": "concurrently --kill-others \"npm run server\" \"npm run client\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
   }
 }
