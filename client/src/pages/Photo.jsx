@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../axios";
 import { StatCard } from "../components/StatCard";
 import { DownloadButton } from "../components/DownloadButton";
 import { ProfileCard } from "../components/ProfileCard";
@@ -21,7 +21,7 @@ function Photo() {
   const readableDate = date; // July 20, 2021
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/api/photos/${id}`).then((res) => {
+    axios.get(`/photos/${id}`).then((res) => {
       setPhoto(res.data);
     });
   }, [id]);

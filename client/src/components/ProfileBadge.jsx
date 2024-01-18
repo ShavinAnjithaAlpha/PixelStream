@@ -2,7 +2,7 @@ import React from "react";
 import "./ProfileBadge.css";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import axios from "axios";
+import axios from "../axios";
 import { jwtDecode } from "jwt-decode";
 
 function ProfileBadge({ user }) {
@@ -15,7 +15,7 @@ function ProfileBadge({ user }) {
     const username = decodedToken.username;
 
     axios
-      .get(`http://localhost:3000/api/users/${username}`)
+      .get(`/users/${username}`)
       .then((res) => {
         setUserData(res.data);
       })

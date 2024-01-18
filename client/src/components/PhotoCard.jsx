@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import "./PhotoCard.css";
-import axios from "axios";
+import axios from "../axios";
 import { AuthContext } from "../helpers/AuthContext";
 
 function PhotoCard({ photo }) {
@@ -14,16 +14,14 @@ function PhotoCard({ photo }) {
     // based on  the auth state, differ the download API endpoint
     if (authState.status) {
       axios
-        .get(`http://localhost:3000/api/photos/${photo.photoId}/download`, {
+        .get(`/photos/${photo.photoId}/download`, {
           headers: {
             Authorization: `${authState.user}`,
           },
         })
         .then((res) => {});
     } else {
-      axios
-        .get(`http://localhost:3000/api/photos/${photo.photoId}/download`, {})
-        .then((res) => {});
+      axios.get(`/photos/${photo.photoId}/download`, {}).then((res) => {});
     }
   };
 

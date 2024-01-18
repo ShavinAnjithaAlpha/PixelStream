@@ -1,12 +1,11 @@
-import axios from "axios";
-import React, { useEffect, useState, useContext } from "react";
-import { useRef } from "react";
+import axios from "../axios";
+import React, { useState, useContext, useRef } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import "./Login.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../helpers/AuthContext";
+import "./Login.css";
 
 function Login() {
   const loginContainer = useRef(null);
@@ -27,7 +26,7 @@ function Login() {
 
   const handleSubmit = (values) => {
     axios
-      .post("http://localhost:3000/api/auth/login", values)
+      .post("/auth/login", values)
       .then((res) => {
         // save the access token in the local storage for house keeping
         localStorage.setItem("token", res.data.accessToken);
@@ -58,7 +57,6 @@ function Login() {
           <Form className="login-form">
             {loginError && <p className="login-error">Invalid credentials</p>}
             <div className="form-item">
-              {/* <label htmlFor="email">Email</label> */}
               <Field type="email" id="email" name="email" placeholder="email" />
               <ErrorMessage
                 name="email"
@@ -67,7 +65,6 @@ function Login() {
               />
             </div>
             <div className="form-item">
-              {/* <label htmlFor="password">Password</label> */}
               <Field
                 type="password"
                 id="password"

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import axios from "axios";
+import axios from "../axios";
 import "./Registration.css";
 import { useNavigate } from "react-router-dom";
 
@@ -65,7 +65,7 @@ function Registration() {
     const cleanedData = cleanData(values);
     // now make the api request to register the user
     axios
-      .post("http://localhost:3000/api/auth/register", cleanedData, {
+      .post("/auth/register", cleanedData, {
         headers: {
           "Content-Type": "application/json",
         },

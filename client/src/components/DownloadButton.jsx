@@ -2,7 +2,7 @@ import React from "react";
 import "./DownloadButton.css";
 import { useContext } from "react";
 import { AuthContext } from "../helpers/AuthContext";
-import axios from "axios";
+import axios from "../axios";
 
 export const DownloadButton = ({ photoId, setPhoto, photo }) => {
   const { authState } = useContext(AuthContext);
@@ -11,7 +11,7 @@ export const DownloadButton = ({ photoId, setPhoto, photo }) => {
     // based on  the auth state, differ the download API endpoint
     if (authState.status) {
       axios
-        .get(`http://localhost:3000/api/photos/${photoId}/download`, {
+        .get(`/photos/${photoId}/download`, {
           headers: {
             Authorization: `${authState.user}`,
           },
@@ -27,18 +27,16 @@ export const DownloadButton = ({ photoId, setPhoto, photo }) => {
           });
         });
     } else {
-      axios
-        .get(`http://localhost:3000/api/photos/${photoId}/download`, {})
-        .then((res) => {
-          // increase the download count
-          setPhoto({
-            ...photo,
-            PhotoStat: {
-              ...photo.PhotoStat,
-              downloads: photo.PhotoStat.downloads + 1,
-            },
-          });
+      axios.get(`/photos/${photoId}/download`, {}).then((res) => {
+        // increase the download count
+        setPhoto({
+          ...photo,
+          PhotoStat: {
+            ...photo.PhotoStat,
+            downloads: photo.PhotoStat.downloads + 1,
+          },
         });
+      });
     }
   };
 

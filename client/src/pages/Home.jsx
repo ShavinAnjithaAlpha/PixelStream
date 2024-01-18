@@ -1,27 +1,23 @@
 import React from "react";
-import axios from "axios";
+import axios from "../axios";
 import "./Home.css";
 import PhotoGrid from "../components/PhotoGrid";
-import { useNavigate } from "react-router-dom";
 const { useEffect, useState } = require("react");
 
 function Home() {
   const numButtons = 10;
   const [photos, setPhotos] = useState([]);
-  let navigate = useNavigate();
 
   useEffect(() => {
-    axios.get("http://localhost:3000/api/photos?limit=12").then((res) => {
+    axios.get("/photos?limit=12").then((res) => {
       setPhotos(res.data);
     });
   }, []);
 
   const handlePageChange = (page) => {
-    axios
-      .get(`http://localhost:3000/api/photos?limit=12&page=${page}`)
-      .then((res) => {
-        setPhotos(res.data);
-      });
+    axios.get(`/photos?limit=12&page=${page}`).then((res) => {
+      setPhotos(res.data);
+    });
   };
 
   return (
