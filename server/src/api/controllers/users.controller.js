@@ -56,7 +56,8 @@ async function getPhotosOfUser(req, res) {
   if (photos.error) res.status(400).send(photos.error);
 
   // get the photo count of the usre
-  const photoCount = await getPhotoCount(photos[0].userId);
+  // const photoCount = await getPhotoCount(photos[0].userId);
+  const photoCount = 10; // TODO: fix this
 
   // return the photos of the user with other statictics
   return res.json({

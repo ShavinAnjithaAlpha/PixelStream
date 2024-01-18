@@ -34,11 +34,11 @@ async function getPhotoById(req, res) {
 
 async function getRandomPhoto(req, res) {
   // extract the relavant parameters from the request body
-  const count = parseInt(req.body.count) || 1;
-  const query = req.body.query || null;
-  const username = req.body.username || null;
-  const collection = req.body.collection || null;
-  const topic = req.body.topic || null;
+  const count = parseInt(req.query.count) || 1;
+  const query = req.query.query || null;
+  const username = req.query.username || null;
+  const collection = req.query.collection || null;
+  const topic = req.query.topic || null;
 
   // now get the random photos from the database
   const photos = await fetchRandomPhoto(
