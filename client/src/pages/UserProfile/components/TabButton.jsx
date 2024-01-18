@@ -1,7 +1,15 @@
 import React from "react";
 import "./TabButton.css";
 
-function TabButton({ label, id, isActive, setActiveButton, setActiveTab }) {
+function TabButton({
+  label,
+  icon,
+  id,
+  isActive,
+  setActiveButton,
+  setActiveTab,
+  value,
+}) {
   const handleClick = () => {
     setActiveButton(id);
     setActiveTab(label.toLowerCase());
@@ -9,9 +17,14 @@ function TabButton({ label, id, isActive, setActiveButton, setActiveTab }) {
 
   return (
     <div className="tab-button">
-      <button className={isActive ? "active" : ""} onClick={handleClick}>
-        {label}
-      </button>
+      <div
+        className={`button ${isActive ? "active" : ""}`}
+        onClick={handleClick}
+      >
+        {icon && <div className="icon">{icon}</div>}
+        <div className="text">{label}</div>
+        <div className="value">{value}</div>
+      </div>
     </div>
   );
 }

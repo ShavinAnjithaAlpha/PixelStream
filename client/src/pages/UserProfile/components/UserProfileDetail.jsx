@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import StatCard from "./StatCard";
 import "./UserProfileDetail.css";
 import defaultProfileIcon from "../../../assets/img/default-profile-icon.png";
+import leafsIcon from "../../../assets/img/leafs.jpg";
 import axios from "../../../axios";
 
 function UserProfileDetail({ username }) {
@@ -54,14 +55,16 @@ function UserProfileDetail({ username }) {
         </div>
         <div className="btn-section">
           <img
-            src={defaultProfileIcon}
+            src={leafsIcon}
             width={600}
-            height={400}
+            height={350}
             style={{ objectFit: "cover" }}
-            alt={defaultProfileIcon}
+            alt={leafsIcon}
           />
-          <button className="btn btn-primary">Follow</button>
-          <button className="btn btn-primary">Message</button>
+          <div className="btn-bar">
+            <button>Follow</button>
+            <button>Message</button>
+          </div>
         </div>
       </div>
     </>
