@@ -3,6 +3,7 @@ import "./ProfileBadge.css";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "../axios";
+import defaultProfileIcon from "../assets/img/default-profile-icon.png";
 import { jwtDecode } from "jwt-decode";
 
 function ProfileBadge({ user }) {
@@ -24,8 +25,6 @@ function ProfileBadge({ user }) {
       });
   }, []);
 
-  const defaultProfilePhotoUrl = "/assets/img/default-profile-icon.png";
-
   return (
     <div
       className="profile-badge"
@@ -36,7 +35,7 @@ function ProfileBadge({ user }) {
           src={
             userData.User && userData.User.profilePic
               ? userData.User.profilePic
-              : defaultProfilePhotoUrl
+              : defaultProfileIcon
           }
           alt={userData.userName}
         />

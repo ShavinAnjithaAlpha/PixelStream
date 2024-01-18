@@ -2,6 +2,10 @@ import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import "./PhotoCard.css";
 import axios from "../axios";
+import favoriteIcon from "../assets/img/icons8-favorite-96.png";
+import downIcon from "../assets/img/icons8-down-96.png";
+import plusIcon from "../assets/img/icons8-plus-96.png";
+import defaultProfileIcon from "../assets/img/default-profile-icon.png";
 import { AuthContext } from "../helpers/AuthContext";
 
 function PhotoCard({ photo }) {
@@ -45,27 +49,15 @@ function PhotoCard({ photo }) {
             style={{ backgroundImage: `url('${photo.photoUrl}')` }}
           >
             <div className="overlap">
-              <img
-                className="img"
-                alt="Favorite"
-                src="assets/img/icons8-favorite-96.png"
-              />
+              <img className="img" alt="Favorite" src={favoriteIcon} />
             </div>
             <a href={photo.photoUrl}>
               <div className="down-wrapper" onClick={downloadPhoto}>
-                <img
-                  className="img"
-                  alt="Down"
-                  src="assets/img/icons8-down-96.png"
-                />
+                <img className="img" alt="Down" src={downIcon} />
               </div>
             </a>
             <div className="plus-wrapper">
-              <img
-                className="img"
-                alt="Plus"
-                src="assets/img/icons8-plus-96.png"
-              />
+              <img className="img" alt="Plus" src={plusIcon} />
             </div>
             <div className={`text-wrapper ${isHovered ? "show" : "not-show"}`}>
               {photo.photoTitle}
@@ -78,7 +70,7 @@ function PhotoCard({ photo }) {
                 isHovered ? "show" : "not-show"
               }`}
               alt="Default profile icon"
-              src="assets/img/default-profile-icon.png"
+              src={defaultProfileIcon} // TODO: fix this
             />
           </div>
         </div>

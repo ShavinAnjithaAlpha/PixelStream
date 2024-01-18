@@ -1,9 +1,8 @@
 import React from "react";
+import defaultProfileIcon from "../../../assets/img/default-profile-icon.png";
 import "./ProfileCard.css";
 
 export const ProfileCard = ({ user }) => {
-  const defaultProfileIcon = "../assets/img/default-profile-icon.png";
-
   return (
     <div className="component">
       <div className="text-wrapper-2">{user.fullName}</div>

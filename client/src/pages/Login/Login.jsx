@@ -5,6 +5,7 @@ import * as Yup from "yup";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../helpers/AuthContext";
+import leafBackground from "../../assets/img/leafs.jpg";
 import "./Login.css";
 
 function Login() {
@@ -88,7 +89,7 @@ function Login() {
         </div>
       </div>
       <div className="col">
-        <img src="/assets/img/leafs.jpg" alt="dark-forest"></img>
+        <img src={leafBackground} alt="leafs"></img>
         <div className="logo">
           <h1>
             <Link to="/">PhotoShav</Link>

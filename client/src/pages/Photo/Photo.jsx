@@ -9,6 +9,9 @@ import { TagBar } from "../../components/TagBar";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import CameraIcon from "@mui/icons-material/Camera";
+import favoriteIcon from "../../assets/img/icons8-favorite-96.png";
+import dislikeIcon from "../../assets/img/icons8-dislike-96.png";
+import plusIcon from "../../assets/img/icons8-plus-96.png";
 import { format } from "date-fns";
 import "./Photo.css";
 
@@ -44,25 +47,13 @@ function Photo() {
             <h2>{photo.photoTitle}</h2>
             <div className="btn-bar">
               <div className="btn">
-                <img
-                  src="/assets/img/icons8-favorite-96.png"
-                  className="img"
-                  alt="Like"
-                />
+                <img src={favoriteIcon} className="img" alt="Like" />
               </div>
               <div className="btn">
-                <img
-                  src="/assets/img/icons8-dislike-96.png"
-                  className="img"
-                  alt="DisLike"
-                />
+                <img src={dislikeIcon} className="img" alt="DisLike" />
               </div>
               <div className="btn">
-                <img
-                  src="/assets/img/icons8-plus-96.png"
-                  className="img"
-                  alt="Add To"
-                />
+                <img src={plusIcon} className="img" alt="Add To" />
               </div>
 
               <DownloadButton

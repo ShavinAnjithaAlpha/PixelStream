@@ -1,11 +1,11 @@
 import React from "react";
 import "./StatCard.css";
 
-function StatCard() {
+function StatCard({ label, value }) {
   return (
     <div className="profile-stat-card">
-      <div className="large">125,125</div>
-      <div className="small">Followers</div>
+      <div className="large">{value}</div>
+      <div className="small">{label}</div>
     </div>
   );
 }

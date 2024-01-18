@@ -14,7 +14,7 @@ function UserProfile() {
 
   return (
     <div className="user-profile">
-      <UserProfileDetail />
+      <UserProfileDetail username={username} />
       <TabBar setActiveTab={setActiveTab} />
 
       <div className="tabs">
