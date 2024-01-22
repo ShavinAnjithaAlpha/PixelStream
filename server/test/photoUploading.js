@@ -130,7 +130,7 @@ fs.readdir(directoryPath, (err, files) => {
 
     try {
       const response = await axios.put(
-        "http://localhost:3000/api/photos/",
+        "http://localhost:5000/api/photos/",
         {
           url: filePath,
           title: getRandomTitle(),
@@ -140,7 +140,7 @@ fs.readdir(directoryPath, (err, files) => {
         {
           headers: {
             Authorization:
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imthc3VuLnVkYXJhIiwidXNlcklkIjoyOSwiaWF0IjoxNzA0ODA3NzI3LCJleHAiOjE3MDUxNjc3Mjd9.rD_m2atsMkWtbO0Dvq3kqV2Z0Uatr-Qq-YNwoBBlZAw",
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InN1cHVuIiwidXNlcklkIjozLCJpYXQiOjE3MDU4MTU2OTMsImV4cCI6MTcwNjE3NTY5M30.glqeyVWTgtvNsLTNs9WtMn55ITOIDSjRu1NpioE6xT8",
           },
         }
       );

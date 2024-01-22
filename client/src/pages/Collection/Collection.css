@@ -1,0 +1,54 @@
+.coll-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.coll-section .cover-photo {
+  max-height: 150px;
+  width: 100%;
+  object-fit: cover;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.coll-section .cover-photo img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.coll-section .detail-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  align-self: flex-start;
+  margin: 10px 20px;
+}
+
+.coll-section .detail-panel h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin: 0;
+  padding: 0;
+}
+
+.coll-section .detail-panel p {
+  font-size: 0.9rem;
+  color: black;
+  margin: 0;
+  padding: 0;
+}
+
+.coll-section .button-bar {
+  display: flex;
+  flex-direction: row;
+  padding: 10px 20px;
+  align-items: center;
+  justify-content: flex-start;
+  border-bottom: 1px solid #cacaca;
+  width: 100%;
+  margin: 40px 0px 20px 0;
+}

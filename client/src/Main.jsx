@@ -1,5 +1,13 @@
 import { Routes, Route, useLocation } from "react-router-dom";
-import { Home, About, Photo, Login, Registration, UserProfile } from "./pages";
+import {
+  Home,
+  About,
+  Photo,
+  Login,
+  Registration,
+  UserProfile,
+  Collection,
+} from "./pages";
 import { Navbar } from "./layouts";
 import "./Main.css";
 
@@ -19,6 +27,7 @@ function Main() {
         <Route path="/login" exact element={<Login />} />
         <Route path="/signup" exact element={<Registration />} />
         <Route path="/user/:username" exact element={<UserProfile />} />
+        <Route path="/collection/:id" exact element={<Collection />} />
       </Routes>
     </div>
   );

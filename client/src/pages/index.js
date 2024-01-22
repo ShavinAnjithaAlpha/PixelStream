@@ -4,5 +4,6 @@ import Registration from "./Registration/Registration";
 import Photo from "./Photo/Photo";
 import About from "./About/About";
 import UserProfile from "./UserProfile/UserProfile";
+import Collection from "./Collection/Collection";
 
-export { Home, Login, Registration, Photo, About, UserProfile };
+export { Home, Login, Registration, Photo, About, UserProfile, Collection };

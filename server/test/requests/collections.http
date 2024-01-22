@@ -1,5 +1,5 @@
 @hostname = http://localhost
-@port = 3000
+@port = 5000
 @host = {{hostname}}:{{port}}
 @contentType = application/json
 @http = HTTP/1.1
@@ -8,24 +8,24 @@
 GET {{host}}/api/collections {{http}}
 Content-Type: {{contentType}}
 
-### get the specofic collection
-GET {{host}}/api/collections/3 {{http}}
+### get the specific collection
+GET {{host}}/api/collections/2 {{http}}
 Content-Type: {{contentType}}
 
 ### get the photos of the collection
-GET {{host}}/api/collections/2/photo {{http}}
+GET {{host}}/api/collections/3/photo {{http}}
 Content-Type: {{contentType}}
 
 ### new collection
 POST {{host}}/api/collections {{http}}
 Content-Type: {{contentType}}
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNoYXZpbiIsInVzZXJJZCI6MSwiaWF0IjoxNzA0MTkxNjMzLCJleHAiOjE3MDQ1NTE2MzN9.4Uhbvp3PCz8FA641_zvJLXYHHiKKa5EpYAItzQu9Mjg
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImthdmVlc2hhLnNldyIsInVzZXJJZCI6NSwiaWF0IjoxNzA1ODE1MTcyLCJleHAiOjE3MDYxNzUxNzJ9.t3H9njcuRoucCg_QXzihHfNSx6FIh8wTZ0uNV9Uswxs
 
 {
-    "title" : "Girls",
-    "description" : "Portraits of beautiful girls",
-    "coverPhoto": 15,
-    "photos": [15, 16, 17, 18, 19, 20]
+    "title" : "Nature",
+    "description" : "Nature vibes with vibrent colors.",
+    "coverPhoto": 203,
+    "photos": [150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160]
 }
 
 ### add photo to the collection

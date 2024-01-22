@@ -1,5 +1,5 @@
 @hostname = http://localhost
-@port = 3000
+@port = 5000
 @host = {{hostname}}:{{port}}
 @contentType = application/json
 @http = HTTP/1.1
@@ -8,8 +8,8 @@ POST {{host}}/api/auth/login {{http}}
 Content-Type: {{contentType}}
 
 {
-    "username" : "kasun.udara",
-    "password": "kasun.udara"
+    "username" : "supun",
+    "password": "gimhan"
 }
 
 
