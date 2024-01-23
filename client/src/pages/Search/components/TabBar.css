@@ -1,0 +1,9 @@
+.tab-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-end;
+  width: 100%;
+  height: 50px;
+  background-color: #e9e9e9;
+}

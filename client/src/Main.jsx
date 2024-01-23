@@ -8,7 +8,7 @@ import {
   UserProfile,
   Collection,
 } from "./pages";
-import { Navbar } from "./layouts";
+import { Navbar, Footer } from "./layouts";
 import "./Main.css";
 
 function Main() {
@@ -29,6 +29,10 @@ function Main() {
         <Route path="/user/:username" exact element={<UserProfile />} />
         <Route path="/collection/:id" exact element={<Collection />} />
       </Routes>
+
+      {location.pathname !== "/login" && location.pathname !== "/signup" && (
+        <Footer />
+      )}
     </div>
   );
 }
