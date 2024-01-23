@@ -1,6 +1,9 @@
 const { validatePhoto } = require("../validations/photo");
 const { extractMetaData } = require("../util/extractMetaData");
-const { uploadFileToBlob } = require("../util/azureStorageAccountUpload");
+const {
+  uploadFileToBlob,
+  uploadResizedImage,
+} = require("../util/azureStorageAccountUpload");
 const {
   fetchPhotos,
   fetchPhotoStat,
@@ -101,11 +104,13 @@ async function uploadPhoto(req, res) {
 
   // upload the file to the azure blob storage account
   const photoUrl = await uploadFileToBlob(req.body.url);
-  if (photoUrl.error) return res.status(400).send(photoUrl.error);
+  const resizePhotoUrl = await uploadResizedImage(req.body.url);
+  if (photoUrl.error || resizePhotoUrl.error)
+    return res.status(400).send(photoUrl.error);
 
   // change the request body url to the azure blob storage url
   req.body.url = photoUrl;
-  console.log(req.body.url);
+  req.body.resizedPhotoUrl = resizePhotoUrl;
 
   // now build the photo instance to be saved in the database and save to the database
   const photo = await createPhoto(req.body, metadata, req.user);

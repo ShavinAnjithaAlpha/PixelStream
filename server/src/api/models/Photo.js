@@ -17,6 +17,10 @@ module.exports = (sequelize, DataTypes) => {
       //   isUrl: true,
       // },
     },
+    resizedPhotoUrl: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     photoTitle: {
       type: DataTypes.STRING(255),
       allowNull: false,

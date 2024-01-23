@@ -120,6 +120,7 @@ async function createPhoto(data, metaData, user) {
   const photo = Photo.build({
     userId: user.userId,
     photoUrl: data.url,
+    resizedPhotoUrl: data.resizedPhotoUrl,
     photoTitle: data.title,
     photoDes: data.description || null,
     photoSize: metaData.fileSize,

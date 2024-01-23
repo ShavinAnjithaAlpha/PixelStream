@@ -46,7 +46,11 @@ function PhotoCard({ photo }) {
         <div className="overlap-group-wrapper">
           <div
             className={`overlap-group ${isHovered ? "darken" : ""}`}
-            style={{ backgroundImage: `url('${photo.photoUrl}')` }}
+            style={{
+              backgroundImage: `url('${
+                photo.resizedPhotoUrl ? photo.resizedPhotoUrl : photo.photoUrl
+              }')`,
+            }}
           >
             <div className="overlap">
               <img className="img" alt="Favorite" src={favoriteIcon} />
