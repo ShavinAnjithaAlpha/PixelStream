@@ -1,5 +1,5 @@
 const { Tag } = require("../models");
-const { PhotoTags } = require("../models");
+const { PhotoTag } = require("../models");
 const { photoExists } = require("./photoTable");
 
 // function for createte a new tag
@@ -11,7 +11,7 @@ async function createNewTag(tagName) {
   // save the new tag to the database
   await tag.save();
   // return the tag id as a tag identifier
-  return tag.id;
+  return tag.tagId;
 }
 
 // function for check whether the tag already exists
@@ -22,7 +22,7 @@ async function tagExists(tagName) {
     },
   });
 
-  if (tag) return { status: true, tagId: tag.id };
+  if (tag) return { status: true, tagId: tag.tagId };
   return { status: false };
 }
 
@@ -42,6 +42,7 @@ async function createTags(tags) {
       tagIds.push(tagId);
     }
   }
+  console.log(tagIds);
   // return the tag ids
   return tagIds;
 }
@@ -57,9 +58,9 @@ async function addTagsToAPhoto(photoId, tags) {
   // loop through the tag ids array
   for (let i = 0; i < tagIds.length; i++) {
     // create a new PhotoTag instance
-    const photoTag = PhotoTags.build({
+    const photoTag = PhotoTag.build({
       photoId: photoId,
-      tagId: tagIds[i],
+      photoTag: parseInt(tagIds[i]),
     });
     // save the new PhotoTag instance
     await photoTag.save();
@@ -71,7 +72,7 @@ async function addTagsToAPhoto(photoId, tags) {
 // fetch the tags belonged to a photo
 async function fetchTags(photoId) {
   // fetch the tags from the database
-  const tags = await PhotoTags.findAll({
+  const tags = await PhotoTag.findAll({
     where: {
       photoId: photoId,
     },

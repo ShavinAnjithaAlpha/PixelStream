@@ -1,4 +1,5 @@
 const { validatePhoto } = require("../validations/photo");
+const { validateTagBody } = require("../validations/tags");
 const { extractMetaData } = require("../util/extractMetaData");
 const {
   uploadFileToBlob,
@@ -14,7 +15,9 @@ const {
   markAsDownload,
   likePhoto,
   dislikePhoto,
+  checkOwnerOfPhoto,
 } = require("../services/photoTable");
+const { addTagsToAPhoto } = require("../services/tagTable");
 
 async function getPhotos(req, res) {
   // first get the page and limit query parameters also order by if exists
@@ -114,7 +117,19 @@ async function uploadPhoto(req, res) {
 
   // now build the photo instance to be saved in the database and save to the database
   const photo = await createPhoto(req.body, metadata, req.user);
-  res.json(photo);
+
+  // add tags to the photo if tag fields given under request body
+  if (req.body.tags) {
+    const result = await addTagsToAPhoto(photo.photoId, req.body.tags);
+    if (result.error) return res.status(400).send(result.error);
+
+    // append the tags to the photo object
+    photo.tags = result.tags;
+    // return the photo object with the tags
+    return res.json(photo);
+  }
+
+  return res.json(photo);
 }
 
 /**
@@ -160,6 +175,34 @@ async function dislikeAPhoto(req, res) {
   res.json({ avgRating: avgRating });
 }
 
+async function addTags(req, res) {
+  // first validate the request body
+  const { error } = validateTagBody(req.body);
+  if (error) {
+    return res.status(400).send(error.details[0].message);
+  }
+
+  // extract the photo id from the request parameter
+  const userId = req.user.userId;
+  const photoId = parseInt(req.params.id);
+  const tags = req.body.tags;
+
+  // first check the owner of a photo
+  const status = await checkOwnerOfPhoto(photoId, userId);
+  if (!status)
+    return (
+      res.status(401),
+      json({
+        error: "Unauthorized operation: You are not the owner of the photo",
+      })
+    );
+  // add the tags to the photo through the Tag and PhotoTag table
+  const result = await addTagsToAPhoto(photoId, tags);
+  if (result.error) return res.status(400).send(result.error);
+
+  res.json(result);
+}
+
 module.exports = {
   getPhotos,
   getPhotoById,
@@ -170,4 +213,5 @@ module.exports = {
   uploadPhoto,
   likeAPhoto,
   dislikeAPhoto,
+  addTags,
 };

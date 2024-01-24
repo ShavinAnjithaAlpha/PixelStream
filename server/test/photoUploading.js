@@ -116,6 +116,71 @@ function getRandomLocation() {
   return locations[Math.floor(Math.random() * locations.length)];
 }
 
+function getRandomTagArray() {
+  const tags = [
+    "nature",
+    "travel",
+    "food",
+    "architecture",
+    "landscape",
+    "city",
+    "portrait",
+    "animals",
+    "beach",
+    "mountains",
+    "sunrise",
+    "sunset",
+    "adventure",
+    "culture",
+    "wildlife",
+    "street",
+    "people",
+    "ocean",
+    "sky",
+    "flowers",
+    "summer",
+    "winter",
+    "spring",
+    "fall",
+    "waterfall",
+    "forest",
+    "desert",
+    "night",
+    "stars",
+    "reflection",
+    "island",
+    "historic",
+    "modern",
+    "vintage",
+    "colorful",
+    "blackandwhite",
+    "abstract",
+    "macro",
+    "closeup",
+    "sport",
+    "music",
+    "art",
+    "fashion",
+    "wedding",
+    "family",
+    "love",
+    "friends",
+    "celebration",
+    "holiday",
+    "vacation",
+    "fun",
+    "relaxation",
+  ];
+
+  const randomTags = [];
+  for (let i = 0; i < 5; i++) {
+    const randomIndex = Math.floor(Math.random() * tags.length);
+    randomTags.push(tags[randomIndex]);
+  }
+
+  return randomTags;
+}
+
 const photoData = [];
 
 fs.readdir(directoryPath, (err, files) => {
@@ -136,6 +201,7 @@ fs.readdir(directoryPath, (err, files) => {
           title: getRandomTitle(),
           description: getRandomDescription(),
           location: getRandomLocation(),
+          tags: getRandomTagArray(),
         },
         {
           headers: {

@@ -26,6 +26,7 @@ const {
   likeAPhoto,
   dislikeAPhoto,
   getPhotoStat,
+  addTags,
 } = require("../controllers/photos.controller");
 
 // endpoint for access the photos in various ways
@@ -41,6 +42,7 @@ router.put("/", authorize, uploadPhoto);
 // endpoint for like and dislike a photo
 router.post("/:id/like", authorize, likeAPhoto);
 router.post("/:id/dislike", authorize, dislikeAPhoto);
+router.post("/:id/tags", authorize, addTags);
 router.get("/:id", getPhotoById);
 
 module.exports = router;
