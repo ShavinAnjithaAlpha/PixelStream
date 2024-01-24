@@ -48,6 +48,31 @@ async function fetchPhotos(page, limit, orderBy) {
   return photos;
 }
 
+async function photoExists(photoId) {
+  const photo = await Photo.findOne({
+    where: {
+      photoId: photoId,
+    },
+  });
+
+  if (photo) return true;
+  return false;
+}
+
+async function checkOwnerOfPhoto(photoId, userId) {
+  // find the photo from the database
+  const photo = await Photo.findOne({
+    where: {
+      photoId: photoId,
+    },
+  });
+
+  if (!photo) return false;
+  // check if the user id of the photo equal to the user id
+  if (photo.userId == userId) return true;
+  return false;
+}
+
 async function getPhoto(photoId) {
   const photo = await Photo.findOne({
     where: {
@@ -344,8 +369,10 @@ module.exports = {
   fetchRandomPhoto,
   updateDownloadStat,
   markAsDownload,
+  photoExists,
   getPhoto,
   likePhoto,
   dislikePhoto,
   fetchPhotoFromQuery,
+  checkOwnerOfPhoto,
 };
