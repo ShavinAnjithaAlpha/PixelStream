@@ -204,6 +204,27 @@ async function getUserStatNumbers(userId) {
   };
 }
 
+async function followerExists(followerId, userId) {
+  const follower = await Followers.findOne({
+    where: {
+      followerId: followerId,
+      userId: userId,
+    },
+  });
+
+  if (follower) return true;
+  return false;
+}
+
+async function createFollower(followerId, userId) {
+  const follower = Followers.build({
+    followerId: followerId,
+    userId: userId,
+  });
+
+  await follower.save();
+}
+
 module.exports = {
   checkUserExists,
   createUser,
@@ -215,4 +236,6 @@ module.exports = {
   getUserStatNumbers,
   getPhotoCount,
   getUserIdByUserName,
+  followerExists,
+  createFollower,
 };

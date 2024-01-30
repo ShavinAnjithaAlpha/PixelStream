@@ -1,0 +1,9 @@
+.tagged-photo-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tagged-photo-card .tag-bar {
+  padding: 5px 10px;
+}

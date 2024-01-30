@@ -13,5 +13,15 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
 
+  Tag.associate = (models) => {
+    // Tag.belongsToMany(models.Photo, {
+    //   through: "PhotoTag",
+    //   foreignKey: {
+    //     name: "photoTag",
+    //     allowNull: false,
+    //   },
+    // });
+  };
+
   return Tag;
 };

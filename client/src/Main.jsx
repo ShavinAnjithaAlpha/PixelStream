@@ -7,6 +7,7 @@ import {
   Registration,
   UserProfile,
   Collection,
+  Search,
 } from "./pages";
 import { Navbar, Footer } from "./layouts";
 import "./Main.css";
@@ -28,6 +29,8 @@ function Main() {
         <Route path="/signup" exact element={<Registration />} />
         <Route path="/user/:username" exact element={<UserProfile />} />
         <Route path="/collection/:id" exact element={<Collection />} />
+
+        <Route path="/search" exact element={<Search />} />
       </Routes>
 
       {location.pathname !== "/login" && location.pathname !== "/signup" && (

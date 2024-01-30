@@ -18,6 +18,7 @@ import "./Photo.css";
 function Photo() {
   const { id } = useParams();
   const [photo, setPhoto] = useState({});
+  const [tags, setTags] = useState([]);
 
   // format the date to readable format
   const date = photo.createdAt;
@@ -26,6 +27,10 @@ function Photo() {
   useEffect(() => {
     axios.get(`/photos/${id}`).then((res) => {
       setPhoto(res.data);
+    });
+
+    axios.get(`/photos/${id}/tags`).then((res) => {
+      setTags(res.data);
     });
   }, [id]);
 
@@ -96,7 +101,7 @@ function Photo() {
               </li>
             )}
           </ul>
-          <TagBar />
+          <TagBar tags={tags} />
         </div>
       </div>
     </div>

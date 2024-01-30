@@ -5,11 +5,26 @@ const {
   getNumberOfFollowings,
   getUserStatNumbers,
   getPhotoCount,
+  getUserIdByUserName,
+  followerExists,
+  createFollower,
 } = require("../services/userTable");
 const {
   fetchCollectionByUserName,
   getCollectionCountOfUser,
 } = require("../services/collectionTable");
+const { fetchUserLikePhotos } = require("../services/photoTable");
+const {
+  getTotalDaysOfDownloads,
+  getTotalDownloads,
+  getDownloadAccordingToDay,
+  getTotalLikes,
+  getLikesAccordingToDays,
+  getTotalDaysOfLikes,
+  getTotalDislikes,
+  getTotalDaysOfDislikes,
+  getDislikesAccordingToDays,
+} = require("../services/statTables");
 
 async function getUserByUsername(req, res) {
   const username = req.params.username;
@@ -69,7 +84,21 @@ async function getPhotosOfUser(req, res) {
 }
 
 async function getLikesOfUsers(req, res) {
-  res.send("This is the like page");
+  // extract the username from the request
+  const username = req.params.username;
+
+  // first check weather the user is logged in or not
+  if (req.user.userName !== username)
+    return res.status(401).send("Unauthorized");
+
+  // check weather if the user exists
+  const user = await fetchUserByUsername(username);
+  if (user.error) return res.status(400).send(user.error);
+
+  // fetch the user from the database
+  const likedPhotos = await fetchUserLikePhotos(username);
+
+  return res.json(likedPhotos);
 }
 
 async function getCollectionOfUser(req, res) {
@@ -92,7 +121,66 @@ async function getCollectionOfUser(req, res) {
   });
 }
 
-function getStatisticsOfUser(req, res) {}
+async function getStatisticsOfUser(req, res) {
+  // extract the username from the request
+  const username = req.params.username;
+
+  // find the user id from the username
+  const userId = await getUserIdByUserName(username);
+  if (userId.error) return res.status(400).send(userId.error);
+
+  // get the total number of downloads from the database
+  const totalDownloads = await getTotalDownloads(userId);
+  const totalDaysOfDownloads = await getTotalDaysOfDownloads(userId);
+  const downloadAccordingToDay = await getDownloadAccordingToDay(userId);
+
+  // get the likes statictics from the database
+  const totalLikes = await getTotalLikes(userId);
+  const totalDaysOfLikes = await getTotalDaysOfLikes(userId);
+  const likesAccordingToDays = await getLikesAccordingToDays(userId);
+
+  // get the dislikes statictics from the database
+  const totalDislikes = await getTotalDislikes(userId);
+  const totalDaysOfDislikes = await getTotalDaysOfDislikes(userId);
+  const dislikesAccordingToDays = await getDislikesAccordingToDays(userId);
+
+  return res.json({
+    username: username,
+    downloads: {
+      total: totalDownloads,
+      days: totalDaysOfDownloads,
+      values: downloadAccordingToDay,
+    },
+    likes: {
+      total: totalLikes,
+      days: totalDaysOfLikes,
+      values: likesAccordingToDays,
+    },
+    dislikes: {
+      total: totalDislikes,
+      days: totalDaysOfDislikes,
+      values: dislikesAccordingToDays,
+    },
+  });
+}
+
+async function followUser(req, res) {
+  // first extract the follower username and the following username
+  const followerUsername = req.params.username;
+  // get the user id of the follower
+  const followerId = await fetchUserByUsername(followerUsername);
+  if (followerId.error) return res.status(400).send(followerId.error);
+
+  const followinguserId = req.user.userId;
+
+  // check weather the user is already following the user or not
+  const isFollowing = await followerExists(followerId.userId, followinguserId);
+  if (isFollowing) return res.status(400).json({ status: "Already following" });
+
+  // create a new follower
+  await createFollower(followerId.userId, followinguserId);
+  return res.json({ status: "Followed" });
+}
 
 module.exports = {
   getUserByUsername,
@@ -101,4 +189,5 @@ module.exports = {
   getLikesOfUsers,
   getCollectionOfUser,
   getStatisticsOfUser,
+  followUser,
 };

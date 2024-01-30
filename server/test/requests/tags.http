@@ -5,7 +5,7 @@
 @http = HTTP/1.1
 
 
-## add tags to a resource
+### add tags to a resource
 POST {{host}}/api/photos/40/tags {{http}}
 Content-Type: {{contentType}}
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNoYXZpbiIsInVzZXJJZCI6MSwiaWF0IjoxNzA2MDc2NjIzLCJleHAiOjE3MDY0MzY2MjN9.2nrAentE0lUXtbFe4cM8oT-P-8xGienW6NRoC4oDZ94
@@ -13,3 +13,7 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNoYXZpbiIs
 {
     "tags": ["nature", "mountains", "snow"]
 }
+
+### get tags for a resource
+GET {{host}}/api/photos/40/tags {{http}}
+Content-Type: {{contentType}}

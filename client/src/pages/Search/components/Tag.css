@@ -1,18 +1,18 @@
 .tag {
-  background-color: #ffffff80;
+  background-color: rgb(220, 220, 220);
   border-radius: 5px;
   height: 23px;
   position: relative;
   margin-right: 10px;
   transition: all 0.1s ease-in-out;
   cursor: pointer;
-  padding: 3px 10px;
+  padding: 10px 15px;
   display: flex;
   align-items: center;
 }
 
 .tag:hover {
-  background-color: #ffffffaa;
+  background-color: rgb(190, 190, 190);
 }
 
 .tag .div {

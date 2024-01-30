@@ -4,7 +4,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        // reference to the Photo table
         model: "Photos",
         key: "photoId",
       },
@@ -13,12 +12,27 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        // reference to the Tag table
         model: "Tags",
         key: "tagId",
       },
     },
   });
+
+  PhotoTag.associate = (models) => {
+    PhotoTag.belongsTo(models.Photo, {
+      foreignKey: {
+        name: "photoId",
+        allowNull: false,
+      },
+    });
+
+    PhotoTag.belongsTo(models.Tag, {
+      foreignKey: {
+        name: "photoTag",
+        allowNull: false,
+      },
+    });
+  };
 
   return PhotoTag;
 };

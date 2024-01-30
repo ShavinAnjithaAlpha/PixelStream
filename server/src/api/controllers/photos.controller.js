@@ -9,6 +9,7 @@ const {
   fetchPhotos,
   fetchPhotoStat,
   getPhoto,
+  photoExists,
   fetchRandomPhoto,
   createPhoto,
   updateDownloadStat,
@@ -17,7 +18,8 @@ const {
   dislikePhoto,
   checkOwnerOfPhoto,
 } = require("../services/photoTable");
-const { addTagsToAPhoto } = require("../services/tagTable");
+const { addTagsToAPhoto, fetchTags } = require("../services/tagTable");
+const { filterTagNames } = require("../util/filterTagNames");
 
 async function getPhotos(req, res) {
   // first get the page and limit query parameters also order by if exists
@@ -203,6 +205,19 @@ async function addTags(req, res) {
   res.json(result);
 }
 
+async function getTags(req, res) {
+  // extract the photo id from the request parameter
+  const photoId = parseInt(req.params.id);
+  // check whether the photo exists
+  const exists = await photoExists(photoId);
+  if (!exists) return res.status(404).json({ error: "Photo not found" });
+  // get the tags of a photo
+  const tags = await fetchTags(photoId);
+  if (tags.error) return res.status(400).send(tags.error);
+
+  res.json(filterTagNames(tags));
+}
+
 module.exports = {
   getPhotos,
   getPhotoById,
@@ -214,4 +229,5 @@ module.exports = {
   likeAPhoto,
   dislikeAPhoto,
   addTags,
+  getTags,
 };

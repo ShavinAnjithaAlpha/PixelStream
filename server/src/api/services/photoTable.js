@@ -7,6 +7,7 @@ const { UserDisLikes } = require("../models");
 const { UserDownloads } = require("../models");
 const sequelize = require("sequelize");
 const { Op } = require("sequelize");
+const { getUserIdByUserName } = require("./userTable");
 
 function getOrder(orderBy) {
   var field = "createdAt";
@@ -362,6 +363,35 @@ async function fetchPhotoFromQuery(query, page, limit, orderBy) {
   return photos;
 }
 
+async function fetchUserLikePhotos(username) {
+  // fetch the user id from the database
+  const userId = await getUserIdByUserName(username);
+  if (userId.error) return userId;
+
+  // fetch the user like photos from the database
+  const likedPhotos = await UserLikes.findAll({
+    where: {
+      userId: userId,
+    },
+    include: [
+      {
+        model: Photo,
+        include: [
+          {
+            model: User,
+            include: [{ model: UserAuth, attributes: ["userName", "email"] }],
+          },
+          {
+            model: PhotoStat,
+          },
+        ],
+      },
+    ],
+  });
+
+  return likedPhotos;
+}
+
 module.exports = {
   fetchPhotos,
   fetchPhotoStat,
@@ -375,4 +405,5 @@ module.exports = {
   dislikePhoto,
   fetchPhotoFromQuery,
   checkOwnerOfPhoto,
+  fetchUserLikePhotos,
 };

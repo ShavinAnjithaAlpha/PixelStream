@@ -5,5 +5,15 @@ import Photo from "./Photo/Photo";
 import About from "./About/About";
 import UserProfile from "./UserProfile/UserProfile";
 import Collection from "./Collection/Collection";
+import Search from "./Search/Search";
 
-export { Home, Login, Registration, Photo, About, UserProfile, Collection };
+export {
+  Home,
+  Login,
+  Registration,
+  Photo,
+  About,
+  UserProfile,
+  Collection,
+  Search,
+};

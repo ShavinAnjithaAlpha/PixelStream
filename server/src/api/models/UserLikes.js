@@ -30,5 +30,17 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
 
+  UserLikes.associate = (models) => {
+    UserLikes.belongsTo(models.User, {
+      foreignKey: "userId",
+      onDelete: "CASCADE",
+    });
+
+    UserLikes.belongsTo(models.Photo, {
+      foreignKey: "photoId",
+      onDelete: "CASCADE",
+    });
+  };
+
   return UserLikes;
 };

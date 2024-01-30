@@ -8,14 +8,14 @@
 
 .photo-card .overlap-group-wrapper {
   background-color: #ffffff;
-  height: 502px;
-  width: 501px;
+  height: 500px;
+  width: 500px;
 }
 
 .photo-card .overlap-group {
   background-position: 50% 50%;
   background-size: cover;
-  height: 502px;
+  height: 500px;
   position: relative;
 }
 
