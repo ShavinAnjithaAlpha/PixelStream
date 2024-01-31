@@ -1,13 +1,9 @@
-const Tag = require("../pages/Search/components/Tag.jsx");
+import Tag from "../pages/Search/components/Tag";
 
 export default {
-  title: "Search/CollectionTag",
   component: Tag,
 };
 
-export const Default = {
-  args: {
-    keyName: "Nature",
-    key: 1,
-  },
+export const Primary = {
+  render: () => <Tag />,
 };

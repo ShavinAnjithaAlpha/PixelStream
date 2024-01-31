@@ -1,0 +1,105 @@
+.user-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 450px;
+  height: auto;
+  background-color: white;
+  border-radius: 15px;
+  margin: 10px;
+  padding: 10px;
+  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease-in-out;
+}
+
+.user-card:hover {
+  background-color: rgba(245, 245, 245);
+  cursor: pointer;
+}
+
+.user-card .profile-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  align-self: flex-start;
+  margin-left: 20px;
+}
+
+.user-card .profile-bar .profile-image {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 20px;
+  background-color: black;
+}
+
+.user-card .profile-bar .detail-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: flex-start;
+}
+
+.user-card .profile-bar .detail-box h1 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #000000;
+  margin: 5px 0 0 0;
+}
+
+.user-card .profile-bar .detail-box p {
+  font-size: 1rem;
+  font-weight: 400;
+  color: gray;
+  margin: 0;
+}
+
+.user-card .image-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 0;
+  overflow: hidden;
+}
+
+.user-card .image-bar img {
+  width: 120px;
+  height: 100px;
+  overflow: hidden;
+  margin: 0 2px;
+}
+
+.user-card .image-bar img:hover {
+  cursor: pointer;
+}
+
+.user-card .view-profile {
+  width: 100%;
+}
+
+.user-card .view-profile button.view-btn {
+  justify-self: flex-end;
+  width: 100%;
+  height: 50px;
+  background-color: #0056b3;
+  border-radius: 5px;
+  margin-top: 20px;
+  border: none;
+  color: white;
+  transition: all 0.2s ease-in-out;
+}
+
+.user-card .view-profile .view-btn:hover {
+  cursor: pointer;
+  background-color: #004080;
+}
+
+.user-card .no-photo {
+  color: gray;
+  font-size: 1rem;
+  font-style: italic;
+}

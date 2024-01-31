@@ -8,6 +8,7 @@ const {
   getUserIdByUserName,
   followerExists,
   createFollower,
+  fetchUsers,
 } = require("../services/userTable");
 const {
   fetchCollectionByUserName,
@@ -182,6 +183,16 @@ async function followUser(req, res) {
   return res.json({ status: "Followed" });
 }
 
+async function getUsers(req, res) {
+  // extract the page and limit from the query
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
+
+  const users = await fetchUsers(page, limit);
+
+  return res.json(users);
+}
+
 module.exports = {
   getUserByUsername,
   getPortfolioOfUser,
@@ -190,4 +201,5 @@ module.exports = {
   getCollectionOfUser,
   getStatisticsOfUser,
   followUser,
+  getUsers,
 };

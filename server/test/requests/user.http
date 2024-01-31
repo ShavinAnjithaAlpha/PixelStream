@@ -4,6 +4,9 @@
 @contentType = application/json
 @http = HTTP/1.1
 
+### get users
+GET {{host}}/api/users?limit=3 {{http}}
+
 ### get user by username
 @username = shavin
 GET {{host}}/api/users/{{username}} {{http}}

@@ -116,6 +116,22 @@ async function fetchPhotoFromUserName(username, page, limit) {
   return photos;
 }
 
+// get the users from the database
+async function fetchUsers(page, limit) {
+  const users = await User.findAll({
+    offset: (page - 1) * limit,
+    limit: limit,
+    include: [
+      {
+        model: UserAuth,
+        attributes: ["userName", "email"],
+      },
+    ],
+  });
+
+  return users;
+}
+
 // function for fetch the user by username
 async function fetchUserByUsername(username) {
   let user = UserAuth.findOne({
@@ -257,4 +273,5 @@ module.exports = {
   createFollower,
   updateProfile,
   removeAccount,
+  fetchUsers,
 };
