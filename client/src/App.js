@@ -3,6 +3,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import Main from "./Main";
 import "./App.css";
 import { AuthContext } from "./helpers/AuthContext";
+import { SearchContextProvider } from "./contexts/search.context";
 
 function App() {
   const [authState, setAuthState] = useState({ status: false });
@@ -18,11 +19,13 @@ function App() {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ authState, setAuthState }}>
-      <Router>
-        <Main />
-      </Router>
-    </AuthContext.Provider>
+    <SearchContextProvider>
+      <AuthContext.Provider value={{ authState, setAuthState }}>
+        <Router>
+          <Main />
+        </Router>
+      </AuthContext.Provider>
+    </SearchContextProvider>
   );
 }
 

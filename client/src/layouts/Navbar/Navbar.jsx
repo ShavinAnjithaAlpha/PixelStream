@@ -4,9 +4,11 @@ import SearchBar from "../../components/SearchBar";
 import ProfileBadge from "../../components/ProfileBadge";
 import { useContext } from "react";
 import { AuthContext } from "../../helpers/AuthContext";
+import { SearchContext } from "../../contexts/search.context";
 
 function Navbar() {
   const { setAuthState, authState } = useContext(AuthContext);
+  const { setSearchKeyword } = useContext(SearchContext);
 
   // logout function
   const logout = () => {
@@ -22,7 +24,7 @@ function Navbar() {
         </Link>
       </i>
 
-      <SearchBar />
+      <SearchBar setSearchKeyword={setSearchKeyword} />
       <ul className="nav-links">
         <li className="nav-item">
           <Link to="/">Home</Link>

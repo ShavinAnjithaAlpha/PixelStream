@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import CollectionCard from "./CollectionCard";
 import axios from "../../../axios";
+import { SearchContext } from "../../../contexts/search.context";
 import "./CollectionGrid.css";
 
 function CollectionGrid() {
   const [collections, setCollections] = useState([]);
+  const { searchKeyword } = useContext(SearchContext);
 
   useEffect(() => {
-    axios.get("/collections").then((res) => {
-      setCollections(res.data);
-    });
+    axios
+      .get(`search/collections?query=${searchKeyword}&limit=12&page=1`)
+      .then((res) => {
+        setCollections(res.data.collections);
+      });
   });
 
   return (
