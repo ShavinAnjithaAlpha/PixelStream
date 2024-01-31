@@ -1,0 +1,11 @@
+.option-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.option-box {
+  padding: 0px 10px;
+  font-size: 0.9rem;
+  min-width: 100px;
+}

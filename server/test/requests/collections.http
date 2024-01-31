@@ -19,13 +19,13 @@ Content-Type: {{contentType}}
 ### new collection
 POST {{host}}/api/collections {{http}}
 Content-Type: {{contentType}}
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImthdmVlc2hhLnNldyIsInVzZXJJZCI6NSwiaWF0IjoxNzA1ODE1MTcyLCJleHAiOjE3MDYxNzUxNzJ9.t3H9njcuRoucCg_QXzihHfNSx6FIh8wTZ0uNV9Uswxs
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtvbXVkaSIsInVzZXJJZCI6MiwiaWF0IjoxNzA2NjgwNTM4LCJleHAiOjE3MDcwNDA1Mzh9.WaDzrbxb4YBEBPCrHUrjwL6HhAxuadeMiyERULXmrNw
 
 {
-    "title" : "Nature",
-    "description" : "Nature vibes with vibrent colors.",
-    "coverPhoto": 203,
-    "photos": [150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160]
+    "title" : "Adventures",
+    "description" : "Adventures in the world",
+    "coverPhoto": 260,
+    "photos": [260, 261, 262, 263, 264, 265, 266, 267, 268, 269]
 }
 
 ### add photo to the collection

@@ -1,0 +1,25 @@
+.search-section-tile {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  color: black;
+  padding: 8px 18px;
+  transition: all 0.2s ease-in-out;
+  border-radius: 25px;
+  margin-left: 20px;
+}
+
+.search-section-tile:hover {
+  background-color: #1d78f0;
+  color: #fff;
+  cursor: pointer;
+}
+
+.search-section-tile h2 {
+  font-size: 1.1rem;
+}
+
+.selected {
+  background-color: black;
+  color: white;
+}
