@@ -1,6 +1,8 @@
 const { Tag } = require("../models");
 const { PhotoTag } = require("../models");
+const { UserInterests } = require("../models");
 const { photoExists } = require("./photoTable");
+const { getUserIdByUserName } = require("./userTable");
 
 // function for createte a new tag
 async function createNewTag(tagName) {
@@ -24,6 +26,16 @@ async function tagExists(tagName) {
 
   if (tag) return { status: true, tagId: tag.tagId };
   return { status: false };
+}
+
+async function tagsExists(tags) {
+  // check weather all the tags exists in the system
+  tags.forEach((tag) => {
+    const { status } = tagExists(tag);
+    if (!status) return false;
+  });
+
+  return true;
 }
 
 // create tags in the database
@@ -69,6 +81,26 @@ async function addTagsToAPhoto(photoId, tags) {
   return { status: true, tags: tags };
 }
 
+async function addTagsToUser(userId, tags) {
+  tags.forEach(async (tag) => {
+    const tag_ = await Tag.findOne({
+      where: {
+        tagName: tag,
+      },
+    });
+
+    // create new user tag instance
+    const userInterest = await UserInterests.create({
+      userId: userId,
+      tagId: tag_.tagId,
+    });
+    // save the instance to the database
+    userInterest.save();
+  });
+
+  return true;
+}
+
 // fetch the tags belonged to a photo
 async function fetchTags(photoId) {
   // fetch the tags from the database
@@ -89,4 +121,6 @@ async function fetchTags(photoId) {
 module.exports = {
   addTagsToAPhoto,
   fetchTags,
+  tagsExists,
+  addTagsToUser,
 };

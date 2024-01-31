@@ -236,7 +236,7 @@ async function updateProfile(userId, profileData) {
   return true;
 }
 
-async function deleteAccount(userId) {
+async function removeAccount(userId) {
   console.log("Delete the account");
   // TODO: implement the delete logic for user account
   return true;
@@ -256,5 +256,5 @@ module.exports = {
   followerExists,
   createFollower,
   updateProfile,
-  deleteAccount,
+  removeAccount,
 };

@@ -1,5 +1,5 @@
 require("dotenv").config({ path: "../../../.env" });
-const { uploadResizedImage } = require("./azureStorageAccountUpload");
+const { uploadResizedImage } = require("../azureStorageAccountUpload");
 
 inputFile = "C:\\Users\\User\\Downloads\\public\\books.jpg";
 

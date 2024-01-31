@@ -1,5 +1,7 @@
 const { validateUserProfile } = require("../validations/user");
-const { updateProfile, deleteAccount } = require("../services/userTable");
+const { updateProfile, removeAccount } = require("../services/userTable");
+const { validateTagBody } = require("../validations/tags");
+const { tagsExists, addTagsToUser } = require("../services/tagTable");
 
 async function updateAccount(req, res) {
   // extract the username from the params
@@ -31,12 +33,37 @@ async function deleteAccount(req, res) {
     return res.status(401).json({ error: "Unauthorized" });
 
   // else delete the account from the system, including with all photos they have and all that profile data they have
-  await deleteAccount(userId);
+  await removeAccount(userId);
 
   return res.json({ status: "Account delete successfully" });
+}
+
+// function for add user interes tags
+async function addInterest(req, res) {
+  // extract the username
+  const username = req.params.username;
+  // check wether the user has authorized to the system
+  if (req.user.username !== username)
+    res.status(401).json({ error: "Unauthorized" });
+
+  // get the tag array from the body
+  const tags = req.body;
+  const { error } = validateTagBody(tags);
+  if (error) return res.status(400).json({ error: error.details[0].message });
+
+  // check whether all the tags exists in the system
+  const exists = await tagsExists(tags.tags);
+  if (!exists) return res.status(400).json({ error: "Invalid tags" });
+
+  // add the tags to the user
+  const result = await addTagsToUser(req.user.userId, tags.tags);
+  if (result.error) return res.status(400).json({ error: result.error });
+  // return the tags
+  return res.json({ status: true });
 }
 
 module.exports = {
   updateAccount,
   deleteAccount,
+  addInterest,
 };
