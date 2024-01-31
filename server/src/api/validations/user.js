@@ -16,6 +16,20 @@ function validateUser(data) {
   return userSchema.validate(data);
 }
 
+function validateUserProfile(data) {
+  const profileSchema = Joi.object({
+    username: Joi.string().min(3).max(255).required(),
+    firstname: Joi.string().min(3).max(255).required(),
+    lastname: Joi.string().min(3).max(255).required(),
+    location: Joi.string().max(255).optional(),
+    bio: Joi.string().max(512).optional(),
+    profile: Joi.string().optional(),
+    personalsite: Joi.string().uri().max(255).optional(),
+  });
+
+  return profileSchema.validate(data, { allowUnknown: true });
+}
+
 function validateAuth(data) {
   const authSchema = Joi.object({
     username: Joi.string().min(3).max(255),
@@ -28,4 +42,4 @@ function validateAuth(data) {
   return authSchema.validate(data);
 }
 
-module.exports = { validateUser, validateAuth };
+module.exports = { validateUser, validateAuth, validateUserProfile };

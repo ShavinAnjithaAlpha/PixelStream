@@ -1,0 +1,20 @@
+@hostname = http://localhost
+@port = 5000
+@host = {{hostname}}:{{port}}
+@contentType = application/json
+@http = HTTP/1.1
+
+
+### update the profile of a user
+POST {{host}}/api/account/komudi {{http}}
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtvbXVkaSIsInVzZXJJZCI6MiwiaWF0IjoxNzA2NjgwNTM4LCJleHAiOjE3MDcwNDA1Mzh9.WaDzrbxb4YBEBPCrHUrjwL6HhAxuadeMiyERULXmrNw 
+Content-Type: {{contentType}}
+
+{
+    "username" : "komudi",
+    "firstname": "Komudi",
+    "lastname": "Gimhani",
+    "location": "Meetiyagoda, Sri Lanka",
+    "Bio": "I am a girl",
+    "personalSite": "www.komudogimhani.lk"
+}

@@ -225,6 +225,23 @@ async function createFollower(followerId, userId) {
   await follower.save();
 }
 
+// function for update the profile
+async function updateProfile(userId, profileData) {
+  await User.update(profileData, {
+    where: {
+      userId: userId,
+    },
+  });
+
+  return true;
+}
+
+async function deleteAccount(userId) {
+  console.log("Delete the account");
+  // TODO: implement the delete logic for user account
+  return true;
+}
+
 module.exports = {
   checkUserExists,
   createUser,
@@ -238,4 +255,6 @@ module.exports = {
   getUserIdByUserName,
   followerExists,
   createFollower,
+  updateProfile,
+  deleteAccount,
 };

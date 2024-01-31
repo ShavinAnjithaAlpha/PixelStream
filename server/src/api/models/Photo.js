@@ -89,15 +89,6 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
     });
-
-    Photo.belongsTo(models.UserLikes, {
-      foreignKey: {
-        name: "photoId",
-        allowNull: false,
-      },
-      onDelete: "CASCADE",
-      onUpdate: "CASCADE",
-    });
   };
 
   return Photo;

@@ -17,7 +17,7 @@ Content-Type: {{contentType}}
     "bio": "I am a undergradiate at University of Moratuwa."
 }
 
-###
+### register user
 
 POST {{host}}/api/auth/register {{http}}
 Content-Type: {{contentType}}
@@ -32,8 +32,7 @@ Content-Type: {{contentType}}
     "bio": "I am a model"
 }
 
-###
-
+### register user
 
 POST {{host}}/api/auth/register {{http}}
 Content-Type: {{contentType}}

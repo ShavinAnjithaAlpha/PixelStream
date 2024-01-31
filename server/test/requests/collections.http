@@ -9,7 +9,7 @@ GET {{host}}/api/collections {{http}}
 Content-Type: {{contentType}}
 
 ### get the specific collection
-GET {{host}}/api/collections/2 {{http}}
+GET {{host}}/api/collections/3 {{http}}
 Content-Type: {{contentType}}
 
 ### get the photos of the collection
