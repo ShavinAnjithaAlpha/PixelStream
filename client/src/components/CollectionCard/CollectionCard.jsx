@@ -1,10 +1,18 @@
 import React from "react";
-import { Tag } from "./Tag";
+import { useNavigate } from "react-router-dom";
+import { Tag } from "../../pages/Search/components/Tag";
 import "./CollectionCard.css";
 
 function CollectionCard({ collection }) {
+  const navigate = useNavigate();
+
+  const handleClick = (e) => {
+    // navigate to the collection page
+    navigate(`/collection/${collection.collectionId}`);
+  };
+
   return (
-    <div className="collection-card">
+    <div className="collection-card" onClick={handleClick}>
       <div className="cover-image">
         {collection.Photo && collection.Photo.photoUrl && (
           <img

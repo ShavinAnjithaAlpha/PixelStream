@@ -1,0 +1,12 @@
+h1.search-keyword-title {
+  font-size: 1.5rem;
+  margin: 20px 20px;
+  font-weight: 700;
+  text-align: left;
+  color: rgba(0, 0, 0, 0.3);
+}
+
+h1.search-keyword-title span {
+  color: #087dca;
+  font-size: 3rem;
+}

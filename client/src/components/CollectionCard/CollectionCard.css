@@ -7,6 +7,12 @@
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.collection-card:hover .cover-image img {
+  filter: brightness(0.7);
 }
 
 .collection-card .cover-image {

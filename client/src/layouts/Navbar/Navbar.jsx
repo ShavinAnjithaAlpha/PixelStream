@@ -22,7 +22,7 @@ function Navbar() {
       <div className="logo-search">
         <i className="logo">
           <Link to="/" className="logo">
-            PhotoStock
+            PS
           </Link>
         </i>
 

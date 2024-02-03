@@ -15,3 +15,61 @@
   border-radius: 5px;
   cursor: pointer;
 }
+
+.home-search {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  margin-left: 50px;
+  margin-top: 50px;
+}
+
+.home-search h1 {
+  font-size: 2.4rem;
+  margin: 20px 0;
+  font-weight: 700;
+}
+
+.home-search input {
+  width: 50%;
+  height: 50px;
+  border: none;
+  border-radius: 5px;
+  padding: 20px 15px;
+  font-size: 1rem;
+  margin: 10px 0;
+  background-color: lightgray;
+  transition: all 0.2s ease-in-out;
+}
+
+.home-search input:focus {
+  background-color: white;
+  outline: none;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.home-search input:hover {
+  background-color: white;
+  outline: none;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.home-search p {
+  font-size: 1.1rem;
+  font-weight: 400;
+  width: 500px;
+  text-align: left;
+}
+
+.home-search button {
+  width: 20%;
+  height: 50px;
+  border: none;
+  border-radius: 5px;
+  background-color: #087dca;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}

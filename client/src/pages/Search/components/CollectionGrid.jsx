@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import CollectionCard from "./CollectionCard";
+import CollectionCard from "../../../components/CollectionCard/CollectionCard";
 import axios from "../../../axios";
 import { SearchContext } from "../../../contexts/search.context";
 import "./CollectionGrid.css";
