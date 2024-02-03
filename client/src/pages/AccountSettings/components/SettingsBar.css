@@ -1,0 +1,10 @@
+.settings-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  margin-left: 50px;
+  margin-top: 50px;
+  width: 250px;
+  height: 100%;
+}

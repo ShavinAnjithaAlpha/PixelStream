@@ -8,6 +8,7 @@ import {
   UserProfile,
   Collection,
   Search,
+  AccoutnSettings,
 } from "./pages";
 import { Navbar, Footer } from "./layouts";
 import "./Main.css";
@@ -17,9 +18,9 @@ function Main() {
 
   return (
     <div className="App">
-      {location.pathname !== "/login" && location.pathname !== "/signup" && (
-        <Navbar />
-      )}
+      {location.pathname !== "/login" &&
+        location.pathname !== "/signup" &&
+        location.pathname !== "/account" && <Navbar />}
 
       <Routes>
         <Route path="/" exact element={<Home />} />
@@ -29,13 +30,14 @@ function Main() {
         <Route path="/signup" exact element={<Registration />} />
         <Route path="/user/:username" exact element={<UserProfile />} />
         <Route path="/collection/:id" exact element={<Collection />} />
+        <Route path="/account" exact element={<AccoutnSettings />} />
 
         <Route path="/search" exact element={<Search />} />
       </Routes>
 
-      {location.pathname !== "/login" && location.pathname !== "/signup" && (
-        <Footer />
-      )}
+      {location.pathname !== "/login" &&
+        location.pathname !== "/signup" &&
+        location.pathname !== "/account" && <Footer />}
     </div>
   );
 }
