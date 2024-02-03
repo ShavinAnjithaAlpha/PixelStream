@@ -5,6 +5,7 @@ import ProfileBadge from "../../components/ProfileBadge";
 import { useContext } from "react";
 import { AuthContext } from "../../helpers/AuthContext";
 import { SearchContext } from "../../contexts/search.context";
+import "./NavBar.css";
 
 function Navbar() {
   const { setAuthState, authState } = useContext(AuthContext);
@@ -18,13 +19,15 @@ function Navbar() {
 
   return (
     <nav className="nav">
-      <i className="logo">
-        <Link to="/" className="logo">
-          PhotoShav
-        </Link>
-      </i>
+      <div className="logo-search">
+        <i className="logo">
+          <Link to="/" className="logo">
+            PhotoStock
+          </Link>
+        </i>
 
-      <SearchBar setSearchKeyword={setSearchKeyword} />
+        <SearchBar setSearchKeyword={setSearchKeyword} />
+      </div>
       <ul className="nav-links">
         <li className="nav-item">
           <Link to="/">Home</Link>

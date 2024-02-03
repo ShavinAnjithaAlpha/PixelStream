@@ -1,0 +1,68 @@
+/* nav bar styling */
+.nav {
+  display: flex;
+  width: 100%;
+  position: sticky;
+  left: 0;
+  top: 0;
+  background-color: #2b7ddd;
+  padding: 10px 50px 10px 20px;
+  justify-content: space-between;
+  z-index: 999999;
+}
+
+.nav .logo-search {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+}
+
+.nav .nav-links {
+  display: flex;
+  flex-direction: row;
+}
+
+.nav .nav-links .nav-item {
+  margin: auto 20px;
+  color: white;
+}
+
+.nav .logo-search .logo {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: black;
+  font-style: normal;
+  margin-right: 10px;
+}
+
+.nav .nav-links .nav-item a {
+  color: black;
+  transition: all 0.2s ease-in-out;
+}
+
+.nav .nav-links .nav-item a:hover {
+  color: #9cc3ed;
+}
+
+.nav .nav-links .login {
+  margin: auto 20px;
+}
+
+.nav .nav-links .login a {
+  color: white;
+  font-style: normal;
+}
+
+.nav .nav-links .logout {
+  margin: auto 20px;
+  font-size: 1rem;
+  font-style: normal;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.nav .nav-links .logout:hover {
+  color: #9cc3ed;
+  font-style: normal;
+}

@@ -2,6 +2,7 @@ import React from "react";
 import axios from "../../axios";
 import "./Home.css";
 import PhotoGrid from "../../components/PhotoGrid";
+import PageNavigationBar from "../../components/PageNavigationBar/PageNavigationBar";
 const { useEffect, useState } = require("react");
 
 function Home() {
@@ -22,20 +23,14 @@ function Home() {
 
   return (
     <div className="App">
-      <div className="page-bar">
-        {Array.from({ length: numButtons }).map((_, index) => (
-          <button
-            key={index}
-            onClick={(e) => {
-              handlePageChange(index + 1);
-            }}
-          >
-            {" "}
-            {index + 1}
-          </button>
-        ))}
-      </div>
       <PhotoGrid photos={photos} />
+      <div className="page-bar">
+        <PageNavigationBar
+          max={100}
+          limit={5}
+          handlePageChange={handlePageChange}
+        />
+      </div>
     </div>
   );
 }
