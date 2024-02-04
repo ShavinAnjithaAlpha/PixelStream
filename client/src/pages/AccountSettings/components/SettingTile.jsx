@@ -3,6 +3,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import "./SettingTile.css";
 
 function SettingTile({
+  key,
   title,
   description,
   icon,
@@ -12,6 +13,7 @@ function SettingTile({
 }) {
   const handleClick = (e) => {
     setActiveSetting({
+      key,
       title,
       description,
       icon,
@@ -24,11 +26,8 @@ function SettingTile({
       className={`setting-tile ${isActive ? "selected" : ""}`}
       onClick={handleClick}
     >
-      <div className="title">
-        <SettingsIcon width={50} />
-        <h1>{title}</h1>
-      </div>
-      <p>{description}</p>
+      <SettingsIcon width={50} />
+      <h1>{title}</h1>
     </div>
   );
 }

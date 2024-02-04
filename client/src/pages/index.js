@@ -6,7 +6,7 @@ import About from "./About/About";
 import UserProfile from "./UserProfile/UserProfile";
 import Collection from "./Collection/Collection";
 import Search from "./Search/Search";
-import AccoutnSettings from "./AccountSettings/AccoutnSettings";
+import AccountSettings from "./AccountSettings/AccountSettings";
 
 export {
   Home,
@@ -17,5 +17,5 @@ export {
   UserProfile,
   Collection,
   Search,
-  AccoutnSettings,
+  AccountSettings,
 };

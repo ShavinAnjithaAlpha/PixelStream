@@ -8,7 +8,7 @@ import {
   UserProfile,
   Collection,
   Search,
-  AccoutnSettings,
+  AccountSettings,
 } from "./pages";
 import { Navbar, Footer } from "./layouts";
 import "./Main.css";
@@ -30,7 +30,7 @@ function Main() {
         <Route path="/signup" exact element={<Registration />} />
         <Route path="/user/:username" exact element={<UserProfile />} />
         <Route path="/collection/:id" exact element={<Collection />} />
-        <Route path="/account" exact element={<AccoutnSettings />} />
+        <Route path="/account" exact element={<AccountSettings />} />
 
         <Route path="/search" exact element={<Search />} />
       </Routes>

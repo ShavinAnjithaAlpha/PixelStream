@@ -1,0 +1,22 @@
+.account-settings-page .account-navbar {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.account-settings-page .account-navbar span {
+  font-size: 3rem;
+  color: #000;
+  cursor: pointer;
+  font-weight: 700;
+  margin-left: 50px;
+}
+
+.account-settings-page .account-body {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: start;
+}
