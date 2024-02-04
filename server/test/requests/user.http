@@ -24,8 +24,8 @@ GET {{host}}/api/users/{{username}}/portfolio {{http}}
 GET {{host}}/api/users/shavin/collections {{http}}
 
 ### get the user liked photos
-GET {{host}}/api/users/shavin/likes {{http}}
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNoYXZpbiIsInVzZXJJZCI6MSwiaWF0IjoxNzA2NjM1MDg4LCJleHAiOjE3MDY5OTUwODh9.g3d-V-jbHPtbvDVQSF1eZVtIStwfKx_DFnq8H4lRf84
+GET {{host}}/api/users/komudi/likes {{http}}
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtvbXVkaSIsInVzZXJJZCI6MiwiaWF0IjoxNzA3MDQzMTcxLCJleHAiOjE3MDc0MDMxNzF9.VTjBe3REhKzqObkbgyP9rvuE3I0fDGpCJ87oIX3j_ZA
 
 ### get the stat of a user
 GET {{host}}/api/users/shavin/stat {{http}}

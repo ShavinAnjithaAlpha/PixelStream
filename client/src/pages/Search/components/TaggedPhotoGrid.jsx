@@ -10,9 +10,14 @@ function TaggedPhotoGrid() {
 
   useEffect(() => {
     if (searchKeyword) {
-      axios.get(`search/photos?query=${searchKeyword}&limit=12`).then((res) => {
-        setPhotos(res.data.photos);
-      });
+      axios
+        .get(`search/photos?query=${searchKeyword}&limit=12`)
+        .then((res) => {
+          setPhotos(res.data.photos);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   });
   return (

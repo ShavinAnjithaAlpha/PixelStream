@@ -14,10 +14,10 @@ Content-Type: {{contentType}}
 
 
 ### like a photo
-@likedphotoId = 7
+@likedphotoId = 260
 POST {{host}}/api/photos/{{likedphotoId}}/like {{http}}
 Content-Type: {{contentType}}
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNoYXZpbiIsInVzZXJJZCI6MSwiaWF0IjoxNzA0MTkxNjMzLCJleHAiOjE3MDQ1NTE2MzN9.4Uhbvp3PCz8FA641_zvJLXYHHiKKa5EpYAItzQu9Mjg
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtvbXVkaSIsInVzZXJJZCI6MiwiaWF0IjoxNzA3MDQzMTcxLCJleHAiOjE3MDc0MDMxNzF9.VTjBe3REhKzqObkbgyP9rvuE3I0fDGpCJ87oIX3j_ZA
 
 {
     "rating" : 3

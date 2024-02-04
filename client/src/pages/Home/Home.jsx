@@ -5,6 +5,7 @@ import "./Home.css";
 import PhotoGrid from "../../components/PhotoGrid";
 import PageNavigationBar from "../../components/PageNavigationBar/PageNavigationBar";
 import TopicBar from "../../components/TopicBar/TopicBar";
+import TagSearch from "../../helpers/TagSearch";
 const { useEffect, useState, useContext } = require("react");
 const { SearchContext } = require("../../contexts/search.context");
 
@@ -20,9 +21,14 @@ function Home() {
   }, []);
 
   const handlePageChange = (page) => {
-    axios.get(`/photos?limit=12&page=${page}`).then((res) => {
-      setPhotos(res.data);
-    });
+    axios
+      .get(`/photos?limit=12&page=${page}`)
+      .then((res) => {
+        setPhotos(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const handleSearch = (e) => {
@@ -36,7 +42,7 @@ function Home() {
 
   return (
     <div className="App">
-      <TopicBar />
+      <TopicBar handleTagSearch={TagSearch()} />
       <div className="home-search">
         <h1>PhotoStock</h1>
         <p>

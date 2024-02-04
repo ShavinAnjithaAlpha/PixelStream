@@ -6,10 +6,15 @@ function PhotoTab({ username }) {
   const [photos, setPhotos] = useState([]);
 
   useEffect(() => {
-    axios.get(`/users/${username}/photos?count=10`).then((res) => {
-      setPhotos(res.data.photos);
-    });
-  }, []);
+    axios
+      .get(`/users/${username}/photos?count=10`)
+      .then((res) => {
+        setPhotos(res.data.photos);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [username]);
 
   return (
     <div>

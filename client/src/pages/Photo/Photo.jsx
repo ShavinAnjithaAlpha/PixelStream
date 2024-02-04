@@ -13,6 +13,7 @@ import favoriteIcon from "../../assets/img/icons8-favorite-96.png";
 import dislikeIcon from "../../assets/img/icons8-dislike-96.png";
 import plusIcon from "../../assets/img/icons8-plus-96.png";
 import { format } from "date-fns";
+import TagSearch from "../../helpers/TagSearch";
 import "./Photo.css";
 
 function Photo() {
@@ -101,7 +102,7 @@ function Photo() {
               </li>
             )}
           </ul>
-          <TagBar tags={tags} />
+          <TagBar tags={tags} handleTagSearch={TagSearch()} />
         </div>
       </div>
     </div>

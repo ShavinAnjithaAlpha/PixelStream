@@ -13,6 +13,9 @@ function CollectionGrid() {
       .get(`search/collections?query=${searchKeyword}&limit=12&page=1`)
       .then((res) => {
         setCollections(res.data.collections);
+      })
+      .catch((err) => {
+        console.log(err);
       });
   });
 

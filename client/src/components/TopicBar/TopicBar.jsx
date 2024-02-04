@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./TopicBar.css";
 
-function TopicBar() {
+function TopicBar({ handleTagSearch }) {
   const initialTopics = [
     "nature",
     "animals",
@@ -19,7 +19,11 @@ function TopicBar() {
   return (
     <div className="topic-bar">
       {topics.map((topic) => (
-        <button className="topic" key={topic}>
+        <button
+          className="topic"
+          key={topic}
+          onClick={(e) => handleTagSearch(topic)}
+        >
           {topic}
         </button>
       ))}

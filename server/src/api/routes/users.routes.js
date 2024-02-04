@@ -15,7 +15,7 @@ const {
 router.get("/:username", getUserByUsername);
 router.get("/:username/portfolio", getPortfolioOfUser);
 router.get("/:username/photos", getPhotosOfUser);
-router.get("/:username/likes", authorize, getLikesOfUsers);
+router.get("/:username/likes", getLikesOfUsers);
 router.get("/:username/collections", getCollectionOfUser);
 router.get("/:username/stat", getStatisticsOfUser);
 router.post("/:username/follow", authorize, followUser);

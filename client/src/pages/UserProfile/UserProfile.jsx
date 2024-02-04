@@ -19,8 +19,8 @@ function UserProfile() {
 
       <div className="tabs">
         {activeTab === "photos" && <PhotoTab username={username} />}
-        {activeTab === "likes" && <LikesTab />}
-        {activeTab === "collections" && <CollectionTab />}
+        {activeTab === "likes" && <LikesTab username={username} />}
+        {activeTab === "collections" && <CollectionTab username={username} />}
       </div>
     </div>
   );

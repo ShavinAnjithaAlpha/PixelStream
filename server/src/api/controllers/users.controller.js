@@ -88,9 +88,9 @@ async function getLikesOfUsers(req, res) {
   // extract the username from the request
   const username = req.params.username;
 
-  // first check weather the user is logged in or not
-  if (req.user.userName !== username)
-    return res.status(401).send("Unauthorized");
+  // // first check weather the user is logged in or not
+  // if (req.user.username !== username)
+  //   return res.status(401).send("Unauthorized");
 
   // check weather if the user exists
   const user = await fetchUserByUsername(username);
