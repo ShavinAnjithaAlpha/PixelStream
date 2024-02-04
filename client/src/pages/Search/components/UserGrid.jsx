@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import axios from "../../../axios";
 import UserCard from "./UserCard";
 import "./UserGrid.css";
@@ -18,11 +18,14 @@ function UserGrid() {
   });
 
   return (
-    <div className="user-grid">
-      {users.map((user) => (
-        <UserCard user={user} key={user.userId} />
-      ))}
-    </div>
+    <Fragment>
+      {users.length === 0 && <p className="no-user-msg">No users found</p>}
+      <div className="user-grid">
+        {users.map((user) => (
+          <UserCard user={user} key={user.userId} />
+        ))}
+      </div>
+    </Fragment>
   );
 }
 

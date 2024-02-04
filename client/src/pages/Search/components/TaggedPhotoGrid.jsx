@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, Fragment } from "react";
 import axios from "../../../axios";
 import TaggedPhotoCard from "./TaggedPhotoCard";
 import { SearchContext } from "../../../contexts/search.context";
@@ -21,13 +21,16 @@ function TaggedPhotoGrid() {
     }
   });
   return (
-    <div className="tagged-photo-grid">
-      {photos.map((photo) => (
-        <TaggedPhotoCard photo={photo} key={photo.photoId} />
-      ))}
-      {/* TODO: styling */}
-      {photos.length === 0 && <p>No Photos Available</p>}
-    </div>
+    <Fragment>
+      {photos.length === 0 && (
+        <p className="no-photos-msg">No Photos Available</p>
+      )}
+      <div className="tagged-photo-grid">
+        {photos.map((photo) => (
+          <TaggedPhotoCard photo={photo} key={photo.photoId} />
+        ))}
+      </div>
+    </Fragment>
   );
 }
 

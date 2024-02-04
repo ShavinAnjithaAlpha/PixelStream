@@ -11,6 +11,7 @@
   padding: 10px;
   box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.3);
   transition: all 0.2s ease-in-out;
+  cursor: pointer;
 }
 
 .user-card:hover {
@@ -39,7 +40,7 @@
 .user-card .profile-bar .detail-box {
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: flex-start;
 }
 

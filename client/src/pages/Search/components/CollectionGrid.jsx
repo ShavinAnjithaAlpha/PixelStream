@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, Fragment } from "react";
 import CollectionCard from "../../../components/CollectionCard/CollectionCard";
 import axios from "../../../axios";
 import { SearchContext } from "../../../contexts/search.context";
@@ -20,11 +20,19 @@ function CollectionGrid() {
   });
 
   return (
-    <div className="collection-grid">
-      {collections.map((collection) => (
-        <CollectionCard collection={collection} key={collection.collectionId} />
-      ))}
-    </div>
+    <Fragment>
+      {collections.length === 0 && (
+        <p className="no-coll-msg">No Collections Available</p>
+      )}
+      <div className="collection-grid">
+        {collections.map((collection) => (
+          <CollectionCard
+            collection={collection}
+            key={collection.collectionId}
+          />
+        ))}
+      </div>
+    </Fragment>
   );
 }
 

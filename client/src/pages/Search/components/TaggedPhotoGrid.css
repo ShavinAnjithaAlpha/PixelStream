@@ -9,3 +9,11 @@
   margin-left: 1.1rem;
   margin-right: 1.1rem;
 }
+
+p.no-photos-msg {
+  font-size: 3rem;
+  font-weight: 600;
+  color: #00000055;
+  margin: 20px 0 0 0;
+  text-align: center;
+}

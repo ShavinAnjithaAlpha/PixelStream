@@ -1,8 +1,8 @@
 .settings-bar {
   display: flex;
   flex-direction: column;
-  justify-content: start;
-  align-items: start;
+  justify-content: flex-start;
+  align-items: flex-start;
   margin-left: 150px;
   margin-top: 50px;
   height: 100%;

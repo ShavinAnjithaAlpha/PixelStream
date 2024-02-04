@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import defaultProfilePic from "../../../assets/img/default-profile-icon.png";
 import axios from "../../../axios";
 import "./UserCard.css";
 import { Link } from "react-router-dom";
 
 function UserCard({ user }) {
+  const navigate = useNavigate();
   const [userPhotos, setUserPhotos] = useState([]);
 
   useEffect(() => {
@@ -20,8 +22,13 @@ function UserCard({ user }) {
       });
   });
 
+  const gotoUser = (e) => {
+    // navigate to the user profile page
+    navigate(`/users/${user.UserAuth.userName}`);
+  };
+
   return (
-    <div className="user-card">
+    <div className="user-card" onClick={gotoUser}>
       <div className="profile-bar">
         <div className="profile-image">
           <img
