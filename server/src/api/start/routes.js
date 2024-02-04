@@ -10,8 +10,8 @@ const statsRouter = require("../routes/stats.routes");
 const usersRouter = require("../routes/users.routes");
 
 module.exports = function (app) {
-  app.use(express.json());
-  app.use(express.urlencoded({ extended: true }));
+  app.use(express.json({ limit: "100kb" }));
+  app.use(express.urlencoded({ extended: true, limit: "10kb" }));
   app.use(cors());
   app.use("/api/account", accountRouter);
   app.use("/api/auth", authRouter);

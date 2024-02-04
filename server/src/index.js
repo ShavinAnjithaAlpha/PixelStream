@@ -1,12 +1,16 @@
 require("newrelic");
 const express = require("express");
+const hpp = require("hpp");
+const helmet = require("helmet");
 const EventEmitter = require("events");
 const logger = require("./api/start/logger");
 require("dotenv").config();
 const path = require("path");
-const port = process.env.PORT || 3000;
 const db = require("./api/models");
 const winston = require("winston/lib/winston/config");
+const morganLogger = require("./api/start/req.logger");
+const limiter = require("./api/start/limiter");
+const port = process.env.PORT || 3000;
 
 // handle uncaught exceptions
 process.on("uncaughtException", (ex) => {
@@ -26,8 +30,14 @@ const emitter = new EventEmitter();
 emitter.setMaxListeners(15);
 
 const app = express();
+app.use("/api", limiter); // apply the rate limiter to the API endpoints
+app.use(morganLogger); // log the requests to the log file
+
 // Serve static files from the "public" directory
 app.use("/upload", express.static(path.join(__dirname, "/upload")));
+// apply the hpp miidleware to prevent the HTTP Parameter Pollution attacks
+app.use(hpp());
+app.use(helmet()); // apply the helmet middleware to secure the app by setting various HTTP headers
 
 app.get("/", (req, res) => {
   res.send(
@@ -35,6 +45,14 @@ app.get("/", (req, res) => {
   );
 });
 require("./api/start/routes")(app); // create the routes
+
+// handle the all the undefined routes
+app.all("*", (req, res, next) => {
+  res.status(404).json({
+    status: "fail",
+    message: `Can't find ${req.originalUrl} on this server!`,
+  });
+});
 
 // start the server by checking the existence of the database
 db.sequelize.sync().then(() => {
