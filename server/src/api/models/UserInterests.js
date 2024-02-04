@@ -19,5 +19,15 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
 
+  UserInteretsts.associate = (models) => {
+    UserInteretsts.belongsTo(models.User, {
+      foreignKey: "userId",
+    });
+
+    UserInteretsts.belongsTo(models.Tag, {
+      foreignKey: "tagId",
+    });
+  };
+
   return UserInteretsts;
 };

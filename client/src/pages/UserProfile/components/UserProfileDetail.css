@@ -97,3 +97,12 @@
   cursor: pointer;
   transition: all 0.3s ease-in-out;
 }
+
+/* tag bar styling */
+.user-tag-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  padding: 10px 0;
+}

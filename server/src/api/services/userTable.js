@@ -146,6 +146,8 @@ async function fetchUserByUsername(username) {
     ],
   });
 
+  if (!user) return { error: "User not found" };
+
   return user;
 }
 

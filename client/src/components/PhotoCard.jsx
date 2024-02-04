@@ -67,7 +67,7 @@ function PhotoCard({ photo }) {
               {photo.photoTitle}
             </div>
             <div className={`div ${isHovered ? "show" : "not-show"}`}>
-              {photo.User.fullName}
+              {photo.User && photo.User.fullName}
             </div>
             <img
               className={`default-profile-icon ${

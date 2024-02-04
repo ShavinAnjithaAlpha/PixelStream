@@ -1,12 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import StatCard from "./StatCard";
-import "./UserProfileDetail.css";
 import defaultProfileIcon from "../../../assets/img/default-profile-icon.png";
 import leafsIcon from "../../../assets/img/leafs.jpg";
 import axios from "../../../axios";
+import { Tag } from "../../../components/Tag/Tag";
+import { SearchContext } from "../../../contexts/search.context";
+import "./UserProfileDetail.css";
 
 function UserProfileDetail({ username }) {
+  const navigate = useNavigate();
   const [userProfile, setUserProfile] = useState({});
+  const [userInterests, setUserInterets] = useState([]);
+  const { setSearchKeyword } = useContext(SearchContext);
 
   useEffect(() => {
     // first fetch user profile from the API
@@ -18,7 +24,29 @@ function UserProfileDetail({ username }) {
       .catch((err) => {
         console.log(err);
       });
+
+    // then fetch user interests
+    axios
+      .get(`/users/${username}/interests`)
+      .then((res) => {
+        setUserInterets(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   });
+
+  const handleTagSearch = (tag) => {
+    // first navigate to the search page
+    navigate(`/search`);
+    // set the search keyword so it will triger the search end points
+    setSearchKeyword(tag);
+  };
+
+  const followUser = (e) => {
+    e.preventDefault();
+    // call the follow user API
+  };
 
   return (
     <>
@@ -52,6 +80,12 @@ function UserProfileDetail({ username }) {
             <StatCard label="Likes" value={userProfile.totalLikes} />
             <StatCard label="Downloads" value={userProfile.totalDownloads} />
           </div>
+          <p>User Interests</p>
+          <div className="user-tag-bar">
+            {userInterests.map((tag, index) => (
+              <Tag key={index} tagName={tag} handleClick={handleTagSearch} />
+            ))}
+          </div>
         </div>
         <div className="btn-section">
           <img
@@ -62,7 +96,7 @@ function UserProfileDetail({ username }) {
             alt={leafsIcon}
           />
           <div className="btn-bar">
-            <button>Follow</button>
+            <button onClick={followUser}>Follow</button>
             <button>Message</button>
           </div>
         </div>

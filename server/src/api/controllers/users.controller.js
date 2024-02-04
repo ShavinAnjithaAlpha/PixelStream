@@ -26,6 +26,7 @@ const {
   getTotalDaysOfDislikes,
   getDislikesAccordingToDays,
 } = require("../services/statTables");
+const { fetchTagsByUserId } = require("../services/tagTable");
 
 async function getUserByUsername(req, res) {
   const username = req.params.username;
@@ -193,6 +194,21 @@ async function getUsers(req, res) {
   return res.json(users);
 }
 
+async function getInterestsOfUser(req, res) {
+  // extract the username from the url parameters
+  const username = req.params.username;
+  // fetch the user from the database
+  const user = await fetchUserByUsername(username);
+  // return the error if the user is not exists
+  if (user.error) return res.status(400).send(user.error);
+
+  const tags = await fetchTagsByUserId(user.userId);
+  // filter and clean the result queries by database
+  const cleanedTags = tags.map((tag) => tag.Tag.tagName);
+
+  res.json(cleanedTags);
+}
+
 module.exports = {
   getUserByUsername,
   getPortfolioOfUser,
@@ -202,4 +218,5 @@ module.exports = {
   getStatisticsOfUser,
   followUser,
   getUsers,
+  getInterestsOfUser,
 };

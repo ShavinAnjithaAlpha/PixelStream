@@ -1,0 +1,17 @@
+.tag-component {
+  border-radius: 5px;
+  height: 23px;
+  position: relative;
+  margin-right: 10px;
+  transition: all 0.1s ease-in-out;
+  cursor: pointer;
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.tag-component:hover {
+  background-color: dodgerblue;
+  color: white;
+}

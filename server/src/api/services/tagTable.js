@@ -54,7 +54,6 @@ async function createTags(tags) {
       tagIds.push(tagId);
     }
   }
-  console.log(tagIds);
   // return the tag ids
   return tagIds;
 }
@@ -118,9 +117,27 @@ async function fetchTags(photoId) {
   return tags;
 }
 
+// return the user inetreests of a user
+async function fetchTagsByUserId(userId) {
+  // fetch the tags from the database
+  const tags = await UserInterests.findAll({
+    where: {
+      userId: userId,
+    },
+    include: {
+      model: Tag,
+      attributes: ["tagName"],
+    },
+  });
+
+  // return the tags
+  return tags;
+}
+
 module.exports = {
   addTagsToAPhoto,
   fetchTags,
   tagsExists,
   addTagsToUser,
+  fetchTagsByUserId,
 };

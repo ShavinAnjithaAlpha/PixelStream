@@ -1,11 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { SearchContext } from "../../../contexts/search.context";
 import PhotoCard from "../../../components/PhotoCard";
-import { Tag } from "./Tag";
+import { Tag } from "../../../components/Tag/Tag";
 import axios from "../../../axios";
 import "./TaggedPhotoCard.css";
 
 function TaggedPhotoCard({ photo }) {
+  const navigate = useNavigate();
+  const { setSearchKeyword } = useContext(SearchContext);
   const [tags, setTags] = useState([]);
+
+  const tagSearch = (tag) => {
+    // search for photos with the tag
+    setSearchKeyword(tag);
+    // navigate to the search page
+    navigate("/search");
+  };
 
   useEffect(() => {});
   axios
@@ -22,7 +33,7 @@ function TaggedPhotoCard({ photo }) {
       <PhotoCard photo={photo} />
       <div className="tag-bar">
         {tags.map((tag) => (
-          <Tag key={tag} tagName={tag} />
+          <Tag key={tag} tagName={tag} handleClick={tagSearch} />
         ))}
       </div>
     </div>

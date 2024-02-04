@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Tag } from "../../pages/Search/components/Tag";
+import { Tag } from "../Tag/Tag";
 import "./CollectionCard.css";
 
 function CollectionCard({ collection }) {
