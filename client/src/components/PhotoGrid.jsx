@@ -4,7 +4,7 @@ import "./PhotoGrid.css";
 
 function PhotoGrid({ photos }) {
   return (
-    <div className="photo-grid">
+    <div className="photo-grid-comp">
       {photos.map((photo) => (
         <PhotoCard photo={photo} key={photo.photoId} />
       ))}

@@ -1,5 +1,5 @@
 .tagged-photo-grid {
-  grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+  grid-template: repeat(4, 1fr) / repeat(4, 1fr);
   display: grid;
   grid-gap: 0px;
   grid-auto-rows: minmax(100px, auto);

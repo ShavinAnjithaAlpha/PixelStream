@@ -8,14 +8,14 @@
 
 .photo-card .overlap-group-wrapper {
   background-color: #ffffff;
-  height: 500px;
-  width: 500px;
+  height: 400px;
+  width: 400px;
 }
 
 .photo-card .overlap-group {
   background-position: 50% 50%;
   background-size: cover;
-  height: 500px;
+  height: 400px;
   position: relative;
 }
 
@@ -23,9 +23,9 @@
   background-color: #ffffff80;
   border-radius: 15px;
   height: 40px;
-  left: 387px;
+  left: 300px;
   position: absolute;
-  top: 17px;
+  top: 10px;
   width: 40px;
   transition: all 0.1s ease-in-out;
   cursor: pointer;
@@ -48,9 +48,9 @@
   background-color: #ffffff80;
   border-radius: 15px;
   height: 40px;
-  left: 441px;
+  left: 350px;
   position: absolute;
-  top: 443px;
+  top: 355px;
   width: 40px;
   transition: all 0.1s ease-in-out;
   cursor: pointer;
@@ -64,9 +64,9 @@
   background-color: #ffffff80;
   border-radius: 15px;
   height: 40px;
-  left: 443px;
+  left: 350px;
   position: absolute;
-  top: 17px;
+  top: 10px;
   width: 40px;
   transition: all 0.1s ease-in-out;
   cursor: pointer;
@@ -96,21 +96,21 @@
   font-family: "Inter-Regular", Helvetica;
   font-size: 15px;
   font-weight: 400;
-  left: 85px;
+  left: 70px;
   letter-spacing: 0;
   line-height: 18px;
   position: absolute;
   text-align: center;
-  top: 453px;
+  top: 360px;
   white-space: nowrap;
 }
 
 .photo-card .default-profile-icon {
   height: 40px;
-  left: 32px;
+  left: 20px;
   object-fit: cover;
   position: absolute;
-  top: 443px;
+  top: 345px;
   width: 40px;
 }
 
