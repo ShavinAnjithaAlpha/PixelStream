@@ -4,7 +4,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../helpers/AuthContext";
+import { AuthContext } from "../../contexts/auth.context";
 import leafBackground from "../../assets/img/leafs.jpg";
 import "./Login.css";
 

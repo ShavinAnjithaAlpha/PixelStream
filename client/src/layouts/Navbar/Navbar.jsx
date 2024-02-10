@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import SearchBar from "../../components/SearchBar";
 import ProfileBadge from "../../components/ProfileBadge";
 import { useContext } from "react";
-import { AuthContext } from "../../helpers/AuthContext";
+import { AuthContext } from "../../contexts/auth.context";
 import { SearchContext } from "../../contexts/search.context";
 import "./NavBar.css";
 

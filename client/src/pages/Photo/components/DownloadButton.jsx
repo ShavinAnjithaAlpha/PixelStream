@@ -1,7 +1,7 @@
 import React from "react";
 import "./DownloadButton.css";
 import { useContext } from "react";
-import { AuthContext } from "../../../helpers/AuthContext";
+import { AuthContext } from "../../../contexts/auth.context";
 import axios from "../../../axios";
 
 export const DownloadButton = ({ photoId, setPhoto, photo }) => {

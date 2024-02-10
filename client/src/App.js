@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
+import { AuthContext } from "./contexts/auth.context";
+import { SearchContextProvider } from "./contexts/search.context";
 import Main from "./Main";
 import "./App.css";
-import { AuthContext } from "./helpers/AuthContext";
-import { SearchContextProvider } from "./contexts/search.context";
 
 function App() {
   const [authState, setAuthState] = useState({ status: false });

@@ -6,7 +6,7 @@ import favoriteIcon from "../assets/img/icons8-favorite-96.png";
 import downIcon from "../assets/img/icons8-down-96.png";
 import plusIcon from "../assets/img/icons8-plus-96.png";
 import defaultProfileIcon from "../assets/img/default-profile-icon.png";
-import { AuthContext } from "../helpers/AuthContext";
+import { AuthContext } from "../contexts/auth.context";
 
 function PhotoCard({ photo }) {
   const navigate = useNavigate();
