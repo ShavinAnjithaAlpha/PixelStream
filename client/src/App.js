@@ -9,7 +9,6 @@ function App() {
   const [authState, setAuthState] = useState({ status: false });
 
   useEffect(() => {
-    console.log(localStorage.getItem("token"));
     if (localStorage.getItem("token")) {
       setAuthState({
         user: localStorage.getItem("token"),

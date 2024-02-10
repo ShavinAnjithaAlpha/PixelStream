@@ -1,6 +1,8 @@
 require("newrelic");
 const express = require("express");
 const hpp = require("hpp");
+const cors = require("cors");
+const corsOptions = require("./api/start/cors.option");
 const helmet = require("helmet");
 const EventEmitter = require("events");
 const logger = require("./api/start/logger");
@@ -30,6 +32,7 @@ const emitter = new EventEmitter();
 emitter.setMaxListeners(15);
 
 const app = express();
+app.use(cors(corsOptions)); // apply the cors middleware to the app
 app.use("/api", limiter); // apply the rate limiter to the API endpoints
 app.use(morganLogger); // log the requests to the log file
 

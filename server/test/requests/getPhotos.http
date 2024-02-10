@@ -14,13 +14,13 @@ Content-Type: {{contentType}}
 
 
 ### like a photo
-@likedphotoId = 260
+@likedphotoId = 310
 POST {{host}}/api/photos/{{likedphotoId}}/like {{http}}
 Content-Type: {{contentType}}
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtvbXVkaSIsInVzZXJJZCI6MiwiaWF0IjoxNzA3MDQzMTcxLCJleHAiOjE3MDc0MDMxNzF9.VTjBe3REhKzqObkbgyP9rvuE3I0fDGpCJ87oIX3j_ZA
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtvbXVkaSIsInVzZXJJZCI6MiwiaWF0IjoxNzA3NTg4MDE0LCJleHAiOjE3MDc5NDgwMTR9.4v4QE81P8w4iXF_yy3YZWop4aWgbqJ7tslnhAXnbMxI
 
 {
-    "rating" : 3
+    "rating" : 4
 }
 
 ### dislike a photo
@@ -55,3 +55,9 @@ Content-Type: {{contentType}}
 {
     "count": 4
 }
+
+### isl liked
+@islikedphotoId = 250
+GET {{host}}/api/photos/{{islikedphotoId}}/like {{http}}
+Content-Type: {{contentType}}
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNoYXZpbiIsInVzZXJJZCI6MSwiaWF0IjoxNzA3NTg3OTYyLCJleHAiOjE3MDc5NDc5NjJ9._yKRsLyJf6zJ9x2IpVDMVzP-09HS55h2Dszlyt-9HZw

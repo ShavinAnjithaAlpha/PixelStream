@@ -3,9 +3,10 @@
   position: relative;
   width: 154px;
   margin: 15px 20px;
+  color: white;
 }
 
-.component .text-wrapper-2 {
+.component .profile-card-name {
   color: #ffffff;
   font-family: "Inter", Helvetica;
   font-size: 16px;

@@ -1,12 +1,18 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import "./PhotoCard.css";
 import axios from "../axios";
 import favoriteIcon from "../assets/img/icons8-favorite-96.png";
 import downIcon from "../assets/img/icons8-down-96.png";
 import plusIcon from "../assets/img/icons8-plus-96.png";
 import defaultProfileIcon from "../assets/img/default-profile-icon.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faHeart,
+  faPlus,
+  faArrowDown,
+} from "@fortawesome/free-solid-svg-icons";
 import { AuthContext } from "../contexts/auth.context";
+import "./PhotoCard.css";
 
 function PhotoCard({ photo }) {
   const navigate = useNavigate();
@@ -53,15 +59,22 @@ function PhotoCard({ photo }) {
             }}
           >
             <div className="overlap">
-              <img className="img" alt="Favorite" src={favoriteIcon} />
+              {/* <img className="img" alt="Favorite" src={favoriteIcon} /> */}
+              <FontAwesomeIcon icon={faHeart} size="xl" />
             </div>
             <a href={photo.photoUrl}>
               <div className="down-wrapper" onClick={downloadPhoto}>
-                <img className="img" alt="Down" src={downIcon} />
+                {/* <img className="img" alt="Down" src={downIcon} /> */}
+                <FontAwesomeIcon
+                  icon={faArrowDown}
+                  size="xl"
+                  style={{ color: "black" }}
+                />
               </div>
             </a>
             <div className="plus-wrapper">
-              <img className="img" alt="Plus" src={plusIcon} />
+              {/* <img className="img" alt="Plus" src={plusIcon} /> */}
+              <FontAwesomeIcon icon={faPlus} size="xl" />
             </div>
             <div className={`text-wrapper ${isHovered ? "show" : "not-show"}`}>
               {photo.photoTitle}

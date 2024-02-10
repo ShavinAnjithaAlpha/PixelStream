@@ -17,6 +17,9 @@ const {
   likePhoto,
   dislikePhoto,
   checkOwnerOfPhoto,
+  isLikedAPhoto,
+  isLikePhotos,
+  isDislikeAPhoto,
 } = require("../services/photoTable");
 const { addTagsToAPhoto, fetchTags } = require("../services/tagTable");
 const { filterTagNames } = require("../util/filterTagNames");
@@ -218,6 +221,36 @@ async function getTags(req, res) {
   res.json(filterTagNames(tags));
 }
 
+async function isLiked(req, res) {
+  // extract the photo id and the user id from the request parameter
+  const photoId = parseInt(req.params.id);
+  const userId = req.user.userId;
+
+  // check whether the photo exists
+  const exists = await photoExists(photoId);
+  if (!exists) return res.status(404).json({ error: "Photo not found" });
+
+  // get the like status of a photo
+  const result = await isLikedAPhoto(photoId, userId);
+
+  res.json(result);
+}
+
+async function isDisliked(req, res) {
+  // extract the photo id and the user id from the request parameter
+  const photoId = parseInt(req.params.id);
+  const userId = req.user.userId;
+
+  // check whether the photo exists
+  const exists = await photoExists(photoId);
+  if (!exists) return res.status(404).json({ error: "Photo not found" });
+
+  // get the like status of a photo
+  const result = await isDislikeAPhoto(photoId, userId);
+
+  res.json(result);
+}
+
 module.exports = {
   getPhotos,
   getPhotoById,
@@ -230,4 +263,6 @@ module.exports = {
   dislikeAPhoto,
   addTags,
   getTags,
+  isLiked,
+  isDisliked,
 };

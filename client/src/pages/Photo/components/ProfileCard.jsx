@@ -5,7 +5,7 @@ import "./ProfileCard.css";
 export const ProfileCard = ({ user }) => {
   return (
     <div className="component">
-      <div className="text-wrapper-2">{user.fullName}</div>
+      <div className="profile-card-name">{user.fullName}</div>
       <img
         src={user && user.profilePic ? user.profilePic : defaultProfileIcon}
         className="default-profile-icon"

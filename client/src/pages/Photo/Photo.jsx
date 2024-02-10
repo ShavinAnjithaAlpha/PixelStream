@@ -1,23 +1,32 @@
-import React from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
 import axios from "../../axios";
 import { StatCard } from "./components/StatCard";
 import { DownloadButton } from "./components/DownloadButton";
 import { ProfileCard } from "./components/ProfileCard";
-import { TagBar } from "../../components/TagBar";
+import { TagBar } from "./components/TagBar";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import CameraIcon from "@mui/icons-material/Camera";
 import favoriteIcon from "../../assets/img/icons8-favorite-96.png";
 import dislikeIcon from "../../assets/img/icons8-dislike-96.png";
 import plusIcon from "../../assets/img/icons8-plus-96.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faHeart,
+  faPlus,
+  faHeartCrack,
+} from "@fortawesome/free-solid-svg-icons";
+import { AuthContext } from "../../contexts/auth.context";
 import "./Photo.css";
 
 function Photo() {
   const { id } = useParams();
+  const { authState } = useContext(AuthContext);
   const [photo, setPhoto] = useState({});
   const [tags, setTags] = useState([]);
+  const [like, setLike] = useState({});
+  const [dislike, setDislike] = useState({});
 
   // format the date to readable format
   const date = photo.createdAt;
@@ -31,6 +40,27 @@ function Photo() {
     axios.get(`/photos/${id}/tags`).then((res) => {
       setTags(res.data);
     });
+
+    if (localStorage.getItem("token")) {
+      axios
+        .get(`/photos/${id}/like`, {
+          headers: {
+            Authorization: `${localStorage.getItem("token")}`,
+          },
+        })
+        .then((res) => {
+          setLike(res.data);
+        });
+      axios
+        .get(`/photos/${id}/dislike`, {
+          headers: {
+            Authorization: `${localStorage.getItem("token")}`,
+          },
+        })
+        .then((res) => {
+          setDislike(res.data);
+        });
+    }
   }, [id]);
 
   return (
@@ -51,13 +81,26 @@ function Photo() {
             <h2>{photo.photoTitle}</h2>
             <div className="btn-bar">
               <div className="btn">
-                <img src={favoriteIcon} className="img" alt="Like" />
+                {/* <img src={favoriteIcon} className="img" alt="Like" /> */}
+                <FontAwesomeIcon
+                  icon={faHeart}
+                  size="2xl"
+                  style={{ color: like && like.status ? "red" : "black" }}
+                />
               </div>
               <div className="btn">
-                <img src={dislikeIcon} className="img" alt="DisLike" />
+                {/* <img src={dislikeIcon} className="img" alt="DisLike" /> */}
+                <FontAwesomeIcon
+                  icon={faHeartCrack}
+                  size="2xl"
+                  style={{
+                    color: dislike && dislike.status ? "yellow" : "black",
+                  }}
+                />
               </div>
               <div className="btn">
-                <img src={plusIcon} className="img" alt="Add To" />
+                {/* <img src={plusIcon} className="img" alt="Add To" /> */}
+                <FontAwesomeIcon icon={faPlus} size="2xl" />
               </div>
 
               <DownloadButton

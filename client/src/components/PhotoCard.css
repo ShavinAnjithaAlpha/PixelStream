@@ -20,13 +20,16 @@
 }
 
 .photo-card .overlap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: #ffffff80;
   border-radius: 15px;
-  height: 40px;
+  height: 35px;
+  width: 35px;
   left: 300px;
   position: absolute;
   top: 10px;
-  width: 40px;
   transition: all 0.1s ease-in-out;
   cursor: pointer;
 }
@@ -45,13 +48,16 @@
 }
 
 .photo-card .down-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: #ffffff80;
   border-radius: 15px;
-  height: 40px;
+  height: 35px;
+  width: 35px;
   left: 350px;
   position: absolute;
   top: 355px;
-  width: 40px;
   transition: all 0.1s ease-in-out;
   cursor: pointer;
 }
@@ -61,13 +67,16 @@
 }
 
 .photo-card .plus-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: #ffffff80;
   border-radius: 15px;
-  height: 40px;
+  height: 35px;
+  width: 35px;
   left: 350px;
   position: absolute;
   top: 10px;
-  width: 40px;
   transition: all 0.1s ease-in-out;
   cursor: pointer;
 }

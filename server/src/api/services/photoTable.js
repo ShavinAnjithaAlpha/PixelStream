@@ -392,6 +392,43 @@ async function fetchUserLikePhotos(username) {
   return likedPhotos;
 }
 
+async function isLikedAPhoto(photo_id, user_id) {
+  const userLike = await UserLikes.findOne({
+    where: {
+      photoId: photo_id,
+      userId: user_id,
+    },
+  });
+
+  if (userLike) return { status: true, rating: userLike.userRating };
+  return { status: false };
+}
+
+async function isDislikeAPhoto(photo_id, user_id) {
+  const userLike = await UserDisLikes.findOne({
+    where: {
+      photoId: photo_id,
+      userId: user_id,
+    },
+  });
+
+  if (userLike) return { status: true };
+  return { status: false };
+}
+
+async function isLikePhotos(photo_ids, user_id) {
+  const userLike = await UserLikes.findAll({
+    where: {
+      photoId: {
+        [Op.in]: photo_ids,
+      },
+      userId: user_id,
+    },
+  });
+
+  return userLike;
+}
+
 module.exports = {
   fetchPhotos,
   fetchPhotoStat,
@@ -406,4 +443,7 @@ module.exports = {
   fetchPhotoFromQuery,
   checkOwnerOfPhoto,
   fetchUserLikePhotos,
+  isLikedAPhoto,
+  isLikePhotos,
+  isDislikeAPhoto,
 };

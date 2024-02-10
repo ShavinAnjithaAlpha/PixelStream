@@ -1,5 +1,4 @@
 const express = require("express");
-const cors = require("cors");
 const error = require("../middleware/error");
 const accountRouter = require("../routes/account.routes");
 const authRouter = require("../routes/auth.routes");
@@ -12,7 +11,6 @@ const usersRouter = require("../routes/users.routes");
 module.exports = function (app) {
   app.use(express.json({ limit: "100kb" }));
   app.use(express.urlencoded({ extended: true, limit: "10kb" }));
-  app.use(cors());
   app.use("/api/account", accountRouter);
   app.use("/api/auth", authRouter);
   app.use("/api/collections", collectionsRouter);

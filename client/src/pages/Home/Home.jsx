@@ -14,14 +14,14 @@ function Home() {
   const { setSearchKeyword } = useContext(SearchContext);
 
   useEffect(() => {
-    axios.get("/photos?limit=12").then((res) => {
+    axios.get("/photos?limit=18").then((res) => {
       setPhotos(res.data);
     });
   }, []);
 
   const handlePageChange = (page) => {
     axios
-      .get(`/photos?limit=12&page=${page}`)
+      .get(`/photos?limit=18&page=${page}`)
       .then((res) => {
         setPhotos(res.data);
       })
