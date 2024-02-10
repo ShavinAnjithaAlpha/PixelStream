@@ -8,7 +8,7 @@ const defaultHandleClick = (tagName) => {
 export const Tag = ({ tagName, handleClick = defaultHandleClick }) => {
   return (
     <div
-      className="photo-page-tag-component"
+      className="search-page-tag-component"
       onClick={(e) => handleClick(tagName)}
     >
       <div className="text-wrapper">{tagName}</div>

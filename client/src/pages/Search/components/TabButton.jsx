@@ -16,7 +16,7 @@ function TabButton({
   };
 
   return (
-    <div className="tab-button">
+    <div className="search-tab-button">
       <div
         className={`button ${isActive ? "active" : ""}`}
         onClick={handleClick}

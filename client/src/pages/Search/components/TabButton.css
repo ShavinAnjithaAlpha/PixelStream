@@ -1,4 +1,4 @@
-.tab-button .button {
+.search-tab-button .button {
   border: none;
   height: 50px;
   outline: none;
@@ -9,41 +9,44 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  border: 2px solid #000;
 }
 
-.tab-button .text {
+.search-tab-button .text {
   margin-left: 5px;
   font-size: 1rem;
   font-weight: 500;
   color: #000;
 }
 
-.tab-button .icon {
+.search-tab-button .icon {
   margin-top: 5px;
 }
 
-.tab-button .active .text {
+.search-tab-button .active .text {
   color: #fff;
 }
 
-.tab-button .button:hover .text {
+.search-tab-button .button:hover .text {
   color: #fff;
 }
 
-.tab-button .value {
+.search-tab-button .value {
   margin: 0 10px;
 }
 
-.tab-button .button:hover {
+.search-tab-button .button:hover {
   color: #fff;
   background-color: #1d78f0;
+  /* background-color: #000; */
 }
-.tab-button .active {
+
+.search-tab-button .active {
   color: #fff;
   background-color: #000;
 }
 
-.tab-button .avtive:hover {
+.search-tab-button .avtive:hover {
   color: #fff;
   background-color: #000;
 }

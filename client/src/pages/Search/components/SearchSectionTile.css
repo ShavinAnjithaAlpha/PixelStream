@@ -7,6 +7,7 @@
   transition: all 0.2s ease-in-out;
   border-radius: 25px;
   margin-left: 20px;
+  border: 1px solid #00000055;
 }
 
 .search-section-tile:hover {
@@ -19,7 +20,8 @@
   font-size: 1.1rem;
 }
 
-.selected {
+.search-section-tile-selected {
   background-color: black;
   color: white;
+  border: none;
 }

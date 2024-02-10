@@ -13,7 +13,9 @@ function SearchSectionTile({
 
   return (
     <div
-      className={`search-section-tile ${isActive ? "selected" : ""}`}
+      className={`search-section-tile ${
+        isActive ? "search-section-tile-selected" : ""
+      }`}
       onClick={handleClick}
     >
       <h2>{label}</h2>

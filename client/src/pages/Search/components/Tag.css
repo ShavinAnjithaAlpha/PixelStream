@@ -1,4 +1,4 @@
-.photo-page-tag-component {
+.search-page-tag-component {
   border-radius: 5px;
   height: 23px;
   position: relative;
@@ -8,13 +8,11 @@
   padding: 15px 20px;
   display: flex;
   align-items: center;
-  border: 2px solid #e0e0e077;
-  color: rgb(231, 231, 231);
-  transition: all 0.2s ease;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: black;
 }
 
-.photo-page-tag-component:hover {
+.search-page-tag-component:hover {
   background-color: dodgerblue;
   color: white;
-  border-color: dodgerblue;
 }

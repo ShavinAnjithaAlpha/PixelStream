@@ -1,9 +1,9 @@
 import React from "react";
-import TabButton from "./TabButton";
-import "./TabBar.css";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import CollectionsIcon from "@mui/icons-material/Collections";
 import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
+import TabButton from "./TabButton";
+import "./TabBar.css";
 
 function TabBar({ setActiveTab }) {
   const [activeButton, setActiveButton] = React.useState(1);

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { SearchContext } from "../../../contexts/search.context";
 import PhotoCard from "../../../components/PhotoCard";
-import { Tag } from "../../../components/Tag/Tag";
+import { Tag } from "./Tag";
 import axios from "../../../axios";
 import "./TaggedPhotoCard.css";
 
