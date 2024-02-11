@@ -82,6 +82,20 @@ function Collection() {
           />
         </div>
       </div>
+      {/* <div className="col-image-slide-bar">
+        <div class="stage">
+          <div class="container">
+            <div class="ring">
+              {photos.photos &&
+                photos.photos.map((photo) => (
+                  <div className="img">
+                    <img src={photo.photoUrl} alt={photo.photoTitle} />
+                  </div>
+                ))}
+            </div>
+          </div>
+        </div>
+      </div> */}
       <div className="photo-section">
         {photos.photos && <CollectionGrid photos={photos.photos} />}
       </div>

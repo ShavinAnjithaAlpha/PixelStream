@@ -86,3 +86,31 @@
 .coll-section .button-bar .search .search-bar:focus {
   outline: none;
 }
+
+/* styling collection image slider */
+.col-image-slide-bar .stage,
+.col-image-slide-bar .ring,
+.col-image-slide-bar .img {
+  width: 100%;
+  transform-style: preserve-3d;
+  user-select: none;
+}
+
+.col-image-slide-bar .stage {
+  overflow: hidden;
+  background: #000;
+}
+
+.col-image-slide-bar div,
+.col-image-slide-bar svg {
+  position: absolute;
+}
+
+.col-image-slide-bar .container {
+  perspective: 2000px;
+  width: 300px;
+  height: 400px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}

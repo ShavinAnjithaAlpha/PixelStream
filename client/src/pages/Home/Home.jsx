@@ -7,6 +7,7 @@ import PageNavigationBar from "../../components/PageNavigationBar/PageNavigation
 import TopicBar from "../../components/TopicBar/TopicBar";
 import { useEffect, useState, useContext } from "react";
 import { SearchContext } from "../../contexts/search.context";
+import ImageSlider from "./components/ImageSlider";
 
 function Home() {
   const navigate = useNavigate();
