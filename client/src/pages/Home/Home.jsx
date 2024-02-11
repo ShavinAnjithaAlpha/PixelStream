@@ -5,8 +5,8 @@ import "./Home.css";
 import PhotoGrid from "../../components/PhotoGrid";
 import PageNavigationBar from "../../components/PageNavigationBar/PageNavigationBar";
 import TopicBar from "../../components/TopicBar/TopicBar";
-const { useEffect, useState, useContext } = require("react");
-const { SearchContext } = require("../../contexts/search.context");
+import { useEffect, useState, useContext } from "react";
+import { SearchContext } from "../../contexts/search.context";
 
 function Home() {
   const navigate = useNavigate();
@@ -14,9 +14,14 @@ function Home() {
   const { setSearchKeyword } = useContext(SearchContext);
 
   useEffect(() => {
-    axios.get("/photos?limit=18").then((res) => {
-      setPhotos(res.data);
-    });
+    axios
+      .get("/photos?limit=18")
+      .then((res) => {
+        setPhotos(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   const handlePageChange = (page) => {

@@ -34,7 +34,7 @@ emitter.setMaxListeners(15);
 const app = express();
 app.use(cors(corsOptions)); // apply the cors middleware to the app
 app.use("/api", limiter); // apply the rate limiter to the API endpoints
-app.use(morganLogger); // log the requests to the log file
+// app.use(morganLogger); // log the requests to the log file
 
 // Serve static files from the "public" directory
 app.use("/upload", express.static(path.join(__dirname, "/upload")));

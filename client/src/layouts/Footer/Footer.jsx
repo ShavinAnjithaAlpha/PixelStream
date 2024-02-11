@@ -75,7 +75,7 @@ function Footer() {
         </div>
       </div>
       <div className="footer-line">
-        <p>&copy; 2024 PhotoStock</p>
+        <p>&copy; 2024 PhotoStock | All Right Reserved</p>
       </div>
     </footer>
   );

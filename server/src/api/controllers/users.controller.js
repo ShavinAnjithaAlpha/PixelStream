@@ -112,7 +112,8 @@ async function getCollectionOfUser(req, res) {
   const collections = await fetchCollectionByUserName(username, page, limit);
   if (collections.error) res.status(400).send(collections.error);
 
-  const collectionCount = await getCollectionCountOfUser(collections[0].userId);
+  const collectionCount = 10; // TODO: fix this
+  // const collectionCount = await getCollectionCountOfUser(collections[0].userId);
 
   // return the collections
   return res.json({

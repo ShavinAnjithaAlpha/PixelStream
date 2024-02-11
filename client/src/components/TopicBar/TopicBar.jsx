@@ -31,10 +31,10 @@ function TopicBar() {
 
   return (
     <div className="topic-bar">
-      {topics.map((topic) => (
+      {topics.map((topic, index) => (
         <button
           className="topic"
-          key={topic}
+          key={index}
           onClick={(e) => {
             handleTagSearch(topic);
           }}
