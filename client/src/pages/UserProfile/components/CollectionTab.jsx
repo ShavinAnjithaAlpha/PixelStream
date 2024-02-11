@@ -16,12 +16,12 @@ function CollectionTab({ username }) {
       .catch((err) => {
         console.log(err);
       });
-  });
+  }, [username]);
 
   return (
     <div className="profile-collection-grid">
       {collections.map((collection) => (
-        <CollectionCard key={collection.id} collection={collection} />
+        <CollectionCard key={collection.collectionId} collection={collection} />
       ))}
     </div>
   );

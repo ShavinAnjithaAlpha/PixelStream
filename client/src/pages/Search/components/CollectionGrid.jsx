@@ -17,7 +17,7 @@ function CollectionGrid() {
       .catch((err) => {
         console.log(err);
       });
-  });
+  }, [searchKeyword]);
 
   return (
     <Fragment>

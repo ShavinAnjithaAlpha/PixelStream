@@ -15,7 +15,7 @@ function UserGrid() {
       .catch((err) => {
         console.log(err);
       });
-  });
+  }, []);
 
   return (
     <Fragment>

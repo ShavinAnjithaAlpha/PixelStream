@@ -10,12 +10,18 @@ function LikesTab({ username }) {
     axios
       .get(`users/${username}/likes`)
       .then((res) => {
-        setLikePhotos(res.data);
+        // rreformat the data to match the photo card component
+        const formattedPhotoData = [];
+        res.data.forEach((photo) => {
+          formattedPhotoData.push(photo.Photo);
+        });
+        // set the formatted photo data as the state
+        setLikePhotos(formattedPhotoData);
       })
       .catch((err) => {
         console.log(err);
       });
-  });
+  }, [username]);
   return (
     <div className="like-photo-grid">
       {likePhotos.map((photo) => (

@@ -19,7 +19,7 @@ function TaggedPhotoGrid() {
           console.log(err);
         });
     }
-  });
+  }, [searchKeyword]);
   return (
     <Fragment>
       {photos.length === 0 && (

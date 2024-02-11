@@ -8,11 +8,12 @@ import { Tag } from "../../../components/Tag/Tag";
 import { SearchContext } from "../../../contexts/search.context";
 import "./UserProfileDetail.css";
 
-function UserProfileDetail({ username }) {
+function UserProfileDetail({ username, photos }) {
   const navigate = useNavigate();
   const [userProfile, setUserProfile] = useState({});
   const [userInterests, setUserInterets] = useState([]);
   const { setSearchKeyword } = useContext(SearchContext);
+  const [randomPhoto, setRandomPhoto] = useState(null);
 
   useEffect(() => {
     // first fetch user profile from the API
@@ -34,7 +35,22 @@ function UserProfileDetail({ username }) {
       .catch((err) => {
         console.log(err);
       });
-  });
+
+    // const intervalId = setInterval(() => {
+    //   // set the random photo every 1 second
+    //   let photo_ = null;
+    //   while (!photo_) {
+    //     photo_ = photos[Math.floor(Math.random() * photos.length)];
+    //   }
+
+    //   setRandomPhoto(
+    //     photo_ ? photo_.photoUrl : "https://source.unsplash.com/random/600x350"
+    //   );
+    //   console.log("random photo set", photo_);
+    // }, 3000);
+
+    // return () => clearInterval(intervalId);
+  }, [username]);
 
   const handleTagSearch = (tag) => {
     // first navigate to the search page
@@ -89,7 +105,7 @@ function UserProfileDetail({ username }) {
         </div>
         <div className="btn-section">
           <img
-            src={leafsIcon}
+            src={randomPhoto ? randomPhoto : leafsIcon}
             width={600}
             height={350}
             style={{ objectFit: "cover" }}
