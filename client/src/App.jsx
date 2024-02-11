@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
+import { ReactLenis, useLenis } from "@studio-freight/react-lenis";
 import { AuthContext } from "./contexts/auth.context";
 import { SearchContextProvider } from "./contexts/search.context";
 import Main from "./Main";
@@ -21,7 +22,9 @@ function App() {
     <SearchContextProvider>
       <AuthContext.Provider value={{ authState, setAuthState }}>
         <Router>
-          <Main />
+          <ReactLenis root>
+            <Main />
+          </ReactLenis>
         </Router>
       </AuthContext.Provider>
     </SearchContextProvider>
