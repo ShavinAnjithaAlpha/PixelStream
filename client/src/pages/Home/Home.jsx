@@ -7,7 +7,7 @@ import PageNavigationBar from "../../components/PageNavigationBar/PageNavigation
 import TopicBar from "../../components/TopicBar/TopicBar";
 import { useEffect, useState, useContext } from "react";
 import { SearchContext } from "../../contexts/search.context";
-import ImageSlider from "./components/ImageSlider";
+import CollectionPanel from "./components/CollectionPanel";
 
 function Home() {
   const navigate = useNavigate();
@@ -48,17 +48,21 @@ function Home() {
   return (
     <div className="App">
       <TopicBar />
-      <div className="home-search">
-        <h1>PhotoStock</h1>
-        <p>
-          The internet’s source for visuals. Powered by creators everywhere.
-        </p>
-        <input
-          type="text"
-          placeholder="Search for photos"
-          onKeyUp={handleSearch}
-        />
-        <button>Search</button>
+      <div className="top-section">
+        <div className="home-search">
+          <h1>PhotoStock</h1>
+          <p>
+            The internet’s source for visuals. Powered by creators everywhere.
+          </p>
+          <input
+            type="text"
+            placeholder="Search for photos"
+            onKeyUp={handleSearch}
+          />
+          <button>Search</button>
+        </div>
+
+        <CollectionPanel />
       </div>
 
       <PhotoGrid photos={photos} />

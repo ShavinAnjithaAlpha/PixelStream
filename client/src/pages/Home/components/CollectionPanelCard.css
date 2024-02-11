@@ -1,0 +1,37 @@
+.col-panel-tile {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 320px;
+  height: auto;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  margin: 5px 0;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.col-panel-tile:hover {
+  background-color: #d1cfcf;
+}
+
+.col-panel-tile .content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin-left: 5px;
+}
+
+.col-panel-tile .content h3 {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.col-panel-tile .content p {
+  font-size: 0.8rem;
+  color: black;
+  margin: 0;
+  padding: 0;
+}

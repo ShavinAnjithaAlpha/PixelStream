@@ -1,20 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const { authorize } = require("../middleware/auth");
-const multer = require("multer");
-
-// create a storage location for the uploaded files
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "./uploads/photos");
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + file.originalname);
-  },
-});
-
-// create a upload instance
-const upload = multer({ storage: storage });
 
 const {
   getPhotos,

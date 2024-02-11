@@ -17,8 +17,8 @@ POST {{host}}/api/auth/login {{http}}
 Content-Type: {{contentType}}
 
 {
-    "username" : "komudi",
-    "password": "komudi"
+    "username" : "Willard17",
+    "password": "Willard17"
 }
 
 

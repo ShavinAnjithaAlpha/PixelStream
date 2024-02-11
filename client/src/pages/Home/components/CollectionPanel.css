@@ -1,0 +1,37 @@
+.col-panel-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  max-width: 350px;
+  height: 450px;
+  margin: 20px;
+  padding: 5px 20px;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.col-panel-card .title-bar {
+  align-self: flex-start;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.col-panel-card .title-bar h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0;
+  padding: 0;
+  margin-right: 100px;
+}
+
+.col-panel-card .col-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin: 5px 0;
+}

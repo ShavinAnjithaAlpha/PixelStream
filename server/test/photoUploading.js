@@ -1,45 +1,6 @@
 const axios = require("axios");
 const fs = require("fs");
 
-const directoryPath = "C:\\Users\\User\\Downloads\\public";
-
-function getRandomTitle() {
-  const titles = [
-    "Majestic Waterfalls",
-    "Enchanting Sunsets",
-    "Urban Exploration",
-    "Captivating Landscapes",
-    "Colorful Adventures",
-    "Hidden Treasures",
-    "Mountain Majesty",
-    "Coastal Serenity",
-    "Whispering Woods",
-    "Architectural Marvels",
-    "Tranquil Waters",
-    "Rural Charm",
-    "Aerial Perspectives",
-    "Historical Wonders",
-    "Dreamy Skies",
-    "Wildlife Encounters",
-    "Artistic Expressions",
-    "Magical Moments",
-    "Reflective Beauty",
-    "Thrilling Expeditions",
-    "Charming Streets",
-    "Serenity Unleashed",
-    "Exquisite Details",
-    "Dramatic Horizons",
-    "Peaceful Retreats",
-    "Dynamic Cityscapes",
-    "Whimsical Delights",
-    "Timeless Elegance",
-    "Natural Marvels",
-    "Architectural Gems",
-  ];
-
-  return titles[Math.floor(Math.random() * titles.length)];
-}
-
 function getRandomDescription() {
   const descriptions = [
     "A breathtaking photo that captures the essence of the moment.",
@@ -78,6 +39,185 @@ function getRandomDescription() {
   return descriptions[Math.floor(Math.random() * descriptions.length)];
 }
 
+function getRandomTitle() {
+  const titles = [
+    "Majestic Waterfalls",
+    "Enchanting Sunsets",
+    "Urban Exploration",
+    "Captivating Landscapes",
+    "Colorful Adventures",
+    "Hidden Treasures",
+    "Mountain Majesty",
+    "Coastal Serenity",
+    "Whispering Woods",
+    "Architectural Marvels",
+    "Tranquil Waters",
+    "Rural Charm",
+    "Aerial Perspectives",
+    "Historical Wonders",
+    "Dreamy Skies",
+    "Wildlife Encounters",
+    "Artistic Expressions",
+    "Magical Moments",
+    "Reflective Beauty",
+    "Thrilling Expeditions",
+    "Charming Streets",
+    "Serenity Unleashed",
+    "Exquisite Details",
+    "Dramatic Horizons",
+    "Peaceful Retreats",
+    "Dynamic Cityscapes",
+    "Whimsical Delights",
+    "Timeless Elegance",
+    "Natural Marvels",
+    "A breathtaking photo",
+    "An awe-inspiring scene",
+    "A picture-perfect moment",
+    "A visual masterpiece",
+    "A stunning display",
+    "An enchanting image",
+    "A captivating view",
+    "A work of art",
+    "A mesmerizing photo",
+    "A snapshot of serenity",
+    "A glimpse into a world",
+    "A visual feast",
+    "A moment of bliss",
+    "A striking image",
+    "A testament to photography",
+    "A window into imagination",
+    "A picture that speaks",
+    "A sight that takes breath away",
+    "A reminder of beauty",
+    "A snapshot of a moment",
+    "A visual symphony",
+    "A photo that captures",
+    "A glimpse into the extraordinary",
+    "A celebration of the ordinary",
+    "A visual journey",
+    "A moment of joy",
+    "A reflection of the world",
+    "A testament to observation",
+    "A reminder of beauty in details",
+    "A snapshot of life",
+    "A visual escape",
+    "A Captivating Moment",
+    "Exploring the Unknown",
+    "The Beauty of Nature",
+    "Architectural Marvels",
+    "Journey Through Time",
+    "Delicious Delights",
+    "Urban Landscapes",
+    "Wildlife Wonders",
+    "Sun, Sand, and Sea",
+    "Majestic Mountains",
+    "Colors of the Sky",
+    "Magic in the City",
+    "Faces and Expressions",
+    "Adventures in the Wilderness",
+    "Cultural Treasures",
+    "Serenity by the Shore",
+    "The Spirit of Adventure",
+    "A Glimpse of History",
+    "The Art of Cuisine",
+    "Hidden Gems",
+    "The Golden Hour",
+    "Nature's Masterpieces",
+    "City Lights",
+    "Creatures of the Wild",
+    "Tropical Paradise",
+    "Ancient Wonders",
+    "The Joy of Travel",
+    "Aerial Perspectives",
+    "The Power of Water",
+    "Iconic Landmarks",
+    "The Majesty of Nature",
+    "The Wonder of Wildlife",
+    "Whispering Breezes",
+    "Mystical Forests",
+    "Urban Adventures",
+    "Vibrant Colors",
+    "Hidden Gems",
+    "Mountain Escapes",
+    "Coastal Bliss",
+    "Enchanting Woods",
+    "Architectural Wonders",
+    "Tranquil Lakes",
+    "Rustic Charm",
+    "Aerial Views",
+    "Historical Marvels",
+    "Dreamy Landscapes",
+    "Wildlife Wonders",
+    "Artistic Creations",
+    "Magical Moments",
+    "Reflective Serenity",
+    "Thrilling Journeys",
+    "Charming Streets",
+    "Serenity Unleashed",
+    "Exquisite Details",
+    "Dramatic Skies",
+    "Peaceful Retreats",
+    "Dynamic Cityscapes",
+    "Whimsical Delights",
+    "Timeless Beauty",
+    "Natural Wonders",
+    "Breathtaking Views",
+    "Inspiring Scenes",
+    "Picture-Perfect Moments",
+    "Visual Masterpieces",
+    "Stunning Displays",
+    "Enchanting Landscapes",
+    "Captivating Views",
+    "Artistic Marvels",
+    "Mesmerizing Beauty",
+    "Snapshot of Tranquility",
+    "Glimpse into Another World",
+    "Visual Feast",
+    "Blissful Moments",
+    "Striking Imagery",
+    "Photography at its Best",
+    "Window to Imagination",
+    "Speak Through Pictures",
+    "Breath-Taking Sights",
+    "Beauty in the Details",
+    "Life in a Snapshot",
+    "Escape through Visuals",
+    "Unforgettable Moments",
+    "Exploring the Unknown",
+    "Nature's Beauty",
+    "Architectural Marvels",
+    "Journey Through Time",
+    "Delicious Delights",
+    "Urban Landscapes",
+    "Wildlife Wonders",
+    "Sun, Sand, and Sea",
+    "Majestic Mountains",
+    "Colors of the Sky",
+    "Magic in the City",
+    "Faces and Expressions",
+    "Adventures in the Wilderness",
+    "Cultural Treasures",
+    "Serenity by the Shore",
+    "The Spirit of Adventure",
+    "A Glimpse of History",
+    "The Art of Cuisine",
+    "Hidden Gems",
+    "The Golden Hour",
+    "Nature's Masterpieces",
+    "City Lights",
+    "Creatures of the Wild",
+    "Tropical Paradise",
+    "Ancient Wonders",
+    "The Joy of Travel",
+    "Aerial Perspectives",
+    "The Power of Water",
+    "Iconic Landmarks",
+  ];
+
+  return titles[Math.floor(Math.random() * titles.length)];
+}
+const directoryPath = "C:\\Users\\User\\Downloads\\public";
+
 function getRandomLocation() {
   const locations = [
     "Paris, France",
@@ -111,6 +251,7 @@ function getRandomLocation() {
     "Victoria Falls, Zambia/Zimbabwe",
     "Pyramids of Giza, Egypt",
     "Niagara Falls, Canada/USA",
+    // Add more locations here
   ];
 
   return locations[Math.floor(Math.random() * locations.length)];
@@ -181,7 +322,23 @@ function getRandomTagArray() {
   return randomTags;
 }
 
-const photoData = [];
+function getRandomAuth() {
+  const auths = [
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtvbXVkaSIsInVzZXJJZCI6MiwiaWF0IjoxNzA3NjczNzA4LCJleHAiOjE3MDgwMzM3MDh9.SOkKgy3SmExCRX7HeX8LI2z2DPkzjOllQx7S98b7mwM",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNoYXZpbiIsInVzZXJJZCI6MSwiaWF0IjoxNzA3NjczNzM3LCJleHAiOjE3MDgwMzM3Mzd9.2bgLIKao9k6kDmedFPggqIC0yty84mGaf0ykjrNKJcE",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImthdmVlc2hhIiwidXNlcklkIjo0LCJpYXQiOjE3MDc2NzM3OTMsImV4cCI6MTcwODAzMzc5M30.ZV2qF5uKzWwBgf_kpAseEbdiNBCtFCT89QrJPB_TsWg",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImthdmVlc2hhLnNldyIsInVzZXJJZCI6NSwiaWF0IjoxNzA3NjczODIzLCJleHAiOjE3MDgwMzM4MjN9.07expf3NJjv8L-8o4bVRI-po3X7C57jyz0KH-yw8rjc",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik9yaW9uOSIsInVzZXJJZCI6MjEsImlhdCI6MTcwNzY3Mzg2NSwiZXhwIjoxNzA4MDMzODY1fQ.OzcYKe9apozYn9LADgYIO_LN1qeZ1q4FPy3wBIiQBYg",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkxleGk1OSIsInVzZXJJZCI6MTksImlhdCI6MTcwNzY3MzkxMSwiZXhwIjoxNzA4MDMzOTExfQ.KIfvXnkCiNF3QS464pmcmUlZptOYVYyWUMJ1sZSfROc",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imthc3VuLnVkYXJhIiwidXNlcklkIjoyOSwiaWF0IjoxNzA3NjczOTM1LCJleHAiOjE3MDgwMzM5MzV9.EwqAHeJeRPthCkpMC3hss9ashgsMuDkYFTu0AvZ-BRE",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik1ldGExOCIsInVzZXJJZCI6MTIsImlhdCI6MTcwNzY3Mzk2MiwiZXhwIjoxNzA4MDMzOTYyfQ.daDFKvAIsM1HcHOntnSsFukf09_P-UW_E9QWJb2h79o",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFkZGlzb243IiwidXNlcklkIjoxMSwiaWF0IjoxNzA3NjczOTk5LCJleHAiOjE3MDgwMzM5OTl9.3EXg05hFr5E4PN-7xqmce453hWfwyQfItSwESht5KVc",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkZlbGljaWExMiIsInVzZXJJZCI6MTQsImlhdCI6MTcwNzY3NDA0MCwiZXhwIjoxNzA4MDM0MDQwfQ.1sRK6ODIdXitloNTa5YWpsqZUtIeVy29blTQQMGtXUI",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IldpbGxhcmQxNyIsInVzZXJJZCI6MjAsImlhdCI6MTcwNzY3NDA4MiwiZXhwIjoxNzA4MDM0MDgyfQ.wfDYr7IWYLRnTTnNHzknZfvea8MYo9Y4fqUxYlTjf6k",
+  ];
+
+  return auths[Math.floor(Math.random() * auths.length)];
+}
 
 fs.readdir(directoryPath, (err, files) => {
   if (err) {
@@ -192,7 +349,7 @@ fs.readdir(directoryPath, (err, files) => {
   files.forEach(async (file) => {
     const filePath = `${directoryPath}/${file}`;
     // const fileData = fs.readFileSync(filePath);
-
+    console.log(filePath, " uploading started");
     try {
       const response = await axios.put(
         "http://localhost:5000/api/photos/",
@@ -205,8 +362,7 @@ fs.readdir(directoryPath, (err, files) => {
         },
         {
           headers: {
-            Authorization:
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InN1cHVuIiwidXNlcklkIjozLCJpYXQiOjE3MDU4MTU2OTMsImV4cCI6MTcwNjE3NTY5M30.glqeyVWTgtvNsLTNs9WtMn55ITOIDSjRu1NpioE6xT8",
+            Authorization: getRandomAuth(),
           },
         }
       );

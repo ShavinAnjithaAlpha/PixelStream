@@ -77,3 +77,10 @@
 .home-search button:hover {
   background-color: #0a5f8d;
 }
+
+.top-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
