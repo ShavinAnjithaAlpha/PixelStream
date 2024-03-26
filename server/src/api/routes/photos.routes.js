@@ -1,4 +1,5 @@
 const express = require("express");
+const multer = require("multer");
 const router = express.Router();
 const { authorize } = require("../middleware/auth");
 
@@ -18,6 +19,8 @@ const {
   isDisliked,
 } = require("../controllers/photos.controller");
 
+const fileUpload = multer();
+
 // endpoint for access the photos in various ways
 router.get("/", getPhotos);
 router.get("/random", getRandomPhoto); // TODO: finish this
@@ -27,7 +30,7 @@ router.get("/:id/statistics", getPhotoStat);
 router.get("/:id/download", authorize, downloadPhoto);
 router.get("/:id/get", downloadWithoutUser);
 // endpoint for the upload a photo
-router.put("/", authorize, uploadPhoto);
+router.put("/", authorize, fileUpload.single("file"), uploadPhoto);
 // endpoint for like and dislike a photo
 router.post("/:id/like", authorize, likeAPhoto);
 router.post("/:id/dislike", authorize, dislikeAPhoto);

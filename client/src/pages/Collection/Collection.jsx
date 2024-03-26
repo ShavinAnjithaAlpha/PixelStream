@@ -11,10 +11,23 @@ function Collection() {
   const [collection, setCollection] = useState({});
   const [photos, setPhotos] = useState([]);
 
-  const options = [
-    { value: "chocolate", label: "Chocolate" },
-    { value: "strawberry", label: "Strawberry" },
-    { value: "vanilla", label: "Vanilla" },
+  const filterByOptions = [
+    { value: "all", label: "All" },
+    { value: "landscape", label: "Landscape" },
+    { value: "portrait", label: "Portrait" },
+    { value: "square", label: "Square" },
+  ];
+
+  const sortByOptions = [
+    { value: "latest", label: "Latest" },
+    { value: "oldest", label: "Oldest" },
+    { value: "popular", label: "Popular" },
+  ];
+
+  const orientationOptions = [
+    { value: "landscape", label: "Landscape" },
+    { value: "portrait", label: "Portrait" },
+    { value: "square", label: "Square" },
   ];
 
   useEffect(() => {
@@ -33,7 +46,6 @@ function Collection() {
       .get(`collections/${id}/photo`)
       .then((res) => {
         setPhotos(res.data);
-        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -66,17 +78,17 @@ function Collection() {
 
         <div className="option-bar">
           <Select
-            options={options}
+            options={filterByOptions}
             placeholder="Filter By"
             className="option-box"
           />
           <Select
-            options={options}
+            options={sortByOptions}
             placeholder="Sort By"
             className="option-box"
           />
           <Select
-            options={options}
+            options={orientationOptions}
             placeholder="Orientation"
             className="option-box"
           />

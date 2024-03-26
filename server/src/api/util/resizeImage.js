@@ -1,15 +1,16 @@
 const sharp = require("sharp");
 const fs = require("fs");
 
-async function resizeImage(inputFile, outputFile, width, height) {
+async function resizeImage(fileData, width, height) {
   try {
-    await sharp(inputFile)
+    const outputBuffer = await sharp(fileData)
       .resize(width, height, {
         fit: "inside",
         withoutEnlargement: true,
       })
-      .toFile(outputFile);
-    return true;
+      .toBuffer();
+
+    return outputBuffer;
   } catch (err) {
     return false;
   }

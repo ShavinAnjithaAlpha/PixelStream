@@ -15,7 +15,6 @@ function UserCard({ user }) {
       .get(`/users/${user.UserAuth.userName}/photos?limit=3`)
       .then((res) => {
         setUserPhotos(res.data.photos);
-        console.log(res.data.photos);
       })
       .catch((err) => {
         console.log(err);
@@ -24,7 +23,7 @@ function UserCard({ user }) {
 
   const gotoUser = (e) => {
     // navigate to the user profile page
-    navigate(`/users/${user.UserAuth.userName}`);
+    navigate(`/user/${user.UserAuth.userName}`);
   };
 
   return (
@@ -47,10 +46,13 @@ function UserCard({ user }) {
         {userPhotos &&
           userPhotos.map((photo) => (
             <img
-              src={photo.photoUrl}
+              src={
+                photo.resizedPhotoUrl ? photo.resizedPhotoUrl : photo.photoUrl
+              }
               alt={photo.photoTitle}
               width={50}
               height={50}
+              loading="lazy"
             />
           ))}
 

@@ -1,6 +1,6 @@
 import React from "react";
-import SettingsIcon from "@mui/icons-material/Settings";
 import "./SettingTile.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function SettingTile({
   key,
@@ -26,7 +26,7 @@ function SettingTile({
       className={`setting-tile ${isActive ? "selected" : ""}`}
       onClick={handleClick}
     >
-      <SettingsIcon width={50} />
+      <FontAwesomeIcon icon={icon} />
       <h1>{title}</h1>
     </div>
   );

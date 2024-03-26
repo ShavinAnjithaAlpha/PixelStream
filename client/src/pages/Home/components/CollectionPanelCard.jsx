@@ -19,8 +19,9 @@ function CollectionPanelCard({ collection }) {
             : collection.Photo && collection.Photo.photoUrl
         }
         alt={collection.collectionName}
-        width={50}
-        height={50}
+        loading="lazy"
+        width={35}
+        height={35}
       />
       <div className="content">
         <h3>{collection.collectionName}</h3>

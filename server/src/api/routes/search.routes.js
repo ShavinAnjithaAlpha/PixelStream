@@ -13,6 +13,6 @@ const {
 
 router.get("/photos", validateSearchPhoto, searchPhoto);
 router.get("/collections", validateSearchCollection, searchCollection);
-router.get("/users", searchUsers); // TODO: implement this
+router.get("/users", searchUsers);
 
 module.exports = router;

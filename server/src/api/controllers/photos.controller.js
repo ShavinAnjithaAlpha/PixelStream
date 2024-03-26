@@ -103,23 +103,26 @@ async function uploadPhoto(req, res) {
     return res.status(400).send(error.details[0].message);
   }
 
+  const file = req.file; // get the uploaded file
+  // check whether the file is uploaded
+  if (!file) return res.status(400).send("No file uploaded");
+
   // now extract the necessary meta data from the uploaded image file
-  const metadata = await extractMetaData(req.body.url);
+  const metadata = await extractMetaData(file.buffer);
   if (metadata.error) {
     // if there is an error in extracting the meta data, then response with the error message
     return res.status(400).send(metadata.error);
   }
-
   // upload the file to the azure blob storage account
-  const photoUrl = await uploadFileToBlob(req.body.url);
-  const resizePhotoUrl = await uploadResizedImage(req.body.url);
+  const photoUrl = await uploadFileToBlob(file);
+  const resizePhotoUrl = await uploadResizedImage(file);
+
   if (photoUrl.error || resizePhotoUrl.error)
     return res.status(400).send(photoUrl.error);
 
   // change the request body url to the azure blob storage url
   req.body.url = photoUrl;
   req.body.resizedPhotoUrl = resizePhotoUrl;
-
   // now build the photo instance to be saved in the database and save to the database
   const photo = await createPhoto(req.body, metadata, req.user);
 

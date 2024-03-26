@@ -7,6 +7,7 @@ import UserProfile from "./UserProfile/UserProfile";
 import Collection from "./Collection/Collection";
 import Search from "./Search/Search";
 import AccountSettings from "./AccountSettings/AccountSettings";
+import UploadImages from "./UploadImages/UploadImages";
 
 export {
   Home,
@@ -18,4 +19,5 @@ export {
   Collection,
   Search,
   AccountSettings,
+  UploadImages,
 };

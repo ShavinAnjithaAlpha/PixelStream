@@ -1,11 +1,9 @@
 const exif = require("exiftool");
-const fs = require("fs");
 
-async function extractMetaData(fileUrl) {
+async function extractMetaData(fileData) {
   try {
-    const data = await fs.promises.readFile(fileUrl);
     try {
-      const metadata = await exifPromise(data);
+      const metadata = await exifPromise(fileData);
       return {
         fileSize: calculateBytes(metadata.fileSize) || 0,
         resolution: calculateResolution(metadata),

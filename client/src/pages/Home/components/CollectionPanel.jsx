@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import CollectionPanelCard from "./CollectionPanelCard";
 import axios from "../../../axios";
 import "./CollectionPanel.css";
+import { Link } from "react-router-dom";
 
 function CollectionPanel() {
   const [collections, setCollections] = useState([]);
@@ -12,7 +13,6 @@ function CollectionPanel() {
       .get(`collections?limit=5`)
       .then((res) => {
         setCollections(res.data);
-        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -23,7 +23,7 @@ function CollectionPanel() {
     <div className="col-panel-card">
       <div className="title-bar">
         <h3>Collections</h3>
-        <p>View All</p>
+        <Link to={"/"}>View All</Link>
       </div>
       <div className="col-list">
         {collections.map((collection) => (

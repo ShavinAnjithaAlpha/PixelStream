@@ -88,6 +88,7 @@ function PhotoCard({ photo }) {
               }`}
               alt="Default profile icon"
               src={defaultProfileIcon} // TODO: fix this
+              loading="lazy"
             />
           </div>
         </div>

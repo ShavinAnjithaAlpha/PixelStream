@@ -14,24 +14,24 @@ const containerName = process.env.BLOB_CONTAINER_NAME;
 const WIDTH = 1000;
 const HEIGHT = 800;
 
-function getNormalBlobName(filePath) {
-  return Date.now() + "_" + uuidv4() + "_" + path.basename(filePath);
+function getNormalBlobName(fileName) {
+  return Date.now() + "_" + uuidv4() + "_" + fileName;
 }
 
-function getResizedBlobName(filePath, tailName) {
+function getResizedBlobName(fileName, tailName) {
   return (
     Date.now() +
     "_" +
     uuidv4() +
     "_" +
-    path.basename(filePath, path.extname(filePath)) +
+    path.basename(fileName, path.extname(fileName)) +
     "-" +
     tailName +
-    path.extname(filePath)
+    path.extname(fileName)
   );
 }
 
-function getResizedOutputFile(filePath) {
+function getResizedOutputFile(fileName) {
   return (
     path.dirname(filePath) +
     "\\" +
@@ -41,20 +41,19 @@ function getResizedOutputFile(filePath) {
   );
 }
 
-async function uploadFileToBlob(filePath) {
+async function uploadFileToBlob(file) {
   try {
     const containerClient = blobServiceClient.getContainerClient(containerName);
 
     // make a unique name for the uploaded blob
-    const blobName = getNormalBlobName(filePath);
+    const blobName = getNormalBlobName(file.originalname);
 
     const blockBlobClient = containerClient.getBlockBlobClient(blobName);
-    const fileStream = fs.createReadStream(filePath);
 
     // upload the file to the blob storage
-    const uploadBlobResponse = await blockBlobClient.uploadStream(
-      fileStream,
-      fs.statSync(filePath).size
+    const uploadBlobResponse = await blockBlobClient.uploadData(
+      file.buffer,
+      file.size
     );
 
     return generateBlobUrl(blobName);
@@ -63,29 +62,22 @@ async function uploadFileToBlob(filePath) {
   }
 }
 
-async function uploadResizedImage(filePath) {
+async function uploadResizedImage(file) {
   try {
     const containerClient = blobServiceClient.getContainerClient(containerName);
 
     // make a unique name for the uploaded blob
-    const blobName = getResizedBlobName(filePath, "thumb");
+    const blobName = getResizedBlobName(file.originalname, "thumb");
 
     const blockBlobClient = containerClient.getBlockBlobClient(blobName);
-
-    // get the output file path to be uploaded
-    const outputFile = getResizedOutputFile(filePath);
     // lets resize the image using resizing function
-    const status = await resizeImage(filePath, outputFile, WIDTH, HEIGHT);
-
-    const fileStream = fs.createReadStream(outputFile);
-
-    if (status) {
+    const resizedImage = await resizeImage(file.buffer, WIDTH, HEIGHT);
+    if (resizedImage) {
       // upload the file to the blob storage
-      const uploadBlobResponse = await blockBlobClient.uploadStream(
-        fileStream,
-        fs.statSync(filePath).size
+      const uploadBlobResponse = await blockBlobClient.uploadData(
+        resizedImage.buffer,
+        resizedImage.size
       );
-
       return generateBlobUrl(blobName);
     } else {
       return { error: "error while image processing." };

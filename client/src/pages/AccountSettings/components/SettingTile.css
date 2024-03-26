@@ -13,7 +13,11 @@
 }
 
 .setting-tile:hover {
-  background-color: #087dca22;
+  background-color: #087cca65;
+}
+.setting-tile:hover h1 {
+  color: #ffffff;
+  transition: all 0.2s ease-in-out;
 }
 
 .setting-tile h1 {
@@ -34,14 +38,14 @@
 }
 
 .selected {
-  background-color: #087dca33;
+  background-color: #096aabd4;
 }
 
 .selected:hover {
-  background-color: #087dca44;
+  background-color: #087ccab3;
 }
 
 .selected h1 {
   font-weight: 900;
-  color: #087dca;
+  color: #ffffff;
 }

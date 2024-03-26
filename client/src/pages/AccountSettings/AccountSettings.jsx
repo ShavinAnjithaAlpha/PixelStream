@@ -2,6 +2,13 @@ import React, { useState } from "react";
 import SettingsBar from "./components/SettingsBar";
 import ProfileDetails from "./sections/ProfileDetails";
 import "./AccountSettings.css";
+import {
+  faComment,
+  faEnvelope,
+  faMoneyBill,
+  faShieldHalved,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
 
 function AccountSettings() {
   const initialSettings = [
@@ -9,31 +16,31 @@ function AccountSettings() {
       key: 1,
       title: "Profile Details",
       description: "General settings",
-      icon: "general-icon",
+      icon: faUser,
     },
     {
       key: 2,
       title: "Email",
       description: "Privacy settings",
-      icon: "privacy-icon",
+      icon: faEnvelope,
     },
     {
       key: 3,
       title: "Privacy",
       description: "Password and Security settings",
-      icon: "notifications-icon",
+      icon: faShieldHalved,
     },
     {
       key: 4,
       title: "Notifications",
       description: "Notification settings",
-      icon: "notifications-icon",
+      icon: faComment,
     },
     {
       key: 5,
       title: "Billing",
       description: "Billing settings",
-      icon: "billing-icon",
+      icon: faMoneyBill,
     },
   ];
 

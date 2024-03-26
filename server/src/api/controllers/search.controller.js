@@ -1,6 +1,7 @@
 const { validationResult } = require("express-validator");
 const { fetchPhotoFromQuery } = require("../services/photoTable");
 const { searchCollectionByQuery } = require("../services/collectionTable");
+const { fetchUsers } = require("../services/userTable");
 
 async function searchPhoto(req, res) {
   const errors = validationResult(req);
@@ -43,7 +44,26 @@ async function searchCollection(req, res) {
   });
 }
 
-function searchUsers(req, res) {}
+async function searchUsers(req, res) {
+  const error = validationResult(req);
+
+  if (!error.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  const query = req.query.query;
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
+
+  // get the users from the database according to the query
+  const users = await fetchUsers(query, page, limit);
+  return res.json({
+    users: users,
+    page: page,
+    limit: limit,
+    total: users.length,
+  });
+}
 
 module.exports = {
   searchPhoto,

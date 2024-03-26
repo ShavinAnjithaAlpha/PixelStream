@@ -12,3 +12,7 @@ GET {{host}}/api/search/photos?page=1&limit=10&query=s {{http}}
 ### search the collection by query
 @cquery = page=1&limit=10&query=s
 GET {{host}}/api/search/collections?{{cquery}} {{http}}
+
+### search the user by query
+@uquery = page=1&limit=10&query=sha
+GET {{host}}/api/search/users?{{uquery}} {{http}}

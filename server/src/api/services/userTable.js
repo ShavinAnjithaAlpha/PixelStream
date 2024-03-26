@@ -260,6 +260,27 @@ async function removeAccount(userId) {
   return true;
 }
 
+async function fetchUsers(query, page, limit) {
+  const users = await User.findAll({
+    where: {
+      [Op.or]: [
+        { firstName: { [Op.like]: `%${query}%` } },
+        { lastName: { [Op.like]: `%${query}%` } },
+      ],
+    },
+    offset: (page - 1) * limit,
+    limit: limit,
+    include: [
+      {
+        model: UserAuth,
+        attributes: ["userName", "email"],
+      },
+    ],
+  });
+
+  return users;
+}
+
 module.exports = {
   checkUserExists,
   createUser,
@@ -276,4 +297,5 @@ module.exports = {
   updateProfile,
   removeAccount,
   fetchUsers,
+  fetchUsers
 };
