@@ -13,7 +13,7 @@ function validatePhoto(data) {
 }
 function validateUserLikePhoto(data) {
   const schema = Joi.object({
-    photoIds: Joi.array().items(Joi.number().required()).required(),
+    photoIds: Joi.array().items(Joi.number()).optional(),
   });
 
   return schema.validate(data);

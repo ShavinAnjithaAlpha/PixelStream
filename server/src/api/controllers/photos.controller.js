@@ -266,7 +266,6 @@ async function getLikesOfUser(req, res) {
   if (error) {
     return res.status(400).send(error.details[0].message);
   }
-
   // get the user by user field
   const userId = req.user.userId;
 

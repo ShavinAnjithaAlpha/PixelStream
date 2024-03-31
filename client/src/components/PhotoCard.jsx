@@ -11,7 +11,7 @@ import {
 import { AuthContext } from "../contexts/auth.context";
 import "./PhotoCard.css";
 
-function PhotoCard({ photo, isLiked_ = false }) {
+function PhotoCard({ photo, isLiked_ }) {
   const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
   const { authState } = useContext(AuthContext);
@@ -123,7 +123,7 @@ function PhotoCard({ photo, isLiked_ = false }) {
               }}
             ></div>
             <div className={`div ${isHovered ? "show" : "not-show"}`}>
-              {photo.User && photo.User.fullName}
+              {photo.User && photo.User.fullName}{" "}
             </div>
             <img
               className={`default-profile-icon ${

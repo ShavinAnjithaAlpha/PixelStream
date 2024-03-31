@@ -39,7 +39,7 @@ router.delete("/:id/like", authorize, removeLikePhoto);
 router.post("/:id/dislike", authorize, dislikeAPhoto);
 router.get("/:id/like", authorize, isLiked);
 router.get("/:id/dislike", authorize, isDisliked);
-router.get("/likes", authorize, getLikesOfUser);
+router.post("/likes", authorize, getLikesOfUser);
 router.post("/:id/tags", authorize, addTags);
 router.get("/:id/tags", getTags);
 router.get("/:id", getPhotoById);
