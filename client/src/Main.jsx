@@ -11,6 +11,7 @@ import {
   Search,
   AccountSettings,
   UploadImages,
+  Collections,
 } from "./pages";
 import { AuthContext } from "./contexts/auth.context";
 import { Navbar, Footer } from "./layouts";
@@ -29,6 +30,7 @@ function Main() {
 
       <Routes>
         <Route path="/" exact element={<Home />} />
+        <Route path="/collections" exact element={<Collections />} />
         <Route path="/about" exact element={<About />} />
         <Route path="/photo/:id" exact element={<Photo />} />
         <Route path="/login" exact element={<Login />} />

@@ -25,7 +25,7 @@ function LikesTab({ username }) {
   return (
     <div className="like-photo-grid">
       {likePhotos.map((photo) => (
-        <PhotoCard key={photo.id} photo={photo} />
+        <PhotoCard key={photo.id} photo={photo} isLiked_={true} />
       ))}
     </div>
   );

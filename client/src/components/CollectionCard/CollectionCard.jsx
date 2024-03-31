@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Tag } from "../Tag/Tag";
+import CollectionDefaultImage from "../../../public/assets/img/image-gallery.png";
 import "./CollectionCard.css";
 
 function CollectionCard({ collection }) {
@@ -20,6 +21,9 @@ function CollectionCard({ collection }) {
             alt={collection.Photo.photoTitle}
             width={500}
             height={300}
+            onError={(e) => {
+              e.target.src = CollectionDefaultImage;
+            }}
           ></img>
         )}
       </div>

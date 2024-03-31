@@ -1,12 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import PhotoGrid from "../../../components/PhotoGrid";
-import axios from "../../../axios";
 
 function PhotoTab({ photos }) {
   return (
-    <div>
-      <PhotoGrid photos={photos} />
-    </div>
+    <>
+      {photos.length === 0 && (
+        <div className="no-photos">
+          <h1>No photos</h1>
+        </div>
+      )}
+
+      <div>
+        <PhotoGrid photos={photos} />
+      </div>
+    </>
   );
 }
 

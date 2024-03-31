@@ -19,11 +19,22 @@ function CollectionTab({ username }) {
   }, [username]);
 
   return (
-    <div className="profile-collection-grid">
-      {collections.map((collection) => (
-        <CollectionCard key={collection.collectionId} collection={collection} />
-      ))}
-    </div>
+    <>
+      {!collections.length && (
+        <div className="no-collections">
+          <h1>No collections</h1>
+        </div>
+      )}
+
+      <div className="profile-collection-grid">
+        {collections.map((collection) => (
+          <CollectionCard
+            key={collection.collectionId}
+            collection={collection}
+          />
+        ))}
+      </div>
+    </>
   );
 }
 

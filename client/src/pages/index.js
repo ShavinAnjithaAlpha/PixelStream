@@ -1,4 +1,5 @@
 import Home from "./Home/Home";
+import Collections from "./Collections/Collections";
 import Login from "./Login/Login";
 import Registration from "./Registration/Registration";
 import Photo from "./Photo/Photo";
@@ -11,6 +12,7 @@ import UploadImages from "./UploadImages/UploadImages";
 
 export {
   Home,
+  Collections,
   Login,
   Registration,
   Photo,

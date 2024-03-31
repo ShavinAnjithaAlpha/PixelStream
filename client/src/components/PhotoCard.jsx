@@ -9,6 +9,8 @@ import {
   faArrowDown,
 } from "@fortawesome/free-solid-svg-icons";
 import { AuthContext } from "../contexts/auth.context";
+import Popup from "reactjs-popup";
+import "reactjs-popup/dist/index.css";
 import "./PhotoCard.css";
 
 function PhotoCard({ photo, isLiked_ }) {
@@ -113,6 +115,10 @@ function PhotoCard({ photo, isLiked_ }) {
             <div className="plus-wrapper">
               <FontAwesomeIcon icon={faPlus} size="xl" />
             </div>
+            <Popup trigger={<button> Trigger</button>} position="right center">
+              <div>Popup content here !!</div>
+            </Popup>
+
             <div className={`text-wrapper ${isHovered ? "show" : "not-show"}`}>
               {photo.photoTitle}
             </div>

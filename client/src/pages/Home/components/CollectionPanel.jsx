@@ -23,7 +23,7 @@ function CollectionPanel() {
     <div className="col-panel-card">
       <div className="title-bar">
         <h3>Collections</h3>
-        <Link to={"/"}>View All</Link>
+        <Link to={"/collections"}>View All</Link>
       </div>
       <div className="col-list">
         {collections.map((collection) => (
