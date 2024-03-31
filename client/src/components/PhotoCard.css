@@ -32,6 +32,7 @@
   top: 10px;
   transition: all 0.1s ease-in-out;
   cursor: pointer;
+  z-index: 1;
 }
 
 .photo-card .overlap:hover {
@@ -60,6 +61,7 @@
   top: 355px;
   transition: all 0.1s ease-in-out;
   cursor: pointer;
+  z-index: 1;
 }
 
 .photo-card .down-wrapper:hover {
@@ -79,10 +81,20 @@
   top: 10px;
   transition: all 0.1s ease-in-out;
   cursor: pointer;
+  z-index: 1;
 }
 
 .photo-card .plus-wrapper:hover {
   background-color: white;
+}
+
+.photo-card .click-wrapper {
+  background: transparent;
+  position: absolute;
+  top: 50px;
+  left: 0;
+  width: 300px;
+  height: 300px;
 }
 
 .photo-card .text-wrapper {

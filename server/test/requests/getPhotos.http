@@ -61,3 +61,15 @@ Content-Type: {{contentType}}
 GET {{host}}/api/photos/{{islikedphotoId}}/like {{http}}
 Content-Type: {{contentType}}
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNoYXZpbiIsInVzZXJJZCI6MSwiaWF0IjoxNzA3NTg3OTYyLCJleHAiOjE3MDc5NDc5NjJ9._yKRsLyJf6zJ9x2IpVDMVzP-09HS55h2Dszlyt-9HZw
+
+
+### get user likes
+@userlikeId = 1
+@userToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtvbXVkaSIsInVzZXJJZCI6MiwiaWF0IjoxNzExOTA2ODYwLCJleHAiOjE3MTIyNjY4NjB9.BQ-X2YBhx3-OmUBnsNRKLhPEnWZqYtb4y9h_SbF49qI
+GET {{host}}/api/photos/likes {{http}}
+Content-Type: {{contentType}}
+Authorization: {{userToken}}
+
+{
+    "photoIds": [250, 251, 252, 253, 254, 255, 256, 257, 258, 259, 260]
+}

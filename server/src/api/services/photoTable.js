@@ -429,6 +429,35 @@ async function isLikePhotos(photo_ids, user_id) {
   return userLike;
 }
 
+async function userLikePhotos(photo_ids, user_id) {
+  const userLike = await UserLikes.findAll({
+    where: {
+      photoId: {
+        [Op.in]: photo_ids,
+      },
+      userId: user_id,
+    },
+    attributes: ["photoId"],
+  });
+
+  return userLike;
+}
+
+async function removeLikeFromPhoto(photoId, userId) {
+  const userLike = await UserLikes.findOne({
+    where: {
+      photoId: photoId,
+      userId: userId,
+    },
+  });
+
+  if (userLike) {
+    await userLike.destroy();
+    return { status: true };
+  }
+  return { status: false };
+}
+
 module.exports = {
   fetchPhotos,
   fetchPhotoStat,
@@ -446,4 +475,6 @@ module.exports = {
   isLikedAPhoto,
   isLikePhotos,
   isDislikeAPhoto,
+  userLikePhotos,
+  removeLikeFromPhoto,
 };

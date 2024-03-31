@@ -22,9 +22,9 @@ function App() {
     <SearchContextProvider>
       <AuthContext.Provider value={{ authState, setAuthState }}>
         <Router>
-          <ReactLenis root>
+          {/* <ReactLenis root> */}
             <Main />
-          </ReactLenis>
+          {/* </ReactLenis> */}
         </Router>
       </AuthContext.Provider>
     </SearchContextProvider>

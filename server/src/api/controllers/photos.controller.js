@@ -1,4 +1,7 @@
-const { validatePhoto } = require("../validations/photo");
+const {
+  validatePhoto,
+  validateUserLikePhoto,
+} = require("../validations/photo");
 const { validateTagBody } = require("../validations/tags");
 const { extractMetaData } = require("../util/extractMetaData");
 const {
@@ -20,9 +23,12 @@ const {
   isLikedAPhoto,
   isLikePhotos,
   isDislikeAPhoto,
+  userLikePhotos,
+  removeLikeFromPhoto,
 } = require("../services/photoTable");
 const { addTagsToAPhoto, fetchTags } = require("../services/tagTable");
 const { filterTagNames } = require("../util/filterTagNames");
+const { getLikesOfUsers } = require("./users.controller");
 
 async function getPhotos(req, res) {
   // first get the page and limit query parameters also order by if exists
@@ -254,6 +260,43 @@ async function isDisliked(req, res) {
   res.json(result);
 }
 
+async function getLikesOfUser(req, res) {
+  // first validate the request body
+  const { error } = validateUserLikePhoto(req.body);
+  if (error) {
+    return res.status(400).send(error.details[0].message);
+  }
+
+  // get the user by user field
+  const userId = req.user.userId;
+
+  // get the likes of the user
+  const likedPhotos = await userLikePhotos(req.body.photoIds, userId);
+
+  // extract the photo ids of the liked photos
+  const likedPhotoIds = [];
+  likedPhotos.forEach((photo) => {
+    likedPhotoIds.push(photo.photoId);
+  });
+
+  return res.json({
+    photos: likedPhotoIds,
+    length: likedPhotos.length,
+  });
+}
+
+async function removeLikePhoto(req, res) {
+  // get the photo id to removed from the liked photos
+  const photoId = parseInt(req.params.id);
+  // get the user id who liked the photo
+  const userId = req.user.userId;
+
+  // now remove the like from the photo
+  const result = await removeLikeFromPhoto(photoId, userId);
+
+  if (result.status) return res.json(result);
+}
+
 module.exports = {
   getPhotos,
   getPhotoById,
@@ -268,4 +311,6 @@ module.exports = {
   getTags,
   isLiked,
   isDisliked,
+  getLikesOfUser,
+  removeLikePhoto,
 };

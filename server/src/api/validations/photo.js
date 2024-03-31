@@ -11,7 +11,15 @@ function validatePhoto(data) {
 
   return photoSchema.validate(data);
 }
+function validateUserLikePhoto(data) {
+  const schema = Joi.object({
+    photoIds: Joi.array().items(Joi.number().required()).required(),
+  });
+
+  return schema.validate(data);
+}
 
 module.exports = {
   validatePhoto,
+  validateUserLikePhoto,
 };

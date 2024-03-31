@@ -17,6 +17,8 @@ const {
   getTags,
   isLiked,
   isDisliked,
+  getLikesOfUser,
+  removeLikePhoto,
 } = require("../controllers/photos.controller");
 
 const fileUpload = multer();
@@ -33,9 +35,11 @@ router.get("/:id/get", downloadWithoutUser);
 router.put("/", authorize, fileUpload.single("file"), uploadPhoto);
 // endpoint for like and dislike a photo
 router.post("/:id/like", authorize, likeAPhoto);
+router.delete("/:id/like", authorize, removeLikePhoto);
 router.post("/:id/dislike", authorize, dislikeAPhoto);
 router.get("/:id/like", authorize, isLiked);
 router.get("/:id/dislike", authorize, isDisliked);
+router.get("/likes", authorize, getLikesOfUser);
 router.post("/:id/tags", authorize, addTags);
 router.get("/:id/tags", getTags);
 router.get("/:id", getPhotoById);
