@@ -1,17 +1,19 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../../axios";
-import "./Home.css";
 import PhotoGrid from "../../components/PhotoGrid";
 import PageNavigationBar from "../../components/PageNavigationBar/PageNavigationBar";
 import TopicBar from "../../components/TopicBar/TopicBar";
 import { useEffect, useState, useContext } from "react";
 import { SearchContext } from "../../contexts/search.context";
 import CollectionPanel from "./components/CollectionPanel";
+import AddToCollectionBox from "../../components/AddToCollectionBox/AddToCollectionBox";
+import "./Home.css";
 
 function Home() {
   const navigate = useNavigate();
   const [photos, setPhotos] = useState([]);
+  const [addCollectionBox, setAddCollectionBox] = useState(false);
   const { setSearchKeyword } = useContext(SearchContext);
 
   useEffect(() => {
@@ -73,7 +75,7 @@ function Home() {
         <CollectionPanel />
       </div>
 
-      <PhotoGrid photos={photos} />
+      <PhotoGrid photos={photos} addCollection={setAddCollectionBox} />
       <div className="page-bar">
         <PageNavigationBar
           max={100}
@@ -82,6 +84,12 @@ function Home() {
           savedPage={parseInt(localStorage.getItem("page-photo")) || 1}
         />
       </div>
+
+      {addCollectionBox && (
+        <div className="add-collection-popup">
+          <AddToCollectionBox setClose={setAddCollectionBox} />
+        </div>
+      )}
     </div>
   );
 }

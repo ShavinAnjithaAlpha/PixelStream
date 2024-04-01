@@ -13,7 +13,7 @@ import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import "./PhotoCard.css";
 
-function PhotoCard({ photo, isLiked_ }) {
+function PhotoCard({ photo, isLiked_, addCollection }) {
   const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
   const { authState } = useContext(AuthContext);
@@ -116,16 +116,10 @@ function PhotoCard({ photo, isLiked_ }) {
                 />
               </div>
             </a>
-            <Popup
-              trigger={
-                <div className="plus-wrapper">
-                  <FontAwesomeIcon icon={faPlus} size="xl" />
-                </div>
-              }
-              position={["bottom center", "top center"]}
-            >
-              <div>Popup content here !!</div>
-            </Popup>
+
+            <div className="plus-wrapper" onClick={(e) => addCollection(true)}>
+              <FontAwesomeIcon icon={faPlus} size="xl" />
+            </div>
 
             <div className={`text-wrapper ${isHovered ? "show" : "not-show"}`}>
               {photo.photoTitle}

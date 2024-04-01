@@ -1,0 +1,29 @@
+.add-collection-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 20px;
+  width: 200px;
+  height: 150px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
+  background-color: none;
+  position: relative;
+  transition: all 0.2s ease-in-out;
+}
+
+.add-collection-card:hover {
+  background-color: #f5f5f5;
+  cursor: pointer;
+  filter: brightness(0.7);
+}
+
+.add-collection-card h1 {
+  font-size: 1rem;
+  margin-top: 1rem;
+  color: white;
+  font-size: 600;
+}

@@ -4,7 +4,7 @@ import axios from "../axios";
 import { AuthContext } from "../contexts/auth.context";
 import "./PhotoGrid.css";
 
-function PhotoGrid({ photos }) {
+function PhotoGrid({ photos, addCollection }) {
   const { authState } = useContext(AuthContext);
   const [likedPhotos, setLikedPhotos] = useState([]);
   const [status, setStatus] = useState(false);
@@ -54,6 +54,7 @@ function PhotoGrid({ photos }) {
               photo={photo}
               key={photo.photoId}
               isLiked_={isLiked(photo.photoId)}
+              addCollection={addCollection}
             />
           ))}
       </div>
