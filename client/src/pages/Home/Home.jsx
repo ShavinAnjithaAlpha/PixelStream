@@ -15,8 +15,14 @@ function Home() {
   const { setSearchKeyword } = useContext(SearchContext);
 
   useEffect(() => {
+    // load the loclal storage data for paging the photos
+    let page = 1;
+    if (localStorage.getItem("page-photo")) {
+      page = parseInt(localStorage.getItem("page-photo"));
+    }
+
     axios
-      .get("/photos?limit=18")
+      .get(`/photos?limit=18&page=${page}`)
       .then((res) => {
         setPhotos(res.data);
       })
@@ -30,6 +36,8 @@ function Home() {
       .get(`/photos?limit=18&page=${page}`)
       .then((res) => {
         setPhotos(res.data);
+        // save the page to the local storage
+        localStorage.setItem("page-photo", page);
       })
       .catch((err) => {
         console.log(err);
@@ -71,6 +79,7 @@ function Home() {
           max={100}
           limit={5}
           handlePageChange={handlePageChange}
+          savedPage={parseInt(localStorage.getItem("page-photo")) || 1}
         />
       </div>
     </div>

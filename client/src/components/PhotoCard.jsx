@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../axios";
 import defaultProfileIcon from "../assets/img/default-profile-icon.png";
@@ -18,6 +18,10 @@ function PhotoCard({ photo, isLiked_ }) {
   const [isHovered, setIsHovered] = useState(false);
   const { authState } = useContext(AuthContext);
   const [isLiked, setIsLiked] = useState(isLiked_);
+
+  useEffect(() => {
+    setIsLiked(isLiked_);
+  }, [isLiked_]);
 
   // function for download photo
   const downloadPhoto = () => {
@@ -112,10 +116,14 @@ function PhotoCard({ photo, isLiked_ }) {
                 />
               </div>
             </a>
-            <div className="plus-wrapper">
-              <FontAwesomeIcon icon={faPlus} size="xl" />
-            </div>
-            <Popup trigger={<button> Trigger</button>} position="right center">
+            <Popup
+              trigger={
+                <div className="plus-wrapper">
+                  <FontAwesomeIcon icon={faPlus} size="xl" />
+                </div>
+              }
+              position={["bottom center", "top center"]}
+            >
               <div>Popup content here !!</div>
             </Popup>
 

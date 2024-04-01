@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import PageButton from "./PageButton";
 import "./PageNavigationBar.css";
 
-function PageNavigationBar({ max, limit, handlePageChange }) {
+function PageNavigationBar({ max, limit, handlePageChange, savedPage }) {
   const [prevEnabled, setPrevEnabled] = useState(false);
   const [nextEnabled, setNextEnabled] = useState(true);
   const [range, setRange] = useState({
     start: 1,
     end: limit,
   });
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(savedPage);
 
   const handlePrev = (e) => {
     // handle the prev button case when the start is 1

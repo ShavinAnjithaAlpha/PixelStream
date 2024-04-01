@@ -42,8 +42,8 @@ function PhotoGrid({ photos }) {
   return (
     <>
       {!status && (
-        <div class="loading-state">
-          <div class="loading"></div>
+        <div className="loading-state">
+          <div className="loading"></div>
         </div>
       )}
 
