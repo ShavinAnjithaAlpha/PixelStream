@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "../../axios";
 import { StatCard } from "./components/StatCard";
 import { DownloadButton } from "./components/DownloadButton";
@@ -8,9 +8,6 @@ import { TagBar } from "./components/TagBar";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import CameraIcon from "@mui/icons-material/Camera";
-import favoriteIcon from "../../assets/img/icons8-favorite-96.png";
-import dislikeIcon from "../../assets/img/icons8-dislike-96.png";
-import plusIcon from "../../assets/img/icons8-plus-96.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHeart,
@@ -22,6 +19,7 @@ import "./Photo.css";
 
 function Photo() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { authState } = useContext(AuthContext);
   const [photo, setPhoto] = useState({});
   const [tags, setTags] = useState([]);
@@ -41,27 +39,150 @@ function Photo() {
       setTags(res.data);
     });
 
-    if (localStorage.getItem("token")) {
+    if (authState.status) {
       axios
         .get(`/photos/${id}/like`, {
           headers: {
-            Authorization: `${localStorage.getItem("token")}`,
+            Authorization: `${authState.user}`,
           },
         })
         .then((res) => {
-          setLike(res.data);
+          setLike(res.data.status);
         });
       axios
         .get(`/photos/${id}/dislike`, {
           headers: {
-            Authorization: `${localStorage.getItem("token")}`,
+            Authorization: `${authState.user}`,
           },
         })
         .then((res) => {
-          setDislike(res.data);
+          setDislike(res.data.status);
         });
     }
   }, [id]);
+
+  const likedThePhoto = (e) => {
+    if (!authState.status) {
+      navigate("/login");
+      return;
+    }
+
+    // first change the state of the like
+    setLike(!like);
+
+    // based on the liked state call the API
+    if (!like) {
+      // set the photo as liiked
+      axios
+        .post(
+          `/photos/${photo.photoId}/like`,
+          {},
+          {
+            headers: {
+              Authorization: `${authState.user}`,
+            },
+          }
+        )
+        .then((res) => {
+          setDislike(false);
+          // increase the like count and decrease the dislike count if needed
+          setPhoto({
+            ...photo,
+            PhotoStat: {
+              ...photo.PhotoStat,
+              likes: photo.PhotoStat.likes + 1,
+              dislikes: dislike
+                ? photo.PhotoStat.dislikes - 1
+                : photo.PhotoStat.dislikes,
+            },
+          });
+        })
+        .catch((err) => {
+          setLike(false);
+        });
+    } else {
+      // set the photo as non liked
+      axios
+        .delete(`/photos/${photo.photoId}/like`, {
+          headers: {
+            Authorization: `${authState.user}`,
+          },
+        })
+        .then((res) => {
+          // decrease the like count
+          setPhoto({
+            ...photo,
+            PhotoStat: {
+              ...photo.PhotoStat,
+              likes: photo.PhotoStat.likes - 1,
+            },
+          });
+        })
+        .catch((err) => {
+          setLike(true);
+        });
+    }
+  };
+
+  const dislikeThePhoto = (e) => {
+    if (!authState.status) {
+      navigate("/login");
+      return;
+    }
+    // first change the state of the like
+    setDislike(!dislike);
+
+    // based on the liked state call the API
+    if (!dislike) {
+      // set the photo as liiked
+      axios
+        .post(
+          `/photos/${photo.photoId}/dislike`,
+          {},
+          {
+            headers: {
+              Authorization: `${authState.user}`,
+            },
+          }
+        )
+        .then((res) => {
+          setLike(false);
+          // increase the like count and decrease the dislike count if needed
+          setPhoto({
+            ...photo,
+            PhotoStat: {
+              ...photo.PhotoStat,
+              dislikes: photo.PhotoStat.dislikes + 1,
+              likes: like ? photo.PhotoStat.likes - 1 : photo.PhotoStat.likes,
+            },
+          });
+        })
+        .catch((err) => {
+          setDislike(false);
+        });
+    } else {
+      // set the photo as non liked
+      axios
+        .delete(`/photos/${photo.photoId}/dislike`, {
+          headers: {
+            Authorization: `${authState.user}`,
+          },
+        })
+        .then((res) => {
+          // decrease the like count
+          setPhoto({
+            ...photo,
+            PhotoStat: {
+              ...photo.PhotoStat,
+              dislikes: photo.PhotoStat.dislikes - 1,
+            },
+          });
+        })
+        .catch((err) => {
+          setDislike(true);
+        });
+    }
+  };
 
   return (
     <div className="photo-page">
@@ -80,26 +201,23 @@ function Photo() {
           <div className="title-tab">
             <h2>{photo.photoTitle}</h2>
             <div className="btn-bar">
-              <div className="btn">
-                {/* <img src={favoriteIcon} className="img" alt="Like" /> */}
+              <div className="btn" onClick={likedThePhoto}>
                 <FontAwesomeIcon
                   icon={faHeart}
                   size="2xl"
-                  style={{ color: like && like.status ? "red" : "black" }}
+                  style={{ color: like ? "red" : "black" }}
                 />
               </div>
-              <div className="btn">
-                {/* <img src={dislikeIcon} className="img" alt="DisLike" /> */}
+              <div className="btn" onClick={dislikeThePhoto}>
                 <FontAwesomeIcon
                   icon={faHeartCrack}
                   size="2xl"
                   style={{
-                    color: dislike && dislike.status ? "yellow" : "black",
+                    color: dislike ? "orange" : "black",
                   }}
                 />
               </div>
               <div className="btn">
-                {/* <img src={plusIcon} className="img" alt="Add To" /> */}
                 <FontAwesomeIcon icon={faPlus} size="2xl" />
               </div>
 

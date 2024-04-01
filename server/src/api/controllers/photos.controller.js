@@ -25,6 +25,7 @@ const {
   isDislikeAPhoto,
   userLikePhotos,
   removeLikeFromPhoto,
+  removeDislikeFromPhoto,
 } = require("../services/photoTable");
 const { addTagsToAPhoto, fetchTags } = require("../services/tagTable");
 const { filterTagNames } = require("../util/filterTagNames");
@@ -296,6 +297,18 @@ async function removeLikePhoto(req, res) {
   if (result.status) return res.json(result);
 }
 
+async function removeDislikePhoto(req, res) {
+  // get the photo id to removed from the liked photos
+  const photoId = parseInt(req.params.id);
+  // get the user id who liked the photo
+  const userId = req.user.userId;
+
+  // now remove the like from the photo
+  const result = await removeDislikeFromPhoto(photoId, userId);
+
+  if (result.status) return res.json(result);
+}
+
 module.exports = {
   getPhotos,
   getPhotoById,
@@ -312,4 +325,5 @@ module.exports = {
   isDisliked,
   getLikesOfUser,
   removeLikePhoto,
+  removeDislikePhoto,
 };

@@ -241,22 +241,18 @@ async function likePhoto(photoId, userId, rating) {
       await userLike.save();
     }
   } else {
-    console.log("finding the photo stat");
     // user not liked the photo
     const photoStat = await PhotoStat.findOne({ where: { photoId: photoId } });
 
     if (!photoStat) return { error: "Photo not found" };
-    console.log("photo stat found");
     // increment the like by 1
     photoStat.likes += 1;
-    console.log("update the like database");
     // save the photo stat
     if (userDisLike) {
       photoStat.dislikes -= 1; // decrement the like by 1
       await userDisLike.destroy(); // delete the user like instance
     }
     await photoStat.save();
-    console.log("remove the dislike from the database");
     // create a user like instance
     const newUserLike = UserLikes.build({
       photoId: photoId,
@@ -458,6 +454,21 @@ async function removeLikeFromPhoto(photoId, userId) {
   return { status: false };
 }
 
+async function removeDislikeFromPhoto(photoId, userId) {
+  const userDislike = await UserDisLikes.findOne({
+    where: {
+      photoId: photoId,
+      userId: userId,
+    },
+  });
+
+  if (userDislike) {
+    await userDislike.destroy();
+    return { status: true };
+  }
+  return { status: false };
+}
+
 module.exports = {
   fetchPhotos,
   fetchPhotoStat,
@@ -477,4 +488,5 @@ module.exports = {
   isDislikeAPhoto,
   userLikePhotos,
   removeLikeFromPhoto,
+  removeDislikeFromPhoto,
 };
