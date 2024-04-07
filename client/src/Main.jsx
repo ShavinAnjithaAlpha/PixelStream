@@ -36,6 +36,7 @@ function Main() {
         <Route path="/login" exact element={<Login />} />
         <Route path="/signup" exact element={<Registration />} />
         <Route path="/user/:username" exact element={<UserProfile />} />
+        <Route path="/stat" exact element={<UserProfile defaultTab="stat" />} />
         <Route path="/collection/:id" exact element={<Collection />} />
         <Route path="/account" exact element={<AccountSettings />} />
         {authState.status && (

@@ -9,10 +9,10 @@ import axios from "../../axios";
 import "./UserProfile.css";
 import StatTab from "./components/StatTab";
 
-function UserProfile() {
+function UserProfile({ defaultTab = "photos" }) {
   const { username } = useParams();
   // state variables of the page
-  const [activeTab, setActiveTab] = React.useState("photos");
+  const [activeTab, setActiveTab] = React.useState(defaultTab);
   const [photos, setPhotos] = React.useState([]);
 
   useEffect(() => {
@@ -29,7 +29,7 @@ function UserProfile() {
   return (
     <div className="user-profile">
       <UserProfileDetail username={username} photos={photos} />
-      <TabBar setActiveTab={setActiveTab} />
+      <TabBar setActiveTab={setActiveTab} activeTab={activeTab} />
 
       <div className="tabs">
         {activeTab === "photos" && <PhotoTab photos={photos} />}

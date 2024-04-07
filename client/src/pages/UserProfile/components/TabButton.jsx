@@ -1,17 +1,8 @@
 import React from "react";
 import "./TabButton.css";
 
-function TabButton({
-  label,
-  icon,
-  id,
-  isActive,
-  setActiveButton,
-  setActiveTab,
-  value,
-}) {
+function TabButton({ label, icon, isActive, setActiveTab, value }) {
   const handleClick = () => {
-    setActiveButton(id);
     setActiveTab(label.toLowerCase());
   };
 

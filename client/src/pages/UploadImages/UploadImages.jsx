@@ -1,29 +1,29 @@
 import React, { useState, useContext } from "react";
 import axios from "../../axios";
 import { AuthContext } from "../../contexts/auth.context";
+import UploadImageTile from "./components/UploadImageTile";
 import "./UploadImages.css";
 
 function UploadImages() {
   const { authState } = useContext(AuthContext);
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [selectedImage, setSelectedImage] = useState(null);
   const [err, setErr] = useState(null);
-
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [location, setLocation] = useState("");
+  const [addedPhotos, setAddedPhotos] = useState([]);
 
   const handleImageUpload = (event) => {
-    setSelectedFile(event.target.files[0]);
-    setSelectedImage(URL.createObjectURL(event.target.files[0]));
+    const data = {
+      file: event.target.files[0],
+      data: URL.createObjectURL(event.target.files[0]),
+    };
+    setAddedPhotos([...addedPhotos, data]);
+    // setSelectedImage(URL.createObjectURL(event.target.files[0]));
   };
 
   const uploadImage = (e) => {
     const payLoad = new FormData();
-    payLoad.append("title", title);
-    payLoad.append("description", description);
-    payLoad.append("location", location);
-    payLoad.append("file", selectedFile);
+    // payLoad.append("title", title);
+    // payLoad.append("description", description);
+    // payLoad.append("location", location);
+    // payLoad.append("file", selectedFile);
 
     axios
       .put("/photos/", payLoad, {
@@ -42,49 +42,29 @@ function UploadImages() {
   };
 
   return (
-    <div>
+    <div className="upload-photos">
       <h1>Uplaod Images</h1>
-      <input type="file" accept="image/*" onChange={handleImageUpload} />
-      {selectedImage && (
-        <img
-          src={selectedImage}
-          alt="Selected"
-          style={{ width: "500px" }}
-          loading="lazy"
-        />
-      )}
-      <h3>{selectedImage}</h3>
 
-      <label htmlFor="title">Title:</label>
-      <input
-        type="text"
-        placeholder="Title"
-        onChange={(e) => setTitle(e.target.value)}
-      />
+      <div className="upload-photo-grid">
+        {addedPhotos.map((photo) => (
+          <UploadImageTile image={photo} user={authState.user} />
+        ))}
 
-      <label htmlFor="description">Description:</label>
-      <input
-        type="text"
-        placeholder="Description"
-        onChange={(e) => setDescription(e.target.value)}
-      />
+        <div className="image-portal">
+          <input type="file" accept="image/*" onChange={handleImageUpload} />
+          <label htmlFor="file">Choose file</label>
+        </div>
+      </div>
 
-      <label htmlFor="location">Location:</label>
-      <input
-        type="text"
-        placeholder="Location"
-        onChange={(e) => setLocation(e.target.value)}
-      />
-
-      <button onClick={uploadImage}>Upload</button>
+      <button onClick={uploadImage} className="upload-btn">
+        Upload
+      </button>
 
       {err && (
         <div>
           <p>{err}</p>
         </div>
       )}
-
-      
     </div>
   );
 }
