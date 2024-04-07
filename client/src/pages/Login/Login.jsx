@@ -31,9 +31,11 @@ function Login() {
       .then((res) => {
         // save the access token in the local storage for house keeping
         localStorage.setItem("token", res.data.accessToken);
+        localStorage.setItem("username", res.data.username);
         // save the user's access token in the session storage
         setAuthState({
           user: res.data.accessToken,
+          username: res.data.username,
           status: true,
         });
         // redirect to the Home page with successfull login

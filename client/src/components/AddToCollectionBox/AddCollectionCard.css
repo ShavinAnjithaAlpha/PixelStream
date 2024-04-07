@@ -22,8 +22,17 @@
 }
 
 .add-collection-card h1 {
-  font-size: 1rem;
+  font-size: 1.3rem;
   margin-top: 1rem;
   color: white;
-  font-size: 600;
+  font-size: 700;
+}
+
+.added {
+  background-color: green;
+  border: 2px solid green;
+}
+
+.added h1 {
+  color: limegreen;
 }

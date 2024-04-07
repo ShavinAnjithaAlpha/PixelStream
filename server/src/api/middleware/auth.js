@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 async function authorize(req, res, next) {
   const accessToken = req.header("Authorization");
   if (!accessToken) {
-    return res.status(401).json({ error: "Access denied. No token provided." });
+    return res.status(401).json({ error: "Access denied. No token provided" });
   }
 
   // try to decode the access token and get the payload wothin it
@@ -12,7 +12,7 @@ async function authorize(req, res, next) {
     req.user = decoded;
     next();
   } catch (ex) {
-    res.status(400).json({ error: "Invalid token." });
+    res.status(400).json({ error: "Invalid token" });
   }
 }
 

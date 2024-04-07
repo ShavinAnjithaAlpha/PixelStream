@@ -13,7 +13,7 @@ import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import "./PhotoCard.css";
 
-function PhotoCard({ photo, isLiked_, addCollection }) {
+function PhotoCard({ photo, isLiked_, addCollection, setSelectedPhoto }) {
   const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
   const { authState } = useContext(AuthContext);
@@ -80,6 +80,11 @@ function PhotoCard({ photo, isLiked_, addCollection }) {
     }
   };
 
+  const addToNewCollection = () => {
+    setSelectedPhoto(photo);
+    addCollection(true);
+  };
+
   return (
     <>
       <div
@@ -117,7 +122,7 @@ function PhotoCard({ photo, isLiked_, addCollection }) {
               </div>
             </a>
 
-            <div className="plus-wrapper" onClick={(e) => addCollection(true)}>
+            <div className="plus-wrapper" onClick={addToNewCollection}>
               <FontAwesomeIcon icon={faPlus} size="xl" />
             </div>
 

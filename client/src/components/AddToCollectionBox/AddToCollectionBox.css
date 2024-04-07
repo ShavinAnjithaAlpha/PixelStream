@@ -1,16 +1,20 @@
+.add-to-collection-wrapper {
+  position: relative;
+}
+
 .add-to-collection-box {
   position: relative;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 1rem;
-  margin: 1rem;
+  margin: 2rem;
   padding: 1rem;
 }
 
-.add-to-collection-box .close-btn {
+.add-to-collection-wrapper .close-btn {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 15px;
+  right: 15px;
   margin: 0rem;
   padding: 0;
   background-color: transparent;
@@ -20,7 +24,7 @@
   color: #000;
 }
 
-.add-to-collection-box .close-btn:hover {
+.add-to-collection-wrapper .close-btn:hover {
   color: #f00;
 }
 
@@ -34,18 +38,134 @@
   width: 200px;
   height: 150px;
   font-size: 1.2rem;
-  border: 2px solid #000;
+  border: 2px dashed #777;
   background-color: white;
   transition: all 0.2s ease-in-out;
 }
 
 .add-to-collection-box .new-collection-box:hover {
-  background-color: #14e830;
-  border: none;
   cursor: pointer;
+  background-color: #f5f5f5;
 }
 
 .add-to-collection-box button span {
   font-size: 4rem;
   font-weight: 700;
+  color: #777;
+}
+
+.add-to-collection-wrapper .status-message {
+  font-size: 1rem;
+  color: black;
+  background-color: greenyellow;
+  padding: 10px 20px;
+}
+
+.new-collection-form {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin: 0;
+  padding: 0;
+  border: none;
+  height: 100%;
+}
+
+.new-collection-form .image-box {
+  overflow: hidden;
+  width: 300px;
+  height: 500px;
+}
+
+.new-collection-form .image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.new-collection-form h2 {
+  align-content: flex-start;
+  margin-bottom: 32px;
+  text-align: left;
+  font-size: 2.4rem;
+}
+
+.new-collection-form .input-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 1rem;
+  margin: 1rem;
+}
+
+.new-collection-form .input-form .input-field {
+  margin-bottom: 24px;
+  width: 100%;
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.new-collection-form .input-form .input-field label {
+  font-size: 1rem;
+  margin: 0.5rem 0;
+}
+
+.new-collection-form .input-form .input-field input {
+  width: 450px;
+  height: 40px;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.9rem;
+  border: 0.5px solid #777;
+  border-radius: 5px;
+}
+
+.new-collection-form .input-form .input-field textarea {
+  width: 450px;
+  height: 120px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  border: 0.5px solid #777;
+  border-radius: 5px;
+}
+
+.new-collection-form .input-form .button-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.new-collection-form .input-form button.create-btn {
+  width: 200px;
+  height: 40px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.new-collection-form .input-form button.create-btn:hover {
+  background-color: #0056b3;
+}
+
+.new-collection-form .input-form button.cancel-btn {
+  width: 200px;
+  height: 40px;
+  font-size: 1rem;
+  color: #777;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.new-collection-form .input-form button.cancel-btn:hover {
+  color: black;
 }

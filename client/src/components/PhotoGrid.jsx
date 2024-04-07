@@ -4,7 +4,7 @@ import axios from "../axios";
 import { AuthContext } from "../contexts/auth.context";
 import "./PhotoGrid.css";
 
-function PhotoGrid({ photos, addCollection }) {
+function PhotoGrid({ photos, addCollection, setSelectedPhoto }) {
   const { authState } = useContext(AuthContext);
   const [likedPhotos, setLikedPhotos] = useState([]);
   const [status, setStatus] = useState(false);
@@ -29,7 +29,14 @@ function PhotoGrid({ photos, addCollection }) {
         clearInterval(interval);
         setStatus(true);
       })
-      .catch((err) => {});
+      .catch((err) => {
+        if (err.error === "Invalid token") {
+          localStorage.removeItem("token");
+          localStorage.removeItem("username");
+          authState.setStatus(false);
+          setStatus(true);
+        }
+      });
   };
 
   // fetch the photos like status from the server if the user is logged in
@@ -55,6 +62,7 @@ function PhotoGrid({ photos, addCollection }) {
               key={photo.photoId}
               isLiked_={isLiked(photo.photoId)}
               addCollection={addCollection}
+              setSelectedPhoto={setSelectedPhoto}
             />
           ))}
       </div>

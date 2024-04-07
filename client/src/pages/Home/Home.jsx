@@ -14,6 +14,7 @@ function Home() {
   const navigate = useNavigate();
   const [photos, setPhotos] = useState([]);
   const [addCollectionBox, setAddCollectionBox] = useState(false);
+  const [selectedPhoto, setSelectedPhoto] = useState({});
   const { setSearchKeyword } = useContext(SearchContext);
 
   useEffect(() => {
@@ -62,7 +63,8 @@ function Home() {
         <div className="home-search">
           <h1>PhotoStock</h1>
           <p>
-            The internet’s source for visuals. Powered by creators everywhere.
+            Unlock the power of seamless storytelling with our dynamic photo
+            streaming service, where every image comes to life.
           </p>
           <input
             type="text"
@@ -75,7 +77,11 @@ function Home() {
         <CollectionPanel />
       </div>
 
-      <PhotoGrid photos={photos} addCollection={setAddCollectionBox} />
+      <PhotoGrid
+        photos={photos}
+        addCollection={setAddCollectionBox}
+        setSelectedPhoto={setSelectedPhoto}
+      />
       <div className="page-bar">
         <PageNavigationBar
           max={100}
@@ -87,7 +93,10 @@ function Home() {
 
       {addCollectionBox && (
         <div className="add-collection-popup">
-          <AddToCollectionBox setClose={setAddCollectionBox} />
+          <AddToCollectionBox
+            setClose={setAddCollectionBox}
+            selectedPhoto={selectedPhoto}
+          />
         </div>
       )}
     </div>

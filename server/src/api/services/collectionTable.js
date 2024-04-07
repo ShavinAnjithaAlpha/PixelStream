@@ -1,5 +1,6 @@
 const {
   getPhotosOfCollection,
+  getCollectionById,
 } = require("../controllers/collections.controller");
 const { Collection } = require("../models");
 const { PhotoCollection } = require("../models");
@@ -148,24 +149,26 @@ async function newCollection(collectionData, userId) {
 
   // now create a new collection photo instances for each photo in the collection
   const photos = collectionData.photos;
-  photos.forEach(async (photo) => {
-    // first check whether the photo exists in the database
-    const existingPhoto = await Photo.findOne({
-      where: {
+  if (photos) {
+    photos.forEach(async (photo) => {
+      // first check whether the photo exists in the database
+      const existingPhoto = await Photo.findOne({
+        where: {
+          photoId: photo,
+        },
+      });
+      if (!existingPhoto) return { error: `Invalid photo id ${photo}` };
+      // create the new collection photo instance
+      const newCollectionPhoto = PhotoCollection.build({
+        collectionId: newCollection.collectionId,
         photoId: photo,
-      },
-    });
-    if (!existingPhoto) return { error: `Invalid photo id ${photo}` };
-    // create the new collection photo instance
-    const newCollectionPhoto = PhotoCollection.build({
-      collectionId: newCollection.collectionId,
-      photoId: photo,
-    });
+      });
 
-    await newCollectionPhoto.save();
-  });
+      await newCollectionPhoto.save();
+    });
+  }
 
-  return newCollection;
+  return fetchCollection(newCollection.collectionId);
 }
 
 async function addPhotos(collectionId, photoIds) {
