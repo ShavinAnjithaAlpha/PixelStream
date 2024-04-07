@@ -7,6 +7,7 @@ import CollectionTab from "./components/CollectionTab";
 import TabBar from "./components/TabBar";
 import axios from "../../axios";
 import "./UserProfile.css";
+import StatTab from "./components/StatTab";
 
 function UserProfile() {
   const { username } = useParams();
@@ -34,6 +35,7 @@ function UserProfile() {
         {activeTab === "photos" && <PhotoTab photos={photos} />}
         {activeTab === "likes" && <LikesTab username={username} />}
         {activeTab === "collections" && <CollectionTab username={username} />}
+        {activeTab === "stat" && <StatTab username={username} />}
       </div>
     </div>
   );

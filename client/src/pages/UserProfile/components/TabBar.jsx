@@ -37,6 +37,15 @@ function TabBar({ setActiveTab }) {
         setActiveTab={setActiveTab}
         value={20}
       />
+      <TabButton
+        label="Stat"
+        id={4}
+        icon={<FavoriteBorderIcon />}
+        isActive={activeButton === 4}
+        setActiveButton={setActiveButton}
+        setActiveTab={setActiveTab}
+        value={20}
+      />
     </div>
   );
 }

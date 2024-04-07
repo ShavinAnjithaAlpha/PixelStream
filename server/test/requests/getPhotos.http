@@ -43,7 +43,7 @@ GET {{host}}/api/photos/{{downloadphotoId_}}/get {{http}}
 Content-Type: {{contentType}}
 
 ### get stat about a photo
-@statphotoId = 1
+@statphotoId = 235
 GET {{host}}/api/photos/{{statphotoId}}/statistics {{http}}
 Content-Type: {{contentType}}
 
