@@ -9,7 +9,6 @@ import {
   faArrowDown,
 } from "@fortawesome/free-solid-svg-icons";
 import { AuthContext } from "../contexts/auth.context";
-import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import "./PhotoCard.css";
 

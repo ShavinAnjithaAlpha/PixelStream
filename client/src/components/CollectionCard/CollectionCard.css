@@ -17,7 +17,7 @@
 
 .collection-card .cover-image {
   width: calc(100% - 20px);
-  height: 300px;
+  height: 350px;
   border-radius: 15px;
   object-fit: cover;
   overflow: hidden;

@@ -1,20 +1,36 @@
 .user-profile-section {
-  display: flex;
+  /* display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 50px;
+  flex-direction: row; */
+}
+
+.user-profile-section .profile-section-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 50px;
   flex-direction: row;
 }
 
-.user-profile-section .profile-section {
+.user-profile-section .profile-section-wrapper .profile-section {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
   width: 50%;
+  margin: 0;
+  padding: 1rem;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  transition: all 0.3s ease-in-out;
 }
 
-.user-profile-section .profile-section .profile-img {
+.user-profile-section .profile-section-wrapper .profile-section .profile-img {
   width: 150px;
   height: 150px;
   border-radius: 50%;
@@ -24,20 +40,28 @@
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 }
 
-.user-profile-section .profile-section .profile-img img {
+.user-profile-section
+  .profile-section-wrapper
+  .profile-section
+  .profile-img
+  img {
   width: 100%;
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
 }
 
-.user-profile-section .profile-section .name {
+.user-profile-section .profile-section-wrapper .profile-section .name {
   font-size: 2.5rem;
   font-weight: bold;
-  color: black;
+  color: white;
 }
 
-.user-profile-section .profile-section .user-link {
+.user-profile-section .profile-section-wrapper .profile-section p {
+  color: white;
+}
+
+.user-profile-section .profile-section-wrapper .profile-section .user-link {
   font-size: 1.2rem;
   margin-bottom: 10px;
   color: rgb(35, 140, 232);
@@ -46,23 +70,26 @@
   transition: all 0.3s ease-in-out;
 }
 
-.user-profile-section .profile-section .user-link:hover {
+.user-profile-section
+  .profile-section-wrapper
+  .profile-section
+  .user-link:hover {
   text-decoration: underline;
   color: rgb(30, 109, 178);
 }
 
-.user-profile-section .profile-section a {
+.user-profile-section .profile-section-wrapper .profile-section a {
   text-decoration: none;
-  color: #000;
+  color: white;
   font-size: 1.2rem;
   margin-bottom: 10px;
 }
 
-.user-profile-section .profile-section a:hover {
+.user-profile-section .profile-section-wrapper .profile-section a:hover {
   text-decoration: underline;
 }
 
-.user-profile-section .profile-section .stat-bar {
+.user-profile-section .profile-section-wrapper .profile-section .stat-bar {
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;

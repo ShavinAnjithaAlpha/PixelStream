@@ -5,10 +5,10 @@
 
 .search-bar {
   position: relative;
-  width: 600px;
+  width: 900px;
   height: 40px;
   background-color: #ffffff;
-  border-radius: 25px;
+  border-radius: 5px;
   outline: none;
   border: none;
   padding: 5px 25px;

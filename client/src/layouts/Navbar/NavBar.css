@@ -8,7 +8,7 @@
   background-color: #2b7dddcc;
   padding: 10px 50px 10px 20px;
   justify-content: space-between;
-  z-index: 999999;
+  z-index: 999;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
 }
 
@@ -44,10 +44,7 @@
 }
 
 .nav .nav-links .nav-item a:hover {
-  color: white;
-  background-color: blue;
-  border-radius: 5px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  color: black;
 }
 
 .nav .nav-links .login {
@@ -71,5 +68,5 @@
 .nav .nav-links .logout:hover {
   font-weight: bold;
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  background-color: transparent;
 }

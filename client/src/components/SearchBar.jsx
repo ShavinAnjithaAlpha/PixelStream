@@ -1,5 +1,4 @@
 import React from "react";
-import searchIcon from "../assets/img/icons8-search-48.png";
 import { useNavigate } from "react-router-dom";
 import "./SearchBar.css";
 
@@ -23,9 +22,9 @@ function SearchBar({ setSearchKeyword }) {
         placeholder="Search Images"
         onKeyUp={handleSearch}
       />
-      <div className="search-bar__overlay">
+      {/* <div className="search-bar__overlay">
         <img src={searchIcon} alt="search bar"></img>
-      </div>
+      </div> */}
     </div>
   );
 }

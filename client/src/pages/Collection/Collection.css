@@ -4,6 +4,15 @@
   align-items: flex-start;
 }
 
+.coll-section h1#no-photo {
+  font-size: 3rem;
+  font-weight: 500;
+  margin: auto;
+  margin-bottom: 5rem;
+  margin-top: 5rem;
+  color: #777;
+}
+
 .coll-section .cover-photo {
   max-height: 150px;
   width: 100%;

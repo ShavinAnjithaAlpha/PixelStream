@@ -1,7 +1,3 @@
-const {
-  getPhotosOfCollection,
-  getCollectionById,
-} = require("../controllers/collections.controller");
 const { Collection } = require("../models");
 const { PhotoCollection } = require("../models");
 const { Photo } = require("../models");

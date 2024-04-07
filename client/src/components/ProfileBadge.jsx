@@ -1,13 +1,11 @@
 import React from "react";
-import "./ProfileBadge.css";
-import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "../axios";
 import defaultProfileIcon from "../assets/img/default-profile-icon.png";
 import { jwtDecode } from "jwt-decode";
+import "./ProfileBadge.css";
 
 function ProfileBadge({ user }) {
-  const navigate = useNavigate();
   const [userData, setUserData] = useState([]);
 
   useEffect(() => {
@@ -26,24 +24,20 @@ function ProfileBadge({ user }) {
   }, []);
 
   return (
-    <div
-      className="profile-badge"
-      onClick={() => navigate(`/user/${userData.userName}`)}
-    >
-      <div className="profile-badge-photo">
-        <img
-          src={
-            userData.User && userData.User.profilePic
-              ? userData.User.profilePic
-              : defaultProfileIcon
-          }
-          alt={userData.userName}
-        />
-      </div>
-      <div className="profile-badge-info">
-        <h2>{userData.userName}</h2>
-      </div>
+    // <div className="profile-badge">
+    <div className="profile-badge-photo">
+      <img
+        src={
+          userData.User && userData.User.profilePic
+            ? userData.User.profilePic
+            : defaultProfileIcon
+        }
+        alt={userData.userName}
+        width={40}
+        height={40}
+      />
     </div>
+    // </div>
   );
 }
 

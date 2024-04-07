@@ -94,23 +94,16 @@ function Collection() {
           />
         </div>
       </div>
-      {/* <div className="col-image-slide-bar">
-        <div class="stage">
-          <div class="container">
-            <div class="ring">
-              {photos.photos &&
-                photos.photos.map((photo) => (
-                  <div className="img">
-                    <img src={photo.photoUrl} alt={photo.photoTitle} />
-                  </div>
-                ))}
-            </div>
-          </div>
+
+      {photos && photos.photos && photos.photos.length > 0 && (
+        <div className="photo-section">
+          {photos.photos && <CollectionGrid photos={photos.photos} />}
         </div>
-      </div> */}
-      <div className="photo-section">
-        {photos.photos && <CollectionGrid photos={photos.photos} />}
-      </div>
+      )}
+
+      {!photos ||
+        !photos.photos ||
+        (photos.photos.length === 0 && <h1 id="no-photo">No Photos Yet</h1>)}
     </div>
   );
 }

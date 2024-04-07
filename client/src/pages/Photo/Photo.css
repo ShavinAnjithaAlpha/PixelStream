@@ -4,7 +4,8 @@
   align-items: center;
   justify-content: space-around;
   margin: auto;
-  margin-top: 20px;
+  padding: 20px;
+  backdrop-filter: blur(10px) brightness(0.8);
 }
 
 .photo-page .photo-container {
@@ -13,12 +14,15 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  border-radius: 5px;
+  width: 700px;
+  height: 600px;
+  overflow: hidden;
 }
 
 .photoPage .photo-container .photo {
   image-rendering: pixelated;
   object-fit: fill;
+  object-position: center;
 }
 
 .photo-page .detail-tab {
@@ -31,7 +35,7 @@
 .photo-page .detail-tab .photo-detail-panel {
   width: 750px;
   height: auto;
-  background-color: #080828;
+  background-color: #000000aa;
   border-radius: 30px;
   padding: 20px 30px;
 }

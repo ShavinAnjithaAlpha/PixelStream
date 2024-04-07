@@ -1,11 +1,59 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { AuthContext } from "../../contexts/auth.context";
+import Popup from "reactjs-popup";
 import SearchBar from "../../components/SearchBar";
 import ProfileBadge from "../../components/ProfileBadge";
-import { useContext } from "react";
-import { AuthContext } from "../../contexts/auth.context";
 import { SearchContext } from "../../contexts/search.context";
 import "./NavBar.css";
+
+const Menu = styled.div`
+  background-color: white;
+  transition: all 0.3s ease;
+  padding: 0;
+`;
+
+const MenuItem = styled.div`
+  padding: 10px;
+  border-bottom: 0px solid #f1f1f1;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  color: black;
+
+  &:hover {
+    background-color: #dddddd;
+  }
+
+  & > a {
+    color: black;
+  }
+`;
+
+const LogOutMenuItem = styled.div`
+  padding: 10px;
+  border-bottom: 1px solid #f1f1f1;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  color: black;
+  border-top: 1px solid #f1f1f1;
+
+  &:hover {
+    background-color: red;
+  }
+
+  & > a {
+    color: black;
+  }
+
+  &:hover > a {
+    color: white;
+  }
+`;
 
 function Navbar() {
   const { setAuthState, authState } = useContext(AuthContext);
@@ -50,10 +98,38 @@ function Navbar() {
           </i>
         ) : (
           <>
-            <ProfileBadge user={authState.user} />
-            <i className="logout" onClick={logout}>
-              Logout
-            </i>
+            <Popup
+              trigger={
+                <button
+                  style={{
+                    background: "none",
+                    border: "none",
+                    outline: "none",
+                  }}
+                >
+                  <ProfileBadge user={authState.user} />
+                </button>
+              }
+              position={["bottom center", "right center"]}
+            >
+              <Menu>
+                <MenuItem>
+                  <Link to={`/user/${authState.username}`}>Profile</Link>
+                </MenuItem>
+                <MenuItem>
+                  <Link to="/account">Settings</Link>
+                </MenuItem>
+                <MenuItem>
+                  <Link to="/upload">Upload Photo</Link>
+                </MenuItem>
+                <MenuItem>
+                  <Link to="/stat">Stat</Link>
+                </MenuItem>
+                <LogOutMenuItem onClick={logout}>
+                  Logout @{authState.username}
+                </LogOutMenuItem>
+              </Menu>
+            </Popup>
           </>
         )}
       </ul>

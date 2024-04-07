@@ -20,7 +20,7 @@ function CollectionCard({ collection }) {
             src={collection.Photo.photoUrl}
             alt={collection.Photo.photoTitle}
             width={500}
-            height={300}
+            // height={300}
             onError={(e) => {
               e.target.src = CollectionDefaultImage;
             }}

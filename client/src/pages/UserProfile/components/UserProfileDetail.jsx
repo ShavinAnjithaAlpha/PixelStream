@@ -36,20 +36,26 @@ function UserProfileDetail({ username, photos }) {
         console.log(err);
       });
 
-    // const intervalId = setInterval(() => {
-    //   // set the random photo every 1 second
-    //   let photo_ = null;
-    //   while (!photo_) {
-    //     photo_ = photos[Math.floor(Math.random() * photos.length)];
-    //   }
+    // set the random photo every 1 second
+    let photo_ = null;
+    photo_ = photos[Math.floor(Math.random() * photos.length)];
 
-    //   setRandomPhoto(
-    //     photo_ ? photo_.photoUrl : "https://source.unsplash.com/random/600x350"
-    //   );
-    //   console.log("random photo set", photo_);
-    // }, 3000);
+    setRandomPhoto(
+      photo_ ? photo_.photoUrl : "https://source.unsplash.com/random/600x350"
+    );
 
-    // return () => clearInterval(intervalId);
+    const intervalId = setInterval(() => {
+      // set the random photo every 1 second
+      let photo_ = null;
+      // while (!photo_) {
+      photo_ = photos[Math.floor(Math.random() * photos.length)];
+      // }
+      setRandomPhoto(
+        photo_ ? photo_.photoUrl : "https://source.unsplash.com/random/600x350"
+      );
+    }, 10000);
+
+    return () => clearInterval(intervalId);
   }, [username]);
 
   const handleTagSearch = (tag) => {
@@ -66,54 +72,66 @@ function UserProfileDetail({ username, photos }) {
 
   return (
     <>
-      <div className="user-profile-section">
-        <div className="profile-section">
-          <div className="profile-img">
-            <img
-              src={
-                userProfile.User && userProfile.User.profilePic
-                  ? userProfile.User.profilePic
-                  : defaultProfileIcon
-              }
-              width={150}
-              height={150}
-              alt={userProfile.userName}
-            />
-          </div>
-          <div className="name">
-            {userProfile.User && userProfile.User.fullName}
-          </div>
-          <div className="user-link">@{userProfile.userName}</div>
+      <div
+        className="user-profile-section"
+        style={{
+          backgroundImage: `url('${randomPhoto}')`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <div
+          className="profile-section-wrapper"
+          style={{ backdropFilter: "blur(20px)" }}
+        >
+          <div className="profile-section">
+            <div className="profile-img">
+              <img
+                src={
+                  userProfile.User && userProfile.User.profilePic
+                    ? userProfile.User.profilePic
+                    : defaultProfileIcon
+                }
+                width={150}
+                height={150}
+                alt={userProfile.userName}
+              />
+            </div>
+            <div className="name">
+              {userProfile.User && userProfile.User.fullName}
+            </div>
+            <div className="user-link">@{userProfile.userName}</div>
 
-          <p>
-            {userProfile.User && userProfile.User.Bio
-              ? userProfile.User.Bio
-              : "This user has no bio yet."}
-          </p>
-          <div className="stat-bar">
-            <StatCard label="Followers" value={userProfile.followers} />
-            <StatCard label="Followings" value={userProfile.followings} />
-            <StatCard label="Likes" value={userProfile.totalLikes} />
-            <StatCard label="Downloads" value={userProfile.totalDownloads} />
+            <p>
+              {userProfile.User && userProfile.User.Bio
+                ? userProfile.User.Bio
+                : "This user has no bio yet."}
+            </p>
+            <div className="stat-bar">
+              <StatCard label="Followers" value={userProfile.followers} />
+              <StatCard label="Followings" value={userProfile.followings} />
+              <StatCard label="Likes" value={userProfile.totalLikes} />
+              <StatCard label="Downloads" value={userProfile.totalDownloads} />
+            </div>
+            <p>User Interests</p>
+            <div className="user-tag-bar">
+              {userInterests.map((tag, index) => (
+                <Tag key={index} tagName={tag} handleClick={handleTagSearch} />
+              ))}
+            </div>
           </div>
-          <p>User Interests</p>
-          <div className="user-tag-bar">
-            {userInterests.map((tag, index) => (
-              <Tag key={index} tagName={tag} handleClick={handleTagSearch} />
-            ))}
-          </div>
-        </div>
-        <div className="btn-section">
-          <img
-            src={randomPhoto ? randomPhoto : leafsIcon}
-            width={600}
-            height={350}
-            style={{ objectFit: "cover" }}
-            alt={leafsIcon}
-          />
-          <div className="btn-bar">
-            <button onClick={followUser}>Follow</button>
-            <button>Message</button>
+          <div className="btn-section">
+            <img
+              src={randomPhoto ? randomPhoto : leafsIcon}
+              width={600}
+              height={350}
+              style={{ objectFit: "cover" }}
+              alt={leafsIcon}
+            />
+            <div className="btn-bar">
+              <button onClick={followUser}>Follow</button>
+              <button>Message</button>
+            </div>
           </div>
         </div>
       </div>

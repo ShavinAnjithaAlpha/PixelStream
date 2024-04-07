@@ -1,37 +1,21 @@
-.profile-badge {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 50px;
-  border-radius: 25px;
-  background-color: #090829;
-  font-size: 24px;
-  font-weight: bold;
-  padding: 10px 15px 10px 5px;
-  cursor: pointer;
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
-}
-
-.profile-badge .profile-badge-photo {
+.profile-badge-photo {
   margin-right: 10px;
   background-color: black;
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
+  border: 2px solid black;
+  cursor: pointer;
+  transition: all 0.3s;
 }
 
-.profile-badge img {
+.profile-badge-photo:hover {
+  border: 2px solid #777;
+}
+
+.profile-badge-photo img {
   width: 40px;
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
-}
-
-.profile-badge .profile-badge-info h2 {
-  font-size: 1.2rem;
-  font-weight: 400;
-  margin: 0;
-  padding: 0;
-  text-align: center;
-  color: white;
 }
