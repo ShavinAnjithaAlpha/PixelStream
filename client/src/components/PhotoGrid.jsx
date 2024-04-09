@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import PhotoCard from "./PhotoCard";
 import axios from "../axios";
 import { AuthContext } from "../contexts/auth.context";
+import Spinner from "./Spinner/Spinner";
 import "./PhotoGrid.css";
 
 function PhotoGrid({ photos, addCollection, setSelectedPhoto }) {
@@ -48,11 +49,7 @@ function PhotoGrid({ photos, addCollection, setSelectedPhoto }) {
 
   return (
     <>
-      {!status && (
-        <div className="loading-state">
-          <div className="loading"></div>
-        </div>
-      )}
+      {!status && <Spinner />}
 
       <div className="photo-grid-comp">
         {status &&

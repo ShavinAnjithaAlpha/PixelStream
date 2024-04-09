@@ -5,11 +5,11 @@
   position: sticky;
   left: 0;
   top: 0;
-  background-color: #2b7dddcc;
+  background-color: #000000;
   padding: 10px 50px 10px 20px;
   justify-content: space-between;
   z-index: 999;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+  margin: 0;
 }
 
 .nav .logo-search {
@@ -32,7 +32,7 @@
 .nav .logo-search .logo {
   font-size: 2.2rem;
   font-weight: 700;
-  color: black;
+  color: white;
   font-style: normal;
   margin-right: 10px;
 }
@@ -41,10 +41,11 @@
   color: white;
   transition: all 0.2s ease-in-out;
   padding: 5px 10px;
+  font-weight: bold;
 }
 
 .nav .nav-links .nav-item a:hover {
-  color: black;
+  color: #087dca;
 }
 
 .nav .nav-links .login {

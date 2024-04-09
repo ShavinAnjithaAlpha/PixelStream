@@ -22,7 +22,7 @@ function Main() {
   const { authState } = useContext(AuthContext);
 
   return (
-    <div className="App">
+    <div className="App-Main">
       {location.pathname !== "/login" &&
         location.pathname !== "/signup" &&
         location.pathname !== "/account" &&

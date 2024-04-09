@@ -1,4 +1,6 @@
 .col-panel-card {
+  background-color: #ffffff33;
+  backdrop-filter: blur(10px) brightness(0.8);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -7,8 +9,8 @@
   height: 350px;
   margin: 20px;
   padding: 5px 20px;
-  border-radius: 5px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  border: 2px solid #ffffff11;
   overflow: hidden;
 }
 
@@ -26,6 +28,7 @@
   margin: 0;
   padding: 0;
   margin-right: 100px;
+  color: white;
 }
 
 .col-panel-card .col-list {

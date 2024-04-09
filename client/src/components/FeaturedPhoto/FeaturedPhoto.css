@@ -1,0 +1,36 @@
+.featured-photo {
+  position: relative;
+  overflow: hidden;
+  width: 350px;
+  height: 350px;
+  border-radius: 10px;
+  transition: all 0.2s ease-in-out;
+}
+
+.featured-photo:hover {
+  filter: brightness(0.8);
+}
+
+.featured-photo .photo-info {
+  position: absolute;
+  bottom: 5%;
+  left: 0;
+  width: 100%;
+}
+
+.featured-photo .photo-info h3 {
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.featured-photo .photo-info p {
+  color: white;
+  font-size: 0.7rem;
+}
+
+.featured-photo img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}

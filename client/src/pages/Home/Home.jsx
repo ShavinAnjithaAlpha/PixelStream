@@ -8,7 +8,10 @@ import { useEffect, useState, useContext } from "react";
 import { SearchContext } from "../../contexts/search.context";
 import CollectionPanel from "./components/CollectionPanel";
 import AddToCollectionBox from "../../components/AddToCollectionBox/AddToCollectionBox";
+import FeaturedPhoto from "../../components/FeaturedPhoto/FeaturedPhoto";
 import "./Home.css";
+
+const PAGE_LIMIT = 18;
 
 function Home() {
   const navigate = useNavigate();
@@ -25,7 +28,7 @@ function Home() {
     }
 
     axios
-      .get(`/photos?limit=18&page=${page}`)
+      .get(`/photos?limit=${PAGE_LIMIT}&page=${page}`)
       .then((res) => {
         setPhotos(res.data);
       })
@@ -56,49 +59,67 @@ function Home() {
     }
   };
 
+  const randomPhotoId = () => {
+    return (Math.floor(Math.random() * 100) + 1) % PAGE_LIMIT;
+  };
+
   return (
-    <div className="App">
-      <TopicBar />
-      <div className="top-section">
-        <div className="home-search">
-          <h1>PhotoStock</h1>
-          <p>
-            Unlock the power of seamless storytelling with our dynamic photo
-            streaming service, where every image comes to life.
-          </p>
-          <input
-            type="text"
-            placeholder="Search for photos"
-            onKeyUp={handleSearch}
-          />
-          <button>Search</button>
+    <div
+      className="App"
+      style={{
+        backgroundColor: "black",
+        backgroundImage: `url('${
+          photos[randomPhotoId()] ? photos[randomPhotoId()].photoUrl : ""
+        }')`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      <div className="home-wrapper">
+        <TopicBar />
+        <div className="top-section">
+          <div className="home-search">
+            <h1>PhotoStock</h1>
+            <p>
+              Unlock the power of seamless storytelling with our dynamic photo
+              streaming service, where every image comes to life.
+            </p>
+            <input
+              type="text"
+              placeholder="Search for photos"
+              onKeyUp={handleSearch}
+            />
+            <button>Search</button>
+          </div>
+
+          <CollectionPanel />
+
+          <FeaturedPhoto />
         </div>
 
-        <CollectionPanel />
-      </div>
-
-      <PhotoGrid
-        photos={photos}
-        addCollection={setAddCollectionBox}
-        setSelectedPhoto={setSelectedPhoto}
-      />
-      <div className="page-bar">
-        <PageNavigationBar
-          max={100}
-          limit={5}
-          handlePageChange={handlePageChange}
-          savedPage={parseInt(localStorage.getItem("page-photo")) || 1}
+        <PhotoGrid
+          photos={photos}
+          addCollection={setAddCollectionBox}
+          setSelectedPhoto={setSelectedPhoto}
         />
-      </div>
-
-      {addCollectionBox && (
-        <div className="add-collection-popup">
-          <AddToCollectionBox
-            setClose={setAddCollectionBox}
-            selectedPhoto={selectedPhoto}
+        <div className="page-bar">
+          <PageNavigationBar
+            max={100}
+            limit={5}
+            handlePageChange={handlePageChange}
+            savedPage={parseInt(localStorage.getItem("page-photo")) || 1}
           />
         </div>
-      )}
+
+        {addCollectionBox && (
+          <div className="add-collection-popup">
+            <AddToCollectionBox
+              setClose={setAddCollectionBox}
+              selectedPhoto={selectedPhoto}
+            />
+          </div>
+        )}
+      </div>
     </div>
   );
 }

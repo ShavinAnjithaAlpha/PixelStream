@@ -13,7 +13,8 @@
 }
 
 .col-panel-tile:hover {
-  background-color: #e8e5e598;
+  /* background-color: #e8e5e598; */
+  background-color: #ffffff22;
 }
 
 .col-panel-tile .content {
@@ -27,6 +28,7 @@
 .col-panel-tile .content h3 {
   font-size: 1rem;
   font-weight: 700;
+  color: white;
 }
 
 .col-panel-tile .content p {
@@ -34,6 +36,7 @@
   color: black;
   margin: 0;
   padding: 0;
+  color: white;
 }
 
 .col-panel-tile img {

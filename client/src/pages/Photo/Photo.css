@@ -35,7 +35,7 @@
 .photo-page .detail-tab .photo-detail-panel {
   width: 750px;
   height: auto;
-  background-color: #000000aa;
+  background: linear-gradient(90deg, #000000ee 0%, #000000aa 100%);
   border-radius: 30px;
   padding: 20px 30px;
 }
