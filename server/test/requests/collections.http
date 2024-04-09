@@ -29,10 +29,10 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtvbXVkaSIs
 }
 
 ### add photo to the collection
-POST {{host}}/api/collections/2/ {{http}}
+POST {{host}}/api/collections/13/ {{http}}
 Content-Type: {{contentType}}
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNoYXZpbiIsInVzZXJJZCI6MSwiaWF0IjoxNzA0MTkxNjMzLCJleHAiOjE3MDQ1NTE2MzN9.4Uhbvp3PCz8FA641_zvJLXYHHiKKa5EpYAItzQu9Mjg
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNoYXZpbiIsInVzZXJJZCI6MSwiaWF0IjoxNzEyNjQ4Mjg0LCJleHAiOjE3MTMwMDgyODR9.YtbpQJHDEzKvsYJWZGLDlDhd0SGR971y61befG1ZhgM
 
 {
-    "photoIds": [20, 21, 22, 23]
+    "photoIds": [360]
 }

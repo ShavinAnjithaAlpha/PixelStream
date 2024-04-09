@@ -1,15 +1,15 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../axios";
-import defaultProfileIcon from "../assets/img/default-profile-icon.png";
+import { AuthContext } from "../contexts/auth.context";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHeart,
   faPlus,
   faArrowDown,
 } from "@fortawesome/free-solid-svg-icons";
-import { AuthContext } from "../contexts/auth.context";
 import "reactjs-popup/dist/index.css";
+import defaultProfileIcon from "../assets/img/default-profile-icon.png";
 import "./PhotoCard.css";
 
 function PhotoCard({ photo, isLiked_, addCollection, setSelectedPhoto }) {
@@ -80,6 +80,12 @@ function PhotoCard({ photo, isLiked_, addCollection, setSelectedPhoto }) {
   };
 
   const addToNewCollection = () => {
+    // if the user is not logged in, redirect to login page
+    if (!authState.status) {
+      navigate("/login");
+      return;
+    }
+
     setSelectedPhoto(photo);
     addCollection(true);
   };

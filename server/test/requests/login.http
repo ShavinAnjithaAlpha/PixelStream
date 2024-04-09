@@ -8,8 +8,8 @@ POST {{host}}/api/auth/login {{http}}
 Content-Type: {{contentType}}
 
 {
-    "username" : "komudi",
-    "password": "komudi"
+    "username" : "shavin",
+    "password": "shavin"
 }
 
 ###

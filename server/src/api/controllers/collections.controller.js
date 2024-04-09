@@ -79,7 +79,10 @@ async function addPhotoToCollection(req, res) {
 
   // add the photos to the collection
   const result = await addPhotos(parseInt(req.params.id), req.body.photoIds);
-  if (result.error) return res.status(400).send(result.error);
+  if (!result || result.photos.find((e) => e.error !== undefined))
+    return res
+      .status(400)
+      .send(result.photos.find((e) => e.error !== undefined));
 
   // return the updated collection
   return res.send(result);

@@ -187,6 +187,17 @@ async function addPhotos(collectionId, photoIds) {
         },
       });
       if (!existingPhoto) return { error: `Invalid photo id ${photo}` };
+
+      // next check whether the collection id and photo id already exists in the database
+      const existingCollectionPhoto = await PhotoCollection.findOne({
+        where: {
+          collectionId: collectionId,
+          photoId: photo,
+        },
+      });
+
+      if (existingCollectionPhoto)
+        return { error: `Photo already exists in the collection` };
       // create the new collection photo instance
       const newCollectionPhoto = PhotoCollection.build({
         collectionId: collectionId,

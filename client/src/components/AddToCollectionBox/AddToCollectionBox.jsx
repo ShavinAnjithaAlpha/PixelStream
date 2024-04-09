@@ -15,6 +15,7 @@ function AddToCollectionBox({ setClose, selectedPhoto }) {
   const [newCollectionDescription, setNewCollectionDescription] = useState("");
 
   const [statusMessage, setStatusMessage] = useState("");
+  const [error, setError] = useState("");
 
   useEffect(() => {
     // fetch the collections of the user from the API
@@ -66,7 +67,13 @@ function AddToCollectionBox({ setClose, selectedPhoto }) {
           setStatusMessage("");
         }, 2000);
       })
-      .catch((err) => {});
+      .catch((err) => {
+        setError(`${err.response.data.error}`);
+
+        setTimeout(() => {
+          setError("");
+        }, 2000);
+      });
   };
 
   const createNewCollection = () => {
@@ -89,11 +96,15 @@ function AddToCollectionBox({ setClose, selectedPhoto }) {
       .then((res) => {
         // add the new collection to the collections
         setCollections([...collections, res.data]);
-        console.log(res.data);
-        console.log(collections);
         setNewCollection(false);
       })
-      .catch((err) => {});
+      .catch((err) => {
+        setError(`${err.response.data.error}`);
+
+        setTimeout(() => {
+          setError("");
+        }, 2000);
+      });
   };
 
   return (
@@ -123,6 +134,8 @@ function AddToCollectionBox({ setClose, selectedPhoto }) {
           {statusMessage && (
             <div className="status-message">{statusMessage}</div>
           )}
+
+          {error && <div className="error-message">{error}</div>}
 
           <button className="close-btn" onClick={(e) => setClose(false)}>
             <FontAwesomeIcon icon={faClose} />

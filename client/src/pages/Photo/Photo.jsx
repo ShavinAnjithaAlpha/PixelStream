@@ -1,10 +1,12 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../contexts/auth.context";
 import axios from "../../axios";
 import { StatCard } from "./components/StatCard";
 import { DownloadButton } from "./components/DownloadButton";
 import { ProfileCard } from "./components/ProfileCard";
 import { TagBar } from "./components/TagBar";
+import AddToCollectionBox from "../../components/AddToCollectionBox/AddToCollectionBox";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import CameraIcon from "@mui/icons-material/Camera";
@@ -14,7 +16,6 @@ import {
   faPlus,
   faHeartCrack,
 } from "@fortawesome/free-solid-svg-icons";
-import { AuthContext } from "../../contexts/auth.context";
 import "./Photo.css";
 
 function Photo() {
@@ -25,6 +26,8 @@ function Photo() {
   const [tags, setTags] = useState([]);
   const [like, setLike] = useState({});
   const [dislike, setDislike] = useState({});
+
+  const [addCollectionBox, setAddCollectionBox] = useState(false);
 
   // format the date to readable format
   const date = photo.createdAt;
@@ -224,7 +227,7 @@ function Photo() {
                     }}
                   />
                 </div>
-                <div className="btn">
+                <div className="btn" onClick={(e) => setAddCollectionBox(true)}>
                   <FontAwesomeIcon icon={faPlus} size="2xl" />
                 </div>
 
@@ -275,6 +278,16 @@ function Photo() {
           </div>
         </div>
       </div>
+
+      {/* add to collection popup window */}
+      {addCollectionBox && (
+        <div className="add-collection-popup">
+          <AddToCollectionBox
+            setClose={setAddCollectionBox}
+            selectedPhoto={photo}
+          />
+        </div>
+      )}
     </div>
   );
 }

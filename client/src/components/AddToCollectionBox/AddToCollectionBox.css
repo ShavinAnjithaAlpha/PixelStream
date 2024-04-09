@@ -61,6 +61,13 @@
   padding: 10px 20px;
 }
 
+.add-to-collection-wrapper .error-message {
+  font-size: 1rem;
+  color: white;
+  background-color: red;
+  padding: 10px 20px;
+}
+
 .new-collection-form {
   display: flex;
   flex-direction: row;
