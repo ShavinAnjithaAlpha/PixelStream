@@ -92,8 +92,8 @@ function UserProfileDetail({ username, photos }) {
                     ? userProfile.User.profilePic
                     : defaultProfileIcon
                 }
-                width={150}
-                height={150}
+                width={100}
+                height={100}
                 alt={userProfile.userName}
               />
             </div>

@@ -6,8 +6,8 @@ import LikesTab from "./components/LikesTab";
 import CollectionTab from "./components/CollectionTab";
 import TabBar from "./components/TabBar";
 import axios from "../../axios";
-import "./UserProfile.css";
 import StatTab from "./components/StatTab";
+import "./UserProfile.css";
 
 function UserProfile({ defaultTab = "photos" }) {
   const { username } = useParams();
