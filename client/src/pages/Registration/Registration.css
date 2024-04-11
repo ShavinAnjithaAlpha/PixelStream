@@ -159,6 +159,40 @@
   transition: border 0.3s ease;
 }
 
+.registration-form input[type="text"]:focus,
+.registration-form input[type="email"]:focus,
+.registration-form input[type="password"]:focus,
+.registration-form textarea:focus {
+  border: 1px solid #cccccc;
+  transition: border 0.3s ease;
+}
+
+.registration-form input[type="file"] {
+  position: absolute;
+  width: 600px;
+  padding: 10px;
+  margin-bottom: 0;
+  border-radius: 5px;
+  background: none;
+  outline: none;
+  color: transparent;
+  transition: border 0.3s ease;
+  opacity: 0;
+  /* display: none; */
+}
+
+.registration-form input[type="file"]::after {
+  content: "Upload Profile Image";
+  display: block;
+  padding: 10px;
+  text-align: center;
+  background-color: dodgerblue;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 150px;
+}
+
 .registration-form button {
   width: 100%;
   padding: 10px;
@@ -189,7 +223,56 @@
 .error-message {
   color: red;
   font-size: 0.9rem;
-  /* font-weight: bold; */
   margin-top: 5px;
   text-align: left;
+}
+
+.registration-form .profile-img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+  overflow: hidden;
+  position: relative;
+}
+
+.register-page .profile-img img {
+  width: 100%;
+  height: 100%;
+  /* border-radius: 50%; */
+  object-fit: cover;
+}
+
+.register-page .success-msg {
+  background-color: #55555555;
+  border: 1px solid #ffffff22;
+  color: lime;
+  padding: 20px;
+  border-radius: 5px;
+  margin-top: 20px;
+  text-align: center;
+  width: 90%;
+  margin: auto;
+}
+
+.register-page .error-msg {
+  background-color: #55555555;
+  border: 1px solid #ffffff22;
+  color: red;
+  padding: 20px;
+  border-radius: 5px;
+  margin-top: 20px;
+  text-align: center;
+  width: 90%;
+  margin: auto;
+}
+
+.registration-form .password-indicator {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  color: white;
+  align-items: center;
+  width: 600px;
+  margin-bottom: 20px;
 }

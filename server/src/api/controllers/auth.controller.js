@@ -6,6 +6,7 @@ const {
 } = require("../services/userTable");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { uploadFileToBlob } = require("../util/azureStorageAccountUpload");
 
 async function registerUser(req, res) {
   // check if the provided informations validate the user schema
@@ -18,6 +19,11 @@ async function registerUser(req, res) {
   if (userExists.error) {
     return res.status(409).send(userExists.error);
   }
+
+  // upload the profile picture to the blob storage and get the image url
+  const profileImageUrl = req.file ? await uploadFileToBlob(req.file) : null;
+  // appenf the image url to the user object
+  req.body.profilePic = profileImageUrl;
 
   // create the user
   const user = await createUser(req.body);

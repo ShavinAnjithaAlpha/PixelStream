@@ -41,7 +41,7 @@ async function createUser(data) {
     lastName: data.lastname,
     location: data.location || null,
     Bio: data.bio || null,
-    profilePic: data.profile || null,
+    profilePic: data.profilePic || null,
     personalSite: data.personalsite || null,
   });
   await user.save();
@@ -297,5 +297,5 @@ module.exports = {
   updateProfile,
   removeAccount,
   fetchUsers,
-  fetchUsers
+  fetchUsers,
 };

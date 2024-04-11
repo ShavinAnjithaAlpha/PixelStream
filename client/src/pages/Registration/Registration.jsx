@@ -3,19 +3,54 @@ import { useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "../../axios";
-import "./Registration.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowLeft,
   faArrowRight,
-  faBackward,
+  faSpinner,
 } from "@fortawesome/free-solid-svg-icons";
+import defaultProfileIcon from "../../assets/img/default-profile-icon.png";
+import "./Registration.css";
 
 function Registration() {
   const navigation = useNavigate();
   const [backgroundImage, setBackgroundImage] = useState({});
-  const [error, setError] = useState(false);
+  const [error, setError] = useState("");
+  const [status, setStatus] = useState("");
   const [formState, setFormState] = useState(0);
+  const [profileImage, setProfileImage] = useState(null);
+  const [password, setPassword] = useState("");
+
+  const updatePassword = (event) => {
+    setPassword(event.target.value);
+  };
+
+  const calculateStrength = (password) => {
+    let strength = 0;
+    if (password.length > 5) strength++;
+    if (password.match(/[a-z]+/)) strength++;
+    if (password.match(/[A-Z]+/)) strength++;
+    if (password.match(/[0-9]+/)) strength++;
+    if (password.match(/[$@#&!]+/)) strength++;
+    return strength;
+  };
+
+  const strength = calculateStrength(password);
+
+  const setProfile = (e) => {
+    if (!e.target.files[0]) return;
+
+    if (e.target.files[0].size > 1024 * 1024 * 2) {
+      alert("File size must be less than 2MB");
+      return;
+    }
+
+    setProfileImage(e.target.files[0]);
+  };
+
+  const imageUrl = (data) => {
+    return URL.createObjectURL(data);
+  };
 
   const initialValues = {
     firstname: "",
@@ -26,7 +61,6 @@ function Registration() {
     confirmPassword: "",
     location: "",
     bio: "",
-    profile: "",
     personalsite: "",
   };
 
@@ -53,15 +87,13 @@ function Registration() {
       .oneOf([Yup.ref("password"), null], "Passwords must match")
       .required("Confirm Password is required"),
     location: Yup.string().max(255).optional().nullable(),
-    bio: Yup.string().max(512).optional().nullable(),
-    profile: Yup.string().optional().nullable(),
-    personalsite: Yup.string().max(255).optional().nullable(),
+    Bio: Yup.string().max(512).optional().nullable(),
+    personalSite: Yup.string().max(255).optional().nullable(),
   });
 
   const cleanData = (data) => {
     if (data.location === "") delete data.location;
     if (data.bio === "") delete data.bio;
-    if (data.profile === "") delete data.profile;
     if (data.personalsite === "") delete data.personalsite;
     delete data.confirmPassword;
     return data;
@@ -72,18 +104,32 @@ function Registration() {
     // cleaned the data before submit to the server endpoint
     const cleanedData = cleanData(values);
     // now make the api request to register the user
+    // create a form data payload to send the user data
+    const formData = new FormData();
+    for (let key in cleanedData) {
+      formData.append(key, cleanedData[key]);
+    }
+    // append the profile image to the form data
+    if (profileImage) {
+      formData.append("file", profileImage);
+    }
+
     axios
-      .post("/auth/register", cleanedData, {
+      .post("/auth/register", formData, {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
         },
       })
       .then((res) => {
-        console.log(res.data);
+        setStatus(
+          "Registration successful, you will be redirected to login page"
+        );
         // redirect to the login page
-        navigation("/login");
+        setTimeout(() => {
+          navigation("/login");
+        }, 2000);
       })
-      .catch((err) => setError(true));
+      .catch((err) => setError(err.response.data.error));
   };
 
   const getRandomId = () => {
@@ -113,322 +159,260 @@ function Registration() {
       }}
     >
       <div className="register-page-wrapper">
-        <h2>Registration</h2>
         <div className="form-box">
-          {error && <p className="error-message">Invalid credentials</p>}
           <Formik
             initialValues={initialValues}
             onSubmit={handleSubmit}
             validationSchema={validationSchema}
           >
-            <Form className="registration-form">
-              <div className="form-container">
-                {/* <div className="column">
-                  <div className="form-item">
-                    <label htmlFor="username">Username:</label>
-                    <Field type="text" id="username" name="username" />
-                    <ErrorMessage
-                      name="username"
-                      component="div"
-                      className="error-message"
-                    />
-                  </div>
+            {({ isSubmitting }) => (
+              <Form className="registration-form">
+                <div className="form-container">
+                  {formState === 0 && (
+                    <div className="column">
+                      <h2>Username and email</h2>
+                      <p>
+                        Please provide your username and email to complete your
+                        registration
+                      </p>
+                      <div className="form-item">
+                        <label htmlFor="username">
+                          Username <sup>*</sup>
+                        </label>
+                        <Field
+                          type="text"
+                          id="username"
+                          name="username"
+                          placeholder="Username"
+                        />
+                        <ErrorMessage
+                          name="username"
+                          component="div"
+                          className="error-message"
+                        />
+                      </div>
 
-                  <div className="form-item">
-                    <label htmlFor="email">Email:</label>
-                    <Field type="email" id="email" name="email" />
-                    <ErrorMessage
-                      name="email"
-                      component="div"
-                      className="error-message"
-                    />
-                  </div>
+                      <div className="form-item">
+                        <label htmlFor="email">
+                          Email <sup>*</sup>
+                        </label>
+                        <Field
+                          type="email"
+                          id="email"
+                          name="email"
+                          placeholder="Email"
+                        />
+                        <ErrorMessage
+                          name="email"
+                          component="div"
+                          className="error-message"
+                        />
+                      </div>
 
-                  <div className="form-item">
-                    <label htmlFor="password">Password:</label>
-                    <Field type="password" id="password" name="password" />
-                    <ErrorMessage
-                      name="password"
-                      component="div"
-                      className="error-message"
-                    />
-                  </div>
+                      <div className="btn-bar">
+                        <button type="button" onClick={() => setFormState(1)}>
+                          <FontAwesomeIcon icon={faArrowRight} /> {"   "}Next
+                        </button>
+                      </div>
+                    </div>
+                  )}
 
-                  <div className="form-item">
-                    <label htmlFor="confirmPassword">Confirm Password:</label>
-                    <Field
-                      type="password"
-                      id="confirmPassword"
-                      name="confirmPassword"
-                    />
-                    <ErrorMessage
-                      name="confirmPassword"
-                      component="div"
-                      className="error-message"
-                    />
-                  </div>
+                  {formState === 1 && (
+                    <div className="column">
+                      <h2>Personal Informations</h2>
+                      <p>
+                        Please provide your personal information to complete
+                        your registration
+                      </p>
+
+                      <div className="profile-img">
+                        <input
+                          type="file"
+                          id="profile"
+                          name="profile"
+                          accept="image/*"
+                          onChange={setProfile}
+                        />
+                        <img
+                          src={
+                            profileImage
+                              ? imageUrl(profileImage)
+                              : defaultProfileIcon
+                          }
+                          alt="profile"
+                          width="150"
+                        />
+                      </div>
+
+                      <div className="form-item">
+                        <label htmlFor="firstname">
+                          First Name <sup>*</sup>
+                        </label>
+                        <Field
+                          type="text"
+                          id="firstname"
+                          name="firstname"
+                          placeholder="Your firstname"
+                        />
+                        <ErrorMessage
+                          name="firstname"
+                          component="div"
+                          className="error-message"
+                        />
+                      </div>
+                      <div className="form-item">
+                        <label htmlFor="lastname">
+                          Last Name <sup>*</sup>
+                        </label>
+                        <Field
+                          type="text"
+                          id="lastname"
+                          name="lastname"
+                          placeholder="Your lastname"
+                        />
+                        <ErrorMessage
+                          name="lastname"
+                          component="div"
+                          className="error-message"
+                        />
+                      </div>
+
+                      <div className="btn-bar">
+                        <button type="button" onClick={() => setFormState(0)}>
+                          <FontAwesomeIcon icon={faArrowLeft} /> {"   "}
+                          Back
+                        </button>
+                        <button type="button" onClick={() => setFormState(2)}>
+                          <FontAwesomeIcon icon={faArrowRight} /> {"   "}
+                          Next
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
+                  {formState === 2 && (
+                    <div className="column">
+                      <h2>Profile Information</h2>
+                      <p>
+                        Please provide your profile information to complete your
+                        registration (Optional)
+                      </p>
+                      <div className="form-item">
+                        <label htmlFor="location">Address</label>
+                        <Field
+                          type="text"
+                          id="location"
+                          name="location"
+                          placeholder="Your location / address"
+                        />
+                        <ErrorMessage
+                          name="location"
+                          component="div"
+                          className="error-message"
+                        />
+                      </div>
+
+                      <div className="form-item">
+                        <label htmlFor="bio">Bio</label>
+                        <Field
+                          as="textarea"
+                          id="bio"
+                          name="bio"
+                          rows="6"
+                          placeholder="Your Bio (Optional)"
+                        />
+                        <ErrorMessage
+                          name="bio"
+                          component="div"
+                          className="error-message"
+                        />
+                      </div>
+
+                      <div className="btn-bar">
+                        <button type="button" onClick={() => setFormState(1)}>
+                          <FontAwesomeIcon icon={faArrowLeft} /> {"   "}
+                          Back
+                        </button>
+                        <button type="button" onClick={() => setFormState(3)}>
+                          <FontAwesomeIcon icon={faArrowRight} /> {"   "}
+                          Next
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
+                  {formState === 3 && (
+                    <div className="column">
+                      <h2>Account Passwords</h2>
+                      <p>
+                        Please provide your password to complete your
+                        registration
+                      </p>
+                      <div className="form-item">
+                        <label htmlFor="password">
+                          Password<sup>*</sup>
+                        </label>
+                        <Field
+                          type="password"
+                          id="password"
+                          name="password"
+                          placeholder="Password"
+                          // value={password}
+                          // onChange={updatePassword}
+                        />
+                        <ErrorMessage
+                          name="password"
+                          component="div"
+                          className="error-message"
+                        />
+                      </div>
+
+                      {/* <div className="password-indicator">
+                        Strength {"    "}
+                        <span>{"🟢".repeat(strength)}</span>
+                        <span>{"⚪".repeat(5 - strength)}</span>
+                      </div> */}
+
+                      <div className="form-item">
+                        <label htmlFor="confirmPassword">
+                          Confirm Password <sup>*</sup>
+                        </label>
+                        <Field
+                          type="password"
+                          id="confirmPassword"
+                          name="confirmPassword"
+                          placeholder="Confirm Password"
+                        />
+                        <ErrorMessage
+                          name="confirmPassword"
+                          component="div"
+                          className="error-message"
+                        />
+                      </div>
+
+                      <div className="btn-bar">
+                        <button onClick={() => setFormState(2)}>
+                          <FontAwesomeIcon icon={faArrowLeft} /> {"   "} Back
+                        </button>
+                        <button
+                          type="submit"
+                          id="register"
+                          disabled={isSubmitting}
+                        >
+                          Register{"    "}
+                          {isSubmitting && (
+                            <FontAwesomeIcon icon={faSpinner} spin={true} />
+                          )}
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </div>
-
-                <div className="column">
-                  <div className="form-item">
-                    <label htmlFor="firstname">First Name:</label>
-                    <Field type="text" id="firstname" name="firstname" />
-                    <ErrorMessage
-                      name="firstname"
-                      component="div"
-                      className="error-message"
-                    />
-                  </div>
-                  <div className="form-item">
-                    <label htmlFor="lastname">Last Name:</label>
-                    <Field type="text" id="lastname" name="lastname" />
-                    <ErrorMessage
-                      name="lastname"
-                      component="div"
-                      className="error-message"
-                    />
-                  </div>
-                  <div className="form-item">
-                    <label htmlFor="location">Address:</label>
-                    <Field type="text" id="location" name="location" />
-                    <ErrorMessage
-                      name="location"
-                      component="div"
-                      className="error-message"
-                    />
-                  </div>
-
-                  <div className="form-item">
-                    <label htmlFor="bio">Bio:</label>
-                    <Field type="text" id="bio" name="bio" />
-                    <ErrorMessage
-                      name="bio"
-                      component="div"
-                      className="error-message"
-                    />
-                  </div>
-
-                  <div className="form-item">
-                    <label htmlFor="personalsite">Personal Site:</label>
-                    <Field type="text" id="personalsite" name="personalsite" />
-                    <ErrorMessage
-                      name="personalsite"
-                      component="div"
-                      className="error-message"
-                    />
-                  </div>
-                </div> */}
-
-                {formState === 0 && (
-                  <div className="column">
-                    <h2>Username and email</h2>
-                    <p>
-                      Please provide your username and email to complete your
-                      registration
-                    </p>
-                    <div className="form-item">
-                      <label htmlFor="username">
-                        Username <sup>*</sup>
-                      </label>
-                      <Field
-                        type="text"
-                        id="username"
-                        name="username"
-                        placeholder="Username"
-                      />
-                      <ErrorMessage
-                        name="username"
-                        component="div"
-                        className="error-message"
-                      />
-                    </div>
-
-                    <div className="form-item">
-                      <label htmlFor="email">
-                        Email <sup>*</sup>
-                      </label>
-                      <Field
-                        type="email"
-                        id="email"
-                        name="email"
-                        placeholder="Email"
-                      />
-                      <ErrorMessage
-                        name="email"
-                        component="div"
-                        className="error-message"
-                      />
-                    </div>
-
-                    <div className="btn-bar">
-                      <button type="button" onClick={() => setFormState(1)}>
-                        <FontAwesomeIcon icon={faArrowRight} /> {"   "}Next
-                      </button>
-                    </div>
-                  </div>
-                )}
-
-                {formState === 1 && (
-                  <div className="column">
-                    <h2>Personal Informations</h2>
-                    <p>
-                      Please provide your personal information to complete your
-                      registration
-                    </p>
-                    <div className="form-item">
-                      <label htmlFor="firstname">
-                        First Name <sup>*</sup>
-                      </label>
-                      <Field
-                        type="text"
-                        id="firstname"
-                        name="firstname"
-                        placeholder="Your firstname"
-                      />
-                      <ErrorMessage
-                        name="firstname"
-                        component="div"
-                        className="error-message"
-                      />
-                    </div>
-                    <div className="form-item">
-                      <label htmlFor="lastname">
-                        Last Name <sup>*</sup>
-                      </label>
-                      <Field
-                        type="text"
-                        id="lastname"
-                        name="lastname"
-                        placeholder="Your lastname"
-                      />
-                      <ErrorMessage
-                        name="lastname"
-                        component="div"
-                        className="error-message"
-                      />
-                    </div>
-
-                    <div className="btn-bar">
-                      <button type="button" onClick={() => setFormState(0)}>
-                        <FontAwesomeIcon icon={faArrowLeft} /> {"   "}
-                        Back
-                      </button>
-                      <button type="button" onClick={() => setFormState(2)}>
-                        <FontAwesomeIcon icon={faArrowRight} /> {"   "}
-                        Next
-                      </button>
-                    </div>
-                  </div>
-                )}
-
-                {formState === 2 && (
-                  <div className="column">
-                    <h2>Profile Information</h2>
-                    <p>
-                      Please provide your profile information to complete your
-                      registration (Optional)
-                    </p>
-                    <div className="form-item">
-                      <label htmlFor="location">Address</label>
-                      <Field
-                        type="text"
-                        id="location"
-                        name="location"
-                        placeholder="Your location / address"
-                      />
-                      <ErrorMessage
-                        name="location"
-                        component="div"
-                        className="error-message"
-                      />
-                    </div>
-
-                    <div className="form-item">
-                      <label htmlFor="bio">Bio</label>
-                      <Field
-                        as="textarea"
-                        id="bio"
-                        name="bio"
-                        rows="6"
-                        placeholder="Your Bio (Optional)"
-                      />
-                      <ErrorMessage
-                        name="bio"
-                        component="div"
-                        className="error-message"
-                      />
-                    </div>
-
-                    <div className="btn-bar">
-                      <button type="button" onClick={() => setFormState(1)}>
-                        <FontAwesomeIcon icon={faArrowLeft} /> {"   "}
-                        Back
-                      </button>
-                      <button type="button" onClick={() => setFormState(3)}>
-                        <FontAwesomeIcon icon={faArrowRight} /> {"   "}
-                        Next
-                      </button>
-                    </div>
-                  </div>
-                )}
-
-                {formState === 3 && (
-                  <div className="column">
-                    <h2>Account Passwords</h2>
-                    <p>
-                      Please provide your password to complete your registration
-                    </p>
-                    <div className="form-item">
-                      <label htmlFor="password">
-                        Password<sup>*</sup>
-                      </label>
-                      <Field
-                        type="password"
-                        id="password"
-                        name="password"
-                        placeholder="Password"
-                      />
-                      <ErrorMessage
-                        name="password"
-                        component="div"
-                        className="error-message"
-                      />
-                    </div>
-
-                    <div className="form-item">
-                      <label htmlFor="confirmPassword">
-                        Confirm Password <sup>*</sup>
-                      </label>
-                      <Field
-                        type="password"
-                        id="confirmPassword"
-                        name="confirmPassword"
-                        placeholder="Confirm Password"
-                      />
-                      <ErrorMessage
-                        name="confirmPassword"
-                        component="div"
-                        className="error-message"
-                      />
-                    </div>
-
-                    <div className="btn-bar">
-                      <button onClick={() => setFormState(2)}>
-                        <FontAwesomeIcon icon={faArrowLeft} /> {"   "} Back
-                      </button>
-                      <button
-                        type="button"
-                        id="register"
-                        onClick={() => setFormState(3)}
-                      >
-                        Register{" "}
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </Form>
+              </Form>
+            )}
           </Formik>
+          {status && <div className="success-msg">{status}</div>}
+          {error && <p className="error-msg">{error}</p>}
         </div>
 
         <div className="image-box">
@@ -438,8 +422,7 @@ function Registration() {
             loading="lazy"
           />
           <h1>
-            <span>Sign in with</span> <br /> PhotoStock <br />
-            <span>Today!</span>
+            <span>Sign in with</span> <br /> PhotoStock
           </h1>
         </div>
       </div>
