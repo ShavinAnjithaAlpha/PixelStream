@@ -2,18 +2,19 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  color: black;
+  color: white;
   padding: 8px 18px;
   transition: all 0.2s ease-in-out;
   border-radius: 25px;
   margin-left: 20px;
-  border: 1px solid #00000055;
+  border: 2px solid #ffffff77;
 }
 
 .search-section-tile:hover {
   background-color: #1d78f0;
   color: #fff;
   cursor: pointer;
+  border-color: #1d78f0;
 }
 
 .search-section-tile h2 {
@@ -21,7 +22,7 @@
 }
 
 .search-section-tile-selected {
-  background-color: black;
-  color: white;
+  background-color: white;
+  color: black;
   border: none;
 }

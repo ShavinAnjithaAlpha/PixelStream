@@ -4,14 +4,15 @@
   align-items: center;
   padding: 10px 50px;
   flex-direction: row; */
+  background: none;
 }
 
 .user-profile-section .profile-section-wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-right: 50px;
   flex-direction: row;
+  background: none;
 }
 
 .user-profile-section .profile-section-wrapper .profile-section {
@@ -22,11 +23,13 @@
   width: 50%;
   margin: 0;
   padding: 1rem;
-  background: linear-gradient(
+  padding-left: 50px;
+  /* background: linear-gradient(
     90deg,
     rgba(0, 0, 0, 1) 0%,
     rgba(0, 0, 0, 0) 100%
-  );
+  ); */
+  background: none;
   transition: all 0.3s ease-in-out;
 }
 
@@ -103,9 +106,15 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: relative;
+  height: 100%;
+  width: 40%;
 }
 
 .user-profile-section .btn-section .btn-bar {
+  position: absolute;
+  bottom: 5%;
+  left: 0;
   display: flex;
   flex-direction: row;
   align-items: center;

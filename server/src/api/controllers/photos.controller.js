@@ -27,7 +27,11 @@ const {
   removeLikeFromPhoto,
   removeDislikeFromPhoto,
 } = require("../services/photoTable");
-const { addTagsToAPhoto, fetchTags } = require("../services/tagTable");
+const {
+  addTagsToAPhoto,
+  fetchTags,
+  fetchAllTags,
+} = require("../services/tagTable");
 const { filterTagNames } = require("../util/filterTagNames");
 const { getLikesOfUsers } = require("./users.controller");
 
@@ -309,6 +313,17 @@ async function removeDislikePhoto(req, res) {
   if (result.status) return res.json(result);
 }
 
+async function getAllTags(req, res) {
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 20;
+
+  const tags = await fetchAllTags(page, limit);
+  // extract the tag names from the tags data
+  const tagNames = tags.map((tag) => tag.tagName);
+
+  return res.json({ tags: tagNames });
+}
+
 module.exports = {
   getPhotos,
   getPhotoById,
@@ -326,4 +341,5 @@ module.exports = {
   getLikesOfUser,
   removeLikePhoto,
   removeDislikePhoto,
+  getAllTags,
 };

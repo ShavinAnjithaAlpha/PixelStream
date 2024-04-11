@@ -4,7 +4,7 @@
   grid-gap: 20px;
   grid-auto-rows: minmax(100px, auto);
   /* grid-auto-flow: dense; */
-  background-color: white;
+  background: none;
   margin-top: 20px;
   margin-left: 8rem;
   margin-right: 8rem;

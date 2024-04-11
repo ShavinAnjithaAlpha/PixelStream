@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import defaultProfilePic from "../../../assets/img/default-profile-icon.png";
 import axios from "../../../axios";
-import "./UserCard.css";
 import { Link } from "react-router-dom";
+import "./UserCard.css";
 
 function UserCard({ user }) {
   const navigate = useNavigate();

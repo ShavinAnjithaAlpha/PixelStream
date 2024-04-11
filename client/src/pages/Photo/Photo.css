@@ -4,6 +4,7 @@
   align-items: center;
   justify-content: space-around;
   margin: auto;
+  width: 100%;
   padding: 20px;
   backdrop-filter: blur(10px) brightness(0.8);
 }

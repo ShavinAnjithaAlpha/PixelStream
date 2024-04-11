@@ -27,7 +27,16 @@ function UserProfile({ defaultTab = "photos" }) {
   }, [username]);
 
   return (
-    <div className="user-profile">
+    <div
+      className="user-profile"
+      style={{
+        backgroundImage: `url('${
+          photos.length > 0 ? photos[0].photoUrl : ""
+        }')`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
       <UserProfileDetail username={username} photos={photos} />
       <TabBar setActiveTab={setActiveTab} activeTab={activeTab} />
 

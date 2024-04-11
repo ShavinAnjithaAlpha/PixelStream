@@ -194,6 +194,7 @@ function Photo() {
         backgroundImage: `url('${photo.resizedPhotoUrl}')`,
         backgroundSize: "cover",
         backgroundPosition: "center",
+        width: "100%",
       }}
     >
       <div className="photo-page">

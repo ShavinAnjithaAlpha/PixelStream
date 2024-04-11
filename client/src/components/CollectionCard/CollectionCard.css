@@ -1,7 +1,7 @@
 .collection-card {
-  width: 500px;
+  width: 400px;
   height: auto;
-  background-color: white;
+  background: #ffffffaa
   border-radius: 15px;
   display: flex;
   flex-direction: column;
@@ -9,32 +9,35 @@
   align-items: flex-start;
   cursor: pointer;
   transition: all 0.3s ease;
+  border: 1px solid #ffffff44;
+  border-radius: 15px;
 }
 
 .collection-card:hover .cover-image img {
-  filter: brightness(0.7);
+  filter: brightness(0.8);
+  
 }
 
 .collection-card .cover-image {
-  width: calc(100% - 20px);
+  width: calc(100%);
   height: 350px;
-  border-radius: 15px;
+  border-radius: 0px;
   object-fit: cover;
   overflow: hidden;
   margin: auto;
+  border-radius: 15px 15px 0px 0px;
 }
 
 .collection-card .cover-photo img {
-  width: 500px;
-  height: 300px;
-  object-fit: "cover";
+  object-fit: cover;
+  width: 100%;
 }
 
 .collection-card .title {
   text-align: left;
   font-size: 24px;
   font-weight: 600;
-  color: #000000;
+  color: #fff;
   margin: 5px 0 0 20px;
 }
 

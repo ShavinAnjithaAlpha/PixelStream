@@ -134,10 +134,21 @@ async function fetchTagsByUserId(userId) {
   return tags;
 }
 
+async function fetchAllTags(page, limit) {
+  // fetch the tags from the database usi g pagination parameters
+  const tags = await Tag.findAll({
+    page: page,
+    limit: limit,
+  });
+
+  return tags;
+}
+
 module.exports = {
   addTagsToAPhoto,
   fetchTags,
   tagsExists,
   addTagsToUser,
   fetchTagsByUserId,
+  fetchAllTags,
 };

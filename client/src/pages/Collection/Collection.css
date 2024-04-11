@@ -1,7 +1,13 @@
 .coll-section {
+  width: 100%;
+}
+
+.coll-section .coll-wrapper {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  backdrop-filter: blur(10px) brightness(0.5);
+  width: 100%;
 }
 
 .coll-section h1#no-photo {
@@ -38,15 +44,16 @@
 }
 
 .coll-section .detail-panel h1 {
-  font-size: 3rem;
+  font-size: 4rem;
   font-weight: 700;
   margin: 0;
   padding: 0;
+  color: white;
 }
 
 .coll-section .detail-panel p {
   font-size: 0.9rem;
-  color: black;
+  color: #fff;
   margin: 0;
   padding: 0;
 }
@@ -57,7 +64,7 @@
   padding: 10px 20px;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid #cacaca;
+  border-bottom: 1px solid #cacaca55;
   width: 100%;
   margin: 40px 0px 20px 0;
 }
@@ -80,6 +87,10 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+
+.coll-section .button-bar .search p {
+  color: whitesmoke;
 }
 
 .coll-section .button-bar .search .search-bar {

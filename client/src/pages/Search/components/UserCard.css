@@ -5,7 +5,8 @@
   align-items: center;
   width: 450px;
   height: auto;
-  background-color: white;
+  background-color: #00000088;
+  backdrop-filter: blur(10px);
   border-radius: 15px;
   margin: 10px;
   padding: 10px;
@@ -15,7 +16,7 @@
 }
 
 .user-card:hover {
-  background-color: rgba(245, 245, 245);
+  background-color: #000000aa;
   cursor: pointer;
 }
 
@@ -47,7 +48,7 @@
 .user-card .profile-bar .detail-box h1 {
   font-size: 1.3rem;
   font-weight: 600;
-  color: #000000;
+  color: white;
   margin: 5px 0 0 0;
 }
 

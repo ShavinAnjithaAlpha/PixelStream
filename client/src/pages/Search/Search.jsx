@@ -1,32 +1,45 @@
-import React, { useState, useContext } from "react";
+import React, { useContext, useState } from "react";
 import CollectionGrid from "./components/CollectionGrid";
 import TaggedPhotoGrid from "./components/TaggedPhotoGrid";
 import UserGrid from "./components/UserGrid";
 import { SearchContext } from "../../contexts/search.context";
 import SearchSectionBar from "./components/SearchSectionBar";
-import "./Search.css";
 import TopicBar from "../../components/TopicBar/TopicBar";
+import "./Search.css";
 
 function Search() {
   const { searchKeyword } = useContext(SearchContext);
   const [selectedSection, setSelectedSection] = React.useState(1);
+  const [backgroundImage, setBackgroundImage] = useState({});
 
   return (
-    <div className="search-page">
-      <SearchSectionBar
-        selectedSection={selectedSection}
-        setSelectedSection={setSelectedSection}
-      />
+    <div
+      className="search-page"
+      style={{
+        backgroundColor: "black",
+        backgroundImage: `url('${backgroundImage ? backgroundImage : ""}')`,
+      }}
+    >
+      <div className="search-page-wrapper">
+        <SearchSectionBar
+          selectedSection={selectedSection}
+          setSelectedSection={setSelectedSection}
+        />
 
-      <h1 className="search-keyword-title">
-        Searched <span>{searchKeyword}</span>
-      </h1>
+        <h1 className="search-keyword-title">
+          Searched <span>{searchKeyword}</span>
+        </h1>
 
-      <TopicBar />
+        <TopicBar />
 
-      {selectedSection === 1 && <TaggedPhotoGrid />}
-      {selectedSection === 2 && <CollectionGrid />}
-      {selectedSection === 3 && <UserGrid />}
+        {selectedSection === 1 && (
+          <TaggedPhotoGrid setBackgroundImage={setBackgroundImage} />
+        )}
+        {selectedSection === 2 && (
+          <CollectionGrid setBackgroundImage={setBackgroundImage} />
+        )}
+        {selectedSection === 3 && <UserGrid />}
+      </div>
     </div>
   );
 }

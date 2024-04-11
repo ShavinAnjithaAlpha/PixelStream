@@ -72,14 +72,7 @@ function UserProfileDetail({ username, photos }) {
 
   return (
     <>
-      <div
-        className="user-profile-section"
-        style={{
-          backgroundImage: `url('${randomPhoto}')`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
+      <div className="user-profile-section">
         <div
           className="profile-section-wrapper"
           style={{ backdropFilter: "blur(20px)" }}
@@ -92,8 +85,8 @@ function UserProfileDetail({ username, photos }) {
                     ? userProfile.User.profilePic
                     : defaultProfileIcon
                 }
-                width={100}
-                height={100}
+                width={120}
+                height={120}
                 alt={userProfile.userName}
               />
             </div>
@@ -123,9 +116,8 @@ function UserProfileDetail({ username, photos }) {
           <div className="btn-section">
             <img
               src={randomPhoto ? randomPhoto : leafsIcon}
-              width={600}
-              height={350}
-              style={{ objectFit: "cover" }}
+              width={800}
+              // height={350}
               alt={leafsIcon}
             />
             <div className="btn-bar">

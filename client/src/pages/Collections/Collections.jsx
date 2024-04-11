@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "../../axios";
 import CollectionCard from "../../components/CollectionCard/CollectionCard";
+import Spinner from "../../components/Spinner/Spinner";
 import "./Collections.css";
 
 function Collections() {
@@ -20,6 +21,8 @@ function Collections() {
   return (
     <div className="global-collections">
       <h1>Collections</h1>
+
+      {!collections && <Spinner />}
 
       <div className="global-collections-grid">
         {collections &&

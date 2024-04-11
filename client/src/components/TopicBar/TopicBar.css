@@ -9,19 +9,22 @@
 }
 
 .topic-bar button {
-  height: 50px;
+  height: 45px;
+  min-width: 100px;
   border-radius: 25px;
-  margin: 10px 25px;
-  color: black;
-  border: none;
-  padding: 10px 20px;
-  font-size: 1rem;
+  margin: 10px 20px;
+  background-color: #00000088;
+  color: white;
+  border: 1px solid #ffffff99;
+  padding: 5px 15px;
+  font-size: 0.8rem;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  /* border: 1px solid rgba(0, 0, 0, 0.1); */
 }
 
 .topic-bar button:hover {
-  background-color: #0a488f;
+  background-color: black;
   color: white;
+  border-color: white;
 }

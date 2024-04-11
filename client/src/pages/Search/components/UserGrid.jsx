@@ -21,7 +21,9 @@ function UserGrid() {
 
   return (
     <Fragment>
-      {users.length === 0 && <p className="no-user-msg">No users found</p>}
+      {users.users && users.users.length === 0 && (
+        <p className="no-user-msg">No users found</p>
+      )}
       <div className="user-grid">
         {users.users &&
           users.users.map((user) => <UserCard user={user} key={user.userId} />)}
