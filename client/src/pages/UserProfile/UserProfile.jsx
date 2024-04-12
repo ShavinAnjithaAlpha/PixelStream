@@ -30,7 +30,7 @@ function UserProfile({ defaultTab = "photos" }) {
           setBackgroundImage(res.data.photo[0].photoUrl);
         } else {
           axios
-            .get(`/photos?limit=1&page=${randomId()}`)
+            .get(`photos?limit=1&page=${randomId()}`)
             .then((res) => {
               console.log(res.data.photos[0].photoUrl);
               setBackgroundImage(res.data.photos[0].photoUrl);

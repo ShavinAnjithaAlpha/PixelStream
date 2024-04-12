@@ -25,5 +25,17 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
 
+  UserDownloads.associate = (models) => {
+    UserDownloads.belongsTo(models.User, {
+      foreignKey: "userId",
+      onDelete: "CASCADE",
+    });
+
+    UserDownloads.belongsTo(models.Photo, {
+      foreignKey: "photoId",
+      onDelete: "CASCADE",
+    });
+  };
+
   return UserDownloads;
 };

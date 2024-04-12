@@ -1,6 +1,9 @@
 const { UserLikes } = require("../models");
 const { UserDisLikes } = require("../models");
 const { UserDownloads } = require("../models");
+const { Photo } = require("../models");
+const { UserAuth } = require("../models");
+const { User } = require("../models");
 const sequelize = require("sequelize");
 
 // function related to downloading statistics
@@ -204,6 +207,29 @@ async function getDislikesAccordingToDays(userId, days) {
   return dislikesAccordingToDays;
 }
 
+async function getDownloadHistory(userId) {
+  const downloadHistory = await UserDownloads.findAll({
+    where: {
+      userId: userId,
+    },
+    include: [
+      {
+        model: Photo,
+        attributes: ["photoId", "photoTitle", "resizedPhotoUrl", "photoUrl"],
+        include: [
+          {
+            model: User,
+            attributes: ["userId", "firstName", "lastName"],
+            include: [{ model: UserAuth, attributes: ["userName", "email"] }],
+          },
+        ],
+      },
+    ],
+  });
+
+  return downloadHistory;
+}
+
 module.exports = {
   getTotalDownloads,
   getTotalDaysOfDownloads,
@@ -214,4 +240,5 @@ module.exports = {
   getTotalDislikes,
   getTotalDaysOfDislikes,
   getDislikesAccordingToDays,
+  getDownloadHistory,
 };

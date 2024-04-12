@@ -63,6 +63,34 @@ async function createUser(data) {
   };
 }
 
+async function createNewPassword(userId, oldPassword, newPassword) {
+  // find the user with the given userId
+  const user = await UserAuth.findOne({
+    where: {
+      userId: userId,
+    },
+  });
+  // check whether old password is correct
+  const isPasswordCorrect = await bcrypt.compare(oldPassword, user.password);
+  if (!isPasswordCorrect) return { error: "Old password is incorrect" };
+  // first create the hash password from the plain text password
+  const hash = await bcrypt.hash(newPassword, hashSalt);
+
+  // find user with userId and update the password
+  await UserAuth.update(
+    {
+      password: hash,
+    },
+    {
+      where: {
+        userId: userId,
+      },
+    }
+  );
+
+  return { message: "Password updated successfully" };
+}
+
 async function findUser(username, email) {
   (username = username || ""), (email = email || "");
 
@@ -284,6 +312,7 @@ async function fetchUsers(query, page, limit) {
 module.exports = {
   checkUserExists,
   createUser,
+  createNewPassword,
   findUser,
   fetchPhotoFromUserName,
   fetchUserByUsername,

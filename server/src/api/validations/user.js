@@ -42,4 +42,22 @@ function validateAuth(data) {
   return authSchema.validate(data);
 }
 
-module.exports = { validateUser, validateAuth, validateUserProfile };
+function validatePasswordBody(data) {
+  const passwordSchema = Joi.object({
+    oldPassword: Joi.string().pattern(
+      new RegExp("^[a-zA-Z0-9.,-/+*@_]{3,30}$")
+    ),
+    newPassword: Joi.string().pattern(
+      new RegExp("^[a-zA-Z0-9.,-/+*@_]{3,30}$")
+    ),
+  });
+
+  return passwordSchema.validate(data);
+}
+
+module.exports = {
+  validateUser,
+  validateAuth,
+  validateUserProfile,
+  validatePasswordBody,
+};

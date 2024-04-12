@@ -1,5 +1,10 @@
 const { validateUserProfile } = require("../validations/user");
-const { updateProfile, removeAccount } = require("../services/userTable");
+const {
+  updateProfile,
+  removeAccount,
+  getUserIdByUserName,
+} = require("../services/userTable");
+const { getDownloadHistory } = require("../services/statTables");
 const { validateTagBody } = require("../validations/tags");
 const { tagsExists, addTagsToUser } = require("../services/tagTable");
 
@@ -62,8 +67,26 @@ async function addInterest(req, res) {
   return res.json({ status: true });
 }
 
+async function getDownloads(req, res) {
+  // extract the username by the params
+  const username = req.params.username;
+  // check weather the user has authorized to the system
+  if (req.user.username !== username)
+    return res.status(401).json({ error: "Unauthorized" });
+
+  // now fetch the userId of the user by username
+  const userId = await getUserIdByUserName(username);
+  if (userId.error) return res.status(400).json({ error: userId.error });
+
+  // now get the statistics of the user from the download history table
+  const downloads = await getDownloadHistory(userId);
+
+  return res.json(downloads);
+}
+
 module.exports = {
   updateAccount,
   deleteAccount,
   addInterest,
+  getDownloads,
 };

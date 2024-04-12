@@ -1,8 +1,13 @@
-const { validateUser, validateAuth } = require("../validations/user");
+const {
+  validateUser,
+  validateAuth,
+  validatePasswordBody,
+} = require("../validations/user");
 const {
   checkUserExists,
   createUser,
   findUser,
+  createNewPassword,
 } = require("../services/userTable");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -63,10 +68,27 @@ async function login(req, res) {
   });
 }
 
-function logout(req, res) {}
+async function changePassword(req, res) {
+  // first validate the request body data
+  const { error } = validatePasswordBody(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
+
+  // then check whether the user exists
+  const userId = req.user.userId;
+
+  // now hash the new password and save it in the database
+  const status = await createNewPassword(
+    userId,
+    req.body.oldPassword,
+    req.body.newPassword
+  );
+  if (status.error) return res.status(401).send(status.error);
+
+  res.json({ message: status.message });
+}
 
 module.exports = {
   registerUser,
   login,
-  logout,
+  changePassword,
 };

@@ -93,3 +93,23 @@
   color: black;
   width: 700px;
 }
+
+.privacy-section .error-msg {
+  border-radius: 5px;
+  background-color: red;
+  font-weight: 600;
+  padding: 10px;
+  color: black;
+  margin: 10px 0;
+  width: 700px;
+}
+
+.privacy-section .success-msg {
+  border-radius: 5px;
+  background-color: lime;
+  font-weight: 600;
+  padding: 10px;
+  color: black;
+  margin: 10px 0;
+  width: 700px;
+}
