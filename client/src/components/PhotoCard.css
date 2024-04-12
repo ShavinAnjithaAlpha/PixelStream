@@ -126,15 +126,6 @@
   white-space: nowrap;
 }
 
-.photo-card .default-profile-icon {
-  height: 40px;
-  left: 20px;
-  object-fit: cover;
-  position: absolute;
-  top: 345px;
-  width: 40px;
-}
-
 .photo-card .show {
   display: block;
   animation: fadeIn 0.5s ease-in-out;
@@ -158,4 +149,20 @@
 /* style for darken the div element when the mouse is hovered over it */
 .photo-card .darken {
   filter: brightness(0.8);
+}
+
+.photo-card .profile-img {
+  position: absolute;
+  top: 345px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  left: 20px;
+}
+
+.photo-card .profile-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }

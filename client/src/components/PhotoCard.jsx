@@ -143,14 +143,20 @@ function PhotoCard({ photo, isLiked_, addCollection, setSelectedPhoto }) {
             <div className={`div ${isHovered ? "show" : "not-show"}`}>
               {photo.User && photo.User.fullName}{" "}
             </div>
-            <img
-              className={`default-profile-icon ${
-                isHovered ? "show" : "not-show"
-              }`}
-              alt="Default profile icon"
-              src={defaultProfileIcon} // TODO: fix this
-              loading="lazy"
-            />
+            <div className="profile-img">
+              <img
+                className={`default-profile-icon ${
+                  isHovered ? "show" : "not-show"
+                }`}
+                alt="Default profile icon"
+                src={
+                  photo.User && photo.User.profilePic
+                    ? photo.User.profilePic
+                    : defaultProfileIcon
+                }
+                loading="lazy"
+              />
+            </div>
           </div>
         </div>
       </div>
