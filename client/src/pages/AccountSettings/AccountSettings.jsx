@@ -1,17 +1,20 @@
 import React, { useContext, useState } from "react";
+import { AuthContext } from "../../contexts/auth.context";
 import SettingsBar from "./components/SettingsBar";
 import ProfileDetails from "./sections/ProfileDetails";
 import {
-  faComment,
+  faArrowDown,
+  faDeleteLeft,
   faEnvelope,
-  faMoneyBill,
   faShieldHalved,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import ProfileBadge from "../../components/ProfileBadge";
-import { AuthContext } from "../../contexts/auth.context";
-import "./AccountSettings.css";
 import EmailSettings from "./sections/EmailSettings";
+import Privacy from "./sections/Privacy";
+import "./AccountSettings.css";
+import DownloadHistory from "./sections/DownloadHistory";
+import DeleteAccount from "./sections/DeleteAccount";
 
 function AccountSettings() {
   const initialSettings = [
@@ -33,17 +36,18 @@ function AccountSettings() {
       description: "Password and Security settings",
       icon: faShieldHalved,
     },
+
     {
       key: 4,
-      title: "Notifications",
-      description: "Notification settings",
-      icon: faComment,
+      title: "Download History",
+      description: "Download history",
+      icon: faArrowDown,
     },
     {
       key: 5,
-      title: "Billing",
-      description: "Billing settings",
-      icon: faMoneyBill,
+      title: "Delete Account",
+      description: "Delete Account",
+      icon: faDeleteLeft,
     },
   ];
 
@@ -70,6 +74,16 @@ function AccountSettings() {
 
           {activeSetting.title === "Email" && (
             <EmailSettings user={authState} />
+          )}
+
+          {activeSetting.title === "Privacy" && <Privacy user={authState} />}
+
+          {activeSetting.title === "Download History" && (
+            <DownloadHistory user={authState} />
+          )}
+
+          {activeSetting.title === "Delete Account" && (
+            <DeleteAccount user={authState} />
           )}
         </div>
       </div>

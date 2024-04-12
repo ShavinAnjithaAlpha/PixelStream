@@ -11,21 +11,36 @@ function EmailSettings() {
       </p>
 
       <div className="email-list-section">
-        <ul>
-          <li>
-            <input type="check" />
-          </li>
-          <li>
-            <input type="check" />
-          </li>
-          <li>
-            <input type="check" />
-          </li>
-          <li>
-            <input type="check" />
-          </li>
-        </ul>
+        <p>Send me emails related to: </p>
+        <div className="email-setting">
+          <input type="checkbox" name="setting1" />
+          <label>Annoucement</label>
+        </div>
+
+        <div className="email-setting">
+          <input type="checkbox" name="setting1" />
+          <label>Community Updates</label>
+        </div>
+
+        <div className="email-setting">
+          <input type="checkbox" name="setting1" />
+          <label>Feedback & Surveys</label>
+        </div>
+
+        <div className="email-setting">
+          <input type="checkbox" name="setting1" />
+          <label>Milestone & Notifications</label>
+        </div>
+
+        <div className="email-setting">
+          <input type="checkbox" name="setting1" />
+          <label>Recommendation photos, collections, & Photogrpagers</label>
+        </div>
       </div>
+
+      <button type="submit" id="save">
+        Save <span></span>
+      </button>
     </div>
   );
 }

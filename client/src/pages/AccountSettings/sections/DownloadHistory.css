@@ -1,0 +1,111 @@
+.download-history-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-left: 20px;
+  margin-top: 20px;
+  height: 100%;
+  color: white;
+  width: 100%;
+}
+
+.download-history-section h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  color: white;
+  text-align: left;
+  align-self: flex-start;
+}
+
+.download-history-section h2 {
+  align-self: flex-start;
+  font-size: 2rem;
+  color: white;
+  text-align: left;
+  margin-left: 20px;
+}
+
+.download-history-section p {
+  font-size: 1rem;
+  color: #ffffff77;
+  font-style: italic;
+  text-align: left;
+  margin-bottom: 2rem;
+  margin-left: 0rem;
+}
+
+.download-history-section .download-list-section {
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  border: 1px solid #ffffff22;
+  width: 100%;
+  margin-top: 50px;
+  padding: 25px 50px;
+}
+
+.download-history-section .download-list-section .download-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  border: 1px solid #ffffff33;
+  padding: 20px;
+}
+.download-history-section .download-item .img-box {
+  width: 70px;
+  height: 70px;
+  overflow: hidden;
+}
+
+.download-history-section .download-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.download-history-section .download-item .details {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-left: 20px;
+}
+
+.download-history-section .download-item h3 {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: white;
+  margin: 0;
+}
+
+.download-history-section .download-item h4 {
+  font-size: 0.9rem;
+  color: #ffffff77;
+  margin: 0;
+  font-weight: 400;
+}
+
+.download-history-section .download-item p {
+  margin: 0;
+  font-size: 1rem;
+  margin-left: 50px;
+  font-style: normal;
+}
+
+.download-history-section .download-item button {
+  margin-left: auto;
+  background-color: #ffffff22;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  align-self: flex-end;
+  transition: all 0.3s ease;
+}
+
+.download-history-section .download-item button:hover {
+  background-color: #ffffff33;
+}

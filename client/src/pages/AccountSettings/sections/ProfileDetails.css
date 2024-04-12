@@ -39,7 +39,7 @@
   display: flex;
   flex-direction: column;
   border-radius: 20px;
-  border: 1px solid #ffffff22;
+  border: 1px solid #ffffff44;
   width: 100%;
   margin-top: 50px;
   padding: 25px 50px;
@@ -73,9 +73,9 @@
   width: 500px;
   padding: 10px;
   margin: 10px 0px;
-  border: 1px solid #cccccc33;
+  border: 1px solid #cccccc44;
   border-radius: 5px;
-  background-color: #00000055;
+  background-color: #000000 55;
   outline: none;
   color: white;
   transition: border 0.3s ease;
@@ -122,7 +122,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  border: 1px solid #ffffff22;
+  border: 1px solid #ffffff44;
   border-radius: 5px;
   padding: 10px 20px;
 }
@@ -156,9 +156,9 @@
   color: black;
   margin: 10px 0px;
   width: 150px;
-  font-size: 1rem;
   transition: all 0.3s ease;
   cursor: pointer;
+  font-weight: 700;
 }
 
 .profile-detail-section button#save:hover,

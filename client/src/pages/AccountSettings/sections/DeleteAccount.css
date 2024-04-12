@@ -1,4 +1,4 @@
-.email-setting-section {
+.delete-account-section {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -10,7 +10,7 @@
   width: 100%;
 }
 
-.email-setting-section h1 {
+.delete-account-section h1 {
   font-size: 3rem;
   font-weight: 700;
   color: white;
@@ -18,7 +18,7 @@
   align-self: flex-start;
 }
 
-.email-setting-section h2 {
+.delete-account-section h2 {
   align-self: flex-start;
   font-size: 2rem;
   color: white;
@@ -26,7 +26,7 @@
   margin-left: 20px;
 }
 
-.email-setting-section p {
+.delete-account-section p {
   font-size: 1rem;
   color: #ffffff77;
   font-style: italic;
@@ -35,7 +35,7 @@
   margin-left: 0rem;
 }
 
-.email-setting-section .email-list-section {
+.delete-account-section .delete-box {
   display: flex;
   flex-direction: column;
   border-radius: 20px;
@@ -45,38 +45,39 @@
   padding: 25px 50px;
 }
 
-.email-setting-section .email-list-section .email-setting {
+.delete-account-section .delete-box .form-item {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: flex-start;
-  align-items: center;
-  margin-bottom: 20px;
+  align-items: flex-start;
 }
 
-.email-setting-section .email-list-section .email-setting label {
-  margin-left: 20px;
+.delete-account-section .delete-box .form-item label {
   font-size: 1rem;
 }
 
-.email-setting-section
-  .email-list-section
-  .email-setting
-  input[type="checkbox"] {
-  width: 20px;
+.delete-account-section .delete-box .form-item input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: 1px solid #ffffff44;
+  background-color: #000;
+  color: white;
 }
 
-.email-setting-section button#save {
-  background-color: lime;
+.delete-account-section .delete-box button {
+  background-color: red;
   padding: 10px 20px;
-  border-radius: 10px;
-  color: black;
-  margin: 10px 0px;
-  width: 150px;
-  transition: all 0.3s ease;
+  margin-top: 20px;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  font-size: 1rem;
   cursor: pointer;
-  font-weight: 700;
+  transition: all 0.3s ease;
 }
 
-.email-setting-section button#save:hover {
-  background-color: limegreen;
+.delete-account-section .delete-box button:hover {
+  background-color: #ff0000aa;
 }

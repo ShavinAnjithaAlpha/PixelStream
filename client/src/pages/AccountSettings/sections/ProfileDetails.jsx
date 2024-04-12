@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import defaultProfileImage from "../../../assets/img/default-profile-icon.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
@@ -6,6 +7,7 @@ import axios from "../../../axios";
 import "./ProfileDetails.css";
 
 function ProfileDetails({ user }) {
+  const navigate = useNavigate();
   const [profile, setProfile] = useState({});
   const [userInterests, setUserInterets] = useState([]);
   const [newProfileImage, setNewProfileImage] = useState(null);
@@ -35,6 +37,11 @@ function ProfileDetails({ user }) {
   };
 
   useEffect(() => {
+    if (user.username === undefined) {
+      navigate("/login");
+      return;
+    }
+
     axios
       .get(`/users/${user.username}`)
       .then((res) => {
@@ -211,7 +218,7 @@ function ProfileDetails({ user }) {
             </div>
           ))}
 
-          <input type="text" onKeyDown={addTag} />
+          <input type="text" onKeyDown={addTag} placeholder=" + Add Tag" />
         </div>
       </div>
 

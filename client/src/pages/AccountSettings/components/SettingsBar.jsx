@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import SettingTile from "./SettingTile";
 import "./SettingsBar.css";
 
