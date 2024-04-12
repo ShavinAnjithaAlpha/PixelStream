@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import defaultProfileImage from "../../../assets/img/default-profile-icon.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClose } from "@fortawesome/free-solid-svg-icons";
+import { faClose, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import axios from "../../../axios";
 import "./ProfileDetails.css";
 
@@ -12,6 +12,9 @@ function ProfileDetails({ user }) {
   const [userInterests, setUserInterets] = useState([]);
   const [newProfileImage, setNewProfileImage] = useState(null);
   const [profileUrl, setProfileUrl] = useState(null);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [saving, setSaving] = useState(false);
 
   const setProfileImage = (e) => {
     if (!e.target.files[0]) return;
@@ -36,6 +39,69 @@ function ProfileDetails({ user }) {
     }
   };
 
+  const handleSave = () => {
+    setSaving(true);
+    // save the profile details
+    if (!user.username || !user.user) {
+      return navigate("/login");
+    }
+
+    axios
+      .post(`account/${user.username}`, profile, {
+        headers: {
+          Authorization: `${user.user}`,
+        },
+      })
+      .then((res) => {
+        setSaving(false);
+        setSuccess("Profile Updated Successfully");
+        setTimeout(() => {
+          setSuccess("");
+        }, 2000);
+      })
+      .catch((err) => {
+        setError(err.response.data.error || "Some Error happened");
+        setSaving(false);
+
+        setTimeout(() => {
+          setError("");
+        }, 2000);
+      });
+
+    // if profile image changes update the profile image also
+    if (newProfileImage) {
+      // create new form data
+      const formData = new FormData();
+      formData.append("file", newProfileImage);
+
+      axios
+        .post(`account/${user.username}/change-profile-image`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `${user.user}`,
+          },
+        })
+        .then((res) => {
+          setSaving(false);
+          setSuccess("Profile Image Updated Successfully");
+          setTimeout(() => {
+            setSuccess("");
+          }, 2000);
+        })
+        .catch((err) => {
+          setError(
+            err.response.data.error ||
+              "Some Error happened while profile image uploading"
+          );
+          setSaving(false);
+
+          setTimeout(() => {
+            setError("");
+          }, 2000);
+        });
+    }
+  };
+
   useEffect(() => {
     if (user.username === undefined) {
       navigate("/login");
@@ -45,7 +111,19 @@ function ProfileDetails({ user }) {
     axios
       .get(`/users/${user.username}`)
       .then((res) => {
-        setProfile(res.data);
+        // flatten the profile object
+        const profileData = {
+          username: res.data.userName,
+          email: res.data.email,
+          firstname: res.data.User.firstName,
+          lastname: res.data.User.lastName,
+          location: res.data.User.location,
+          personalSite: res.data.User.personalSite,
+          Bio: res.data.User.Bio,
+          profilePic: res.data.User.profilePic,
+        };
+
+        setProfile(profileData);
       })
       .catch((err) => {
         console.log(err);
@@ -64,8 +142,11 @@ function ProfileDetails({ user }) {
 
   return (
     <div className="profile-detail-section">
-      <button type="submit" id="save2">
-        Save <span></span>
+      <button type="submit" id="save2" onClick={handleSave}>
+        Save{" "}
+        <span>
+          {saving && <FontAwesomeIcon icon={faSpinner} spin="true" />}
+        </span>
       </button>
 
       <h1>Profile Details</h1>
@@ -73,6 +154,10 @@ function ProfileDetails({ user }) {
         Set your login preferences, help us personalize your experinece and make
         big account changes here
       </p>
+
+      {error && <div className="error-msg">{error}</div>}
+
+      {success && <div className="success-msg">{success}</div>}
 
       <div className="personal-detail-section">
         <h2>Personal Details</h2>
@@ -87,8 +172,11 @@ function ProfileDetails({ user }) {
                 id="username"
                 maxLength={255}
                 minLength={3}
-                value={profile.userName}
+                value={profile.username}
                 placeholder="Username"
+                onChange={(e) =>
+                  setProfile({ ...profile, username: e.target.value })
+                }
               />
             </div>
 
@@ -99,8 +187,11 @@ function ProfileDetails({ user }) {
                 id="username"
                 maxLength={255}
                 minLength={3}
-                value={profile.User && profile.User.firstName}
+                value={profile.firstname}
                 placeholder="Username"
+                onChange={(e) =>
+                  setProfile({ ...profile, firstname: e.target.value })
+                }
               />
             </div>
 
@@ -111,8 +202,11 @@ function ProfileDetails({ user }) {
                 id="username"
                 maxLength={255}
                 minLength={3}
-                value={profile.User && profile.User.lastName}
+                value={profile.lastname}
                 placeholder="Username"
+                onChange={(e) =>
+                  setProfile({ ...profile, lastname: e.target.value })
+                }
               />
             </div>
 
@@ -123,9 +217,12 @@ function ProfileDetails({ user }) {
                 id="bio"
                 maxLength={255}
                 minLength={3}
-                value={profile.User && profile.User.Bio}
+                value={profile.Bio}
                 placeholder="Bio"
                 rows={5}
+                onChange={(e) =>
+                  setProfile({ ...profile, Bio: e.target.value })
+                }
               />
             </div>
           </div>
@@ -143,8 +240,8 @@ function ProfileDetails({ user }) {
                 src={
                   newProfileImage
                     ? profileUrl
-                    : profile && profile.User && profile.User.profilePic
-                    ? profile.User.profilePic
+                    : profile && profile.profilePic
+                    ? profile.profilePic
                     : defaultProfileImage
                 }
                 width={250}
@@ -170,6 +267,9 @@ function ProfileDetails({ user }) {
               minLength={3}
               value={profile.email}
               placeholder="Email"
+              onChange={(e) =>
+                setProfile({ ...profile, email: e.target.value })
+              }
             />
           </div>
 
@@ -180,8 +280,11 @@ function ProfileDetails({ user }) {
               id="location"
               maxLength={255}
               minLength={3}
-              value={profile.User && profile.User.location}
+              value={profile.location}
               placeholder="location"
+              onChange={(e) =>
+                setProfile({ ...profile, location: e.target.value })
+              }
             />
           </div>
 
@@ -192,8 +295,11 @@ function ProfileDetails({ user }) {
               id="personal-site"
               maxLength={255}
               minLength={3}
-              value={profile.User && profile.User.personalSite}
+              value={profile.personalSite}
               placeholder="portfolio url"
+              onChange={(e) =>
+                setProfile({ ...profile, personalSite: e.target.value })
+              }
             />
           </div>
         </div>
@@ -222,8 +328,11 @@ function ProfileDetails({ user }) {
         </div>
       </div>
 
-      <button type="submit" id="save">
-        Save <span></span>
+      <button type="submit" id="save" onClick={handleSave}>
+        Save{" "}
+        <span>
+          {saving && <FontAwesomeIcon icon={faSpinner} spin="true" />}
+        </span>
       </button>
     </div>
   );

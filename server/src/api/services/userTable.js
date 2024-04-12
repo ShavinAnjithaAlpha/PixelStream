@@ -309,6 +309,21 @@ async function fetchUsers(query, page, limit) {
   return users;
 }
 
+async function createProfileImage(userId, profileImageUrl) {
+  await User.update(
+    {
+      profilePic: profileImageUrl,
+    },
+    {
+      where: {
+        userId: userId,
+      },
+    }
+  );
+
+  return true;
+}
+
 module.exports = {
   checkUserExists,
   createUser,
@@ -327,4 +342,5 @@ module.exports = {
   removeAccount,
   fetchUsers,
   fetchUsers,
+  createProfileImage,
 };

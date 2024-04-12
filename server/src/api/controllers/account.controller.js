@@ -3,10 +3,12 @@ const {
   updateProfile,
   removeAccount,
   getUserIdByUserName,
+  createProfileImage,
 } = require("../services/userTable");
 const { getDownloadHistory } = require("../services/statTables");
 const { validateTagBody } = require("../validations/tags");
 const { tagsExists, addTagsToUser } = require("../services/tagTable");
+const { uploadFileToBlob } = require("../util/azureStorageAccountUpload");
 
 async function updateAccount(req, res) {
   // extract the username from the params
@@ -84,9 +86,28 @@ async function getDownloads(req, res) {
   return res.json(downloads);
 }
 
+async function updateProfileImage(req, res) {
+  // get the file from the request
+  const file = req.file;
+
+  // check whether the file is provided
+  if (!file) return res.status(400).json({ error: "File is required" });
+
+  const userId = req.user.userId;
+  // upload the file to the server
+  const fileUrl = await uploadFileToBlob(file);
+
+  // now update the profile image of the user
+  const status = await createProfileImage(userId, fileUrl);
+  if (status.error) return res.status(400).json({ error: status.error });
+
+  return res.json({ message: "Profile Image updated successfully" });
+}
+
 module.exports = {
   updateAccount,
   deleteAccount,
   addInterest,
   getDownloads,
+  updateProfileImage,
 };
