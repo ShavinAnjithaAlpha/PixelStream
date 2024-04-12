@@ -52,6 +52,11 @@ function StatTab({ username }) {
           onChange={(e) => setSortBy(e.value)}
         />
       </div>
+      {photos.length === 0 && (
+        <div className="no-stat">
+          <h1>No Stats Available</h1>
+        </div>
+      )}
       <div className="stat-tab-grid">
         {photos &&
           sortedPhotos(photos).map((photo, index) => (

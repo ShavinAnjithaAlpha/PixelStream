@@ -25,7 +25,9 @@ function TaggedPhotoGrid({ setBackgroundImage }) {
           } else {
             // if no photos found, set the background image as a random image from API
             axios
-              .get(`photos?page=${Math.floor(Math.random() * 100) + 1}&limit=1`)
+              .get(
+                `/photos?page=${Math.floor(Math.random() * 100) + 1}&limit=1`
+              )
               .then((res) => {
                 setBackgroundImage(
                   res.data[0].resizedPhotoUrl

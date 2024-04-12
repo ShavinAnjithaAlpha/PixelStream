@@ -16,7 +16,6 @@ function Search() {
     <div
       className="search-page"
       style={{
-        backgroundColor: "black",
         backgroundImage: `url('${backgroundImage ? backgroundImage : ""}')`,
       }}
     >

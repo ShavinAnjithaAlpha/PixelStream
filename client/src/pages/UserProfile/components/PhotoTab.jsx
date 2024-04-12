@@ -5,7 +5,10 @@ function PhotoTab({ photos }) {
   return (
     <>
       {photos.length === 0 && (
-        <div className="no-photos">
+        <div
+          className="no-photos"
+          style={{ color: "#ffffff44", margin: "4rem" }}
+        >
           <h1>No photos</h1>
         </div>
       )}

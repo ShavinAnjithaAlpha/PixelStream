@@ -10,6 +10,7 @@
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   margin: 5px 0;
+  background-color: #ffffff22;
 }
 
 .setting-tile:hover {
@@ -22,14 +23,14 @@
 
 .setting-tile h1 {
   font-size: 1rem;
-  color: #000000;
+  color: white;
   margin-left: 10px;
   font-weight: normal;
 }
 
 .setting-tile p {
   font-size: 1rem;
-  color: gray;
+  color: #ffffffaa;
 }
 
 .setting-tile .icon {

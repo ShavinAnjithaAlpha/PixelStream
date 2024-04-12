@@ -1,0 +1,46 @@
+.email-setting-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-left: 20px;
+  margin-top: 20px;
+  height: 100%;
+  color: white;
+  width: 100%;
+}
+
+.email-setting-section h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  color: white;
+  text-align: left;
+  align-self: flex-start;
+}
+
+.email-setting-section h2 {
+  align-self: flex-start;
+  font-size: 2rem;
+  color: white;
+  text-align: left;
+  margin-left: 20px;
+}
+
+.email-setting-section p {
+  font-size: 1rem;
+  color: #ffffff77;
+  font-style: italic;
+  text-align: left;
+  margin-bottom: 2rem;
+  margin-left: 1rem;
+}
+
+.email-setting-section .email-list-section {
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  border: 1px solid #ffffff22;
+  width: 100%;
+  margin-top: 50px;
+  padding: 25px 50px;
+}

@@ -123,7 +123,7 @@ function Navbar() {
                   <Link to="/upload">Upload Photo</Link>
                 </MenuItem>
                 <MenuItem>
-                  <Link to="/stat">Stat</Link>
+                  <Link to={`/stat/${authState.username}`}>Stat</Link>
                 </MenuItem>
                 <LogOutMenuItem onClick={logout}>
                   Logout @{authState.username}

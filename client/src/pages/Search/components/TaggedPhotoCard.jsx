@@ -32,8 +32,8 @@ function TaggedPhotoCard({ photo }) {
     <div className="tagged-photo-card">
       <PhotoCard photo={photo} />
       <div className="tag-bar">
-        {tags.map((tag) => (
-          <Tag key={tag} tagName={tag} handleClick={tagSearch} />
+        {tags.map((tag, index) => (
+          <Tag key={index} tagName={tag} handleClick={tagSearch} />
         ))}
       </div>
     </div>

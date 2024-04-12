@@ -8,18 +8,6 @@ function TopicBar() {
   const navigate = useNavigate();
   const { setSearchKeyword } = useContext(SearchContext);
 
-  // const initialTopics = [
-  //   "nature",
-  //   "animals",
-  //   "food",
-  //   "travel",
-  //   "architecture",
-  //   "nature",
-  //   "animals",
-  //   "food",
-  //   "travel",
-  //   "architecture",
-  // ];
   const [topics, setTopics] = useState([]);
 
   const handleTagSearch = (tag) => {

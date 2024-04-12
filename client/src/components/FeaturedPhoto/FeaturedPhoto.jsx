@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "../../axios";
 import "./FeaturedPhoto.css";
 
 function FeaturedPhoto() {
   const [featuredPhoto, setFeaturedPhoto] = useState({});
+  const navigate = useNavigate();
 
   const randomPhotoId = () => {
     return Math.floor(Math.random() * 100) + 1;
@@ -21,8 +23,13 @@ function FeaturedPhoto() {
       });
   }, []);
 
+  const gotoPhoto = () => {
+    // navifgate to the appropriate photo page
+    navigate(`/photo/${featuredPhoto.photoId}`);
+  };
+
   return (
-    <div className="featured-photo">
+    <div className="featured-photo" onClick={gotoPhoto}>
       {featuredPhoto && (
         <img
           src={

@@ -3,12 +3,10 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  margin-left: 150px;
-  margin-top: 50px;
+  margin-left: 50px;
+  margin-top: 30px;
   height: 100%;
-  width: 20%;
-  padding-right: 30px;
-  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  width: 15%;
 }
 
 .settings-bar h1.setting-bar-title {

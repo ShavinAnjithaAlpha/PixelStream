@@ -1,6 +1,6 @@
 import React from "react";
-import "./SettingTile.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "./SettingTile.css";
 
 function SettingTile({
   key,
@@ -26,7 +26,7 @@ function SettingTile({
       className={`setting-tile ${isActive ? "selected" : ""}`}
       onClick={handleClick}
     >
-      <FontAwesomeIcon icon={icon} />
+      <FontAwesomeIcon icon={icon} style={{ color: "white" }} />
       <h1>{title}</h1>
     </div>
   );

@@ -8,7 +8,7 @@ import { Tag } from "../../../components/Tag/Tag";
 import { SearchContext } from "../../../contexts/search.context";
 import "./UserProfileDetail.css";
 
-function UserProfileDetail({ username, photos }) {
+function UserProfileDetail({ username, photos, backgroundImage }) {
   const navigate = useNavigate();
   const [userProfile, setUserProfile] = useState({});
   const [userInterests, setUserInterets] = useState([]);
@@ -115,7 +115,7 @@ function UserProfileDetail({ username, photos }) {
           </div>
           <div className="btn-section">
             <img
-              src={randomPhoto ? randomPhoto : leafsIcon}
+              src={backgroundImage ? backgroundImage : leafsIcon}
               width={800}
               // height={350}
               alt={leafsIcon}

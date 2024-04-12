@@ -4,7 +4,6 @@
   align-items: center;
   padding: 10px 50px;
   flex-direction: row; */
-  background: none;
 }
 
 .user-profile-section .profile-section-wrapper {
@@ -107,8 +106,9 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  height: 100%;
+  max-height: 500px;
   width: 40%;
+  overflow: hidden;
 }
 
 .user-profile-section .btn-section .btn-bar {

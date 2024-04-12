@@ -1,4 +1,5 @@
 .search-page {
+  background: linear-gradient(90deg, #000, #222);
   background-size: cover;
   background-position: center;
   width: 100%;

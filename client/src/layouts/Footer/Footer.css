@@ -1,6 +1,7 @@
 footer {
-  background-color: rgb(0, 24, 48);
+  background: linear-gradient(90deg, #000, #222, #444);
   color: #e4e4e4;
+  margin: 0;
 }
 
 .footer-content {
@@ -9,7 +10,6 @@ footer {
   justify-content: space-between;
   align-items: center;
   padding: 1rem 5rem;
-  border-top: 1px solid #e0e0e0;
 }
 
 .footer-content .footer-col {

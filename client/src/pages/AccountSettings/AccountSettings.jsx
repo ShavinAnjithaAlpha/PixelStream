@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import SettingsBar from "./components/SettingsBar";
 import ProfileDetails from "./sections/ProfileDetails";
-import "./AccountSettings.css";
 import {
   faComment,
   faEnvelope,
@@ -9,6 +8,10 @@ import {
   faShieldHalved,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
+import ProfileBadge from "../../components/ProfileBadge";
+import { AuthContext } from "../../contexts/auth.context";
+import "./AccountSettings.css";
+import EmailSettings from "./sections/EmailSettings";
 
 function AccountSettings() {
   const initialSettings = [
@@ -44,6 +47,7 @@ function AccountSettings() {
     },
   ];
 
+  const { authState } = useContext(AuthContext);
   const [settings, setSettings] = useState(initialSettings);
   const [activeSetting, setActiveSetting] = useState(initialSettings[0]);
 
@@ -51,6 +55,7 @@ function AccountSettings() {
     <div className="account-settings-page">
       <div className="account-navbar">
         <span>PS</span>
+        <ProfileBadge user={authState.user} />
       </div>
       <div className="account-body">
         <SettingsBar
@@ -59,7 +64,13 @@ function AccountSettings() {
           activeSetting={activeSetting}
         />
         <div className="account-content">
-          {activeSetting.title === "Profile Details" && <ProfileDetails />}
+          {activeSetting.title === "Profile Details" && (
+            <ProfileDetails user={authState} />
+          )}
+
+          {activeSetting.title === "Email" && (
+            <EmailSettings user={authState} />
+          )}
         </div>
       </div>
     </div>
