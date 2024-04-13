@@ -20,6 +20,7 @@ import {
 import PhotoGrid from "../../components/PhotoGrid";
 import CollectionCard from "../../components/CollectionCard/CollectionCard";
 import "./Photo.css";
+import getFormattedDate from "../../utils/DateFormatter";
 
 function Photo() {
   const { id } = useParams();
@@ -33,10 +34,6 @@ function Photo() {
   const [relatedCollections, setRelatedCollections] = useState([]);
 
   const [addCollectionBox, setAddCollectionBox] = useState(false);
-
-  // format the date to readable format
-  const date = photo.createdAt;
-  const readableDate = date; // July 20, 2021
 
   const likedThePhoto = (e) => {
     if (!authState.status) {
@@ -292,7 +289,9 @@ function Photo() {
               <ul className="detail-list">
                 <li className="detail-item">
                   <CalendarTodayIcon />
-                  <span className="line">Published on {readableDate}</span>
+                  <span className="line">
+                    Published on {getFormattedDate(photo.createdAt)}
+                  </span>
                 </li>
                 {photo.location && (
                   <li className="detail-item">

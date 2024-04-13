@@ -142,6 +142,7 @@ function AccountSettings() {
             </button>
           }
           position={["bottom center", "right center"]}
+          contentStyle={{ background: "none", border: "none" }}
         >
           <Menu>
             <MenuItem>

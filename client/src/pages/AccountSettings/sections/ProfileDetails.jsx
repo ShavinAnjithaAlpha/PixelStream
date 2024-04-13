@@ -125,9 +125,7 @@ function ProfileDetails({ user }) {
 
         setProfile(profileData);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
 
     // fetch the user interests
     axios
@@ -161,7 +159,9 @@ function ProfileDetails({ user }) {
 
       <div className="personal-detail-section">
         <h2>Personal Details</h2>
-        <p>This information don’t be visible to anyon</p>
+        <p>
+          This information will be visible to everyone who views your profile
+        </p>
 
         <div className="form-col">
           <div className="form-box">

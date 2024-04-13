@@ -4,12 +4,12 @@ import { AuthContext } from "../../contexts/auth.context";
 import UploadImageTile from "./components/UploadImageTile";
 import UploadedImageTile from "./components/UploadedImageTile";
 import axios from "../../axios";
-import "./UploadImages.css";
 import ProfileBadge from "../../components/ProfileBadge";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import Popup from "reactjs-popup";
+import "./UploadImages.css";
 
 const MAXIMUM_COUNT = 20;
 
@@ -75,6 +75,7 @@ function UploadImages() {
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   const onClose = (photo) => {
     // remove the photo from the selected photos
@@ -115,7 +116,6 @@ function UploadImages() {
         })
         .then((res) => {
           // remove that photo from the selected photos
-          setSelectedPhotos(selectedPhotos.filter((p) => p !== photo));
         })
         .catch((err) => {
           console.log(err);
@@ -129,6 +129,12 @@ function UploadImages() {
     // reset the progress
     setProgress(0);
     setUploading(false);
+    setSuccess("Photos uploaded successfully");
+    setSelectedPhotos([]);
+
+    setTimeout(() => {
+      setSuccess("");
+    }, 3000);
   };
 
   return (
@@ -195,6 +201,7 @@ function UploadImages() {
       </div>
 
       {error && <p className="error">{error}</p>}
+      {success && <p className="success">{success}</p>}
 
       <button className="upload-btn" onClick={uploadPhotos}>
         Upload{" "}

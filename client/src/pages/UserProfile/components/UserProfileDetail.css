@@ -1,6 +1,3 @@
-.user-profile-section {
-}
-
 .user-profile-section .profile-section-wrapper {
   display: flex;
   justify-content: space-between;
@@ -24,6 +21,10 @@
 
 .user-profile-section .profile-section-wrapper .profile-section p {
   margin-bottom: 10px;
+}
+
+.user-profile-section .profile-section-wrapper .profile-section a {
+  font-size: 0.9rem;
 }
 
 .user-profile-section .profile-section-wrapper .profile-section .profile-img {

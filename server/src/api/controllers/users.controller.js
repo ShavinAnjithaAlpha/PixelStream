@@ -31,6 +31,8 @@ const { fetchTagsByUserId } = require("../services/tagTable");
 async function getUserByUsername(req, res) {
   const username = req.params.username;
 
+  if (!username) return res.dtatus(400).json({ error: "Username is required" });
+
   // get the user from the database
   const user = await fetchUserByUsername(username);
   if (user.error) return res.status(400).send(user.error);

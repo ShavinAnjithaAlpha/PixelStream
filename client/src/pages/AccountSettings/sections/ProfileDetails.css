@@ -68,21 +68,25 @@
   align-items: flex-start;
 }
 
-.profile-detail-section .form-box input[type="text"],
-.profile-detail-section .form-box textarea {
+.profile-detail-section .form-item input[type="text"],
+.profile-detail-section .form-item textarea {
   width: 500px;
   padding: 10px;
   margin: 10px 0px;
   border: 1px solid #cccccc44;
   border-radius: 5px;
-  background-color: #000000 55;
+  background-color: #00000055;
   outline: none;
   color: white;
   transition: border 0.3s ease;
 }
 
-.profile-detail-section .form-box input[type="text"]:hover,
-.profile-detail-section .form-box textarea:hover {
+.profile-detail-section .form-item textarea {
+  background-color: #00000055;
+}
+
+.profile-detail-section .form-item input[type="text"]:hover,
+.profile-detail-section .form-item textarea:hover {
   border: 1px solid #cccccc77;
 }
 

@@ -4,6 +4,7 @@
   width: 154px;
   margin: 15px 20px;
   color: white;
+  cursor: pointer;
 }
 
 .component .profile-card-name {
