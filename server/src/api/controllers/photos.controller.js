@@ -139,6 +139,9 @@ async function uploadPhoto(req, res) {
 
   // add tags to the photo if tag fields given under request body
   if (req.body.tags) {
+    // make the tags string as an array of tags
+    req.body.tags = req.body.tags.split(",");
+
     const result = await addTagsToAPhoto(photo.photoId, req.body.tags);
     if (result.error) return res.status(400).send(result.error);
 

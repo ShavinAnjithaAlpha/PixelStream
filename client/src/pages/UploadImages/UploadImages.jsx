@@ -1,70 +1,213 @@
 import React, { useState, useContext } from "react";
-import axios from "../../axios";
+import styled from "styled-components";
 import { AuthContext } from "../../contexts/auth.context";
 import UploadImageTile from "./components/UploadImageTile";
+import UploadedImageTile from "./components/UploadedImageTile";
+import axios from "../../axios";
 import "./UploadImages.css";
+import ProfileBadge from "../../components/ProfileBadge";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import Popup from "reactjs-popup";
+
+const MAXIMUM_COUNT = 20;
+
+const Menu = styled.div`
+  background-color: #111111dd;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  padding: 0;
+  border: 1px solid #ffffff33;
+  border-radius: 10px;
+`;
+
+const MenuItem = styled.div`
+  background: none;
+  padding: 10px;
+  border-bottom: 0px solid #f1f1f1;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  color: white;
+
+  &:hover {
+    background-color: #ffffff33;
+  }
+
+  &:nth-child(1) {
+    border-radius: 10px 10px 0 0;
+  }
+
+  & > a {
+    color: white;
+  }
+`;
+
+const LogOutMenuItem = styled.div`
+  padding: 10px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  color: red;
+  border-top: 1px solid #ffffff33;
+  border-radius: 0 0 10px 10px;
+
+  &:hover {
+    background-color: #ff0000aa;
+    color: black;
+  }
+
+  & > a {
+    color: red;
+  }
+
+  &:hover > a {
+    color: red;
+  }
+`;
 
 function UploadImages() {
-  const { authState } = useContext(AuthContext);
-  const [err, setErr] = useState(null);
-  const [addedPhotos, setAddedPhotos] = useState([]);
+  const { authState, setAuthState } = useContext(AuthContext);
+  const [selectedPhotos, setSelectedPhotos] = useState([]);
+  const [uploading, setUploading] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [error, setError] = useState("");
 
-  const handleImageUpload = (event) => {
-    const data = {
-      file: event.target.files[0],
-      data: URL.createObjectURL(event.target.files[0]),
-    };
-    setAddedPhotos([...addedPhotos, data]);
-    // setSelectedImage(URL.createObjectURL(event.target.files[0]));
+  const onClose = (photo) => {
+    // remove the photo from the selected photos
+    setSelectedPhotos(selectedPhotos.filter((p) => p !== photo));
   };
 
-  const uploadImage = (e) => {
-    const payLoad = new FormData();
-    // payLoad.append("title", title);
-    // payLoad.append("description", description);
-    // payLoad.append("location", location);
-    // payLoad.append("file", selectedFile);
+  const logout = () => {
+    if (selectedPhotos.length !== 0) {
+      alert("Please upload the photos before logout");
+      return;
+    }
 
-    axios
-      .put("/photos/", payLoad, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `${authState.user}`,
-        },
-      })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((err) => {
-        console.log(err);
-        setErr(err.response.data.message || err.response.data.error);
-      });
+    // now logout
+    localStorage.removeItem("token");
+    setAuthState({ status: false });
+  };
+
+  const uploadPhotos = () => {
+    setUploading(true);
+
+    // iterate through each photo selected
+    selectedPhotos.forEach((photo, index) => {
+      // upload each photo separately
+      // build a new form data object for uplaod the photo
+      const payLoad = new FormData();
+      payLoad.append("title", photo.title);
+      payLoad.append("description", photo.description);
+      payLoad.append("location", photo.location);
+      payLoad.append("file", photo.photoData);
+      payLoad.append("tags", photo.tags);
+
+      axios
+        .put("/photos/", payLoad, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `${authState.user}`,
+          },
+        })
+        .then((res) => {
+          // remove that photo from the selected photos
+          setSelectedPhotos(selectedPhotos.filter((p) => p !== photo));
+        })
+        .catch((err) => {
+          console.log(err);
+          setError(err.response.data.message || err.response.data.error);
+        });
+
+      // set the progress
+      setProgress(((index + 1) / selectedPhotos.length) * 100);
+    });
+
+    // reset the progress
+    setProgress(0);
+    setUploading(false);
   };
 
   return (
     <div className="upload-photos">
-      <h1>Uplaod Images</h1>
+      <div className="title-bar">
+        <div className="logo">PS</div>
+        <h1>Uplaod Images</h1>
 
+        <Popup
+          trigger={
+            <button
+              style={{
+                background: "none",
+                border: "none",
+                outline: "none",
+              }}
+            >
+              <ProfileBadge user={authState.user} />
+            </button>
+          }
+          position={["bottom center", "right center"]}
+          contentStyle={{ background: "none", border: "none" }}
+        >
+          <Menu>
+            <MenuItem>
+              <Link to={`/user/${authState.username}`}>Profile</Link>
+            </MenuItem>
+            <MenuItem>
+              <Link to="/account">Settings</Link>
+            </MenuItem>
+            <MenuItem>
+              <Link to="/upload">Upload Photo</Link>
+            </MenuItem>
+            <MenuItem>
+              <Link to={`/stat/${authState.username}`}>Stat</Link>
+            </MenuItem>
+            <LogOutMenuItem onClick={logout}>
+              Logout @{authState.username}
+            </LogOutMenuItem>
+          </Menu>
+        </Popup>
+      </div>
+      <p>
+        You can upload upto 20 photos at a time. Only JPEG and PNG files.
+        Maximum 50MB
+      </p>
+
+      <h3 id="count">
+        {MAXIMUM_COUNT - selectedPhotos.length} more photo remaining
+      </h3>
+
+      {uploading && <p>{progress}% Complete...</p>}
       <div className="upload-photo-grid">
-        {addedPhotos.map((photo) => (
-          <UploadImageTile image={photo} user={authState.user} />
-        ))}
+        {selectedPhotos.length < MAXIMUM_COUNT && (
+          <UploadImageTile
+            setSelectedPhotos={setSelectedPhotos}
+            selectedPhotos={selectedPhotos}
+          />
+        )}
 
-        <div className="image-portal">
-          <input type="file" accept="image/*" onChange={handleImageUpload} />
-          <label htmlFor="file">Choose file</label>
-        </div>
+        {selectedPhotos.map((photo, index) => (
+          <UploadedImageTile key={index} photo={photo} onClose={onClose} />
+        ))}
       </div>
 
-      <button onClick={uploadImage} className="upload-btn">
-        Upload
-      </button>
+      {error && <p className="error">{error}</p>}
 
-      {err && (
-        <div>
-          <p>{err}</p>
-        </div>
-      )}
+      <button className="upload-btn" onClick={uploadPhotos}>
+        Upload{" "}
+        {uploading && (
+          <span>
+            <FontAwesomeIcon
+              icon={faSpinner}
+              spin="true"
+              style={{ marginLeft: "10px" }}
+            />
+          </span>
+        )}
+      </button>
     </div>
   );
 }

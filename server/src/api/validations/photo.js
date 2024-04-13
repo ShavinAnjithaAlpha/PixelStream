@@ -6,7 +6,7 @@ function validatePhoto(data) {
     title: Joi.string().min(5).max(255).required(),
     description: Joi.string().min(10).max(512),
     location: Joi.string().min(3).max(255),
-    tags: Joi.array().items(Joi.string().min(3).max(255)).optional(),
+    tags: Joi.string().optional(),
   });
 
   return photoSchema.validate(data);

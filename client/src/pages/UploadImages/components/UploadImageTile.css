@@ -6,21 +6,34 @@
   width: 400px;
   height: auto;
   padding: 0;
-  border: 1px solid #00000033;
+  border: 1px solid #ffffff33;
   border-radius: 10px;
 }
 
 .upload-image-tile .image-box {
   overflow: hidden;
-  width: 400px;
-  height: 300px;
+  width: 300px;
+  height: 250px;
   border-radius: 10px 10px 0 0;
+  position: relative;
 }
 
 .upload-image-tile .image-box img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.upload-image-tile .image-box input[type="file"] {
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  color: white;
 }
 
 .upload-image-tile .image-input-form {
@@ -38,14 +51,21 @@
   align-items: flex-start;
 }
 
-.upload-image-tile .image-input-form input {
-  background-color: none;
-  border: 1px solid #00000033;
-  border-radius: 5px;
-  padding: 5px;
+.upload-image-tile .image-input-form input,
+.upload-image-tile .image-input-form textarea {
   width: 100%;
-  margin: 10px 0;
-  height: 40px;
+  padding: 10px;
+  margin: 2px 0px;
+  border: 1px solid #cccccc44;
+  border-radius: 5px;
+  background-color: #00000055;
+  outline: none;
+  color: white;
+  transition: border 0.3s ease;
+}
+
+.upload-image-tile .image-input-form input:hover {
+  border: 1px solid #cccccc77;
 }
 
 .upload-image-tile .image-input-form input#tag-input {
@@ -56,8 +76,13 @@
 .upload-image-tile p {
   font-size: 1rem;
   font-weight: 500;
-  color: #000000;
+  color: #ffffff;
   margin: 5px 0 0 0;
+}
+.upload-image-tile p.error-msg {
+  color: red;
+  font-size: 0.9rem;
+  font-weight: 400;
 }
 
 .upload-image-tile .tag-list {
@@ -71,9 +96,28 @@
 
 .upload-image-tile .tag-list .tag {
   font-size: 0.8rem;
-  color: #00000099;
+  color: #ffffff99;
   padding: 5px 10px;
   margin: 5px 5px 5px 0;
   border-radius: 5px;
-  background-color: #00000011;
+  border: 1px solid #ffffff44;
+  background-color: #222;
+}
+
+.upload-image-tile button.add-btn {
+  width: 100%;
+  background-color: lime;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 10px 0;
+  font-weight: 700;
+  padding: 10px;
+  trasition: all 0.3s ease;
+}
+
+.upload-image-tile button.add-btn:hover {
+  background-color: limegreen;
 }

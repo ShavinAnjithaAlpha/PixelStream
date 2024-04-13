@@ -1,3 +1,44 @@
+.upload-photos {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 10px 20px;
+  background-color: #111;
+}
+
+.upload-photos .title-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.upload-photos .logo {
+  color: white;
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.upload-photos h1 {
+  color: white;
+  font-size: 3rem;
+  margin: 10px;
+}
+
+.upload-photos p {
+  color: #ffffffaa;
+  margin: 5px;
+}
+
+.upload-photos h3#count {
+  align-self: flex-start;
+  color: white;
+  font-weight: 700;
+}
+
 .upload-photos .upload-photo-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -6,48 +47,22 @@
   padding: 20px;
 }
 
-.upload-photos .upload-photo-grid .image-portal {
-  width: 400px;
-  height: 300px;
-  border: 1px solid #00000033;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: 5rem;
-  color: #00000033;
-}
-
-.upload-photos .upload-photo-grid .image-portal input {
-  background: none;
-  border: none;
-  width: 100%;
-  height: 100%;
-  outline: none;
-  /* display: none; */
-}
-
-.upload-photos .upload-photo-grid .image-portal label {
-  padding: 10px;
-  background-color: #4caf50;
-  color: white;
-  cursor: pointer;
-}
-
 .upload-photos button.upload-btn {
   width: 500px;
   height: 80px;
-  background-color: dodgerblue;
+  background: transparent;
+  border: 2px solid lime;
   color: white;
-  border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: all 0.3s ease;
   margin: 10px 50px;
   font-size: 1.2rem;
+  font-weight: 700;
+  transition: all 0.3s ease;
 }
 
 .upload-photos button.upload-btn:hover {
-  background-color: #0077cc;
+  background-color: lime;
+  color: black;
+  transition: all 0.3s ease;
 }
