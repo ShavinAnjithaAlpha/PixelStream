@@ -53,7 +53,8 @@
 
 ## About The Project
 
-![alt text](image.png)
+![image](https://github.com/ShavinAnjithaAlpha/PhotoShav/assets/85817726/b7a3d12f-2d63-47a1-90cc-8118fe4cabe4)
+
 
 PixelStream is a photo streaming platform for photographers and photo enthusiasts. It allows users to upload, share, and view photos from around the world. The platform provides a simple and intuitive interface for users to interact with the photos and photographers they love. Also, it provides a platform for photographers to showcase their work and connect with other photographers, so they can learn and grow together.
 
