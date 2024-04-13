@@ -6,7 +6,7 @@
   width: 350px;
   height: auto;
   padding: 0;
-  border: 1px solid #00000033;
+  border: 1px solid #ffffff33;
   border-radius: 10px;
 }
 
@@ -36,14 +36,14 @@
 .stat-photo-card .stat-content .index {
   font-size: 1rem;
   font-weight: 500;
-  color: #000000;
+  color: #aaaaaa;
   margin: 5px 0 0 0;
 }
 
 .stat-photo-card .stat-content .time {
   font-size: 0.8rem;
   font-weight: 400;
-  color: #000000;
+  color: white;
   margin: 5px 0 0 0;
 }
 
@@ -57,13 +57,13 @@
 
 .stat-photo-card .stat-content .values span {
   font-size: 0.8rem;
-  color: #00000099;
+  color: #ffffff99;
   margin: 5px 10px 0 0;
   text-align: left;
 }
 
 .stat-photo-card .stat-content .values span.value {
   font-size: 1.2rem;
-  color: black;
+  color: white;
   font-weight: 600;
 }

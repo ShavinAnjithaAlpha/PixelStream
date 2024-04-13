@@ -7,6 +7,7 @@ import {
   faHeart,
   faPlus,
   faArrowDown,
+  faPen,
 } from "@fortawesome/free-solid-svg-icons";
 import "reactjs-popup/dist/index.css";
 import defaultProfileIcon from "../assets/img/default-profile-icon.png";
@@ -110,6 +111,18 @@ function PhotoCard({ photo, isLiked_, addCollection, setSelectedPhoto }) {
               }')`,
             }}
           >
+            {authState.status &&
+              photo.User &&
+              photo.User.UserAuth &&
+              authState.username === photo.User.UserAuth.userName && (
+                <div className="edit" onClick={likedPhoto}>
+                  <FontAwesomeIcon
+                    icon={faPen}
+                    size="lg"
+                    style={{ color: "black" }}
+                  />
+                </div>
+              )}
             <div className="overlap" onClick={likedPhoto}>
               <FontAwesomeIcon
                 icon={faHeart}

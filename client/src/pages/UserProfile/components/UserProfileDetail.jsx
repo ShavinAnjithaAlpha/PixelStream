@@ -1,19 +1,26 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../contexts/auth.context";
 import StatCard from "./StatCard";
 import defaultProfileIcon from "../../../assets/img/default-profile-icon.png";
 import leafsIcon from "../../../assets/img/leafs.jpg";
 import axios from "../../../axios";
 import { Tag } from "../../../components/Tag/Tag";
 import { SearchContext } from "../../../contexts/search.context";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLink, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import "./UserProfileDetail.css";
 
 function UserProfileDetail({ username, photos, backgroundImage }) {
+  const { authState } = useContext(AuthContext);
   const navigate = useNavigate();
   const [userProfile, setUserProfile] = useState({});
   const [userInterests, setUserInterets] = useState([]);
   const { setSearchKeyword } = useContext(SearchContext);
-  const [randomPhoto, setRandomPhoto] = useState(null);
+
+  const goToAccount = () => {
+    navigate(`/account`);
+  };
 
   useEffect(() => {
     // first fetch user profile from the API
@@ -35,27 +42,6 @@ function UserProfileDetail({ username, photos, backgroundImage }) {
       .catch((err) => {
         console.log(err);
       });
-
-    // set the random photo every 1 second
-    let photo_ = null;
-    photo_ = photos[Math.floor(Math.random() * photos.length)];
-
-    setRandomPhoto(
-      photo_ ? photo_.photoUrl : "https://source.unsplash.com/random/600x350"
-    );
-
-    const intervalId = setInterval(() => {
-      // set the random photo every 1 second
-      let photo_ = null;
-      // while (!photo_) {
-      photo_ = photos[Math.floor(Math.random() * photos.length)];
-      // }
-      setRandomPhoto(
-        photo_ ? photo_.photoUrl : "https://source.unsplash.com/random/600x350"
-      );
-    }, 10000);
-
-    return () => clearInterval(intervalId);
   }, [username]);
 
   const handleTagSearch = (tag) => {
@@ -73,10 +59,7 @@ function UserProfileDetail({ username, photos, backgroundImage }) {
   return (
     <>
       <div className="user-profile-section">
-        <div
-          className="profile-section-wrapper"
-          style={{ backdropFilter: "blur(20px)" }}
-        >
+        <div className="profile-section-wrapper">
           <div className="profile-section">
             <div className="profile-img">
               <img
@@ -91,7 +74,17 @@ function UserProfileDetail({ username, photos, backgroundImage }) {
               />
             </div>
             <div className="name">
-              {userProfile.User && userProfile.User.fullName}
+              {userProfile.User && userProfile.User.fullName}{" "}
+              <span>
+                {
+                  (authState.status && authState,
+                  username === userProfile.userName && (
+                    <button className="edit-btn" onClick={goToAccount}>
+                      Edit
+                    </button>
+                  ))
+                }
+              </span>
             </div>
             <div className="user-link">@{userProfile.userName}</div>
 
@@ -99,6 +92,27 @@ function UserProfileDetail({ username, photos, backgroundImage }) {
               {userProfile.User && userProfile.User.Bio
                 ? userProfile.User.Bio
                 : "This user has no bio yet."}
+            </p>
+
+            <p>
+              <span>
+                <FontAwesomeIcon
+                  icon={faLocationDot}
+                  style={{ marginRight: "10px" }}
+                />
+              </span>
+              {userProfile.User && userProfile.User.location}
+            </p>
+            <p>
+              <span>
+                <FontAwesomeIcon
+                  icon={faLink}
+                  style={{ marginRight: "10px" }}
+                />
+              </span>
+              <a href={userProfile.User && userProfile.User.personalSite}>
+                {(userProfile.User && userProfile.User.personalSite) || "-"}
+              </a>
             </p>
             <div className="stat-bar">
               <StatCard label="Followers" value={userProfile.followers} />
@@ -108,6 +122,7 @@ function UserProfileDetail({ username, photos, backgroundImage }) {
             </div>
             <p>User Interests</p>
             <div className="user-tag-bar">
+              {userInterests.length === 0 && <p>No Interets Yet</p>}
               {userInterests.map((tag, index) => (
                 <Tag key={index} tagName={tag} handleClick={handleTagSearch} />
               ))}

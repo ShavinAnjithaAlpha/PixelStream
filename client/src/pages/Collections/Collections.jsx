@@ -19,7 +19,14 @@ function Collections() {
   }, []);
 
   return (
-    <div className="global-collections">
+    <div
+      className="global-collections"
+      style={{
+        backgroundImage: `url('https://images.unsplash.com/photo-1612833943307-4b3b3b3b3b3b')`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
       <h1>Collections</h1>
 
       {!collections && <Spinner />}

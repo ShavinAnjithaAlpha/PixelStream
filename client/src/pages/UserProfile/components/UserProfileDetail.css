@@ -1,9 +1,4 @@
 .user-profile-section {
-  /* display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 50px;
-  flex-direction: row; */
 }
 
 .user-profile-section .profile-section-wrapper {
@@ -23,13 +18,12 @@
   margin: 0;
   padding: 1rem;
   padding-left: 50px;
-  /* background: linear-gradient(
-    90deg,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(0, 0, 0, 0) 100%
-  ); */
   background: none;
   transition: all 0.3s ease-in-out;
+}
+
+.user-profile-section .profile-section-wrapper .profile-section p {
+  margin-bottom: 10px;
 }
 
 .user-profile-section .profile-section-wrapper .profile-section .profile-img {
@@ -57,6 +51,31 @@
   font-size: 2.3rem;
   font-weight: 500;
   color: white;
+}
+
+.user-profile-section
+  .profile-section-wrapper
+  .profile-section
+  button.edit-btn {
+  width: 100px;
+  background: none;
+  border: 2px solid #ffffff88;
+  color: white;
+  padding: 5px 20px;
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+  margin: auto;
+  transition: all 0.3s ease-in-out;
+  margin-left: 2rem;
+}
+
+.user-profile-section
+  .profile-section-wrapper
+  .profile-section
+  button.edit-btn:hover {
+  background: #ffffff22;
+  border: 2px solid #ffffff;
 }
 
 .user-profile-section .profile-section-wrapper .profile-section p {

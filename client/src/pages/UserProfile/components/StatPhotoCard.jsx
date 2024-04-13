@@ -55,7 +55,7 @@ function StatPhotoCard({ photo, index }) {
               <FontAwesomeIcon
                 icon={faHeartBroken}
                 size="xl"
-                style={{ color: "black" }}
+                style={{ color: "yellow" }}
               />
             </span>
             <span className="value">

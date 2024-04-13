@@ -39,6 +39,32 @@
   background-color: white;
 }
 
+.photo-card .edit {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff80;
+  border-radius: 15px;
+  height: 35px;
+  width: 35px;
+  left: 250px;
+  position: absolute;
+  top: 10px;
+  transition: all 0.1s ease-in-out;
+  cursor: pointer;
+  z-index: 1;
+  transition: all 0.1s ease;
+}
+
+.photo-card .edit:hover {
+  background-color: white;
+}
+
+.photo-card:hover .edit {
+  display: flex;
+  transition: all 0.1s ease;
+}
+
 .photo-card .img {
   height: 30px;
   left: 5px;

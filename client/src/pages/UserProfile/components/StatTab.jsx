@@ -62,11 +62,7 @@ function StatTab({ username }) {
           sortedPhotos(photos).map((photo, index) => (
             <>
               {photo.PhotoStat && (
-                <StatPhotoCard
-                  photo={photo}
-                  key={photo.photoId}
-                  index={index + 1}
-                />
+                <StatPhotoCard photo={photo} key={index} index={index + 1} />
               )}
             </>
           ))}

@@ -17,8 +17,8 @@ export const TagBar = ({ tags }) => {
 
   return (
     <div className="tag-bar">
-      {tags.map((tag) => (
-        <Tag key={tag} tagName={tag} handleClick={handleTagSearch} />
+      {tags.map((tag, index) => (
+        <Tag key={index} tagName={tag} handleClick={handleTagSearch} />
       ))}
     </div>
   );

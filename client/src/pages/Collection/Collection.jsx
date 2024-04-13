@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Select from "react-select";
 import { useParams } from "react-router-dom";
 import CollectionGrid from "./components/CollectionGrid";
 import ProfileCard from "./components/ProfileCard";
 import axios from "../../axios";
 import "./Collection.css";
+import { AuthContext } from "../../contexts/auth.context";
 
 function Collection() {
   const { id } = useParams();
+  const { authState } = useContext(AuthContext);
   const [collection, setCollection] = useState({});
   const [photos, setPhotos] = useState([]);
 
@@ -76,7 +78,17 @@ function Collection() {
         <div className="detail-panel">
           <div className="profile"></div>
           {collection.User && <ProfileCard user={collection.User} />}
-          <h1>{collection.collectionName}</h1>
+          <h1>
+            {collection.collectionName}{" "}
+            <span>
+              {authState.status &&
+                collection.User &&
+                collection.User.UserAuth &&
+                authState.username === collection.User.UserAuth.username && (
+                  <button className="edit-btn">Edit</button>
+                )}
+            </span>
+          </h1>
           <p>{collection.collectionDescription}</p>
         </div>
 

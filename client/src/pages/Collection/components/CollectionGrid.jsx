@@ -3,8 +3,6 @@ import PhotoCard from "../../../components/PhotoCard";
 import "./CollectionGrid.css";
 
 function CollectionGrid({ photos }) {
-  console.log(photos);
-
   return (
     <div className="col-photo-grid">
       {photos.map((photo) => (

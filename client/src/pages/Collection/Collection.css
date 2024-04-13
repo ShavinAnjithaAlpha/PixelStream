@@ -58,6 +58,25 @@
   padding: 0;
 }
 
+.coll-section .detail-panel button.edit-btn {
+  width: 100px;
+  background: none;
+  border: 2px solid #ffffff88;
+  color: white;
+  padding: 5px 20px;
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+  margin: auto;
+  transition: all 0.3s ease-in-out;
+  margin-left: 2rem;
+}
+
+.coll-section .detail-panel button.edit-btn:hover {
+  background: #ffffff22;
+  border: 2px solid #ffffff;
+}
+
 .coll-section .button-bar {
   display: flex;
   flex-direction: row;

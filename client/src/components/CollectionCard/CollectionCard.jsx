@@ -33,7 +33,7 @@ function CollectionCard({ collection }) {
       </div>
       <div className="tag-bar">
         <Tag key={1} tagName={"nature"} />
-        <Tag key={1} tagName={"photo"} />
+        <Tag key={2} tagName={"photo"} />
       </div>
     </div>
   );

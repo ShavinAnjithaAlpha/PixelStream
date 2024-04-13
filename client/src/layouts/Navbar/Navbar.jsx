@@ -9,49 +9,58 @@ import { SearchContext } from "../../contexts/search.context";
 import "./NavBar.css";
 
 const Menu = styled.div`
-  background-color: white;
+  background-color: #111111dd;
+  backdrop-filter: blur(10px);
   transition: all 0.3s ease;
   padding: 0;
+  border: 1px solid #ffffff33;
+  border-radius: 10px;
 `;
 
 const MenuItem = styled.div`
+  background: none;
   padding: 10px;
   border-bottom: 0px solid #f1f1f1;
   text-align: left;
   cursor: pointer;
   transition: all 0.3s ease;
   font-size: 0.9rem;
-  color: black;
+  color: white;
 
   &:hover {
-    background-color: #dddddd;
+    background-color: #ffffff33;
+  }
+
+  &:nth-child(1) {
+    border-radius: 10px 10px 0 0;
   }
 
   & > a {
-    color: black;
+    color: white;
   }
 `;
 
 const LogOutMenuItem = styled.div`
   padding: 10px;
-  border-bottom: 1px solid #f1f1f1;
   text-align: left;
   cursor: pointer;
   transition: all 0.3s ease;
   font-size: 0.9rem;
-  color: black;
-  border-top: 1px solid #f1f1f1;
+  color: red;
+  border-top: 1px solid #ffffff33;
+  border-radius: 0 0 10px 10px;
 
   &:hover {
-    background-color: red;
-  }
-
-  & > a {
+    background-color: #ff0000aa;
     color: black;
   }
 
+  & > a {
+    color: red;
+  }
+
   &:hover > a {
-    color: white;
+    color: red;
   }
 `;
 
@@ -111,6 +120,7 @@ function Navbar() {
                 </button>
               }
               position={["bottom center", "right center"]}
+              contentStyle={{ background: "none", border: "none" }}
             >
               <Menu>
                 <MenuItem>

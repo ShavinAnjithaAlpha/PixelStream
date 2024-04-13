@@ -27,13 +27,12 @@ function UserProfile({ defaultTab = "photos" }) {
         setPhotos(res.data.photos);
         // set the background image
         if (res.data.photos.length !== 0) {
-          setBackgroundImage(res.data.photo[0].photoUrl);
+          setBackgroundImage(res.data.photos[0].photoUrl);
         } else {
           axios
             .get(`photos?limit=1&page=${randomId()}`)
             .then((res) => {
-              console.log(res.data.photos[0].photoUrl);
-              setBackgroundImage(res.data.photos[0].photoUrl);
+              setBackgroundImage(res.data[0].photoUrl);
             })
             .catch((err) => {});
         }
@@ -52,18 +51,20 @@ function UserProfile({ defaultTab = "photos" }) {
         backgroundPosition: "center",
       }}
     >
-      <UserProfileDetail
-        username={username}
-        photos={photos}
-        backgroundImage={backgroundImage}
-      />
-      <TabBar setActiveTab={setActiveTab} activeTab={activeTab} />
+      <div className="user-profile-wrapper">
+        <UserProfileDetail
+          username={username}
+          photos={photos}
+          backgroundImage={backgroundImage}
+        />
+        <TabBar setActiveTab={setActiveTab} activeTab={activeTab} />
 
-      <div className="tabs">
-        {activeTab === "photos" && <PhotoTab photos={photos} />}
-        {activeTab === "likes" && <LikesTab username={username} />}
-        {activeTab === "collections" && <CollectionTab username={username} />}
-        {activeTab === "stat" && <StatTab username={username} />}
+        <div className="tabs">
+          {activeTab === "photos" && <PhotoTab photos={photos} />}
+          {activeTab === "likes" && <LikesTab username={username} />}
+          {activeTab === "collections" && <CollectionTab username={username} />}
+          {activeTab === "stat" && <StatTab username={username} />}
+        </div>
       </div>
     </div>
   );

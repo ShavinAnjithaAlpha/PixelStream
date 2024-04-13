@@ -1,3 +1,12 @@
+.photo-page-box {
+  backdrop-filter: blur(10px) brightness(0.8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
 .photo-page {
   display: flex;
   flex-direction: row;
@@ -6,7 +15,6 @@
   margin: auto;
   width: 100%;
   padding: 20px;
-  backdrop-filter: blur(10px) brightness(0.8);
 }
 
 .photo-page .photo-container {
@@ -18,6 +26,7 @@
   width: 700px;
   height: 600px;
   overflow: hidden;
+  border: 1px solid #ffffff22;
 }
 
 .photoPage .photo-container .photo {
@@ -36,9 +45,10 @@
 .photo-page .detail-tab .photo-detail-panel {
   width: 750px;
   height: auto;
-  background: linear-gradient(90deg, #000000ee 0%, #000000aa 100%);
+  background: linear-gradient(90deg, #111111ee 0%, #222222aa 100%);
   border-radius: 30px;
   padding: 20px 30px;
+  border: 1px solid #ffffff33;
 }
 
 /* title tab styling  */
@@ -119,4 +129,25 @@
 .photo-page .detail-list li .line {
   margin-left: 10px;
   align-self: center;
+}
+
+.photo-page-box .photo-collections-grid {
+  grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+  display: grid;
+  grid-gap: 20px;
+  grid-auto-rows: minmax(100px, auto);
+  background: none;
+  margin-top: 20px;
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+
+.photo-page-box h2 {
+  color: #fff;
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin: 20px 0px;
+  text-align: left;
+  align-self: flex-start;
+  margin-left: 5rem;
 }
