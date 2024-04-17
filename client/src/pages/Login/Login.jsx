@@ -6,9 +6,10 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/auth.context";
 import leafBackground from "../../assets/img/leafs.jpg";
-import "./Login.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import fallBackImage from "../../assets/img/fallback.jpg";
+import "./Login.css";
 
 function Login() {
   const loginContainer = useRef(null);
@@ -70,7 +71,7 @@ function Login() {
       ref={loginContainer}
       style={{
         backgroundImage: `url('${
-          backgroundImage ? backgroundImage.photoUrl : leafBackground
+          backgroundImage ? backgroundImage.photoUrl : fallBackImage
         }')`,
         backgroundSize: "cover",
         backgroundPosition: "center",
@@ -129,7 +130,7 @@ function Login() {
         </div>
         <div className="col">
           <img
-            src={backgroundImage ? backgroundImage.photoUrl : leafBackground}
+            src={backgroundImage ? backgroundImage.photoUrl : fallBackImage}
             alt="leafs"
             loading="lazy"
           ></img>

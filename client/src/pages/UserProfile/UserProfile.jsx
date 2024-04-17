@@ -7,6 +7,7 @@ import CollectionTab from "./components/CollectionTab";
 import TabBar from "./components/TabBar";
 import axios from "../../axios";
 import StatTab from "./components/StatTab";
+import fallBackImage from "../../assets/img/fallback.jpg";
 import "./UserProfile.css";
 
 function UserProfile({ defaultTab = "photos" }) {
@@ -46,7 +47,9 @@ function UserProfile({ defaultTab = "photos" }) {
     <div
       className="user-profile"
       style={{
-        backgroundImage: `url('${backgroundImage ? backgroundImage : ""}')`,
+        backgroundImage: `url('${
+          backgroundImage ? backgroundImage : fallBackImage
+        }')`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}

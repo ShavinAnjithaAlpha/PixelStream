@@ -3,12 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../contexts/auth.context";
 import StatCard from "./StatCard";
 import defaultProfileIcon from "../../../assets/img/default-profile-icon.png";
-import leafsIcon from "../../../assets/img/leafs.jpg";
 import axios from "../../../axios";
 import { Tag } from "../../../components/Tag/Tag";
 import { SearchContext } from "../../../contexts/search.context";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLink, faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import fallBackImage from "../../../assets/img/fallback.jpg";
 import "./UserProfileDetail.css";
 
 function UserProfileDetail({ username, photos, backgroundImage }) {
@@ -130,10 +130,10 @@ function UserProfileDetail({ username, photos, backgroundImage }) {
           </div>
           <div className="btn-section">
             <img
-              src={backgroundImage ? backgroundImage : leafsIcon}
+              src={backgroundImage ? backgroundImage : fallBackImage}
               width={800}
               // height={350}
-              alt={leafsIcon}
+              alt={fallBackImage}
             />
             <div className="btn-bar">
               <button onClick={followUser}>Follow</button>

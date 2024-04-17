@@ -9,6 +9,7 @@ import { SearchContext } from "../../contexts/search.context";
 import CollectionPanel from "./components/CollectionPanel";
 import AddToCollectionBox from "../../components/AddToCollectionBox/AddToCollectionBox";
 import FeaturedPhoto from "../../components/FeaturedPhoto/FeaturedPhoto";
+import fallBackImage from "../../assets/img/fallback.jpg";
 import "./Home.css";
 
 const PAGE_LIMIT = 18;
@@ -69,7 +70,9 @@ function Home() {
       style={{
         backgroundColor: "black",
         backgroundImage: `url('${
-          photos[randomPhotoId()] ? photos[randomPhotoId()].photoUrl : ""
+          photos[randomPhotoId()]
+            ? photos[randomPhotoId()].photoUrl
+            : fallBackImage
         }')`,
         backgroundSize: "cover",
         backgroundPosition: "center",
@@ -94,7 +97,7 @@ function Home() {
 
           <CollectionPanel />
 
-          <FeaturedPhoto />
+          {photos.length > 0 && <FeaturedPhoto />}
         </div>
 
         <PhotoGrid

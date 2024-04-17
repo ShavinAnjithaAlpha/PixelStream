@@ -10,6 +10,7 @@ import {
   faSpinner,
 } from "@fortawesome/free-solid-svg-icons";
 import defaultProfileIcon from "../../assets/img/default-profile-icon.png";
+import fallBackImage from "../../assets/img/fallback.jpg";
 import "./Registration.css";
 
 function Registration() {
@@ -152,7 +153,7 @@ function Registration() {
         backgroundImage: `url('${
           backgroundImage && backgroundImage.resizedPhotoUrl
             ? backgroundImage.resizedPhotoUrl
-            : ""
+            : fallBackImage
         }')`,
         backgroundSize: "cover",
         backgroundPosition: "center",
@@ -417,7 +418,7 @@ function Registration() {
 
         <div className="image-box">
           <img
-            src={backgroundImage ? backgroundImage.photoUrl : ""}
+            src={backgroundImage ? backgroundImage.photoUrl : fallBackImage}
             alt="background"
             loading="lazy"
           />

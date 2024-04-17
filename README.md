@@ -3,7 +3,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/github_username/repo_name">
+  <a href="https://github.com/ShavinAnjithaAlpha/PixelStream">
     <!-- <img src="images/logo.png" alt="Logo" width="80" height="80"> -->
   </a>
 
@@ -12,14 +12,14 @@
   <p align="center">
     An awesome photo streaming platform for photographers and photo enthusiasts!
     <br />
-    <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/ShavinAnjithaAlpha/PixelStream"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/github_username/repo_name">View Demo</a>
+    <a href="https://github.com/ShavinAnjithaAlpha/PixelStream">View Demo</a>
     ·
-    <a href="https://github.com/github_username/repo_name/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
+    <a href="https://github.com/ShavinAnjithaAlpha/PixelStream/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
     ·
-    <a href="https://github.com/github_username/repo_name/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
+    <a href="https://github.com/ShavinAnjithaAlpha/PixelStream/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
   </p>
 </div>
 
@@ -54,7 +54,6 @@
 ## About The Project
 
 ![image](https://github.com/ShavinAnjithaAlpha/PhotoShav/assets/85817726/b7a3d12f-2d63-47a1-90cc-8118fe4cabe4)
-
 
 PixelStream is a photo streaming platform for photographers and photo enthusiasts. It allows users to upload, share, and view photos from around the world. The platform provides a simple and intuitive interface for users to interact with the photos and photographers they love. Also, it provides a platform for photographers to showcase their work and connect with other photographers, so they can learn and grow together.
 
@@ -323,9 +322,10 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 ## Contact
 
-Shavin Anjitha - [@twitter_handle](https://twitter.com/twitter_handle) - shavin@shavin.live
+- Shavin Anjitha ([shavin@shavin.live](mailto:shavin@shavin.live))
+  ([LinkedIn](https://www.linkedin.com/in/shavin-anjitha-chandrawansha-555323229/))
 
-Project Link: [https://github.com/ShavinAnjithaAlpha/PhotoShav](https://github.com/ShavinAnjithaAlpha/PhotoShav)
+- Project Link: [https://github.com/ShavinAnjithaAlpha/PixelStream](https://github.com/ShavinAnjithaAlpha/game-of-life)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -333,27 +333,27 @@ Project Link: [https://github.com/ShavinAnjithaAlpha/PhotoShav](https://github.c
 
 ## Acknowledgments
 
-- []()
-- []()
-- []()
+- [Choose an Open Source License](https://choosealicense.com)
+- [GitHub Pages](https://pages.github.com)
+- [Chart.js](https://www.chartjs.org/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[contributors-shield]: https://img.shields.io/github/contributors/github_username/repo_name.svg?style=for-the-badge
-[contributors-url]: https://github.com/github_username/repo_name/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/github_username/repo_name.svg?style=for-the-badge
-[forks-url]: https://github.com/github_username/repo_name/network/members
-[stars-shield]: https://img.shields.io/github/stars/github_username/repo_name.svg?style=for-the-badge
-[stars-url]: https://github.com/github_username/repo_name/stargazers
-[issues-shield]: https://img.shields.io/github/issues/github_username/repo_name.svg?style=for-the-badge
-[issues-url]: https://github.com/github_username/repo_name/issues
-[license-shield]: https://img.shields.io/github/license/github_username/repo_name.svg?style=for-the-badge
-[license-url]: https://github.com/github_username/repo_name/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
+[contributors-url]: https://github.com/othneildrew/Best-README-Template/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
+[forks-url]: https://github.com/othneildrew/Best-README-Template/network/members
+[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
+[stars-url]: https://github.com/othneildrew/Best-README-Template/stargazers
+[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
+[issues-url]: https://github.com/othneildrew/Best-README-Template/issues
+[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
+[license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/linkedin_username
+[linkedin-url]: https://linkedin.com/in/othneildrew
 [product-screenshot]: images/screenshot.png
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
@@ -371,8 +371,3 @@ Project Link: [https://github.com/ShavinAnjithaAlpha/PhotoShav](https://github.c
 [Bootstrap-url]: https://getbootstrap.com
 [JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
 [JQuery-url]: https://jquery.com
-[Node.js]: https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=nodedotjs&logoColor=white
-
-```
-
-```

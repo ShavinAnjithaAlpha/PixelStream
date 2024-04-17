@@ -16,7 +16,9 @@ function FeaturedPhoto() {
     axios
       .get(`photos?page=${randomPhotoId()}&limit=1`)
       .then((res) => {
-        setFeaturedPhoto(res.data[0]);
+        if (res.data.length > 0) {
+          setFeaturedPhoto(res.data[0]);
+        }
       })
       .catch((err) => {
         console.log(err);
