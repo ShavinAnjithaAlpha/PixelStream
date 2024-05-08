@@ -100,6 +100,9 @@ function ProfileDetails({ user }) {
           }, 2000);
         });
     }
+
+    // save the new user interests
+    // TODO: implement the user interests saving
   };
 
   useEffect(() => {

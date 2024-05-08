@@ -89,3 +89,4 @@ typings/
 
 # upload photo directory
 upload/
+.vercel

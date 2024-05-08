@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import CollectionPanelCard from "./CollectionPanelCard";
 import axios from "../../../axios";
 import { Link } from "react-router-dom";
-import "./CollectionPanel.css";
 import Spinner from "../../../components/Spinner/Spinner";
+import "./CollectionPanel.css";
 
 function CollectionPanel() {
   const [collections, setCollections] = useState([]);

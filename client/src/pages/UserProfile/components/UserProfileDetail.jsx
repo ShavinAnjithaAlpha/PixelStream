@@ -78,7 +78,7 @@ function UserProfileDetail({ username, photos, backgroundImage }) {
               <span>
                 {
                   (authState.status && authState,
-                  username === userProfile.userName && (
+                  authState.username === userProfile.userName && (
                     <button className="edit-btn" onClick={goToAccount}>
                       Edit
                     </button>

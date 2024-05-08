@@ -214,7 +214,7 @@ function Photo() {
       className="photo-page-wrapper"
       style={{
         backgroundImage: `url('${photo.resizedPhotoUrl}')`,
-        backgroundSize: "repeat",
+        backgroundSize: "cover",
         backgroundPosition: "center",
         width: "100%",
       }}

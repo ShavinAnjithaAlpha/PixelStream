@@ -3,7 +3,7 @@
   backdrop-filter: blur(10px) brightness(0.8);
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: flex-start;
   max-width: 350px;
   height: 350px;
@@ -20,6 +20,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  margin: 10px 5px;
 }
 
 .col-panel-card .title-bar h3 {
@@ -37,4 +38,13 @@
   align-items: flex-start;
   justify-content: flex-start;
   margin: 5px 0;
+}
+
+.col-panel-card a {
+  color: white;
+  transition: all 0.2s ease;
+}
+
+.col-panel-card a:hover {
+  color: dodgerblue;
 }

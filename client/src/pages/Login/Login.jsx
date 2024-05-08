@@ -48,7 +48,13 @@ function Login() {
         navigate("/");
       })
       .catch((err) => {
-        setLoginError(true);
+        setLoading(false);
+        setLoginError(err.response.data.error);
+
+        const timerId = setTimeout(() => {
+          setLoginError(false);
+          clearTimeout(timerId);
+        }, 3000);
       });
   };
 
@@ -88,7 +94,7 @@ function Login() {
             onSubmit={handleSubmit}
           >
             <Form className="login-form">
-              {loginError && <p className="login-error">Invalid credentials</p>}
+              {loginError && <p className="login-error">{loginError}</p>}
               <div className="form-item">
                 <Field
                   type="email"
