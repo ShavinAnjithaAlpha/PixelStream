@@ -55,7 +55,7 @@ async function getRandomPhotos() {
       const photoUrl = photo.urls.full;
       await downloadPhoto(
         photoUrl,
-        `C:/Users/User/Downloads/public/photo_${getRandomTitle()}_${Date.now()}.jpg`
+        `C:/Users/User/Downloads/photo_${getRandomTitle()}_${Date.now()}.jpg`
       );
     });
 
