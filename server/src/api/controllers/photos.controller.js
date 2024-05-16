@@ -34,6 +34,7 @@ const {
 } = require("../services/tagTable");
 const { filterTagNames } = require("../util/filterTagNames");
 const { getLikesOfUsers } = require("./users.controller");
+const extractPhotoColors = require("../util/extractColorData");
 
 async function getPhotos(req, res) {
   // first get the page and limit query parameters also order by if exists
@@ -120,6 +121,8 @@ async function uploadPhoto(req, res) {
 
   // now extract the necessary meta data from the uploaded image file
   const metadata = await extractMetaData(file.buffer);
+  const colorData = await extractPhotoColors(file.buffer);
+
   if (metadata.error) {
     // if there is an error in extracting the meta data, then response with the error message
     return res.status(400).send(metadata.error);
@@ -135,7 +138,7 @@ async function uploadPhoto(req, res) {
   req.body.url = photoUrl;
   req.body.resizedPhotoUrl = resizePhotoUrl;
   // now build the photo instance to be saved in the database and save to the database
-  const photo = await createPhoto(req.body, metadata, req.user);
+  const photo = await createPhoto(req.body, metadata, colorData, req.user);
 
   // add tags to the photo if tag fields given under request body
   if (req.body.tags) {

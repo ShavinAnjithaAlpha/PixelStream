@@ -3,15 +3,20 @@ import axios from "../../../axios";
 import TaggedPhotoCard from "./TaggedPhotoCard";
 import { SearchContext } from "../../../contexts/search.context";
 import "./TaggedPhotoGrid.css";
+import PageNavigationBar from "../../../components/PageNavigationBar/PageNavigationBar";
 
-function TaggedPhotoGrid({ setBackgroundImage }) {
+function TaggedPhotoGrid({ setBackgroundImage, options }) {
   const { searchKeyword } = useContext(SearchContext);
   const [photos, setPhotos] = useState([]);
 
   useEffect(() => {
     if (searchKeyword) {
       axios
-        .get(`search/photos?query=${searchKeyword}&limit=12`)
+        .get(
+          `search/photos?query=${searchKeyword}&limit=12&orientation=${
+            options.orientation || "all"
+          }&sortBy=${options.sortBy || "latest"}`
+        )
         .then((res) => {
           setPhotos(res.data.photos);
 
@@ -44,7 +49,7 @@ function TaggedPhotoGrid({ setBackgroundImage }) {
           console.log(err);
         });
     }
-  }, [searchKeyword, setBackgroundImage]);
+  }, [searchKeyword, setBackgroundImage, options]);
   return (
     <Fragment>
       {photos.length === 0 && (
@@ -55,6 +60,19 @@ function TaggedPhotoGrid({ setBackgroundImage }) {
           <TaggedPhotoCard photo={photo} key={photo.photoId} />
         ))}
       </div>
+
+      {photos.length > 0 && (
+        <div className="page-bar">
+          <PageNavigationBar
+            max={10}
+            limit={5}
+            onPageChange={(page) => {
+              console.log(page);
+            }}
+            savedPage={1}
+          />
+        </div>
+      )}
     </Fragment>
   );
 }

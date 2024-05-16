@@ -10,6 +10,7 @@ import "./Search.css";
 function Search() {
   const { searchKeyword } = useContext(SearchContext);
   const [selectedSection, setSelectedSection] = React.useState(1);
+  const [options, setOptions] = useState({});
   const [backgroundImage, setBackgroundImage] = useState({});
 
   return (
@@ -23,6 +24,7 @@ function Search() {
         <SearchSectionBar
           selectedSection={selectedSection}
           setSelectedSection={setSelectedSection}
+          setOptions={setOptions}
         />
 
         <h1 className="search-keyword-title">
@@ -32,7 +34,10 @@ function Search() {
         <TopicBar />
 
         {selectedSection === 1 && (
-          <TaggedPhotoGrid setBackgroundImage={setBackgroundImage} />
+          <TaggedPhotoGrid
+            setBackgroundImage={setBackgroundImage}
+            options={options}
+          />
         )}
         {selectedSection === 2 && (
           <CollectionGrid setBackgroundImage={setBackgroundImage} />

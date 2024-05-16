@@ -45,6 +45,8 @@ function PhotoGrid({ photos, addCollection, setSelectedPhoto }) {
     const interval = setInterval(() => {
       loadLiked(interval);
     }, 1000);
+
+    return () => clearInterval(interval);
   }, [photos, authState.status]);
 
   return (

@@ -141,7 +141,7 @@ async function fetchPhotoStat(photoId) {
   return photoStat;
 }
 
-async function createPhoto(data, metaData, user) {
+async function createPhoto(data, metaData, colorData, user) {
   // create a photo instance
   const photo = Photo.build({
     userId: user.userId,
@@ -151,6 +151,8 @@ async function createPhoto(data, metaData, user) {
     photoDes: data.description || null,
     photoSize: metaData.fileSize,
     photoResolution: metaData.resolution,
+    photoOrientation: metaData.orientation,
+    photoColors: JSON.stringify(colorData),
     capturedFrom: metaData.capturedFrom,
     location: metaData.location,
   });
@@ -176,6 +178,7 @@ async function createPhoto(data, metaData, user) {
     photoDes: photo.photoDes,
     photoSize: photo.photoSize,
     photoResolution: photo.photoResolution,
+    photoOrientation: photo.photoOrientation,
     capturedFrom: photo.capturedFrom,
     location: photo.location,
     views: photoStat.views,

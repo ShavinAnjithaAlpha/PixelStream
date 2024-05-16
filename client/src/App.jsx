@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { AuthContext } from "./contexts/auth.context";
 import { SearchContextProvider } from "./contexts/search.context";
+import { jwtDecode } from "jwt-decode";
 // import { ReactLenis, useLenis } from "@studio-freight/react-lenis";
 import Main from "./Main";
 import "./App.css";
@@ -10,12 +11,26 @@ function App() {
   const [authState, setAuthState] = useState({ status: false });
 
   useEffect(() => {
-    if (localStorage.getItem("token") && localStorage.getItem("username")) {
-      setAuthState({
-        user: localStorage.getItem("token"),
-        username: localStorage.getItem("username"),
-        status: true,
-      });
+    const token = localStorage.getItem("token");
+    const username = localStorage.getItem("username");
+
+    if (token && username) {
+      const decodedToken = jwtDecode(token);
+      const currentTime = Date.now() / 1000;
+
+      if (decodedToken.exp < currentTime) {
+        // delete the token and username from the local storage
+        localStorage.removeItem("token");
+        localStorage.removeItem("username");
+        // set the auth state to false
+        setAuthState({ user: null, username: null, status: false });
+      } else {
+        setAuthState({
+          user: token,
+          username: username,
+          status: true,
+        });
+      }
     }
   }, []);
 

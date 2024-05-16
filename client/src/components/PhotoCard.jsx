@@ -15,8 +15,8 @@ import "./PhotoCard.css";
 
 function PhotoCard({ photo, isLiked_, addCollection, setSelectedPhoto }) {
   const navigate = useNavigate();
-  const [isHovered, setIsHovered] = useState(false);
   const { authState } = useContext(AuthContext);
+  const [isHovered, setIsHovered] = useState(false);
   const [isLiked, setIsLiked] = useState(isLiked_);
 
   useEffect(() => {

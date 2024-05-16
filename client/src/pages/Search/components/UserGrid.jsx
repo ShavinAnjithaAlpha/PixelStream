@@ -2,6 +2,7 @@ import React, { useState, useEffect, Fragment, useContext } from "react";
 import axios from "../../../axios";
 import UserCard from "./UserCard";
 import { SearchContext } from "../../../contexts/search.context";
+import PageNavigationBar from "../../../components/PageNavigationBar/PageNavigationBar";
 import "./UserGrid.css";
 
 function UserGrid() {
@@ -28,6 +29,19 @@ function UserGrid() {
         {users.users &&
           users.users.map((user) => <UserCard user={user} key={user.userId} />)}
       </div>
+
+      {users.length > 0 && (
+        <div className="page-bar">
+          <PageNavigationBar
+            max={10}
+            limit={5}
+            onPageChange={(page) => {
+              console.log(page);
+            }}
+            savedPage={1}
+          />
+        </div>
+      )}
     </Fragment>
   );
 }

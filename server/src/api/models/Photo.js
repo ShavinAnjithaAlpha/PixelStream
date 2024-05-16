@@ -46,6 +46,20 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
 
+    photoOrientation: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+      validate: {
+        isIn: [["landscape", "portrait", "square"]],
+      },
+    },
+
+    photoColors: {
+      type: DataTypes.STRING(1024),
+      allowNull: true,
+      defaultValue: "[]",
+    },
+
     capturedFrom: {
       type: DataTypes.STRING(255),
       allowNull: true,

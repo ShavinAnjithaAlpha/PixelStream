@@ -1,4 +1,5 @@
 const exif = require("exiftool");
+// const exif = require("exiftool-vendored").exiftool;
 
 async function extractMetaData(fileData) {
   try {
@@ -8,12 +9,22 @@ async function extractMetaData(fileData) {
         fileSize: calculateBytes(metadata.fileSize) || 0,
         resolution: calculateResolution(metadata),
         capturedFrom: metadata.cameraModelName || "Unknown",
+        orientation: getOrientation(metadata),
       };
     } catch (err) {
       return { error: "Cannot read metadata" };
     }
   } catch (err) {
     return { error: "Cannot read file" };
+  }
+}
+
+async function getImageType(fileData) {
+  try {
+    const metadata = await exifPromise(fileData);
+    return metadata.mimeType;
+  } catch (err) {
+    return "Unknown";
   }
 }
 
@@ -39,6 +50,19 @@ function calculateResolution(metadata) {
     return `${metadata.xResolution}x${metadata.yResolution} ${metadata.resolutionUnit}`;
   } else {
     return "0x0";
+  }
+}
+
+function getOrientation(metadata) {
+  const imageWidth = metadata.imageWidth;
+  const imageHeight = metadata.imageHeight;
+
+  if (imageWidth > imageHeight) {
+    return "landscape";
+  } else if (imageWidth < imageHeight) {
+    return "portrait";
+  } else {
+    return "square";
   }
 }
 
@@ -82,4 +106,5 @@ function sizeStringFromBytes(bytes) {
 module.exports = {
   extractMetaData,
   sizeStringFromBytes,
+  getImageType,
 };

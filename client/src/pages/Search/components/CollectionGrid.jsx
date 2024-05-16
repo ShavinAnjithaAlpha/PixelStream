@@ -3,6 +3,7 @@ import CollectionCard from "../../../components/CollectionCard/CollectionCard";
 import axios from "../../../axios";
 import { SearchContext } from "../../../contexts/search.context";
 import "./CollectionGrid.css";
+import PageNavigationBar from "../../../components/PageNavigationBar/PageNavigationBar";
 
 function CollectionGrid() {
   const [collections, setCollections] = useState([]);
@@ -32,6 +33,19 @@ function CollectionGrid() {
           />
         ))}
       </div>
+
+      {collections.length > 0 && (
+        <div className="page-bar">
+          <PageNavigationBar
+            max={10}
+            limit={5}
+            onPageChange={(page) => {
+              console.log(page);
+            }}
+            savedPage={1}
+          />
+        </div>
+      )}
     </Fragment>
   );
 }
