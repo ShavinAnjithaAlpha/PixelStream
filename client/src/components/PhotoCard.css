@@ -6,6 +6,12 @@
   width: 100%;
 }
 
+@media only screen and (max-width: 600px) {
+  .photo-card {
+    max-width: 90%;
+  }
+}
+
 .photo-card .overlap-group-wrapper {
   background-color: #ffffff;
   height: 400px;
@@ -35,6 +41,12 @@
   z-index: 1;
 }
 
+@media only screen and (max-width: 600px) {
+  .photo-card .overlap {
+    left: 250px;
+  }
+}
+
 .photo-card .overlap:hover {
   background-color: white;
 }
@@ -54,6 +66,12 @@
   cursor: pointer;
   z-index: 1;
   transition: all 0.1s ease;
+}
+
+@media only screen and (max-width: 600px) {
+  .photo-card .edit {
+    left: 200px;
+  }
 }
 
 .photo-card .edit:hover {
@@ -90,6 +108,12 @@
   z-index: 1;
 }
 
+@media only screen and (max-width: 600px) {
+  .photo-card .down-wrapper {
+    left: 300px;
+  }
+}
+
 .photo-card .down-wrapper:hover {
   background-color: white;
 }
@@ -108,6 +132,12 @@
   transition: all 0.1s ease-in-out;
   cursor: pointer;
   z-index: 1;
+}
+
+@media only screen and (max-width: 600px) {
+  .photo-card .plus-wrapper {
+    left: 300px;
+  }
 }
 
 .photo-card .plus-wrapper:hover {

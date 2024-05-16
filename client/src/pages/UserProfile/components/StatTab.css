@@ -35,3 +35,9 @@
   color: #ffffff44;
   margin: 4rem;
 }
+
+@media only screen and (max-width: 600px) {
+  .stat-tab .stat-tab-grid {
+    grid-template-columns: 1fr;
+  }
+}

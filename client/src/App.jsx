@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { AuthContext } from "./contexts/auth.context";
 import { SearchContextProvider } from "./contexts/search.context";
-import { ReactLenis, useLenis } from "@studio-freight/react-lenis";
+// import { ReactLenis, useLenis } from "@studio-freight/react-lenis";
 import Main from "./Main";
 import "./App.css";
 

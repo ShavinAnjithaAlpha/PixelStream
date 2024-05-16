@@ -13,6 +13,13 @@
   margin: 0;
 }
 
+@media only screen and (max-width: 600px) {
+  .home-wrapper {
+    padding: 0;
+    width: 100vw;
+  }
+}
+
 /* styling for page bar */
 .page-bar {
   display: flex;
@@ -67,6 +74,23 @@
   transition: all 0.2s ease-in-out;
 }
 
+@media only screen and (max-width: 600px) {
+  .home-search {
+    margin-top: 20px;
+    align-items: center;
+  }
+
+  .home-search p {
+    width: 80%;
+    text-align: center;
+  }
+
+  .home-search input {
+    width: 90%;
+    height: 50px;
+  }
+}
+
 .home-search input:focus {
   background-color: white;
   outline: none;
@@ -95,11 +119,23 @@
   background-color: #0a5f8d;
 }
 
+@media only screen and (max-width: 600px) {
+  .home-search button {
+    width: 90%;
+  }
+}
+
 .top-section {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+}
+
+@media only screen and (max-width: 600px) {
+  .top-section {
+    flex-direction: column;
+  }
 }
 
 .add-collection-popup {

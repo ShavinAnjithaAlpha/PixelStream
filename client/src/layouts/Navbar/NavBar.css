@@ -24,9 +24,21 @@
   flex-direction: row;
 }
 
+@media only screen and (max-width: 600px) {
+  .nav {
+    flex-wrap: wrap;
+  }
+}
+
 .nav .nav-links .nav-item {
   margin: auto 5px;
   color: white;
+}
+
+@media only screen and (max-width: 600px) {
+  .nav .nav-links .nav-item {
+    width: 100%;
+  }
 }
 
 .nav .logo-search .logo {

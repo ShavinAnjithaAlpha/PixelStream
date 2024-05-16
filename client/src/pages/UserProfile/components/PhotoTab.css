@@ -5,3 +5,11 @@
   justify-content: center;
   width: 100%;
 }
+
+@media only screen and (max-width: 600px) {
+  .user-photo-tab {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}

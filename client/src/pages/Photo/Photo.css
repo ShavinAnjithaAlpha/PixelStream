@@ -29,6 +29,12 @@
   border: 1px solid #ffffff22;
 }
 
+@media only screen and (max-width: 600px) {
+  .photo-page .photo-container {
+    width: 100%;
+  }
+}
+
 .photoPage .photo-container .photo {
   image-rendering: pixelated;
   object-fit: fill;
@@ -40,6 +46,16 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+}
+
+@media only screen and (max-width: 600px) {
+  .photo-page {
+    flex-direction: column;
+  }
+
+  .photo-page .detail-tab {
+    margin-top: 20px;
+  }
 }
 
 .photo-page .detail-tab .photo-detail-panel {
@@ -131,6 +147,31 @@
   align-self: center;
 }
 
+@media only screen and (max-width: 600px) {
+  .photo-page .detail-tab .photo-detail-panel {
+    width: 100%;
+  }
+
+  .photo-page .detail-tab .photo-detail-panel .title-tab {
+    flex-direction: column;
+  }
+
+  .photo-page .detail-tab .photo-detail-panel .title-tab .btn-bar {
+    flex-direction: row;
+    margin-top: 20px;
+  }
+
+  .photo-page .detail-tab .photo-detail-panel .stat-bar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .photo-page .detail-list {
+    margin-top: 20px;
+  }
+}
+
 .photo-page-box .photo-collections-grid {
   grid-template: repeat(3, 1fr) / repeat(3, 1fr);
   display: grid;
@@ -142,6 +183,12 @@
   margin-right: 2rem;
 }
 
+@media only screen and (max-width: 600px) {
+  .photo-page-box .photo-collections-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .photo-page-box h2 {
   color: #fff;
   font-size: 2.2rem;
@@ -150,4 +197,11 @@
   text-align: left;
   align-self: flex-start;
   margin-left: 5rem;
+}
+
+@media only screen and (max-width: 600px) {
+  .photo-page-box h2 {
+    margin-left: 1rem;
+    text-align: center;
+  }
 }

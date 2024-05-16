@@ -82,7 +82,7 @@ function Home() {
         <TopicBar />
         <div className="top-section">
           <div className="home-search">
-            <h1>PhotoStock</h1>
+            <h1>PixelStream</h1>
             <p>
               Unlock the power of seamless storytelling with our dynamic photo
               streaming service, where every image comes to life.

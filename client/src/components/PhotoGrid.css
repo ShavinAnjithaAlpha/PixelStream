@@ -15,3 +15,12 @@
     transform: rotate(360deg);
   }
 }
+
+@media only screen and (max-width: 600px) {
+  .photo-grid-comp {
+    grid-template-columns: repeat(1, 1fr);
+    margin-left: 1rem;
+    margin-right: 1rem;
+    grid-gap: 10px 0;
+  }
+}

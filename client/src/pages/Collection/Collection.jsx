@@ -4,8 +4,8 @@ import { useParams } from "react-router-dom";
 import CollectionGrid from "./components/CollectionGrid";
 import ProfileCard from "./components/ProfileCard";
 import axios from "../../axios";
-import "./Collection.css";
 import { AuthContext } from "../../contexts/auth.context";
+import "./Collection.css";
 
 function Collection() {
   const { id } = useParams();

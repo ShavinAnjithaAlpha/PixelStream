@@ -2,6 +2,7 @@ footer {
   background: linear-gradient(90deg, #000, #222, #444);
   color: #e4e4e4;
   margin: 0;
+  width: 100%;
 }
 
 .footer-content {
@@ -12,6 +13,13 @@ footer {
   padding: 1rem 5rem;
 }
 
+@media only screen and (max-width: 600px) {
+  .footer-content {
+    flex-direction: column;
+    padding: 1rem 1rem;
+  }
+}
+
 .footer-content .footer-col {
   display: flex;
   flex-direction: column;
@@ -20,6 +28,13 @@ footer {
   width: calc(100% / 3);
   padding: 20px;
   margin: 20px;
+}
+
+@media only screen and (max-width: 600px) {
+  .footer-content .footer-col {
+    width: 90%;
+    align-items: center;
+  }
 }
 
 .footer-content .footer-col h3 {
@@ -111,6 +126,12 @@ footer {
 
 .footer-col button[type="submit"]:hover {
   background-color: #0d6efd;
+}
+
+@media only screen and (max-width: 600px) {
+  .footer-col input[type="email"] {
+    width: 200px;
+  }
 }
 
 .footer-line {

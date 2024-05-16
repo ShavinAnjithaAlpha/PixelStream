@@ -12,3 +12,12 @@
 .like-photo-grid h2 {
   color: #ffffff44;
 }
+
+@media only screen and (max-width: 600px) {
+  .like-photo-grid {
+    grid-template-columns: repeat(1, 1fr);
+    margin-left: 0.2rem;
+    margin-right: 0.2rem;
+    grid-gap: 10px 0;
+  }
+}
