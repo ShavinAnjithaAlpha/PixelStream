@@ -14,6 +14,14 @@ class PhotoSearch {
     this.options = options;
     this.limit = limit;
     this.offset = offset;
+
+    this.clean();
+  }
+
+  clean() {
+    if (this.options.orientation == "all") {
+      this.options.orientation = null;
+    }
   }
 
   async getSearchResults() {

@@ -15,6 +15,23 @@ function SearchSectionBar({ selectedSection, setSelectedSection, setOptions }) {
     { value: "latest", label: "Latest" },
     { value: "popular", label: "Popular" },
     { value: "oldest", label: "Oldest" },
+    { value: "size", label: "Size" },
+    { value: "title", label: "Title" },
+    { value: "location", label: "Location" },
+    { value: "random", label: "Random" },
+    { value: "views", label: "Views" },
+    { value: "downloads", label: "Downloads" },
+  ];
+
+  const sizeOptions = [
+    { value: 0, label: "All" },
+    { value: 10 * 1024, label: ">= 10 KB" },
+    { value: 100 * 1024, label: ">= 100 KB" },
+    { value: 500 * 1024, label: ">= 500 KB" },
+    { value: 1024 * 1024, label: ">= 1 MB" },
+    { value: 5 * 1024 * 1024, label: ">= 5 MB" },
+    { value: 10 * 1024 * 1024, label: ">= 10 MB" },
+    { value: 50 * 1024 * 1024, label: ">= 50 MB" },
   ];
 
   return (
@@ -61,6 +78,14 @@ function SearchSectionBar({ selectedSection, setSelectedSection, setOptions }) {
                 ...prev,
                 orientation: selectedOption.value,
               }));
+            }}
+          />
+          <Select
+            options={sizeOptions}
+            placeholder="Size"
+            className="option-box"
+            onChange={(selectedOption) => {
+              setOptions((prev) => ({ ...prev, size: selectedOption.value }));
             }}
           />
         </div>
