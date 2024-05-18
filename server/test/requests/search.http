@@ -5,8 +5,8 @@
 @http = HTTP/1.1
 
 ### search photo by query
-@query = page=1&limit=10&query=a
-GET {{host}}/api/search/photos?page=1&limit=10&query=s {{http}}
+@query = page=1&limit=10&query=night
+GET {{host}}/api/search/photos?page=1&limit=10&query=night city&sortBy=popular&size=5000000 {{http}}
 
 
 ### search the collection by query

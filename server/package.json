@@ -9,6 +9,7 @@
   "scripts": {
     "test": "jest",
     "start": "node src/index.js",
+    "dev": "nodeman src/index.js",
     "prod": "nodeman -r newrelic src/index.js"
   },
   "keywords": [],
@@ -44,6 +45,7 @@
     "winston": "^3.11.0"
   },
   "devDependencies": {
+    "nodeman": "^1.1.2",
     "sequelize-cli": "^6.6.2"
   }
 }

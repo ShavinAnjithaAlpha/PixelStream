@@ -2,6 +2,7 @@ const { validationResult } = require("express-validator");
 const { fetchPhotoFromQuery } = require("../services/photoTable");
 const { searchCollectionByQuery } = require("../services/collectionTable");
 const { fetchUsers } = require("../services/userTable");
+const PhotoSearch = require("../classes/photoSearch.class");
 
 async function searchPhoto(req, res) {
   const errors = validationResult(req);
@@ -12,10 +13,17 @@ async function searchPhoto(req, res) {
   const query = req.query.query;
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 10;
-  const orderBy = req.query.orderBy || "latest";
 
-  // get the photos from the database according to the query
-  const photos = await fetchPhotoFromQuery(query, page, limit, orderBy);
+  // // get the photos from the database according to the query
+  // const photos = await fetchPhotoFromQuery(query, page, limit, orderBy);
+  // make a search query instance to build the search query and get the results
+  const searchInstance = new PhotoSearch(
+    query,
+    req.query,
+    limit,
+    (page - 1) * limit
+  );
+  const photos = await searchInstance.getSearchResults();
   return res.json({
     photos: photos,
     page: page,
