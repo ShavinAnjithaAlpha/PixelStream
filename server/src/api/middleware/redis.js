@@ -1,6 +1,6 @@
 const { createClient } = require("redis");
 const hash = require("object-hash");
-const { logger } = require("../start/logger");
+const logger = require("../start/logger");
 
 let redisClient = null;
 

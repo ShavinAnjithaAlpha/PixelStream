@@ -36,3 +36,17 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNoYXZpbiIs
 {
     "photoIds": [360]
 }
+
+### update collection
+PUT {{host}}/api/collections/4 {{http}}
+Content-Type: {{contentType}}
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNoYXZpbiIsInVzZXJJZCI6MSwiaWF0IjoxNzE2Mjg2NzE2LCJleHAiOjE3MTY2NDY3MTZ9.O5jEkgUmxCoTCBF4_4nCWYIMakyCDUxMyW1akJHPLPM
+
+{
+    "collectionName": "Tasty Teas"
+}
+
+### delete a collection 
+DELETE {{host}}/api/collections/4 {{http}}
+Content-Type: {{contentType}}
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNoYXZpbiIsInVzZXJJZCI6MSwiaWF0IjoxNzE2Mjg2NzE2LCJleHAiOjE3MTY2NDY3MTZ9.O5jEkgUmxCoTCBF4_4nCWYIMakyCDUxMyW1akJHPLPM

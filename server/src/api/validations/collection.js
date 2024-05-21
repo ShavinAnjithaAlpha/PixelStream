@@ -11,6 +11,16 @@ function validateCollection(data) {
   return schema.validate(data);
 }
 
+function validateUpdateCollectionBody(data) {
+  const schema = Joi.object({
+    collectionName: Joi.string().min(3).max(255).optional(),
+    collectionDescription: Joi.string().min(3).max(255).optional(),
+    coverPhoto: Joi.number().optional(),
+  });
+
+  return schema.validate(data);
+}
+
 function validateCollectionUpdate(data) {
   const schema = Joi.object({
     photoIds: Joi.array().items(Joi.number()),
@@ -22,4 +32,5 @@ function validateCollectionUpdate(data) {
 module.exports = {
   validateCollection,
   validateCollectionUpdate,
+  validateUpdateCollectionBody,
 };

@@ -21,6 +21,6 @@ router.post(
   updateProfileImage
 );
 router.post("/:username", authorize, updateAccount);
-router.delete("/:username", authorize, deleteAccount); // TODO: implement this
+router.delete("/:username", authorize, deleteAccount);
 
 module.exports = router;

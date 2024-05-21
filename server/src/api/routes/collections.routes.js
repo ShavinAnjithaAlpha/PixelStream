@@ -1,23 +1,24 @@
 const express = require("express");
-const router = express.Router();
 const {
   getCollections,
   getCollectionById,
   getPhotosOfCollection,
-  gerRelatedCollections,
+  getRelatedCollections,
   createNewCollection,
   updateCollection,
   deleteCollection,
   addPhotoToCollection,
 } = require("../controllers/collections.controller");
 const { authorize } = require("../middleware/auth");
+const { redisCacheMiddleware } = require("../middleware/redis");
+const router = express.Router();
 
-router.get("/:id/photo", getPhotosOfCollection);
-router.get("/:id/related", gerRelatedCollections); // TODO: implement this
+router.get("/:id/photo", redisCacheMiddleware(), getPhotosOfCollection);
+router.get("/:id/related", redisCacheMiddleware(), getRelatedCollections); // TODO: implement this
 router.get("/:id", getCollectionById);
-router.get("/", getCollections);
-router.delete("/:id", authorize, deleteCollection); // TODO: implement this
-router.put("/:id", authorize, updateCollection); // TODO: implement this
+router.get("/", redisCacheMiddleware(), getCollections);
+router.delete("/:id", authorize, deleteCollection);
+router.put("/:id", authorize, updateCollection);
 router.post("/:id", authorize, addPhotoToCollection);
 router.post("/", authorize, createNewCollection);
 

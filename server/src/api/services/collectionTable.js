@@ -278,6 +278,18 @@ async function getCollectionCountOfUser(userId) {
   return count;
 }
 
+async function updateCollectionProfile(collectionId, collectionData) {
+  await Collection.update(collectionData, {
+    where: {
+      collectionId: collectionId,
+    },
+  });
+
+  const updatedCollection = await fetchCollection(collectionId);
+
+  return updatedCollection;
+}
+
 module.exports = {
   fetchCollections,
   fetchCollection,
@@ -287,4 +299,5 @@ module.exports = {
   searchCollectionByQuery,
   fetchCollectionByUserName,
   getCollectionCountOfUser,
+  updateCollectionProfile,
 };

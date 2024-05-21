@@ -28,7 +28,7 @@ const fileUpload = multer();
 
 // endpoint for access the photos in various ways
 router.get("/", redisCacheMiddleware(), getPhotos);
-router.get("/random", getRandomPhoto); // TODO: finish this
+router.get("/random", redisCacheMiddleware(), getRandomPhoto); // TODO: finish this
 // endpoint for get statictics about a given photo
 router.get("/:id/statistics", getPhotoStat);
 // endpoint for mark a download of a photo to the system
@@ -48,6 +48,6 @@ router.get("/:id/like", authorize, isLiked);
 router.get("/:id/dislike", authorize, isDisliked);
 router.post("/:id/tags", authorize, addTags);
 router.get("/:id/tags", getTags);
-router.get("/:id", getPhotoById);
+router.get("/:id", redisCacheMiddleware(), getPhotoById);
 
 module.exports = router;

@@ -28,12 +28,16 @@ async function updateAccount(req, res) {
   // now update the user profile by provided data
   await updateProfile(req.user.userId, data);
 
-  res.json({ message: "Account updated successfully" });
+  return res.json({ message: "Account updated successfully" });
 }
 
 async function deleteAccount(req, res) {
   // extract the usrename from the params
   const username = req.params.username;
+
+  // check whether there is a user account with that username
+  const userId = await getUserIdByUserName(username);
+  if (userId.error) return res.status(400).json({ error: "User not found" });
 
   // check weather user has authorized to delete the account
   if (req.user.username !== username)

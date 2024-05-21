@@ -9,6 +9,8 @@ const { UserLikes } = require("../models");
 const { UserDisLikes } = require("../models");
 const { UserDownloads } = require("../models");
 const { Collection } = require("../models");
+const { PhotoCollection } = require("../models");
+const { PhotoTag } = require("../models");
 
 const hashSalt = 10;
 
@@ -283,8 +285,86 @@ async function updateProfile(userId, profileData) {
 }
 
 async function removeAccount(userId) {
-  console.log("Delete the account");
-  // TODO: implement the delete logic for user account
+  // remove the user from the system
+  // first take the photo ids of the user
+  const photos = await Photo.findAll({
+    where: {
+      userId: userId,
+    },
+    attributes: ["photoId"],
+  });
+
+  for (let i = 0; i < photos.length; i++) {
+    const photo = photos[i];
+
+    // remove the likes, dislike and downloads from the user
+    await UserLikes.destroy({
+      where: {
+        photoId: photo.photoId,
+      },
+    });
+
+    await UserDisLikes.destroy({
+      where: {
+        photoId: photo.photoId,
+      },
+    });
+
+    await UserDownloads.destroy({
+      where: {
+        photoId: photo.photoId,
+      },
+    });
+
+    // remove the photo stats
+    await PhotoStat.destroy({
+      where: {
+        photoId: photo.photoId,
+      },
+    });
+
+    // delete followers and following of the user
+    await Followers.destroy({
+      where: {
+        [Op.or]: [
+          {
+            userId: userId,
+          },
+          {
+            followerId: userId,
+          },
+        ],
+      },
+    });
+
+    // remove the photo from the collection
+    await PhotoCollection.destroy({
+      where: {
+        photoId: photo.photoId,
+      },
+    });
+
+    PhotoTag.destroy({
+      where: {
+        photoId: photo.photoId,
+      },
+    });
+
+    // remove the photo
+    await Photo.destroy({
+      where: {
+        photoId: photo.photoId,
+      },
+    });
+  }
+
+  // remove the collections of the user
+  await User.destroy({
+    where: {
+      userId: userId,
+    },
+  });
+
   return true;
 }
 

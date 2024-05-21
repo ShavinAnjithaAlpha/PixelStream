@@ -51,6 +51,7 @@ module.exports = (sequleize, DataTypes) => {
       foreignKey: {
         name: "collectionId",
         allowNull: false,
+        onDelete: "CASCADE",
       },
     });
   };

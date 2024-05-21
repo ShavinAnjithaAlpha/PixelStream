@@ -8,9 +8,9 @@
   },
   "scripts": {
     "test": "jest",
-    "start": "node src/index.js",
-    "dev": "node src/index.js",
-    "prod": "nodeman -r newrelic src/index.js"
+    "start": "nodemon src/index.js",
+    "dev": "nodemon src/index.js",
+    "prod": "nodemon -r newrelic src/index.js"
   },
   "keywords": [],
   "author": "Shavin Anjitha",
