@@ -12,6 +12,7 @@ const db = require("./api/models");
 const winston = require("winston/lib/winston/config");
 const morganLogger = require("./api/start/req.logger");
 const limiter = require("./api/start/limiter");
+const { connectToRedis } = require("./api/middleware/redis");
 const port = process.env.PORT || 3000;
 
 // handle uncaught exceptions
@@ -56,6 +57,13 @@ app.all("*", (req, res, next) => {
     message: `Can't find ${req.originalUrl} on this server!`,
   });
 });
+
+// connect to the redis server
+connectToRedis()
+  .then()
+  .catch((err) => {
+    logger.error("Error connecting to Redis: ", err);
+  });
 
 // start the server by checking the existence of the database
 db.sequelize.sync().then(() => {

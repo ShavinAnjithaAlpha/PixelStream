@@ -2,6 +2,7 @@ const express = require("express");
 const multer = require("multer");
 const router = express.Router();
 const { authorize } = require("../middleware/auth");
+const { redisCacheMiddleware } = require("../middleware/redis");
 
 const {
   getPhotos,
@@ -26,7 +27,7 @@ const {
 const fileUpload = multer();
 
 // endpoint for access the photos in various ways
-router.get("/", getPhotos);
+router.get("/", redisCacheMiddleware(), getPhotos);
 router.get("/random", getRandomPhoto); // TODO: finish this
 // endpoint for get statictics about a given photo
 router.get("/:id/statistics", getPhotoStat);
