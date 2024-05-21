@@ -49,14 +49,10 @@ Content-Type: {{contentType}}
 
 
 ### get random photo
-GET {{host}}/api/photos/random {{http}}
+GET {{host}}/api/photos/random?limit=3&userName=sdsdh {{http}}
 Content-Type: {{contentType}}
 
-{
-    "count": 4
-}
-
-### isl liked
+### is liked
 @islikedphotoId = 250
 GET {{host}}/api/photos/{{islikedphotoId}}/like {{http}}
 Content-Type: {{contentType}}
@@ -73,3 +69,7 @@ Authorization: {{userToken}}
 {
     "photoIds": [250, 251, 252, 253, 254, 255, 256, 257, 258, 259, 260]
 }
+
+### get realated photos
+GET {{host}}/api/photos/2/related/ {{http}}
+Content-Type: {{contentType}}

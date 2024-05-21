@@ -5,9 +5,9 @@ const { PhotoStat } = require("../models");
 const { UserLikes } = require("../models");
 const { UserDisLikes } = require("../models");
 const { UserDownloads } = require("../models");
+const { getUserIdByUserName } = require("./userTable");
 const sequelize = require("sequelize");
 const { Op } = require("sequelize");
-const { getUserIdByUserName } = require("./userTable");
 
 function getOrder(orderBy) {
   var field = "createdAt";
@@ -109,24 +109,6 @@ async function addView(photoId) {
   photoStat.views += 1;
   // save the photo stat
   await photoStat.save();
-}
-
-async function fetchRandomPhoto(count, query, username, topics, collections) {
-  const photos = Photo.findAll({
-    limit: count,
-    order: sequelize.literal("rand()"),
-    include: [
-      {
-        model: User,
-        include: [{ model: UserAuth, attributes: ["userName", "email"] }],
-      },
-      {
-        model: PhotoStat,
-      },
-    ],
-  });
-
-  return photos;
 }
 
 async function fetchPhotoStat(photoId) {
@@ -476,7 +458,6 @@ module.exports = {
   fetchPhotos,
   fetchPhotoStat,
   createPhoto,
-  fetchRandomPhoto,
   updateDownloadStat,
   markAsDownload,
   photoExists,

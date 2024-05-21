@@ -22,13 +22,22 @@ const {
   removeLikePhoto,
   removeDislikePhoto,
   getAllTags,
+  getRelatedPhotos,
 } = require("../controllers/photos.controller");
 
 const fileUpload = multer();
 
 // endpoint for access the photos in various ways
 router.get("/", redisCacheMiddleware(), getPhotos);
-router.get("/random", redisCacheMiddleware(), getRandomPhoto); // TODO: finish this
+router.get(
+  "/random",
+  redisCacheMiddleware({
+    EX: 60, // 1 minute
+  }),
+  getRandomPhoto
+);
+// endpoint for get related photos of a given photo
+router.get("/:id/related", getRelatedPhotos);
 // endpoint for get statictics about a given photo
 router.get("/:id/statistics", getPhotoStat);
 // endpoint for mark a download of a photo to the system

@@ -60,7 +60,7 @@ function requestKey(req) {
 
 function redisCacheMiddleware(
   options = {
-    EX: 3600, // 1 hour
+    EX: 300, // 5 minutes
   },
   compresssion = false
 ) {

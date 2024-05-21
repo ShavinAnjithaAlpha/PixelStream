@@ -13,7 +13,6 @@ const {
   fetchPhotoStat,
   getPhoto,
   photoExists,
-  fetchRandomPhoto,
   createPhoto,
   updateDownloadStat,
   markAsDownload,
@@ -35,6 +34,8 @@ const {
 const { filterTagNames } = require("../util/filterTagNames");
 const { getLikesOfUsers } = require("./users.controller");
 const extractPhotoColors = require("../util/extractColorData");
+const Random = require("../classes/random.class");
+const RelatedPhotos = require("../classes/relatedPhotos.class");
 
 async function getPhotos(req, res) {
   // first get the page and limit query parameters also order by if exists
@@ -58,20 +59,22 @@ async function getPhotoById(req, res) {
 async function getRandomPhoto(req, res) {
   // extract the relavant parameters from the request body
   const count = parseInt(req.query.count) || 1;
-  const query = req.query.query || null;
-  const username = req.query.username || null;
-  const collection = req.query.collection || null;
-  const topic = req.query.topic || null;
+  const limit = parseInt(req.query.limit) || 20;
+  const offset = (parseInt(req.query.page) - 1) * limit;
 
-  // now get the random photos from the database
-  const photos = await fetchRandomPhoto(
-    count,
-    query,
-    username,
-    collection,
-    topic
-  );
-  return res.json(photos);
+  const randomInstance = new Random(req.query, limit, offset);
+  // get the result
+  const photos = await randomInstance.getPhotos();
+
+  if (photos.error) {
+    return res.status(400).json(photos);
+  }
+
+  return res.json({
+    photos: photos,
+    limit: limit,
+    length: photos.length,
+  });
 }
 
 async function getPhotoStat(req, res) {
@@ -330,6 +333,34 @@ async function getAllTags(req, res) {
   return res.json({ tags: tagNames });
 }
 
+async function getRelatedPhotos(req, res) {
+  const limit = parseInt(req.query.limit) || 20;
+  const page = parseInt(req.query.page) || 1;
+  // get the photo id from the request parameter
+  const photoId = parseInt(req.params.id);
+
+  // create related photo instance
+  const relatedPhotoInstance = new RelatedPhotos(
+    photoId,
+    req.query,
+    limit,
+    (page - 1) * limit
+  );
+
+  // get the related photos
+  const relatedPhotos = await relatedPhotoInstance.getRelatedPhotos();
+  if (relatedPhotos.error) {
+    return res.status(400).json(relatedPhotos);
+  }
+
+  return res.json({
+    photos: relatedPhotos,
+    limit: limit,
+    page: page,
+    length: relatedPhotos.length,
+  });
+}
+
 module.exports = {
   getPhotos,
   getPhotoById,
@@ -348,4 +379,5 @@ module.exports = {
   removeLikePhoto,
   removeDislikePhoto,
   getAllTags,
+  getRelatedPhotos,
 };

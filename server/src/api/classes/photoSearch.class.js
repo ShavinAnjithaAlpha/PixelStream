@@ -9,7 +9,7 @@ const {
 } = require("../models");
 
 class PhotoSearch {
-  constructor(search_query, options, limit = 0, offset = 0) {
+  constructor(search_query, options, limit = 20, offset = 0) {
     this.search_query = search_query;
     this.options = options;
     this.limit = limit;
