@@ -1,4 +1,5 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import axios from "../../axios";
 import CollectionGrid from "./components/CollectionGrid";
 import TaggedPhotoGrid from "./components/TaggedPhotoGrid";
 import UserGrid from "./components/UserGrid";
@@ -9,9 +10,18 @@ import "./Search.css";
 
 function Search() {
   const { searchKeyword } = useContext(SearchContext);
-  const [selectedSection, setSelectedSection] = React.useState(1);
+  const [selectedSection, setSelectedSection] = useState(1);
   const [options, setOptions] = useState({});
   const [backgroundImage, setBackgroundImage] = useState({});
+
+  useEffect(() => {
+    axios
+      .get("/photos/random?limit=1")
+      .then((res) => {
+        setBackgroundImage(res.data.photos[0].photoUrl);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
     <div
@@ -33,15 +43,8 @@ function Search() {
 
         <TopicBar />
 
-        {selectedSection === 1 && (
-          <TaggedPhotoGrid
-            setBackgroundImage={setBackgroundImage}
-            options={options}
-          />
-        )}
-        {selectedSection === 2 && (
-          <CollectionGrid setBackgroundImage={setBackgroundImage} />
-        )}
+        {selectedSection === 1 && <TaggedPhotoGrid options={options} />}
+        {selectedSection === 2 && <CollectionGrid />}
         {selectedSection === 3 && <UserGrid />}
       </div>
     </div>
