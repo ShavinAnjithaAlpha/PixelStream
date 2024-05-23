@@ -344,7 +344,7 @@ async function fetchPhotoFromQuery(query, page, limit, orderBy) {
   return photos;
 }
 
-async function fetchUserLikePhotos(username) {
+async function fetchUserLikePhotos(username, limit, page) {
   // fetch the user id from the database
   const userId = await getUserIdByUserName(username);
   if (userId.error) return userId;
@@ -354,6 +354,8 @@ async function fetchUserLikePhotos(username) {
     where: {
       userId: userId,
     },
+    limit: limit,
+    offset: (page - 1) * limit,
     include: [
       {
         model: Photo,

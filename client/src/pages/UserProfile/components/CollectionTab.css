@@ -1,7 +1,15 @@
-.profile-collection-grid {
-  grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+.user-collection-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.user-collection-tab .profile-collection-grid {
+  grid-template-columns: repeat(3, 1fr);
   display: grid;
-  grid-gap: 0px;
+  grid-gap: 20px;
   grid-auto-rows: minmax(100px, auto);
   /* grid-auto-flow: dense; */
   background: none;
@@ -10,13 +18,13 @@
   margin-right: 1.1rem;
 }
 
-.no-collections h1 {
+.user-collection-tab .no-collections h1 {
   color: #ffffff44;
   margin: 4rem;
 }
 
 @media only screen and (max-width: 600px) {
-  .profile-collection-grid {
+  .user-collection-tab .profile-collection-grid {
     grid-template-columns: repeat(1, 1fr);
     margin-left: 0.2rem;
     margin-right: 0.2rem;

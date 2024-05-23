@@ -5,6 +5,8 @@ const {
   getNumberOfFollowings,
   getUserStatNumbers,
   getPhotoCount,
+  getLikesCount,
+  getCollectionCount,
   getUserIdByUserName,
   followerExists,
   createFollower,
@@ -75,8 +77,10 @@ async function getPhotosOfUser(req, res) {
   if (photos.error) res.status(400).send(photos.error);
 
   // get the photo count of the usre
-  // const photoCount = await getPhotoCount(photos[0].userId);
-  const photoCount = 10; // TODO: fix this
+  let photoCount = 0;
+  if (photos.length !== 0) {
+    photoCount = await getPhotoCount(photos[0].userId);
+  }
 
   // return the photos of the user with other statictics
   return res.json({
@@ -90,33 +94,42 @@ async function getPhotosOfUser(req, res) {
 async function getLikesOfUsers(req, res) {
   // extract the username from the request
   const username = req.params.username;
-
-  // // first check weather the user is logged in or not
-  // if (req.user.username !== username)
-  //   return res.status(401).send("Unauthorized");
+  const limit = parseInt(req.query.limit) || 10;
+  const page = parseInt(req.query.page) || 1;
 
   // check weather if the user exists
   const user = await fetchUserByUsername(username);
   if (user.error) return res.status(400).send(user.error);
 
   // fetch the user from the database
-  const likedPhotos = await fetchUserLikePhotos(username);
+  const likedPhotos = await fetchUserLikePhotos(username, limit, page);
 
-  return res.json(likedPhotos);
+  let totalLikeCount = 0;
+  if (likedPhotos.length !== 0) {
+    totalLikeCount = await getLikesCount(likedPhotos[0].userId);
+  }
+
+  return res.json({
+    photos: likedPhotos,
+    page: page,
+    limit: limit,
+    total: totalLikeCount,
+  });
 }
 
 async function getCollectionOfUser(req, res) {
+  const username = req.params.username;
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 10;
-  const username = req.params.username;
 
   // fetch the collections from the database according to the username
   const collections = await fetchCollectionByUserName(username, page, limit);
   if (collections.error) res.status(400).send(collections.error);
 
-  const collectionCount = 10; // TODO: fix this
-  // const collectionCount = await getCollectionCountOfUser(collections[0].userId);
-
+  let collectionCount = 0;
+  if (collections.length !== 0) {
+    collectionCount = await getCollectionCount(collections[0].userId);
+  }
   // return the collections
   return res.json({
     collections: collections,

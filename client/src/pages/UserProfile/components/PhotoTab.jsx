@@ -1,16 +1,19 @@
 import React from "react";
 import PhotoGrid from "../../../components/PhotoGrid";
 import PageNavigationBar from "../../../components/PageNavigationBar/PageNavigationBar";
+import useUserPhotoHandler from "../../../hooks/useUserPhotoHandler";
+import Spinner from "../../../components/Spinner/Spinner";
 import "./PhotoTab.css";
 
-function PhotoTab({ photos }) {
+function PhotoTab({ username }) {
+  const { photos, loading, handlePageChange } = useUserPhotoHandler(username);
+
   return (
     <div className="user-photo-tab">
+      {loading && <Spinner />}
+
       {photos.length === 0 && (
-        <div
-          className="no-photos"
-          style={{ color: "#ffffff44", margin: "4rem" }}
-        >
+        <div className="no-photos">
           <h1>No photos</h1>
         </div>
       )}
@@ -20,9 +23,10 @@ function PhotoTab({ photos }) {
       </div>
 
       <PageNavigationBar
-        max={100}
+        max={20}
         limit={5}
-        onPageChange={(page) => console.log(page)}
+        handlePageChange={handlePageChange}
+        savedPage={parseInt(localStorage.getItem("page-user-photo")) || 1}
       />
     </div>
   );

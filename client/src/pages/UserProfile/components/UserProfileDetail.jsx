@@ -1,60 +1,23 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useContext } from "react";
 import { AuthContext } from "../../../contexts/auth.context";
 import StatCard from "./StatCard";
 import defaultProfileIcon from "../../../assets/img/default-profile-icon.png";
-import axios from "../../../axios";
 import { Tag } from "../../../components/Tag/Tag";
-import { SearchContext } from "../../../contexts/search.context";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLink, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import fallBackImage from "../../../assets/img/fallback.jpg";
+import useUserProfileHandler from "../../../hooks/useUserProfileHandler";
 import "./UserProfileDetail.css";
 
-function UserProfileDetail({ username, photos, backgroundImage }) {
+function UserProfileDetail({ username, backgroundImage }) {
   const { authState } = useContext(AuthContext);
-  const navigate = useNavigate();
-  const [userProfile, setUserProfile] = useState({});
-  const [userInterests, setUserInterets] = useState([]);
-  const { setSearchKeyword } = useContext(SearchContext);
-
-  const goToAccount = () => {
-    navigate(`/account`);
-  };
-
-  useEffect(() => {
-    // first fetch user profile from the API
-    axios
-      .get(`/users/${username}`)
-      .then((res) => {
-        setUserProfile(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    // then fetch user interests
-    axios
-      .get(`/users/${username}/interests`)
-      .then((res) => {
-        setUserInterets(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [username]);
-
-  const handleTagSearch = (tag) => {
-    // first navigate to the search page
-    navigate(`/search`);
-    // set the search keyword so it will triger the search end points
-    setSearchKeyword(tag);
-  };
-
-  const followUser = (e) => {
-    e.preventDefault();
-    // call the follow user API
-  };
+  const {
+    userProfile,
+    userInterests,
+    goToAccount,
+    handleTagSearch,
+    followUser,
+  } = useUserProfileHandler(username);
 
   return (
     <>

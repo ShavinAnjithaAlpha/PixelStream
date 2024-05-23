@@ -12,35 +12,17 @@ import "./UserProfile.css";
 
 function UserProfile({ defaultTab = "photos" }) {
   const { username } = useParams();
-  // state variables of the page
   const [activeTab, setActiveTab] = React.useState(defaultTab);
   const [backgroundImage, setBackgroundImage] = useState("");
-  const [photos, setPhotos] = React.useState([]);
-
-  const randomId = () => {
-    return Math.floor(Math.random() * 100);
-  };
 
   useEffect(() => {
+    // fetch the random photo under this username for background image
     axios
-      .get(`/users/${username}/photos?count=10`)
+      .get(`/photos/random?userName=${username}&limit=1`)
       .then((res) => {
-        setPhotos(res.data.photos);
-        // set the background image
-        if (res.data.photos.length !== 0) {
-          setBackgroundImage(res.data.photos[0].photoUrl);
-        } else {
-          axios
-            .get(`photos?limit=1&page=${randomId()}`)
-            .then((res) => {
-              setBackgroundImage(res.data[0].photoUrl);
-            })
-            .catch((err) => {});
-        }
+        setBackgroundImage(res.data.photos[0].photoUrl);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => console.log(err));
   }, [username]);
 
   return (
@@ -50,20 +32,17 @@ function UserProfile({ defaultTab = "photos" }) {
         backgroundImage: `url('${
           backgroundImage ? backgroundImage : fallBackImage
         }')`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
       }}
     >
       <div className="user-profile-wrapper">
         <UserProfileDetail
           username={username}
-          photos={photos}
           backgroundImage={backgroundImage}
         />
         <TabBar setActiveTab={setActiveTab} activeTab={activeTab} />
 
         <div className="tabs">
-          {activeTab === "photos" && <PhotoTab photos={photos} />}
+          {activeTab === "photos" && <PhotoTab username={username} />}
           {activeTab === "likes" && <LikesTab username={username} />}
           {activeTab === "collections" && <CollectionTab username={username} />}
           {activeTab === "stat" && <StatTab username={username} />}

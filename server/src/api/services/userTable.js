@@ -211,6 +211,26 @@ async function getPhotoCount(userId) {
   return photoCount;
 }
 
+async function getLikesCount(userId) {
+  const likeCount = await UserLikes.count({
+    where: {
+      userId: userId,
+    },
+  });
+
+  return likeCount;
+}
+
+async function getCollectionCount(userId) {
+  const collectionCount = await Collection.count({
+    where: {
+      userId: userId,
+    },
+  });
+
+  return collectionCount;
+}
+
 async function getUserStatNumbers(userId) {
   const totalLikes = await UserLikes.count({
     where: {
@@ -415,6 +435,8 @@ module.exports = {
   getNumberOfFollowings,
   getUserStatNumbers,
   getPhotoCount,
+  getLikesCount,
+  getCollectionCount,
   getUserIdByUserName,
   followerExists,
   createFollower,

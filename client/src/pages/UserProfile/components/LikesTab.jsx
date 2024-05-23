@@ -1,33 +1,37 @@
-import React, { useEffect } from "react";
+import React from "react";
 import PhotoCard from "../../../components/PhotoCard";
-import axios from "../../../axios";
+import useUserLikesHandler from "../../../hooks/useUserLikesHandler";
+import Spinner from "../../../components/Spinner/Spinner";
+import PageNavigationBar from "../../../components/PageNavigationBar/PageNavigationBar";
 import "./LikesTab.css";
 
 function LikesTab({ username }) {
-  const [likePhotos, setLikePhotos] = React.useState([]);
+  const { likePhotos, loading, handlePageChange } =
+    useUserLikesHandler(username);
 
-  useEffect(() => {
-    axios
-      .get(`users/${username}/likes`)
-      .then((res) => {
-        // rreformat the data to match the photo card component
-        const formattedPhotoData = [];
-        res.data.forEach((photo) => {
-          formattedPhotoData.push(photo.Photo);
-        });
-        // set the formatted photo data as the state
-        setLikePhotos(formattedPhotoData);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [username]);
   return (
-    <div className="like-photo-grid">
-      {!likePhotos && <h2>No Likes</h2>}
-      {likePhotos.map((photo) => (
-        <PhotoCard key={photo.photoId} photo={photo} isLiked_={true} />
-      ))}
+    <div className="user-likes-tab">
+      {loading && <Spinner />}
+
+      {likePhotos.length === 0 && (
+        <div className="no-photos">
+          <h1>No photos</h1>
+        </div>
+      )}
+
+      <div className="like-photo-grid">
+        {!likePhotos && <h2>No Likes</h2>}
+        {likePhotos.map((photo) => (
+          <PhotoCard key={photo.photoId} photo={photo} isLiked_={true} />
+        ))}
+      </div>
+
+      <PageNavigationBar
+        max={20}
+        limit={5}
+        handlePageChange={handlePageChange}
+        savedPage={parseInt(localStorage.getItem("page-user-likes")) || 1}
+      />
     </div>
   );
 }
