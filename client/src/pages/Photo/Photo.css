@@ -1,3 +1,9 @@
+.photo-page-wrapper {
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+}
+
 .photo-page-box {
   backdrop-filter: blur(10px) brightness(0.8);
   display: flex;
@@ -15,12 +21,6 @@
   margin: auto;
   width: 100%;
   padding: 20px;
-}
-
-.photo-page .photo-page-wrapper {
-  background-size: "cover";
-  background-position: "center";
-  width: "100%";
 }
 
 .photo-page .photo-container {

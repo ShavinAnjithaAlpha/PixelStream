@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import axios from "../../axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowLeft,
@@ -11,47 +9,32 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import defaultProfileIcon from "../../assets/img/default-profile-icon.png";
 import fallBackImage from "../../assets/img/fallback.jpg";
+import useSigninHandler from "../../hooks/useSigninHandler";
 import "./Registration.css";
 
 function Registration() {
-  const navigation = useNavigate();
-  const [backgroundImage, setBackgroundImage] = useState({});
-  const [error, setError] = useState("");
-  const [status, setStatus] = useState("");
+  const {
+    backgroundImage,
+    profileImage,
+    error,
+    status,
+    setProfile,
+    getImageUrl,
+    handleSubmit,
+  } = useSigninHandler();
   const [formState, setFormState] = useState(0);
-  const [profileImage, setProfileImage] = useState(null);
-  const [password, setPassword] = useState("");
 
-  const updatePassword = (event) => {
-    setPassword(event.target.value);
-  };
+  // const calculateStrength = (password) => {
+  //   let strength = 0;
+  //   if (password.length > 5) strength++;
+  //   if (password.match(/[a-z]+/)) strength++;
+  //   if (password.match(/[A-Z]+/)) strength++;
+  //   if (password.match(/[0-9]+/)) strength++;
+  //   if (password.match(/[$@#&!]+/)) strength++;
+  //   return strength;
+  // };
 
-  const calculateStrength = (password) => {
-    let strength = 0;
-    if (password.length > 5) strength++;
-    if (password.match(/[a-z]+/)) strength++;
-    if (password.match(/[A-Z]+/)) strength++;
-    if (password.match(/[0-9]+/)) strength++;
-    if (password.match(/[$@#&!]+/)) strength++;
-    return strength;
-  };
-
-  const strength = calculateStrength(password);
-
-  const setProfile = (e) => {
-    if (!e.target.files[0]) return;
-
-    if (e.target.files[0].size > 1024 * 1024 * 2) {
-      alert("File size must be less than 2MB");
-      return;
-    }
-
-    setProfileImage(e.target.files[0]);
-  };
-
-  const imageUrl = (data) => {
-    return URL.createObjectURL(data);
-  };
+  // const strength = calculateStrength(password);
 
   const initialValues = {
     firstname: "",
@@ -92,71 +75,13 @@ function Registration() {
     personalSite: Yup.string().max(255).optional().nullable(),
   });
 
-  const cleanData = (data) => {
-    if (data.location === "") delete data.location;
-    if (data.bio === "") delete data.bio;
-    if (data.personalsite === "") delete data.personalsite;
-    delete data.confirmPassword;
-    return data;
-  };
-
-  const handleSubmit = (values) => {
-    // Handle form submission logic here
-    // cleaned the data before submit to the server endpoint
-    const cleanedData = cleanData(values);
-    // now make the api request to register the user
-    // create a form data payload to send the user data
-    const formData = new FormData();
-    for (let key in cleanedData) {
-      formData.append(key, cleanedData[key]);
-    }
-    // append the profile image to the form data
-    if (profileImage) {
-      formData.append("file", profileImage);
-    }
-
-    axios
-      .post("/auth/register", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((res) => {
-        setStatus(
-          "Registration successful, you will be redirected to login page"
-        );
-        // redirect to the login page
-        setTimeout(() => {
-          navigation("/login");
-        }, 2000);
-      })
-      .catch((err) => setError(err.response.data.error));
-  };
-
-  const getRandomId = () => {
-    return Math.floor(Math.random() * 100) + 1;
-  };
-
-  useEffect(() => {
-    axios
-      .get(`/photos?page=${getRandomId()}&limit=1`)
-      .then((res) => {
-        setBackgroundImage(res.data[0]);
-      })
-      .catch((err) => console.log(err));
-  }, []);
-
   return (
     <div
       className="register-page"
       style={{
         backgroundImage: `url('${
-          backgroundImage && backgroundImage.resizedPhotoUrl
-            ? backgroundImage.resizedPhotoUrl
-            : fallBackImage
+          backgroundImage ? backgroundImage : fallBackImage
         }')`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
       }}
     >
       <div className="register-page-wrapper">
@@ -237,7 +162,7 @@ function Registration() {
                         <img
                           src={
                             profileImage
-                              ? imageUrl(profileImage)
+                              ? getImageUrl(profileImage)
                               : defaultProfileIcon
                           }
                           alt="profile"
@@ -418,12 +343,12 @@ function Registration() {
 
         <div className="image-box">
           <img
-            src={backgroundImage ? backgroundImage.photoUrl : fallBackImage}
+            src={backgroundImage ? backgroundImage : fallBackImage}
             alt="background"
             loading="lazy"
           />
           <h1>
-            <span>Sign in with</span> <br /> PhotoStock
+            <span>Sign in with</span> <br /> PixelStream
           </h1>
         </div>
       </div>

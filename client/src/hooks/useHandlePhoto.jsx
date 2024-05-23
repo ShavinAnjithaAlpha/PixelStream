@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../axios";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../contexts/auth.context";
 
 function useHandlePhoto(id) {
   const navigate = useNavigate();
@@ -185,7 +185,7 @@ function useHandlePhoto(id) {
       .catch((err) => {
         console.log(err);
       });
-  }, [id]);
+  }, [id, authState]);
 
   return {
     photo,
