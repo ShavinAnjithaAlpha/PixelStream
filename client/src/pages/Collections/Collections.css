@@ -1,6 +1,17 @@
 .global-collections {
   background-color: #222;
   width: 100%;
+  background-size: "cover";
+  background-position: "center";
+  padding: 0;
+}
+
+.global-collections-wrapper {
+  backdrop-filter: blur(5px) brightness(0.5);
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
 }
 
 .global-collections h1 {
@@ -8,11 +19,11 @@
   color: white;
   font-size: 4rem;
   font-weight: 400;
-  margin: 10px 20px;
+  margin: 0px 20px;
 }
 
 .global-collections .global-collections-grid {
-  grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   display: grid;
   grid-gap: 20px;
   grid-auto-rows: minmax(100px, auto);
@@ -20,6 +31,13 @@
   margin-top: 20px;
   margin-left: 2rem;
   margin-right: 2rem;
+}
+
+.global-collections h2 {
+  text-align: center;
+  color: #aaaaaa;
+  font-size: 3rem;
+  font-weight: 400;
 }
 
 @media only screen and (max-width: 600px) {

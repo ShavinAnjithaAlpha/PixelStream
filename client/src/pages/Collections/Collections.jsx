@@ -1,44 +1,45 @@
-import React, { useEffect, useState } from "react";
-import axios from "../../axios";
+import React from "react";
 import CollectionCard from "../../components/CollectionCard/CollectionCard";
 import Spinner from "../../components/Spinner/Spinner";
+import useGetCollections from "../../hooks/useGetCollections";
+import PageNavigationBar from "../../components/PageNavigationBar/PageNavigationBar";
 import "./Collections.css";
 
 function Collections() {
-  const [collections, setCollections] = useState([]);
-
-  useEffect(() => {
-    axios
-      .get("collections")
-      .then((res) => {
-        setCollections(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  const { collections, loading, backgroundPhoto, handlePageChange } =
+    useGetCollections();
 
   return (
     <div
       className="global-collections"
       style={{
-        backgroundImage: `url('https://images.unsplash.com/photo-1612833943307-4b3b3b3b3b3b')`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
+        backgroundImage: `url('${backgroundPhoto}')`,
       }}
     >
-      <h1>Collections</h1>
+      <div className="global-collections-wrapper">
+        <h1>Collections</h1>
 
-      {!collections && <Spinner />}
+        {loading && <Spinner />}
 
-      <div className="global-collections-grid">
-        {collections &&
-          collections.map((collection) => (
-            <CollectionCard
-              key={collection.collectionId}
-              collection={collection}
-            />
-          ))}
+        <div className="global-collections-grid">
+          {collections &&
+            collections.map((collection) => (
+              <CollectionCard
+                key={collection.collectionId}
+                collection={collection}
+              />
+            ))}
+        </div>
+        {collections.length === 0 && !loading && <h2>No collections</h2>}
+
+        <div className="page-bar">
+          <PageNavigationBar
+            max={20}
+            limit={5}
+            handlePageChange={handlePageChange}
+            savedPage={parseInt(localStorage.getItem("page-collection")) || 1}
+          />
+        </div>
       </div>
     </div>
   );

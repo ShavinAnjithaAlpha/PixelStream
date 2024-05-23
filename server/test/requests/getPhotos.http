@@ -49,7 +49,7 @@ Content-Type: {{contentType}}
 
 
 ### get random photo
-GET {{host}}/api/photos/random?limit=3&userName=sdsdh {{http}}
+GET {{host}}/api/photos/random?limit=1 {{http}}
 Content-Type: {{contentType}}
 
 ### is liked

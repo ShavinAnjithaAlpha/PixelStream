@@ -1,5 +1,7 @@
 .coll-section {
   width: 100%;
+  background-size: "cover";
+  background-position: "center";
 }
 
 .coll-section .coll-wrapper {
@@ -181,4 +183,12 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+}
+
+.coll-section .coll-wrapper .loading {
+  align-self: center;
+}
+
+.coll-section .coll-wrapper .page-bar {
+  align-self: center;
 }

@@ -17,6 +17,12 @@
   padding: 20px;
 }
 
+.photo-page .photo-page-wrapper {
+  background-size: "cover";
+  background-position: "center";
+  width: "100%";
+}
+
 .photo-page .photo-container {
   display: flex;
   flex-direction: column;

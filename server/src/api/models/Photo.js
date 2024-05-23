@@ -104,15 +104,15 @@ module.exports = (sequelize, DataTypes) => {
       onUpdate: "CASCADE",
     });
 
-    Photo.belongsToMany(models.Tag, {
-      through: models.PhotoTag,
-      foreignKey: {
-        name: "photoId",
-        allowNull: false,
-      },
-      onDelete: "CASCADE",
-      onUpdate: "CASCADE",
-    });
+    // Photo.belongsToMany(models.Tag, {
+    //   through: models.PhotoTag,
+    //   foreignKey: {
+    //     name: "photoId",
+    //     allowNull: false,
+    //   },
+    //   onDelete: "CASCADE",
+    //   onUpdate: "CASCADE",
+    // });
   };
 
   return Photo;

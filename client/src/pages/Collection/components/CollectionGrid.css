@@ -1,5 +1,5 @@
 .col-photo-grid {
-  grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   display: grid;
   grid-gap: 20px;
   grid-auto-rows: minmax(100px, auto);
@@ -8,6 +8,7 @@
   margin-top: 20px;
   margin-left: 8rem;
   margin-right: 8rem;
+  margin-bottom: 20px;
 }
 
 @media only screen and (max-width: 600px) {

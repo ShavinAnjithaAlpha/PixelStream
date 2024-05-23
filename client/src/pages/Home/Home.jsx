@@ -1,68 +1,20 @@
+import { useState } from "react";
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "../../axios";
 import PhotoGrid from "../../components/PhotoGrid";
 import PageNavigationBar from "../../components/PageNavigationBar/PageNavigationBar";
 import TopicBar from "../../components/TopicBar/TopicBar";
-import { useEffect, useState, useContext } from "react";
-import { SearchContext } from "../../contexts/search.context";
 import CollectionPanel from "./components/CollectionPanel";
 import AddToCollectionBox from "../../components/AddToCollectionBox/AddToCollectionBox";
 import FeaturedPhoto from "../../components/FeaturedPhoto/FeaturedPhoto";
 import fallBackImage from "../../assets/img/fallback.jpg";
+import useGetPhotos from "../../hooks/useGetPhotos";
 import "./Home.css";
 
-const PAGE_LIMIT = 18;
-
 function Home() {
-  const navigate = useNavigate();
-  const [photos, setPhotos] = useState([]);
-  const [addCollectionBox, setAddCollectionBox] = useState(false);
+  const { photos, status, handlePageChange, handleSearch, randomPhotoId } =
+    useGetPhotos();
   const [selectedPhoto, setSelectedPhoto] = useState({});
-  const { setSearchKeyword } = useContext(SearchContext);
-
-  useEffect(() => {
-    // load the loclal storage data for paging the photos
-    let page = 1;
-    if (localStorage.getItem("page-photo")) {
-      page = parseInt(localStorage.getItem("page-photo"));
-    }
-
-    axios
-      .get(`/photos?limit=${PAGE_LIMIT}&page=${page}`)
-      .then((res) => {
-        setPhotos(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
-  const handlePageChange = (page) => {
-    axios
-      .get(`/photos?limit=18&page=${page}`)
-      .then((res) => {
-        setPhotos(res.data);
-        // save the page to the local storage
-        localStorage.setItem("page-photo", page);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  const handleSearch = (e) => {
-    if (e.key === "Enter") {
-      // first navigate to the search page
-      navigate("/search");
-      // then set the search keyword so it will triger the search end points
-      setSearchKeyword(e.target.value);
-    }
-  };
-
-  const randomPhotoId = () => {
-    return (Math.floor(Math.random() * 100) + 1) % PAGE_LIMIT;
-  };
+  const [addCollectionBox, setAddCollectionBox] = useState(false);
 
   return (
     <div

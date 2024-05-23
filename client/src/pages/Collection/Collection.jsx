@@ -1,17 +1,18 @@
-import React, { useState, useEffect, useContext } from "react";
-import Select from "react-select";
+import React, { useContext } from "react";
 import { useParams } from "react-router-dom";
+import { AuthContext } from "../../contexts/auth.context";
+import Select from "react-select";
 import CollectionGrid from "./components/CollectionGrid";
 import ProfileCard from "./components/ProfileCard";
-import axios from "../../axios";
-import { AuthContext } from "../../contexts/auth.context";
+import useGetCollection from "../../hooks/useGetCollection";
+import Spinner from "../../components/Spinner/Spinner";
+import PageNavigationBar from "../../components/PageNavigationBar/PageNavigationBar";
 import "./Collection.css";
 
 function Collection() {
   const { id } = useParams();
   const { authState } = useContext(AuthContext);
-  const [collection, setCollection] = useState({});
-  const [photos, setPhotos] = useState([]);
+  const { collection, photos, loading } = useGetCollection(id);
 
   const filterByOptions = [
     { value: "all", label: "All" },
@@ -32,28 +33,6 @@ function Collection() {
     { value: "square", label: "Square" },
   ];
 
-  useEffect(() => {
-    // fetch the colection data from the API endpoints
-    axios
-      .get(`collections/${id}`)
-      .then((res) => {
-        setCollection(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    // fetch the photos from the API endpoints
-    axios
-      .get(`collections/${id}/photo`)
-      .then((res) => {
-        setPhotos(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [id]);
-
   return (
     <div
       className="coll-section"
@@ -61,8 +40,6 @@ function Collection() {
         backgroundImage: `url('${
           collection.Photo && collection.Photo.photoUrl
         }')`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
       }}
     >
       <div className="coll-wrapper">
@@ -123,9 +100,26 @@ function Collection() {
           </div>
         )}
 
+        {loading && (
+          <div className="loading">
+            <Spinner />
+          </div>
+        )}
+
         {!photos ||
           !photos.photos ||
           (photos.photos.length === 0 && <h1 id="no-photo">No Photos Yet</h1>)}
+
+        <div className="page-bar">
+          <PageNavigationBar
+            max={100}
+            limit={5}
+            // handlePageChange={handlePageChange}
+            savedPage={
+              parseInt(localStorage.getItem("page-one-collection")) || 1
+            }
+          />
+        </div>
       </div>
     </div>
   );
