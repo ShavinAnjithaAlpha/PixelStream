@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { AuthContext } from "./contexts/auth.context";
 import { SearchContextProvider } from "./contexts/search.context";
+import { PopupContextProvider } from "./contexts/popup.context";
 import { jwtDecode } from "jwt-decode";
 // import { ReactLenis, useLenis } from "@studio-freight/react-lenis";
 import Main from "./Main";
@@ -36,13 +37,15 @@ function App() {
 
   return (
     <SearchContextProvider>
-      <AuthContext.Provider value={{ authState, setAuthState }}>
-        <Router>
-          {/* <ReactLenis root> */}
-          <Main />
-          {/* </ReactLenis> */}
-        </Router>
-      </AuthContext.Provider>
+      <PopupContextProvider>
+        <AuthContext.Provider value={{ authState, setAuthState }}>
+          <Router>
+            {/* <ReactLenis root> */}
+            <Main />
+            {/* </ReactLenis> */}
+          </Router>
+        </AuthContext.Provider>
+      </PopupContextProvider>
     </SearchContextProvider>
   );
 }

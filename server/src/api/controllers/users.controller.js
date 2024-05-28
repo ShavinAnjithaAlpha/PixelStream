@@ -118,7 +118,7 @@ async function getLikesOfUsers(req, res) {
 }
 
 async function getCollectionOfUser(req, res) {
-  const username = req.params.username;
+  const username = req.params.username | "";
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 10;
 

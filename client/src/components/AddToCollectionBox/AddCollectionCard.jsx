@@ -6,7 +6,6 @@ function AddCollectionCard({ collection, onAdd }) {
 
   const addToCollection = () => {
     onAdd();
-    console.log("added");
     setAdded(true);
   };
 

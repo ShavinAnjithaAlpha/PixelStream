@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../axios";
 import { AuthContext } from "../contexts/auth.context";
+import { PopupContext } from "../contexts/popup.context";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHeart,
@@ -16,6 +17,7 @@ import "./PhotoCard.css";
 function PhotoCard({ photo, isLiked_, addCollection, setSelectedPhoto }) {
   const navigate = useNavigate();
   const { authState } = useContext(AuthContext);
+  const { popups, setPopups } = useContext(PopupContext);
   const [isHovered, setIsHovered] = useState(false);
   const [isLiked, setIsLiked] = useState(isLiked_);
 
@@ -89,6 +91,11 @@ function PhotoCard({ photo, isLiked_, addCollection, setSelectedPhoto }) {
 
     setSelectedPhoto(photo);
     addCollection(true);
+    setPopups({
+      ...popups,
+      selectedPhoto: photo,
+      addToCollection: !popups.addToCollection,
+    });
   };
 
   return (

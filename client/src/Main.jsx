@@ -16,10 +16,13 @@ import {
 import { AuthContext } from "./contexts/auth.context";
 import { Navbar, Footer } from "./layouts";
 import "./Main.css";
+import { PopupContext } from "./contexts/popup.context";
+import AddToCollectionBox from "./components/AddToCollectionBox/AddToCollectionBox";
 
 function Main() {
   const location = useLocation();
   const { authState } = useContext(AuthContext);
+  const { popups } = useContext(PopupContext);
 
   return (
     <div className="App-Main">
@@ -54,6 +57,13 @@ function Main() {
         location.pathname !== "/signup" &&
         location.pathname !== "/account" &&
         location.pathname !== "/upload" && <Footer />}
+
+      {popups.addToCollection && (
+        <AddToCollectionBox
+          show={popups.addToCollection}
+          selectedPhoto={popups.selectedPhoto}
+        />
+      )}
     </div>
   );
 }

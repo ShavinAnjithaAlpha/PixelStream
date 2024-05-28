@@ -50,6 +50,7 @@ async function getPhotos(req, res) {
 async function getPhotoById(req, res) {
   // first get the photo id from the request parameter
   const photoId = parseInt(req.params.id);
+  if (!photoId) return res.status(400).send("Invalid photo id");
 
   // now get the photo from the database
   const photo = await getPhoto(photoId);

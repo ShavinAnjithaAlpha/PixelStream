@@ -6,12 +6,11 @@ import TopicBar from "../../components/TopicBar/TopicBar";
 import CollectionPanel from "./components/CollectionPanel";
 import AddToCollectionBox from "../../components/AddToCollectionBox/AddToCollectionBox";
 import FeaturedPhoto from "../../components/FeaturedPhoto/FeaturedPhoto";
-import fallBackImage from "../../assets/img/fallback.jpg";
 import useGetPhotos from "../../hooks/useGetPhotos";
 import "./Home.css";
 
 function Home() {
-  const { photos, status, handlePageChange, handleSearch, randomPhotoId } =
+  const { photos, status, handlePageChange, handleSearch, randomPhoto } =
     useGetPhotos();
   const [selectedPhoto, setSelectedPhoto] = useState({});
   const [addCollectionBox, setAddCollectionBox] = useState(false);
@@ -20,14 +19,7 @@ function Home() {
     <div
       className="App"
       style={{
-        backgroundColor: "black",
-        backgroundImage: `url('${
-          photos[randomPhotoId()]
-            ? photos[randomPhotoId()].photoUrl
-            : fallBackImage
-        }')`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
+        backgroundImage: `url('${randomPhoto}')`,
       }}
     >
       <div className="home-wrapper">
@@ -65,16 +57,15 @@ function Home() {
             savedPage={parseInt(localStorage.getItem("page-photo")) || 1}
           />
         </div>
-
-        {addCollectionBox && (
-          <div className="add-collection-popup">
-            <AddToCollectionBox
-              setClose={setAddCollectionBox}
-              selectedPhoto={selectedPhoto}
-            />
-          </div>
-        )}
       </div>
+
+      {/* {AddToCollectionBox && (
+        <AddToCollectionBox
+          show={addCollectionBox}
+          setShow={setAddCollectionBox}
+          selectedPhoto={selectedPhoto}
+        />
+      )} */}
     </div>
   );
 }

@@ -6,7 +6,7 @@ import Spinner from "./Spinner/Spinner";
 import "./PhotoGrid.css";
 
 function PhotoGrid({ photos, addCollection, setSelectedPhoto }) {
-  const { authState } = useContext(AuthContext);
+  const { authState, setAuthState } = useContext(AuthContext);
   const [likedPhotos, setLikedPhotos] = useState([]);
   const [status, setStatus] = useState(false);
 
@@ -16,7 +16,11 @@ function PhotoGrid({ photos, addCollection, setSelectedPhoto }) {
   };
 
   const loadLiked = (interval) => {
-    if (authState.status === false) return;
+    if (authState.status === false) {
+      clearInterval(interval);
+      setStatus(true);
+      return;
+    }
 
     const photoIds = photos.map((photo) => photo.photoId);
     const data = { photoIds };
@@ -31,11 +35,12 @@ function PhotoGrid({ photos, addCollection, setSelectedPhoto }) {
         setStatus(true);
       })
       .catch((err) => {
-        if (err.error === "Invalid token") {
+        if (err.response.data.error === "Invalid token") {
           localStorage.removeItem("token");
           localStorage.removeItem("username");
-          authState.setStatus(false);
           setStatus(true);
+          setAuthState({ status: false });
+          clearInterval(interval);
         }
       });
   };
@@ -47,7 +52,7 @@ function PhotoGrid({ photos, addCollection, setSelectedPhoto }) {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [photos, authState.status]);
+  }, [photos, authState.state]);
 
   return (
     <>

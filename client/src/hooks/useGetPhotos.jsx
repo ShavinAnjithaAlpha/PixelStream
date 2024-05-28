@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../axios";
 import { SearchContext } from "../contexts/search.context";
+import defaultImage from "../assets/img/fallback.jpg";
 
 const PAGE_LIMIT = 18;
 
@@ -9,6 +10,7 @@ function useGetPhotos() {
   const navigate = useNavigate();
   const [photos, setPhotos] = useState([]);
   const [status, setStatus] = useState(false);
+  const [randomPhoto, setRandomPhoto] = useState(null);
   const { setSearchKeyword } = useContext(SearchContext);
 
   useEffect(() => {
@@ -28,6 +30,17 @@ function useGetPhotos() {
       .catch((err) => {
         console.log(err);
         setStatus(true);
+      });
+
+    // get the random photo to be included in the home page
+    axios
+      .get("/photos/random?count=1")
+      .then((res) => {
+        setRandomPhoto(res.data.photos[0].resizedPhotoUrl);
+      })
+      .catch((e) => {
+        //  set the default image if the random photo is not available
+        setRandomPhoto(defaultImage);
       });
   }, []);
 
@@ -53,11 +66,7 @@ function useGetPhotos() {
     }
   };
 
-  const randomPhotoId = () => {
-    return (Math.floor(Math.random() * 100) + 1) % PAGE_LIMIT;
-  };
-
-  return { photos, status, handlePageChange, handleSearch, randomPhotoId };
+  return { photos, status, handlePageChange, handleSearch, randomPhoto };
 }
 
 export default useGetPhotos;

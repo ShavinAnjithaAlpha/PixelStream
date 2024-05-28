@@ -11,14 +11,14 @@ async function connectToRedis() {
       url: redisUrl,
     });
     redisClient.on("error", (error) => {
-      console.log("Redis error: ", error);
+      logger.error("Redis error: ", error);
     });
 
     try {
       await redisClient.connect();
       console.log("Connected to Redis");
     } catch (error) {
-      console.error("Error connecting to Redis: ", error);
+      logger.error("Error connecting to Redis: ", error);
     }
   }
 }

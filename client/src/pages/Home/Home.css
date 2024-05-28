@@ -1,4 +1,7 @@
 .App {
+  background-color: black;
+  background-size: cover;
+  background-repeat: no-repeat;
   width: 100%;
   padding: 0;
   display: flex;
