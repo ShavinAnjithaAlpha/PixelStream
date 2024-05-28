@@ -8,8 +8,8 @@ POST {{host}}/api/auth/login {{http}}
 Content-Type: {{contentType}}
 
 {
-    "email" : "omalya.v@gmail.com",
-    "password": "omalya.v"
+    "email" : "shavin.anjitha@gmail.com",
+    "password": "shavin"
 }
 
 ###

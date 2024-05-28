@@ -11,6 +11,19 @@ function validatePhoto(data) {
 
   return photoSchema.validate(data);
 }
+
+function validateUpdatePhoto(data) {
+  const schema = Joi.object({
+    title: Joi.string().min(5).max(255).optional(),
+    description: Joi.string().min(10).max(512).optional(),
+    location: Joi.string().min(3).max(255).optional(),
+    tags: Joi.string().optional(),
+    capturedFrom: Joi.string().min(3).max(255).optional(),
+  });
+
+  return schema.validate(data);
+}
+
 function validateUserLikePhoto(data) {
   const schema = Joi.object({
     photoIds: Joi.array().items(Joi.number()).optional(),
@@ -21,5 +34,6 @@ function validateUserLikePhoto(data) {
 
 module.exports = {
   validatePhoto,
+  validateUpdatePhoto,
   validateUserLikePhoto,
 };

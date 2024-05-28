@@ -5,7 +5,7 @@ import { AuthContext } from "../contexts/auth.context";
 import Spinner from "./Spinner/Spinner";
 import "./PhotoGrid.css";
 
-function PhotoGrid({ photos, addCollection, setSelectedPhoto }) {
+function PhotoGrid({ photos }) {
   const { authState, setAuthState } = useContext(AuthContext);
   const [likedPhotos, setLikedPhotos] = useState([]);
   const [status, setStatus] = useState(false);
@@ -65,8 +65,6 @@ function PhotoGrid({ photos, addCollection, setSelectedPhoto }) {
               photo={photo}
               key={photo.photoId}
               isLiked_={isLiked(photo.photoId)}
-              addCollection={addCollection}
-              setSelectedPhoto={setSelectedPhoto}
             />
           ))}
       </div>

@@ -5,6 +5,7 @@ const { PhotoStat } = require("../models");
 const { UserLikes } = require("../models");
 const { UserDisLikes } = require("../models");
 const { UserDownloads } = require("../models");
+const { PhotoTag } = require("../models");
 const { getUserIdByUserName } = require("./userTable");
 const sequelize = require("sequelize");
 const { Op } = require("sequelize");
@@ -74,7 +75,7 @@ async function checkOwnerOfPhoto(photoId, userId) {
   return false;
 }
 
-async function getPhoto(photoId) {
+async function fetchPhotoById(photoId) {
   const photo = await Photo.findOne({
     where: {
       photoId: photoId,
@@ -89,6 +90,12 @@ async function getPhoto(photoId) {
       },
     ],
   });
+
+  return photo;
+}
+
+async function getPhoto(photoId) {
+  const photo = await fetchPhotoById(photoId);
 
   if (!photo) return { error: `Invalid photo id ${photoId}` };
   addView(photoId); // increment the view by 1
@@ -136,7 +143,7 @@ async function createPhoto(data, metaData, colorData, user) {
     photoOrientation: metaData.orientation,
     photoColors: JSON.stringify(colorData),
     capturedFrom: metaData.capturedFrom,
-    location: metaData.location,
+    location: data.location,
   });
 
   await photo.save();
@@ -456,6 +463,68 @@ async function removeDislikeFromPhoto(photoId, userId) {
   return { status: false };
 }
 
+async function changePhotoDetails(photoId, data) {
+  await Photo.update(
+    {
+      photoTitle: data.title,
+      photoDes: data.description,
+      location: data.location,
+      capturedFrom: data.capturedFrom,
+    },
+    {
+      where: {
+        photoId: photoId,
+      },
+    }
+  );
+
+  // update the tags in the photo
+  return await fetchPhotoById(photoId);
+}
+
+async function removePhoto(photoId) {
+  // remove all the stats, likes, dislikes and downloads of the photo
+  await PhotoStat.destroy({
+    where: {
+      photoId: photoId,
+    },
+  });
+
+  await UserLikes.destroy({
+    where: {
+      photoId: photoId,
+    },
+  });
+
+  await UserDisLikes.destroy({
+    where: {
+      photoId: photoId,
+    },
+  });
+
+  await UserDownloads.destroy({
+    where: {
+      photoId: photoId,
+    },
+  });
+
+  // remove all the photo tags of the photo
+  await PhotoTag.destroy({
+    where: {
+      photoId: photoId,
+    },
+  });
+
+  // remove the photo from the database
+  await Photo.destroy({
+    where: {
+      photoId: photoId,
+    },
+  });
+
+  return { status: true };
+}
+
 module.exports = {
   fetchPhotos,
   fetchPhotoStat,
@@ -475,4 +544,6 @@ module.exports = {
   userLikePhotos,
   removeLikeFromPhoto,
   removeDislikeFromPhoto,
+  changePhotoDetails,
+  removePhoto,
 };

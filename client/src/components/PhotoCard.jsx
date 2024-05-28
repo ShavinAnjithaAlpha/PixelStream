@@ -14,7 +14,7 @@ import "reactjs-popup/dist/index.css";
 import defaultProfileIcon from "../assets/img/default-profile-icon.png";
 import "./PhotoCard.css";
 
-function PhotoCard({ photo, isLiked_, addCollection, setSelectedPhoto }) {
+function PhotoCard({ photo, isLiked_ }) {
   const navigate = useNavigate();
   const { authState } = useContext(AuthContext);
   const { popups, setPopups } = useContext(PopupContext);
@@ -89,12 +89,18 @@ function PhotoCard({ photo, isLiked_, addCollection, setSelectedPhoto }) {
       return;
     }
 
-    setSelectedPhoto(photo);
-    addCollection(true);
     setPopups({
       ...popups,
       selectedPhoto: photo,
       addToCollection: !popups.addToCollection,
+    });
+  };
+
+  const editPhoto = () => {
+    setPopups({
+      ...popups,
+      selectedPhoto: photo,
+      editPhoto: !popups.editPhoto,
     });
   };
 
@@ -122,7 +128,7 @@ function PhotoCard({ photo, isLiked_, addCollection, setSelectedPhoto }) {
               photo.User &&
               photo.User.UserAuth &&
               authState.username === photo.User.UserAuth.userName && (
-                <div className="edit" onClick={likedPhoto}>
+                <div className="edit" onClick={editPhoto}>
                   <FontAwesomeIcon
                     icon={faPen}
                     size="lg"

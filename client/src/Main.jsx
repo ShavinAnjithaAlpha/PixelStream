@@ -18,6 +18,7 @@ import { Navbar, Footer } from "./layouts";
 import "./Main.css";
 import { PopupContext } from "./contexts/popup.context";
 import AddToCollectionBox from "./components/AddToCollectionBox/AddToCollectionBox";
+import EditPhoto from "./components/EditPhoto/EditPhoto";
 
 function Main() {
   const location = useLocation();
@@ -61,6 +62,13 @@ function Main() {
       {popups.addToCollection && (
         <AddToCollectionBox
           show={popups.addToCollection}
+          selectedPhoto={popups.selectedPhoto}
+        />
+      )}
+
+      {popups.editPhoto && (
+        <EditPhoto
+          show={popups.editPhoto}
           selectedPhoto={popups.selectedPhoto}
         />
       )}

@@ -73,3 +73,15 @@ Authorization: {{userToken}}
 ### get realated photos
 GET {{host}}/api/photos/2/related/ {{http}}
 Content-Type: {{contentType}}
+
+### update a photo
+PUT {{host}}/api/photos/18 {{http}}
+Content-Type: {{contentType}}
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNoYXZpbiIsInVzZXJJZCI6MSwiaWF0IjoxNzE2OTAwNzYzLCJleHAiOjE3MTcyNjA3NjN9.qjemZOL4Q9YWYeDz5Fyxhqw_L4XMfQ0eUvaJdq6Spek
+
+{
+    "title": "A Cactus plant",
+    "description": "greenfly cactus plant full of nails, a beautiful plant",
+    "location" : "Nairobi, Kenya",
+    "capturedFrom": "Samsung Galaxy S9"
+}

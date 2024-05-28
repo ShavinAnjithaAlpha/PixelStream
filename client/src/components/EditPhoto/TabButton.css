@@ -1,0 +1,42 @@
+.edit-tab-button .button {
+  border: none;
+  height: 50px;
+  outline: none;
+  background-color: transparent;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.edit-tab-button .text {
+  margin-left: 5px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #fff;
+}
+
+.edit-tab-button .active .text {
+  color: #fff;
+}
+
+.edit-tab-button .button:hover .text {
+  color: #fff;
+}
+
+.edit-tab-button .button:hover {
+  color: #fff;
+  border-bottom: 3px solid #1d78f0;
+}
+
+.edit-tab-button .active {
+  color: #fff;
+  border-bottom: 3px solid #1d78f0;
+}
+
+.edit-tab-button .avtive:hover {
+  color: #fff;
+  border-bottom: 3px solid #1d78f0;
+}

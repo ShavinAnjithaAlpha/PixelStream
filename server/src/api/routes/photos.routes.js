@@ -23,6 +23,8 @@ const {
   removeDislikePhoto,
   getAllTags,
   getRelatedPhotos,
+  updatePhoto,
+  deletePhoto,
 } = require("../controllers/photos.controller");
 
 const fileUpload = multer();
@@ -58,5 +60,7 @@ router.get("/:id/dislike", authorize, isDisliked);
 router.post("/:id/tags", authorize, addTags);
 router.get("/:id/tags", getTags);
 router.get("/:id", redisCacheMiddleware(), getPhotoById);
+router.put("/:id", authorize, updatePhoto);
+router.delete("/:id", authorize, deletePhoto);
 
 module.exports = router;

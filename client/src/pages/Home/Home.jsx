@@ -1,10 +1,8 @@
-import { useState } from "react";
 import React from "react";
 import PhotoGrid from "../../components/PhotoGrid";
 import PageNavigationBar from "../../components/PageNavigationBar/PageNavigationBar";
 import TopicBar from "../../components/TopicBar/TopicBar";
 import CollectionPanel from "./components/CollectionPanel";
-import AddToCollectionBox from "../../components/AddToCollectionBox/AddToCollectionBox";
 import FeaturedPhoto from "../../components/FeaturedPhoto/FeaturedPhoto";
 import useGetPhotos from "../../hooks/useGetPhotos";
 import "./Home.css";
@@ -12,8 +10,6 @@ import "./Home.css";
 function Home() {
   const { photos, status, handlePageChange, handleSearch, randomPhoto } =
     useGetPhotos();
-  const [selectedPhoto, setSelectedPhoto] = useState({});
-  const [addCollectionBox, setAddCollectionBox] = useState(false);
 
   return (
     <div
@@ -44,11 +40,7 @@ function Home() {
           {photos.length > 0 && <FeaturedPhoto />}
         </div>
 
-        <PhotoGrid
-          photos={photos}
-          addCollection={setAddCollectionBox}
-          setSelectedPhoto={setSelectedPhoto}
-        />
+        <PhotoGrid photos={photos} />
         <div className="page-bar">
           <PageNavigationBar
             max={100}
@@ -58,14 +50,6 @@ function Home() {
           />
         </div>
       </div>
-
-      {/* {AddToCollectionBox && (
-        <AddToCollectionBox
-          show={addCollectionBox}
-          setShow={setAddCollectionBox}
-          selectedPhoto={selectedPhoto}
-        />
-      )} */}
     </div>
   );
 }

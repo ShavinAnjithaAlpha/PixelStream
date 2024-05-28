@@ -1,5 +1,6 @@
 const {
   validatePhoto,
+  validateUpdatePhoto,
   validateUserLikePhoto,
 } = require("../validations/photo");
 const { validateTagBody } = require("../validations/tags");
@@ -25,6 +26,8 @@ const {
   userLikePhotos,
   removeLikeFromPhoto,
   removeDislikeFromPhoto,
+  changePhotoDetails,
+  removePhoto,
 } = require("../services/photoTable");
 const {
   addTagsToAPhoto,
@@ -362,6 +365,52 @@ async function getRelatedPhotos(req, res) {
   });
 }
 
+async function updatePhoto(req, res) {
+  const photoId = parseInt(req.params.id) || -1;
+  if (photoId === -1)
+    return res.status(400).json({ error: "Invalid photo id" });
+
+  // valiedate the body of the request
+  const { error } = validateUpdatePhoto(req.body);
+  if (error) return res.status(400).json({ error: error.details[0].message });
+
+  // check whether the photo exists
+  const exists = await photoExists(photoId);
+  if (!exists) return res.status(404).json({ error: "Photo not found" });
+
+  const userId = req.user.userId;
+  // check whether the user is the owner of the photo
+  const isOwner = await checkOwnerOfPhoto(photoId, userId);
+  if (!isOwner)
+    return res.status(401).json({ error: "Unauthorized operation" });
+
+  const result = await changePhotoDetails(photoId, req.body);
+
+  if (result.error) return res.status(400).json(result);
+
+  res.json(result);
+}
+
+async function deletePhoto(req, res) {
+  const photoId = parseInt(req.params.id) || -1;
+  if (photoId === -1) return res.status(400).send("Invalid photo id");
+
+  // check whether the photo exists
+  const exists = await photoExists(photoId);
+  if (!exists) return res.status(404).send("Photo not found");
+
+  const userId = req.user.userId;
+  // check whether the user is the owner of the photo
+  const isOwner = await checkOwnerOfPhoto(photoId, userId);
+  if (!isOwner) return res.status(401).send("Unauthorized operation");
+
+  const result = await removePhoto(photoId);
+
+  if (result.error) return res.status(400).send(result.error);
+
+  res.json(result);
+}
+
 module.exports = {
   getPhotos,
   getPhotoById,
@@ -381,4 +430,6 @@ module.exports = {
   removeDislikePhoto,
   getAllTags,
   getRelatedPhotos,
+  updatePhoto,
+  deletePhoto,
 };
