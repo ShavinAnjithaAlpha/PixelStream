@@ -215,3 +215,11 @@
 .edit-area .form .exif-grid input[type="text"] {
   max-width: 200px;
 }
+
+.edit-photo-wrapper .buttons .error {
+  color: #aa0000;
+  font-size: 0.8rem;
+  margin: 10px;
+  color: black;
+  border-radius: 5px;
+}

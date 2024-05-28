@@ -129,7 +129,6 @@ async function uploadPhoto(req, res) {
   // now extract the necessary meta data from the uploaded image file
   const metadata = await extractMetaData(file.buffer);
   const colorData = await extractPhotoColors(file.buffer);
-
   if (metadata.error) {
     // if there is an error in extracting the meta data, then response with the error message
     return res.status(400).send(metadata.error);
@@ -137,7 +136,6 @@ async function uploadPhoto(req, res) {
   // upload the file to the azure blob storage account
   const photoUrl = await uploadFileToBlob(file);
   const resizePhotoUrl = await uploadResizedImage(file);
-
   if (photoUrl.error || resizePhotoUrl.error)
     return res.status(400).send(photoUrl.error);
 
@@ -393,20 +391,22 @@ async function updatePhoto(req, res) {
 
 async function deletePhoto(req, res) {
   const photoId = parseInt(req.params.id) || -1;
-  if (photoId === -1) return res.status(400).send("Invalid photo id");
+  if (photoId === -1)
+    return res.status(400).json({ error: "Invalid photo id" });
 
   // check whether the photo exists
   const exists = await photoExists(photoId);
-  if (!exists) return res.status(404).send("Photo not found");
+  if (!exists) return res.status(404).json({ error: "Photo not found" });
 
   const userId = req.user.userId;
   // check whether the user is the owner of the photo
   const isOwner = await checkOwnerOfPhoto(photoId, userId);
-  if (!isOwner) return res.status(401).send("Unauthorized operation");
+  if (!isOwner)
+    return res.status(401).json({ error: "Unauthorized operation" });
 
   const result = await removePhoto(photoId);
 
-  if (result.error) return res.status(400).send(result.error);
+  if (result.error) return res.status(400).json(result);
 
   res.json(result);
 }

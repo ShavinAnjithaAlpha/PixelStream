@@ -8,7 +8,7 @@ GET {{host}}/api/photos?limit=12&page=1 {{http}}
 Content-Type: {{contentType}}
 
 ### get photo by its id
-@photoId = 9
+@photoId = 21
 GET {{host}}/api/photos/{{photoId}} {{http}}
 Content-Type: {{contentType}}
 
@@ -85,3 +85,8 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNoYXZpbiIs
     "location" : "Nairobi, Kenya",
     "capturedFrom": "Samsung Galaxy S9"
 }
+
+### delete a photo
+DELETE {{host}}/api/photos/21 {{http}}
+Content-Type: {{contentType}}
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNoYXZpbiIsInVzZXJJZCI6MSwiaWF0IjoxNzE2OTAwNzYzLCJleHAiOjE3MTcyNjA3NjN9.qjemZOL4Q9YWYeDz5Fyxhqw_L4XMfQ0eUvaJdq6Spek

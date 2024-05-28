@@ -4,17 +4,14 @@ import PopupWindow from "../PopupWindow/PopupWindow";
 import TabBar from "./TabBar";
 import useEditPhoto from "../../hooks/useEditPhoto";
 import "./EditPhoto.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 function EditPhoto({ show, selectedPhoto }) {
   const { popups, setPopups } = useContext(PopupContext);
   const [activeTab, setActiveTab] = useState("general");
-  const [tags, setTags] = React.useState(["tag1", "tag2", "tag3"]);
-  const [photo, setPhoto] = React.useState({
-    photoTitle: selectedPhoto.photoTitle,
-    location: selectedPhoto.location,
-    photoDes: selectedPhoto.photoDes,
-    capturedFrom: selectedPhoto.capturedFrom,
-  });
+  const { photo, dispatch, update, error, updatePhoto, deletePhoto } =
+    useEditPhoto({ selectedPhoto });
 
   const closePopup = () => {
     setPopups({
@@ -46,9 +43,12 @@ function EditPhoto({ show, selectedPhoto }) {
                       id="photo-title"
                       maxLength={255}
                       minLength={3}
-                      value={photo.photoTitle}
+                      value={photo.title}
                       placeholder="Enter Photo Title"
                       required
+                      onChange={(e) =>
+                        dispatch({ type: "SET_TITLE", payload: e.target.value })
+                      }
                     />
                   </div>
                   <div className="input-field">
@@ -59,6 +59,12 @@ function EditPhoto({ show, selectedPhoto }) {
                       maxLength={255}
                       value={photo.location}
                       placeholder="Enter location"
+                      onChange={(e) =>
+                        dispatch({
+                          type: "SET_LOCATION",
+                          payload: e.target.value,
+                        })
+                      }
                     ></input>
                   </div>
                   <div className="input-field">
@@ -67,8 +73,14 @@ function EditPhoto({ show, selectedPhoto }) {
                       id="photo-description"
                       maxLength={255}
                       rows={5}
-                      value={photo.photoDes}
+                      value={photo.description}
                       placeholder="Enter photo description (optional)"
+                      onChange={(e) =>
+                        dispatch({
+                          type: "SET_DESCRIPTION",
+                          payload: e.target.value,
+                        })
+                      }
                     ></textarea>
                   </div>
                 </form>
@@ -78,10 +90,11 @@ function EditPhoto({ show, selectedPhoto }) {
               <div className="input-field">
                 <label htmlFor="photo-tags">Tags</label>
                 <div className="tag-area">
-                  <div className="tag">Shavin</div>
-                  {tags.forEach((tag) => {
-                    <div className="tag">{tag}</div>;
-                  })}
+                  {photo.tags.map((tag, index) => (
+                    <div className="tag" key={index}>
+                      {tag}
+                    </div>
+                  ))}
                 </div>
               </div>
             )}
@@ -92,7 +105,13 @@ function EditPhoto({ show, selectedPhoto }) {
                   <input
                     type="text"
                     id="camera-model"
-                    value="Canon EOS 5D Mark IV"
+                    value={photo.capturedFrom}
+                    onChange={(e) =>
+                      dispatch({
+                        type: "SET_CAPTURED_FROM",
+                        payload: e.target.value,
+                      })
+                    }
                   />
                 </div>
                 <div className="input-field">
@@ -126,16 +145,31 @@ function EditPhoto({ show, selectedPhoto }) {
                     License is irrevocable, so copies of the image that were
                     downloaded before deletion may still be used.
                   </p>
-                  <button className="delete">Delete</button>
+                  <button className="delete" onClick={deletePhoto}>
+                    Delete
+                  </button>
                 </div>
               </>
             )}
           </div>
           <div className="buttons">
+            {error && (
+              <div className="error">
+                <p>{error}</p>
+              </div>
+            )}
             <button className="cancel" onClick={closePopup}>
               Cancel
             </button>
-            <button className="save">Save</button>
+            <button className="save" onClick={updatePhoto}>
+              Save{"    "}
+              {!update && (
+                <span>
+                  {" "}
+                  <FontAwesomeIcon icon={faSpinner} spin={true} />{" "}
+                </span>
+              )}
+            </button>
           </div>
         </div>
       </div>
