@@ -16,6 +16,7 @@ const {
   getPhotoStat,
   addTags,
   getTags,
+  removeTags,
   isLiked,
   isDisliked,
   getLikesOfUser,
@@ -57,6 +58,7 @@ router.post("/:id/dislike", authorize, dislikeAPhoto);
 router.delete("/:id/dislike", authorize, removeDislikePhoto);
 router.get("/:id/like", authorize, isLiked);
 router.get("/:id/dislike", authorize, isDisliked);
+router.post("/:id/tags/remove", authorize, removeTags);
 router.post("/:id/tags", authorize, addTags);
 router.get("/:id/tags", getTags);
 router.get("/:id", redisCacheMiddleware(), getPhotoById);

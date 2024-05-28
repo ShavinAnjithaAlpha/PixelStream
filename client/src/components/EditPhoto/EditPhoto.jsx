@@ -5,13 +5,21 @@ import TabBar from "./TabBar";
 import useEditPhoto from "../../hooks/useEditPhoto";
 import "./EditPhoto.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { faClose, faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 function EditPhoto({ show, selectedPhoto }) {
   const { popups, setPopups } = useContext(PopupContext);
   const [activeTab, setActiveTab] = useState("general");
-  const { photo, dispatch, update, error, updatePhoto, deletePhoto } =
-    useEditPhoto({ selectedPhoto });
+  const {
+    photo,
+    dispatch,
+    update,
+    error,
+    updatePhoto,
+    deletePhoto,
+    addTag,
+    removeTag,
+  } = useEditPhoto({ selectedPhoto });
 
   const closePopup = () => {
     setPopups({
@@ -93,8 +101,17 @@ function EditPhoto({ show, selectedPhoto }) {
                   {photo.tags.map((tag, index) => (
                     <div className="tag" key={index}>
                       {tag}
+                      {"   "}
+                      <span>
+                        {"   "}
+                        <FontAwesomeIcon
+                          icon={faClose}
+                          onClick={(e) => removeTag(index)}
+                        />{" "}
+                      </span>
                     </div>
                   ))}
+                  <input type="text" id="photo-tags" onKeyDown={addTag} />
                 </div>
               </div>
             )}

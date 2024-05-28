@@ -31,6 +31,7 @@ const {
 } = require("../services/photoTable");
 const {
   addTagsToAPhoto,
+  removeTagFromAPhoto,
   fetchTags,
   fetchAllTags,
 } = require("../services/tagTable");
@@ -233,6 +234,34 @@ async function addTags(req, res) {
   res.json(result);
 }
 
+async function removeTags(req, res) {
+  // first validate the request body
+  const { error } = validateTagBody(req.body);
+  if (error) {
+    return res.status(400).send(error.details[0].message);
+  }
+
+  // extract the photo id from the request parameter
+  const userId = req.user.userId;
+  const photoId = parseInt(req.params.id);
+  const tags = req.body.tags;
+
+  // first check the owner of a photo
+  const status = await checkOwnerOfPhoto(photoId, userId);
+  if (!status)
+    return (
+      res.status(401),
+      json({
+        error: "Unauthorized operation: You are not the owner of the photo",
+      })
+    );
+  // add the tags to the photo through the Tag and PhotoTag table
+  const result = await removeTagFromAPhoto(photoId, tags);
+  if (result.error) return res.status(400).send(result.error);
+
+  res.json(result);
+}
+
 async function getTags(req, res) {
   // extract the photo id from the request parameter
   const photoId = parseInt(req.params.id);
@@ -422,6 +451,7 @@ module.exports = {
   likeAPhoto,
   dislikeAPhoto,
   addTags,
+  removeTags,
   getTags,
   isLiked,
   isDisliked,

@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const { Tag } = require("../models");
 const { PhotoTag } = require("../models");
 const { UserInterests } = require("../models");
@@ -80,6 +81,35 @@ async function addTagsToAPhoto(photoId, tags) {
   return { status: true, tags: tags };
 }
 
+async function removeTagFromAPhoto(photoId, tags) {
+  const exists = await photoExists(photoId);
+  if (!exists) return { error: `Invalid photo id ${photoId}` };
+
+  // fetch the tag ids from the tag names
+  let tagIds = await Tag.findAll({
+    where: {
+      tagName: {
+        [Op.in]: tags,
+      },
+    },
+    attributes: ["tagId"],
+  });
+  // map the tagIds
+  tagIds = tagIds.map((tag) => tag.tagId);
+
+  // remove the tags from the photo
+  await PhotoTag.destroy({
+    where: {
+      photoId: photoId,
+      photoTag: {
+        [Op.in]: tagIds,
+      },
+    },
+  });
+
+  return { status: true };
+}
+
 async function addTagsToUser(userId, tags) {
   tags.forEach(async (tag) => {
     const tag_ = await Tag.findOne({
@@ -151,4 +181,5 @@ module.exports = {
   addTagsToUser,
   fetchTagsByUserId,
   fetchAllTags,
+  removeTagFromAPhoto,
 };

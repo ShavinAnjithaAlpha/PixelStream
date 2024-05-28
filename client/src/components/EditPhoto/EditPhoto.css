@@ -7,12 +7,13 @@
   padding: 0;
   border: none;
   background-color: #000000aa;
+  max-width: 1000px;
 }
 
 .edit-photo-wrapper .image-box {
   overflow: hidden;
   width: 300px;
-  height: 630px;
+  height: 700px;
 }
 
 .edit-photo-wrapper .edit-area {
@@ -116,6 +117,12 @@
   .input-field
   textarea:hover {
   border: 1px solid #cccccc77;
+}
+
+.edit-area input#photo-tags {
+  margin: 5px;
+  width: 100px;
+  height: 30px;
 }
 
 .edit-area .buttons button {
