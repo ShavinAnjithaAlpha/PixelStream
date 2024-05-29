@@ -35,4 +35,6 @@ POST {{host}}/api/users/komudi/follow {{http}}
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNoYXZpbiIsInVzZXJJZCI6MSwiaWF0IjoxNzA2NjM1MDg4LCJleHAiOjE3MDY5OTUwODh9.g3d-V-jbHPtbvDVQSF1eZVtIStwfKx_DFnq8H4lRf84
 
 ### user interest of a user
-GET {{host}}/api/users/komudi/interests {{http}}
+GET {{host}}/api/users/shavin/interests {{http}}
+Content-Type: {{contentType}}
+

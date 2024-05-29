@@ -15,11 +15,12 @@
   margin-left: 5px;
   font-size: 1rem;
   font-weight: 500;
-  color: #000;
+  color: #fff;
 }
 
 .tab-button .icon {
   margin-top: 5px;
+  color: #fff;
 }
 
 .tab-button .active .text {
@@ -32,6 +33,7 @@
 
 .tab-button .value {
   margin: 0 10px;
+  color: #fff;
 }
 
 .tab-button .button:hover {

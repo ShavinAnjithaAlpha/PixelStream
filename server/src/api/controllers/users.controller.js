@@ -250,7 +250,7 @@ async function getInterestsOfUser(req, res) {
   // fetch the user from the database
   const user = await fetchUserByUsername(username);
   // return the error if the user is not exists
-  if (user.error) return res.status(400).send(user.error);
+  if (user.error) return res.status(400).json(user.error);
 
   const tags = await fetchTagsByUserId(user.userId);
   // filter and clean the result queries by database

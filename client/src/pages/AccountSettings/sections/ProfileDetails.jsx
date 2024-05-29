@@ -9,7 +9,11 @@ import "./ProfileDetails.css";
 function ProfileDetails({ user }) {
   const navigate = useNavigate();
   const [profile, setProfile] = useState({});
-  const [userInterests, setUserInterets] = useState([]);
+  const [userInterests, setUserInterets] = useState({
+    tags: [],
+    new_tags: [],
+    removed_tags: [],
+  });
   const [newProfileImage, setNewProfileImage] = useState(null);
   const [profileUrl, setProfileUrl] = useState(null);
   const [error, setError] = useState("");
@@ -30,12 +34,20 @@ function ProfileDetails({ user }) {
 
   const removeTag = (tag) => {
     // remove the tag from the user interests
-    setUserInterets(userInterests.filter((item) => item !== tag));
+    setUserInterets({
+      ...userInterests,
+      tags: userInterests.tags.filter((t) => t !== tag),
+      removed_tags: [...userInterests.removed_tags, tag],
+    });
   };
 
   const addTag = (e) => {
     if (e.key === "Enter") {
-      setUserInterets([...userInterests, e.target.value]);
+      setUserInterets({
+        ...userInterests,
+        tags: [...userInterests.tags, e.target.value],
+        new_tags: [...userInterests.new_tags, e.target.value],
+      });
     }
   };
 
@@ -102,7 +114,42 @@ function ProfileDetails({ user }) {
     }
 
     // save the new user interests
-    // TODO: implement the user interests saving
+    // firs tclean the new tags and removed tags
+    if (userInterests.new_tags.length !== 0) {
+      // first remove items that are already in the removed tags
+      const newTags = userInterests.new_tags.filter(
+        (tag) => !userInterests.removed_tags.includes(tag)
+      );
+
+      axios
+        .post(
+          `account/${user.username}/interest`,
+          { tags: newTags },
+          {
+            headers: {
+              Authorization: `${user.user}`,
+            },
+          }
+        )
+        .then((res) => {
+          setSaving(false);
+          setSuccess("User Interests Updated Successfully");
+          setTimeout(() => {
+            setSuccess("");
+          }, 2000);
+        })
+        .catch((err) => {
+          setError(
+            err.response.data.error ||
+              "Some Error happened while saving user interests"
+          );
+          setSaving(false);
+
+          setTimeout(() => {
+            setError("");
+          }, 2000);
+        });
+    }
   };
 
   useEffect(() => {
@@ -134,12 +181,15 @@ function ProfileDetails({ user }) {
     axios
       .get(`/users/${user.username}/interests`)
       .then((res) => {
-        setUserInterets(res.data);
+        setUserInterets({
+          ...userInterests,
+          tags: res.data,
+        });
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [user]);
+  }, []);
 
   return (
     <div className="profile-detail-section">
@@ -315,7 +365,7 @@ function ProfileDetails({ user }) {
         <h3>User Interests</h3>
 
         <div className="tagbar">
-          {userInterests.map((tag, index) => (
+          {userInterests.tags.map((tag, index) => (
             <div className="tag" key={index}>
               {tag}
               <span onClick={(e) => removeTag(tag)}>
