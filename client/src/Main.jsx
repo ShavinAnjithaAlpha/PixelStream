@@ -19,6 +19,7 @@ import "./Main.css";
 import { PopupContext } from "./contexts/popup.context";
 import AddToCollectionBox from "./components/AddToCollectionBox/AddToCollectionBox";
 import EditPhoto from "./components/EditPhoto/EditPhoto";
+import PhotoViewer from "./components/PhotoViewer/PhotoViewer";
 
 function Main() {
   const location = useLocation();
@@ -69,6 +70,13 @@ function Main() {
       {popups.editPhoto && (
         <EditPhoto
           show={popups.editPhoto}
+          selectedPhoto={popups.selectedPhoto}
+        />
+      )}
+
+      {popups.photoViewer && (
+        <PhotoViewer
+          show={popups.photoViewer}
           selectedPhoto={popups.selectedPhoto}
         />
       )}

@@ -2,10 +2,12 @@ import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../axios";
 import { AuthContext } from "../contexts/auth.context";
+import { PopupContext } from "../contexts/popup.context";
 
 function useHandlePhoto(id) {
   const navigate = useNavigate();
   const { authState } = useContext(AuthContext);
+  const { popups, setPopups } = useContext(PopupContext);
   const [photo, setPhoto] = useState({});
   const [tags, setTags] = useState([]);
   const [like, setLike] = useState({});
@@ -136,6 +138,14 @@ function useHandlePhoto(id) {
     }
   };
 
+  const setImageViewerPhoto = () => {
+    setPopups({
+      ...popups,
+      selectedPhoto: photo,
+      photoViewer: true,
+    });
+  };
+
   useEffect(() => {
     axios.get(`/photos/${id}`).then((res) => {
       setPhoto(res.data);
@@ -197,6 +207,7 @@ function useHandlePhoto(id) {
     relatedCollections,
     likedThePhoto,
     dislikeThePhoto,
+    setImageViewerPhoto,
   };
 }
 

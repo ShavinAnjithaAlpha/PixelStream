@@ -184,7 +184,7 @@ async function fetchUserByUsername(username) {
 async function getNumberOfFollowers(userId) {
   const followersCount = await Followers.count({
     where: {
-      userId: userId,
+      followerId: userId,
     },
   });
 
@@ -194,7 +194,7 @@ async function getNumberOfFollowers(userId) {
 async function getNumberOfFollowings(userId) {
   const followersCount = await Followers.count({
     where: {
-      followerId: userId,
+      userId: userId,
     },
   });
 

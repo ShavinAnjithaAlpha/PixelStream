@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { StatCard } from "./components/StatCard";
 import { DownloadButton } from "./components/DownloadButton";
 import { ProfileCard } from "./components/ProfileCard";
@@ -14,6 +14,8 @@ import {
   faPlus,
   faHeartCrack,
   faSpinner,
+  faLink,
+  faEye,
 } from "@fortawesome/free-solid-svg-icons";
 import PhotoGrid from "../../components/PhotoGrid";
 import CollectionCard from "../../components/CollectionCard/CollectionCard";
@@ -33,6 +35,7 @@ function Photo() {
     relatedCollections,
     likedThePhoto,
     dislikeThePhoto,
+    setImageViewerPhoto,
   } = useHandlePhoto(id);
   const [addCollectionBox, setAddCollectionBox] = useState(false);
 
@@ -90,6 +93,12 @@ function Photo() {
                 </div>
               </div>
               <p>{photo.photoDes}</p>
+              <button className="photo-view-btn" onClick={setImageViewerPhoto}>
+                View{"   "}{" "}
+                <span>
+                  <FontAwesomeIcon icon={faEye} style={{ marginLeft: "5px" }} />
+                </span>
+              </button>
               {photo.PhotoStat && (
                 <div className="stat-bar">
                   <StatCard
