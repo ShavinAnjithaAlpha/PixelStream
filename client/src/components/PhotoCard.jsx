@@ -9,6 +9,8 @@ import {
   faPlus,
   faArrowDown,
   faPen,
+  faEye,
+  faExpand,
 } from "@fortawesome/free-solid-svg-icons";
 import "reactjs-popup/dist/index.css";
 import defaultProfileIcon from "../assets/img/default-profile-icon.png";
@@ -104,6 +106,14 @@ function PhotoCard({ photo, isLiked_ }) {
     });
   };
 
+  const viewPhoto = () => {
+    setPopups({
+      ...popups,
+      selectedPhoto: photo,
+      photoViewer: true,
+    });
+  };
+
   return (
     <>
       <div
@@ -152,6 +162,13 @@ function PhotoCard({ photo, isLiked_ }) {
                 />
               </div>
             </a>
+            <div className={`view-wrapper`} onClick={viewPhoto}>
+              <FontAwesomeIcon
+                icon={faExpand}
+                size="xl"
+                style={{ color: "black" }}
+              />
+            </div>
 
             <div className="plus-wrapper" onClick={addToNewCollection}>
               <FontAwesomeIcon icon={faPlus} size="xl" />

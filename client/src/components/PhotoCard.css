@@ -108,13 +108,37 @@
   z-index: 1;
 }
 
+.photo-card .view-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff80;
+  border-radius: 15px;
+  height: 35px;
+  width: 35px;
+  left: 300px;
+  position: absolute;
+  top: 355px;
+  transition: all 0.1s ease-in-out;
+  cursor: pointer;
+  z-index: 1;
+}
+
 @media only screen and (max-width: 600px) {
   .photo-card .down-wrapper {
     left: 300px;
   }
+
+  .photo-card .view-wrapper {
+    left: 250px;
+  }
 }
 
 .photo-card .down-wrapper:hover {
+  background-color: white;
+}
+
+.photo-card .view-wrapper:hover {
   background-color: white;
 }
 
