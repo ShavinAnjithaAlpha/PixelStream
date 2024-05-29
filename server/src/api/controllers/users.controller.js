@@ -10,6 +10,7 @@ const {
   getUserIdByUserName,
   followerExists,
   createFollower,
+  deleteFollower,
   fetchUsers,
 } = require("../services/userTable");
 const {
@@ -182,6 +183,20 @@ async function getStatisticsOfUser(req, res) {
   });
 }
 
+async function getFollower(req, res) {
+  // first extract the follower username and the following username
+  const followerUsername = req.params.username;
+  // get the user id of the follower
+  const followerId = await fetchUserByUsername(followerUsername);
+  if (followerId.error) return res.status(400).send(followerId.error);
+
+  const followinguserId = req.user.userId;
+
+  const isFollowing = await followerExists(followerId.userId, followinguserId);
+  if (isFollowing) return res.json({ status: "Following" });
+  else return res.json({ status: "Not following" });
+}
+
 async function followUser(req, res) {
   // first extract the follower username and the following username
   const followerUsername = req.params.username;
@@ -198,6 +213,25 @@ async function followUser(req, res) {
   // create a new follower
   await createFollower(followerId.userId, followinguserId);
   return res.json({ status: "Followed" });
+}
+
+async function unfollowUser(req, res) {
+  // first extract the follower username and the following username
+  const followerUsername = req.params.username;
+  // get the user id of the follower
+  const followerId = await fetchUserByUsername(followerUsername);
+  if (followerId.error) return res.status(400).send(followerId.error);
+
+  const followinguserId = req.user.userId;
+
+  // check weather the user is already following the user or not
+  const isFollowing = await followerExists(followerId.userId, followinguserId);
+  if (!isFollowing)
+    return res.status(400).json({ status: "Already not following" });
+
+  // create a new follower
+  await deleteFollower(followerId.userId, followinguserId);
+  return res.json({ status: "Unfollowed" });
 }
 
 async function getUsers(req, res) {
@@ -232,7 +266,9 @@ module.exports = {
   getLikesOfUsers,
   getCollectionOfUser,
   getStatisticsOfUser,
+  getFollower,
   followUser,
+  unfollowUser,
   getUsers,
   getInterestsOfUser,
 };

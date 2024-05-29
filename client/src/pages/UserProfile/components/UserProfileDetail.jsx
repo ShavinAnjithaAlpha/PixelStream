@@ -17,6 +17,8 @@ function UserProfileDetail({ username, backgroundImage }) {
     goToAccount,
     handleTagSearch,
     followUser,
+    unfollowUser,
+    isFollowing,
   } = useUserProfileHandler(username);
 
   return (
@@ -47,6 +49,25 @@ function UserProfileDetail({ username, backgroundImage }) {
                     </button>
                   ))
                 }
+              </span>
+              <span>
+                {
+                  (authState.status && authState,
+                  authState.username !== userProfile.userName &&
+                    !isFollowing && (
+                      <button onClick={followUser}>Follow</button>
+                    ))
+                }
+              </span>
+              <span>
+                {authState.status &&
+                  authState.username !== userProfile.userName &&
+                  isFollowing && (
+                    <button onClick={unfollowUser}>Unfollow</button>
+                  )}
+              </span>
+              <span>
+                <button>Message</button>
               </span>
             </div>
             <div className="user-link">@{userProfile.userName}</div>
@@ -93,14 +114,16 @@ function UserProfileDetail({ username, backgroundImage }) {
           </div>
           <div className="btn-section">
             <img
-              src={backgroundImage ? backgroundImage : fallBackImage}
-              width={800}
-              // height={350}
+              src={backgroundImage ? backgroundImage.photoUrl : fallBackImage}
               alt={fallBackImage}
             />
             <div className="btn-bar">
-              <button onClick={followUser}>Follow</button>
-              <button>Message</button>
+              {/* <button onClick={followUser}>Follow</button>
+              <button>Message</button> */}
+            </div>
+            <div className="photo-detail-bar">
+              <h2>{backgroundImage.photoTitle}</h2>
+              <p>{backgroundImage.photoDes}</p>
             </div>
           </div>
         </div>

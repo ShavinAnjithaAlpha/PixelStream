@@ -4,7 +4,7 @@ import "./TabBar.css";
 
 function TabBar({ setActiveTab, activeTab }) {
   return (
-    <div className="tab-bar">
+    <div className="edit-tab-bar">
       <TabButton
         label="General"
         isActive={activeTab === "general"}

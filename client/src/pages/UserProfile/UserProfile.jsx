@@ -20,7 +20,7 @@ function UserProfile({ defaultTab = "photos" }) {
     axios
       .get(`/photos/random?userName=${username}&limit=1`)
       .then((res) => {
-        setBackgroundImage(res.data.photos[0].photoUrl);
+        setBackgroundImage(res.data.photos[0]);
       })
       .catch((err) => console.log(err));
   }, [username]);
@@ -30,7 +30,7 @@ function UserProfile({ defaultTab = "photos" }) {
       className="user-profile"
       style={{
         backgroundImage: `url('${
-          backgroundImage ? backgroundImage : fallBackImage
+          backgroundImage ? backgroundImage.resizedPhotoUrl : fallBackImage
         }')`,
       }}
     >

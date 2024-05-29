@@ -293,6 +293,15 @@ async function createFollower(followerId, userId) {
   await follower.save();
 }
 
+async function deleteFollower(followerId, userId) {
+  await Followers.destroy({
+    where: {
+      followerId: followerId,
+      userId: userId,
+    },
+  });
+}
+
 // function for update the profile
 async function updateProfile(userId, profileData) {
   await User.update(profileData, {
@@ -440,6 +449,7 @@ module.exports = {
   getUserIdByUserName,
   followerExists,
   createFollower,
+  deleteFollower,
   updateProfile,
   removeAccount,
   fetchUsers,

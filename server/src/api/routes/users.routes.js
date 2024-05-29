@@ -8,7 +8,9 @@ const {
   getCollectionOfUser,
   getLikesOfUsers,
   getStatisticsOfUser,
+  getFollower,
   followUser,
+  unfollowUser,
   getUsers,
   getInterestsOfUser,
 } = require("../controllers/users.controller");
@@ -23,7 +25,9 @@ router.get(
   getCollectionOfUser
 );
 router.get("/:username/stat", getStatisticsOfUser);
+router.get("/:username/follow", authorize, getFollower);
 router.post("/:username/follow", authorize, followUser);
+router.delete("/:username/follow", authorize, unfollowUser);
 router.get("/:username/interests", getInterestsOfUser);
 router.get("/:username", redisCacheMiddleware(), getUserByUsername);
 router.get("/", redisCacheMiddleware(), getUsers);

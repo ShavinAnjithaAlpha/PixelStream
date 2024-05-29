@@ -69,10 +69,7 @@
   color: white;
 }
 
-.user-profile-section
-  .profile-section-wrapper
-  .profile-section
-  button.edit-btn {
+.user-profile-section .profile-section-wrapper .profile-section button {
   width: 100px;
   background: none;
   border: 2px solid #ffffff88;
@@ -86,10 +83,7 @@
   margin-left: 2rem;
 }
 
-.user-profile-section
-  .profile-section-wrapper
-  .profile-section
-  button.edit-btn:hover {
+.user-profile-section .profile-section-wrapper .profile-section button:hover {
   background: #ffffff22;
   border: 2px solid #ffffff;
 }
@@ -144,14 +138,20 @@
 }
 
 .user-profile-section .btn-section {
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;
-  max-height: 500px;
-  width: 40%;
-  overflow: hidden;
+  width: 700px;
+  height: 590px;
+}
+
+.user-profile-section .btn-section img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 @media only screen and (max-width: 600px) {
@@ -172,16 +172,34 @@
   margin: 20px 0;
 }
 
-.user-profile-section .btn-section .btn-bar button {
-  background-color: rgb(16, 135, 239);
+.user-profile-section .btn-section .photo-detail-bar {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  margin: 20px 20px;
+  background-color: #00000055;
+  backdrop-filter: blur(10px);
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.user-profile-section .btn-section .photo-detail-bar h2 {
+  font-size: 2rem;
   color: white;
-  margin: 0 10px;
-  padding: 10px 20px;
-  border-radius: 5px;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.user-profile-section .btn-section .photo-detail-bar p {
+  font-size: 1rem;
+  color: white;
+  margin-bottom: 10px;
+  text-align: left;
 }
 
 /* tag bar styling */

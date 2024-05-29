@@ -6,10 +6,11 @@ import { SearchContext } from "../contexts/search.context";
 
 function useUserProfileHandler(username) {
   const { authState } = useContext(AuthContext);
+  const { setSearchKeyword } = useContext(SearchContext);
   const navigate = useNavigate();
   const [userProfile, setUserProfile] = useState({});
   const [userInterests, setUserInterets] = useState([]);
-  const { setSearchKeyword } = useContext(SearchContext);
+  const [isFollowing, setIsFollowing] = useState(false);
 
   const goToAccount = () => {
     navigate(`/account`);
@@ -35,7 +36,25 @@ function useUserProfileHandler(username) {
       .catch((err) => {
         console.log(err);
       });
-  }, [username]);
+
+    // fetch whether the user is following the visited user or not
+    axios
+      .get(`/users/${username}/follow`, {
+        headers: {
+          Authorization: `${authState.user}`,
+        },
+      })
+      .then((res) => {
+        if (res.data.status === "Following") {
+          setIsFollowing(true);
+        } else {
+          setIsFollowing(false);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [username, authState.user]);
 
   const handleTagSearch = (tag) => {
     // first navigate to the search page
@@ -45,8 +64,37 @@ function useUserProfileHandler(username) {
   };
 
   const followUser = (e) => {
-    e.preventDefault();
-    // call the follow user API
+    axios
+      .post(
+        `/users/${username}/follow`,
+        {},
+        {
+          headers: {
+            Authorization: `${authState.user}`,
+          },
+        }
+      )
+      .then((res) => {
+        setIsFollowing(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const unfollowUser = (e) => {
+    axios
+      .delete(`/users/${username}/follow`, {
+        headers: {
+          Authorization: `${authState.user}`,
+        },
+      })
+      .then((res) => {
+        setIsFollowing(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return {
@@ -55,6 +103,8 @@ function useUserProfileHandler(username) {
     goToAccount,
     handleTagSearch,
     followUser,
+    unfollowUser,
+    isFollowing,
   };
 }
 

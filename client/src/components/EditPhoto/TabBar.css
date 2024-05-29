@@ -1,4 +1,4 @@
-.tab-bar {
+.edit-tab-bar {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -9,7 +9,7 @@
 }
 
 @media only screen and (max-width: 600px) {
-  .tab-bar {
+  .edit-tab-bar {
     flex-direction: column;
     justify-content: center;
     align-items: center;

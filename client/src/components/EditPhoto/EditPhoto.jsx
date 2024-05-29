@@ -3,9 +3,9 @@ import { PopupContext } from "../../contexts/popup.context";
 import PopupWindow from "../PopupWindow/PopupWindow";
 import TabBar from "./TabBar";
 import useEditPhoto from "../../hooks/useEditPhoto";
-import "./EditPhoto.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose, faSpinner } from "@fortawesome/free-solid-svg-icons";
+import "./EditPhoto.css";
 
 function EditPhoto({ show, selectedPhoto }) {
   const { popups, setPopups } = useContext(PopupContext);
