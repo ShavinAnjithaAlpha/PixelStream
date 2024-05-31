@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { StatCard } from "./components/StatCard";
 import { DownloadButton } from "./components/DownloadButton";
 import { ProfileCard } from "./components/ProfileCard";
 import { TagBar } from "./components/TagBar";
-import AddToCollectionBox from "../../components/AddToCollectionBox/AddToCollectionBox";
+import AddToCollectionBox from "../../components/EditComponents/AddToCollectionBox/AddToCollectionBox";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import CameraIcon from "@mui/icons-material/Camera";
@@ -14,7 +14,6 @@ import {
   faPlus,
   faHeartCrack,
   faSpinner,
-  faLink,
   faEye,
 } from "@fortawesome/free-solid-svg-icons";
 import PhotoGrid from "../../components/PhotoGrid";

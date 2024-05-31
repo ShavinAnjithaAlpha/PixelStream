@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
-import { PopupContext } from "../../contexts/popup.context";
+import { PopupContext } from "../../../contexts/popup.context";
 import AddCollectionCard from "./AddCollectionCard";
-import PopupWindow from "../PopupWindow/PopupWindow";
-import useAddToCollection from "../../hooks/useAddToCollection";
+import PopupWindow from "../../PopupWindow/PopupWindow";
+import useAddToCollection from "../../../hooks/useAddToCollection";
 import "./AddToCollectionBox.css";
 
 function AddToCollectionBox({ show, selectedPhoto }) {

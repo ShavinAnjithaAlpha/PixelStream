@@ -79,7 +79,7 @@
   border-radius: 5px;
   outline: none;
   cursor: pointer;
-  margin: auto;
+  margin: 0;
   transition: all 0.3s ease-in-out;
   margin-left: 2rem;
 }

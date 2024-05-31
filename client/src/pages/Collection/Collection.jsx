@@ -8,10 +8,12 @@ import useGetCollection from "../../hooks/useGetCollection";
 import Spinner from "../../components/Spinner/Spinner";
 import PageNavigationBar from "../../components/PageNavigationBar/PageNavigationBar";
 import "./Collection.css";
+import { PopupContext } from "../../contexts/popup.context";
 
 function Collection() {
   const { id } = useParams();
   const { authState } = useContext(AuthContext);
+  const { popups, setPopups } = useContext(PopupContext);
   const { collection, photos, loading } = useGetCollection(id);
 
   const filterByOptions = [
@@ -32,6 +34,15 @@ function Collection() {
     { value: "portrait", label: "Portrait" },
     { value: "square", label: "Square" },
   ];
+
+  const editCollection = () => {
+    // set the selected collection
+    setPopups({
+      ...popups,
+      editCollection: true,
+      selectedCollection: collection,
+    });
+  };
 
   return (
     <div
@@ -61,8 +72,10 @@ function Collection() {
               {authState.status &&
                 collection.User &&
                 collection.User.UserAuth &&
-                authState.username === collection.User.UserAuth.username && (
-                  <button className="edit-btn">Edit</button>
+                authState.username === collection.User.UserAuth.userName && (
+                  <button className="edit-btn" onClick={editCollection}>
+                    Edit
+                  </button>
                 )}
             </span>
           </h1>

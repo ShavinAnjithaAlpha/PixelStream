@@ -15,11 +15,12 @@ import {
 } from "./pages";
 import { AuthContext } from "./contexts/auth.context";
 import { Navbar, Footer } from "./layouts";
-import "./Main.css";
 import { PopupContext } from "./contexts/popup.context";
-import AddToCollectionBox from "./components/AddToCollectionBox/AddToCollectionBox";
-import EditPhoto from "./components/EditPhoto/EditPhoto";
+import AddToCollectionBox from "./components/EditComponents/AddToCollectionBox/AddToCollectionBox";
+import EditPhoto from "./components/EditComponents/EditPhoto/EditPhoto";
 import PhotoViewer from "./components/PhotoViewer/PhotoViewer";
+import EditCollection from "./components/EditComponents/EditCollection/EditCollection";
+import "./Main.css";
 
 function Main() {
   const location = useLocation();
@@ -78,6 +79,13 @@ function Main() {
         <PhotoViewer
           show={popups.photoViewer}
           selectedPhoto={popups.selectedPhoto}
+        />
+      )}
+
+      {popups.editCollection && (
+        <EditCollection
+          show={popups.editCollection}
+          selectedCollection={popups.selectedCollection}
         />
       )}
     </div>

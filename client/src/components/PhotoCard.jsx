@@ -9,7 +9,6 @@ import {
   faPlus,
   faArrowDown,
   faPen,
-  faEye,
   faExpand,
 } from "@fortawesome/free-solid-svg-icons";
 import "reactjs-popup/dist/index.css";

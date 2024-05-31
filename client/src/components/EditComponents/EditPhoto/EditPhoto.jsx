@@ -1,15 +1,17 @@
 import React, { useContext, useState } from "react";
-import { PopupContext } from "../../contexts/popup.context";
-import PopupWindow from "../PopupWindow/PopupWindow";
-import TabBar from "./TabBar";
-import useEditPhoto from "../../hooks/useEditPhoto";
+import { PopupContext } from "../../../contexts/popup.context";
+import PopupWindow from "../../PopupWindow/PopupWindow";
+import TabBar from "../TabBar";
+import useEditPhoto from "../../../hooks/useEditPhoto";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import "./EditPhoto.css";
 
+const TAB_MAP = ["General", "Tags", "Exif", "Other"];
+
 function EditPhoto({ show, selectedPhoto }) {
   const { popups, setPopups } = useContext(PopupContext);
-  const [activeTab, setActiveTab] = useState("general");
+  const [activeTab, setActiveTab] = useState(TAB_MAP[0]);
   const {
     photo,
     dispatch,
@@ -25,6 +27,7 @@ function EditPhoto({ show, selectedPhoto }) {
     setPopups({
       ...popups,
       editPhoto: false,
+      selectedPhoto: null,
     });
   };
 
@@ -36,10 +39,14 @@ function EditPhoto({ show, selectedPhoto }) {
         </div>
         <div className="edit-area">
           <div className="tabs">
-            <TabBar activeTab={activeTab} setActiveTab={setActiveTab} />
+            <TabBar
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
+              label_map={TAB_MAP}
+            />
           </div>
           <div className="form">
-            {activeTab === "general" && (
+            {activeTab === TAB_MAP[0] && (
               <>
                 <h2>Edit General Properties</h2>
 
@@ -94,7 +101,7 @@ function EditPhoto({ show, selectedPhoto }) {
                 </form>
               </>
             )}
-            {activeTab === "tags" && (
+            {activeTab === TAB_MAP[1] && (
               <div className="input-field">
                 <label htmlFor="photo-tags">Tags</label>
                 <div className="tag-area">
@@ -115,7 +122,7 @@ function EditPhoto({ show, selectedPhoto }) {
                 </div>
               </div>
             )}
-            {activeTab === "exif" && (
+            {activeTab === TAB_MAP[2] && (
               <div className="exif-grid">
                 <div className="input-field">
                   <label htmlFor="camera-model">Camera Model</label>
@@ -145,7 +152,7 @@ function EditPhoto({ show, selectedPhoto }) {
                 </div>
               </div>
             )}
-            {activeTab === "other" && (
+            {activeTab === TAB_MAP[3] && (
               <>
                 <div className="input-field horizontal">
                   <input type="checkbox" id="private" />

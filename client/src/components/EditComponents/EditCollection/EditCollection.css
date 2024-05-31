@@ -1,0 +1,234 @@
+.edit-collection-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background-color: #000000aa;
+  max-width: 1000px;
+}
+
+.edit-collection-wrapper .image-box {
+  overflow: hidden;
+  width: 300px;
+  height: 700px;
+}
+
+.edit-collection-wrapper .edit-area {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 1rem;
+  margin: 1rem;
+  min-height: 100%;
+}
+
+.edit-collection-wrapper .edit-area .tabs {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+}
+
+.edit-collection-wrapper .edit-area .buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  justify-self: flex-end;
+}
+
+.edit-area h2 {
+  color: white;
+  font-size: 24px;
+}
+
+/* // general section styling */
+.edit-area .form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 1rem;
+  margin: 1rem;
+}
+
+.edit-area .form .input-form {
+  margin-bottom: 24px;
+  width: 100%;
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.edit-area .input-field {
+  margin-bottom: 10px;
+  width: 100%;
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.edit-area .form .input-field label {
+  font-size: 1rem;
+  margin: 0.5rem 0;
+  color: #aaaaaa;
+}
+
+.edit-area .form .input-field input[type="text"],
+.edit-area .form .input-field textarea {
+  width: 500px;
+  padding: 10px;
+  margin: 10px 0px;
+  border: 1px solid #cccccc44;
+  border-radius: 5px;
+  background-color: #00000055;
+  outline: none;
+  color: white;
+  transition: border 0.3s ease;
+}
+
+.edit-area .form .horizontal {
+  flex-direction: row;
+}
+
+.edit-area .form .input-field input[type="checked"] {
+  margin: 10px 0px;
+  border: 1px solid #cccccc44;
+  border-radius: 5px;
+  background-color: #00000055;
+  outline: none;
+  color: white;
+}
+
+.edit-area
+  .form
+  .input-field
+  input[type="text"]:hover
+  .edit-area
+  .form
+  .input-field
+  textarea:hover {
+  border: 1px solid #cccccc77;
+}
+
+.edit-area input#photo-tags {
+  margin: 5px;
+  width: 100px;
+  height: 30px;
+}
+
+.edit-area .buttons button {
+  width: 200px;
+  padding: 10px;
+  margin: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #0077cc;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.edit-area .buttons button:hover {
+  background-color: #0055aa;
+}
+
+.edit-area .buttons button.cancel {
+  background-color: transparent;
+  border: 2px solid #aa0000;
+}
+
+.edit-area .buttons button.cancel:hover {
+  background-color: #aa0000;
+}
+
+.edit-area .form .tag-area {
+  background-color: #222222;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  border: 1px solid #cccccc44;
+}
+
+.edit-area .form .tag-area .tag {
+  background-color: #555555;
+  color: white;
+  padding: 5px 10px;
+  margin: 5px;
+  border-radius: 5px;
+  font-size: 0.8rem;
+}
+
+.edit-area .form .delete-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  background-color: #111111;
+  border-radius: 5px;
+  padding: 10px;
+  border: 1px solid #aa000055;
+  max-width: 500px;
+}
+
+.edit-area .form .delete-box p {
+  color: #ffffffaa;
+  font-size: 0.8rem;
+  margin: 10px;
+  text-align: left;
+}
+
+.edit-area .form .delete-box button {
+  width: 200px;
+  padding: 5px;
+  margin: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #aa0000;
+  color: white;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.edit-area .form .delete-box button:hover {
+  background-color: #770000;
+}
+
+.edit-area .form .exif-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  gap: 10px;
+  width: 100%;
+  padding: 10px;
+  margin: 10px;
+}
+
+.edit-area .form .exif-grid input[type="text"] {
+  max-width: 200px;
+}
+
+.buttons .error {
+  border: 2px solid #aa0000;
+  background-color: #aa000055;
+  font-size: 0.8rem;
+  margin: 10px;
+  color: white;
+  border-radius: 5px;
+  padding: 10px;
+}
