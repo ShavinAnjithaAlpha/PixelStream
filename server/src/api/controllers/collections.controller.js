@@ -122,7 +122,7 @@ async function deleteCollection(req, res) {
 }
 
 async function addPhotoToCollection(req, res) {
-  const colllectionId = parseInt(req.params.id) || -1;
+  const collectionId = parseInt(req.params.id) || -1;
   if (collectionId < 0) return res.status(400).send("Invalid collection id");
   // first validate the request body
   const { error } = validateCollectionUpdate(req.body);

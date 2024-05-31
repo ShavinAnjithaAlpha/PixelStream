@@ -3,18 +3,21 @@ import { PopupContext } from "../../../contexts/popup.context";
 import AddCollectionCard from "./AddCollectionCard";
 import PopupWindow from "../../PopupWindow/PopupWindow";
 import useAddToCollection from "../../../hooks/useAddToCollection";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import "./AddToCollectionBox.css";
 
 function AddToCollectionBox({ show, selectedPhoto }) {
   const { popups, setPopups } = useContext(PopupContext);
+  const [page, setPage] = useState(1);
   const {
     collections,
+    update,
     addPhotoToCollection,
     createNewCollection,
     dispatch,
     newCollectionState,
-  } = useAddToCollection(selectedPhoto);
-  const [page, setPage] = useState(1);
+  } = useAddToCollection(selectedPhoto, setPage);
 
   const goPrevious = () => {
     setPage(1);
@@ -122,6 +125,11 @@ function AddToCollectionBox({ show, selectedPhoto }) {
                   ></textarea>
                 </div>
                 <div className="button-group">
+                  {newCollectionState.error && (
+                    <div className="error-message">
+                      {newCollectionState.error}
+                    </div>
+                  )}
                   <button
                     type="button"
                     className="cancel-btn"
@@ -134,7 +142,12 @@ function AddToCollectionBox({ show, selectedPhoto }) {
                     className="create-btn"
                     onClick={createNewCollection}
                   >
-                    Create
+                    Create{"   "}{" "}
+                    {!update && (
+                      <span>
+                        <FontAwesomeIcon icon={faSpinner} spin={true} />
+                      </span>
+                    )}
                   </button>
                 </div>
               </form>

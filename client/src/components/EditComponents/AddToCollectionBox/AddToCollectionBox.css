@@ -69,10 +69,13 @@
 }
 
 .add-to-collection-wrapper .error-message {
-  font-size: 1rem;
+  border: 2px solid #aa0000;
+  background-color: #aa000055;
+  font-size: 0.8rem;
+  margin-right: 10px;
   color: white;
-  background-color: red;
-  padding: 10px 20px;
+  border-radius: 5px;
+  padding: 10px;
 }
 
 .new-collection-form {
@@ -164,6 +167,7 @@
 .new-collection-form .input-form button {
   width: 200px;
   height: 40px;
+  margin-left: 20px;
   font-size: 1rem;
   font-weight: 500;
   color: white;

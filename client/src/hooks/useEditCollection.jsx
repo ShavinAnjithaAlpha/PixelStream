@@ -1,8 +1,11 @@
 import { useContext, useEffect, useReducer, useState } from "react";
 import { AuthContext } from "../contexts/auth.context";
 import axios from "../axios";
+import { PopupContext } from "../contexts/popup.context";
 
 function useEditCollection({ selectedCollection }) {
+  const { popups, setPopups } = useContext(PopupContext);
+
   const reducer = (state, action) => {
     switch (action.type) {
       case "SET_TITLE":
@@ -91,6 +94,7 @@ function useEditCollection({ selectedCollection }) {
   };
 
   const deleteCollection = () => {
+    setUpdate(false);
     axios
       .delete(`collections/${collection.id}`, {
         headers: {
@@ -99,6 +103,12 @@ function useEditCollection({ selectedCollection }) {
       })
       .then((res) => {
         setUpdate(true);
+        // close the edit collecton popup
+        setPopups({
+          ...popups,
+          editCollection: false,
+          selectedCollection: null,
+        });
       })
       .catch((err) => {
         setError(err.response.data.error);

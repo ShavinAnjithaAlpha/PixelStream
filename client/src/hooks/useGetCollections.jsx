@@ -11,7 +11,7 @@ function useGetCollections() {
   const fetchCollectionsFromAPI = (page) => {
     setLoading(true);
     axios
-      .get(`collections?page=${page}&limit=${PAGE_LIMIT}`)
+      .get(`/collections?page=${page}&limit=${PAGE_LIMIT}`)
       .then((res) => {
         setCollections(res.data);
         setLoading(false);

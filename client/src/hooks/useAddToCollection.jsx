@@ -2,7 +2,7 @@ import { useState, useContext, useEffect, useReducer } from "react";
 import axios from "../axios";
 import { AuthContext } from "../contexts/auth.context";
 
-function useAddToCollection(selectedPhoto) {
+function useAddToCollection(selectedPhoto, setPage) {
   const initialState = {
     newCollectionName: "",
     newCollectionDescription: "",
@@ -38,24 +38,10 @@ function useAddToCollection(selectedPhoto) {
   const { authState } = useContext(AuthContext);
   const [collections, setCollections] = useState([]);
   const [newCollectionState, dispatch] = useReducer(reducer, initialState);
-
-  useEffect(() => {
-    // fetch the collections of the user from the API
-    axios
-      .get(`users/${authState.username}/collections`, {
-        headers: {
-          Authorization: `${authState.user}`,
-        },
-      })
-      .then((res) => {
-        setCollections(res.data.collections);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [authState.username, authState.user]);
+  const [update, setUpdate] = useState(true);
 
   const addPhotoToCollection = (collectionId) => {
+    setUpdate(false);
     const data = {
       photoIds: [selectedPhoto.photoId],
     };
@@ -68,13 +54,16 @@ function useAddToCollection(selectedPhoto) {
         },
       })
       .then((res) => {
+        setUpdate(true);
         dispatch({ type: "SET_STATUS", payload: "Photo added to collection" });
+        dispatch({ type: "SET_ERROT", payload: "" });
 
         interval = setTimeout(() => {
           dispatch({ type: "SET_STATUS", payload: "" });
         }, 2000);
       })
       .catch((err) => {
+        setUpdate(true);
         dispatch({ type: "SET_ERROR", payload: `${err.response.data.error}` });
 
         interval = setTimeout(() => {
@@ -84,10 +73,16 @@ function useAddToCollection(selectedPhoto) {
   };
 
   const createNewCollection = () => {
+    setUpdate(false);
     if (
       newCollectionState.newCollectionName === "" ||
       newCollectionState.newCollectionDescription === ""
     ) {
+      setUpdate(true);
+      dispatch({
+        type: "SET_ERROR",
+        payload: "Collecion title and description is required!",
+      });
       return;
     }
 
@@ -104,11 +99,14 @@ function useAddToCollection(selectedPhoto) {
         },
       })
       .then((res) => {
+        setUpdate(true);
         // add the new collection to the collections
         setCollections([...collections, res.data]);
-        dispatch({ type: "SET_NEW_COLLECTION", payload: false });
+        dispatch({ type: "SET_ERROR", payload: "" });
+        setPage(1);
       })
       .catch((err) => {
+        setUpdate(true);
         dispatch({
           type: "SET_ERROR",
           payload: `${err.response.data.error}`,
@@ -123,8 +121,25 @@ function useAddToCollection(selectedPhoto) {
       });
   };
 
+  useEffect(() => {
+    // fetch the collections of the user from the API
+    axios
+      .get(`users/${authState.username}/collections`, {
+        headers: {
+          Authorization: `${authState.user}`,
+        },
+      })
+      .then((res) => {
+        setCollections(res.data.collections);
+      })
+      .catch((err) => {
+        dispatch({ type: "SET_ERROR", payload: err.response.data.error });
+      });
+  }, [authState.username, authState.user]);
+
   return {
     collections,
+    update,
     addPhotoToCollection,
     createNewCollection,
     dispatch,
