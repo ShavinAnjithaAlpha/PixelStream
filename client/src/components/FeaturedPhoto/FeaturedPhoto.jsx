@@ -7,18 +7,12 @@ function FeaturedPhoto() {
   const [featuredPhoto, setFeaturedPhoto] = useState({});
   const navigate = useNavigate();
 
-  const randomPhotoId = () => {
-    return Math.floor(Math.random() * 100) + 1;
-  };
-
   useEffect(() => {
     // fetch the featured photo from the API endpoints
     axios
-      .get(`photos?page=${randomPhotoId()}&limit=1`)
+      .get(`photos?count=1`)
       .then((res) => {
-        if (res.data.length > 0) {
-          setFeaturedPhoto(res.data[0]);
-        }
+        setFeaturedPhoto(res.data[0]);
       })
       .catch((err) => {
         console.log(err);

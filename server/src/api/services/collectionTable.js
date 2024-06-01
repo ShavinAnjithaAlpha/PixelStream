@@ -80,8 +80,10 @@ async function fetchCollectionByUser(userId) {
   return collections;
 }
 
-async function fetchPhotosOfCollection(collectionId) {
+async function fetchPhotosOfCollection(collectionId, page, limit) {
   const collection = await Collection.findOne({
+    limit: limit,
+    offset: limit * (page - 1),
     where: {
       collectionId: collectionId,
     },

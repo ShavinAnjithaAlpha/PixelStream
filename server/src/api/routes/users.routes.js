@@ -13,6 +13,8 @@ const {
   unfollowUser,
   getUsers,
   getInterestsOfUser,
+  getFollowers,
+  getFollowings,
 } = require("../controllers/users.controller");
 const router = express.Router();
 
@@ -25,6 +27,8 @@ router.get(
   getCollectionOfUser
 );
 router.get("/:username/stat", getStatisticsOfUser);
+router.get("/:username/followers", getFollowers);
+router.get("/:username/followings", getFollowings);
 router.get("/:username/follow", authorize, getFollower);
 router.post("/:username/follow", authorize, followUser);
 router.delete("/:username/follow", authorize, unfollowUser);

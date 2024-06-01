@@ -14,6 +14,40 @@ const { PhotoTag } = require("../models");
 
 const hashSalt = 10;
 
+function buildSortByClause(option) {
+  let field = null,
+    order = null;
+  if (option == "latest") {
+    field = ["createdAt"];
+    order = "DESC";
+  } else if (option == "oldest") {
+    field = ["createdAt"];
+    order = "ASC";
+  } else if (option == "username") {
+    field = [UserAuth, "userName"];
+    order = "ASC";
+  } else if (option == "location") {
+    field = ["location"];
+    order = "ASC";
+  } else if (option == "random") {
+    field = ["photoId"];
+    order = "ASC";
+  } else if (option == "email") {
+    field = [UserAuth, "email"];
+    order = "DESC";
+  } else {
+    field = ["createdAt"];
+    order = "DESC";
+  }
+
+  const sortCluase = [
+    [...field, order],
+    ["userId", "DESC"],
+  ];
+
+  return sortCluase;
+}
+
 async function checkUserExists(username, email) {
   // check if wither email or username exists in the system
   const user = await UserAuth.findOne({
@@ -433,6 +467,100 @@ async function createProfileImage(userId, profileImageUrl) {
   return true;
 }
 
+async function fetchFollowers(userId, page, limit, sort_by = "", query = null) {
+  let userIds = await Followers.findAll({
+    where: {
+      userId: userId,
+    },
+    limit: limit,
+    offset: (page - 1) * limit,
+    attributes: ["followerId"],
+  });
+  // map the userIds to a list
+  userIds = userIds.map((user) => user.followerId);
+
+  let whereClause = {
+    userId: {
+      [Op.in]: userIds,
+    },
+  };
+  if (query) {
+    whereClause = {
+      userId: {
+        [Op.in]: userIds,
+      },
+      [Op.or]: [
+        { firstName: { [Op.like]: `%${query}%` } },
+        { lastName: { [Op.like]: `%${query}%` } },
+      ],
+    };
+  }
+
+  // fetch the users with the given userIds
+  const followers = await User.findAll({
+    where: whereClause,
+    include: [
+      {
+        model: UserAuth,
+        attributes: ["userName", "email"],
+      },
+    ],
+    order: buildSortByClause(sort_by),
+  });
+
+  return followers;
+}
+
+async function fetchFollowings(
+  userId,
+  page,
+  limit,
+  sort_by = "",
+  query = null
+) {
+  let userIds = await Followers.findAll({
+    where: {
+      followerId: userId,
+    },
+    limit: limit,
+    offset: (page - 1) * limit,
+    attributes: ["userId"],
+  });
+  // map the userIds to a list
+  userIds = userIds.map((user) => user.userId);
+
+  let whereClause = {
+    userId: {
+      [Op.in]: userIds,
+    },
+  };
+  if (query) {
+    whereClause = {
+      userId: {
+        [Op.in]: userIds,
+      },
+      [Op.or]: [
+        { firstName: { [Op.like]: `%${query}%` } },
+        { lastName: { [Op.like]: `%${query}%` } },
+      ],
+    };
+  }
+
+  // fetch the users with the given userIds
+  const follwings = await User.findAll({
+    where: whereClause,
+    include: [
+      {
+        model: UserAuth,
+        attributes: ["userName", "email"],
+      },
+    ],
+    order: buildSortByClause(sort_by),
+  });
+
+  return follwings;
+}
+
 module.exports = {
   checkUserExists,
   createUser,
@@ -455,4 +583,6 @@ module.exports = {
   fetchUsers,
   fetchUsers,
   createProfileImage,
+  fetchFollowers,
+  fetchFollowings,
 };

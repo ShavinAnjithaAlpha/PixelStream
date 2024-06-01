@@ -37,11 +37,15 @@ async function getCollectionById(req, res) {
 }
 
 async function getPhotosOfCollection(req, res) {
+  const limit = parseInt(req.query.limit) || 18;
+  const page = parseInt(req.query.page) || 1;
   // extract the collection id from the request
-  const collectionId = parseInt(req.params.id);
+  const collectionId = parseInt(req.params.id) || -1;
+  if (collectionId < 0)
+    return res.status(400).json({ error: "Invalid Collection Id" });
 
   // get the photos of the collection
-  const photos = await fetchPhotosOfCollection(collectionId);
+  const photos = await fetchPhotosOfCollection(collectionId, page, limit);
   if (photos.error) {
     return res.status(400).send(photos.error);
   }

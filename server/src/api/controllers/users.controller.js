@@ -12,6 +12,8 @@ const {
   createFollower,
   deleteFollower,
   fetchUsers,
+  fetchFollowers,
+  fetchFollowings,
 } = require("../services/userTable");
 const {
   fetchCollectionByUserName,
@@ -259,6 +261,68 @@ async function getInterestsOfUser(req, res) {
   res.json(cleanedTags);
 }
 
+async function getFollowers(req, res) {
+  // get the username and the page and limit from the query
+  const username = req.params.username;
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
+  const query = req.query.query || "";
+  const sortBy = req.query.sortBy || "latest";
+
+  if (!username) return res.status(400).json({ error: "Username is required" });
+
+  // get the user from the database
+  const user = await fetchUserByUsername(username);
+  if (user.error) return res.status(400).json(user.error);
+
+  // get the followers of the user
+  const followers = await fetchFollowers(
+    user.userId,
+    page,
+    limit,
+    sortBy,
+    query
+  );
+
+  return res.json({
+    followers: followers,
+    page: page,
+    limit: limit,
+    total: followers.length,
+  });
+}
+
+async function getFollowings(req, res) {
+  // get the username and the page and limit from the query
+  const username = req.params.username;
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
+  const query = req.query.query || "";
+  const sortBy = req.query.sortBy || "latest";
+
+  if (!username) return res.status(400).json({ error: "Username is required" });
+
+  // get the user from the database
+  const user = await fetchUserByUsername(username);
+  if (user.error) return res.status(400).json(user.error);
+
+  // get the followers of the user
+  const followings = await fetchFollowings(
+    user.userId,
+    page,
+    limit,
+    sortBy,
+    query
+  );
+
+  return res.json({
+    followings: followings,
+    page: page,
+    limit: limit,
+    total: followings.length,
+  });
+}
+
 module.exports = {
   getUserByUsername,
   getPortfolioOfUser,
@@ -271,4 +335,6 @@ module.exports = {
   unfollowUser,
   getUsers,
   getInterestsOfUser,
+  getFollowers,
+  getFollowings,
 };
