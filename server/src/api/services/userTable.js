@@ -198,7 +198,7 @@ async function fetchUsers(page, limit) {
 
 // function for fetch the user by username
 async function fetchUserByUsername(username) {
-  let user = UserAuth.findOne({
+  const user = await UserAuth.findOne({
     where: {
       userName: username,
     },
@@ -209,9 +209,7 @@ async function fetchUserByUsername(username) {
       },
     ],
   });
-
   if (!user) return { error: "User not found" };
-
   return user;
 }
 

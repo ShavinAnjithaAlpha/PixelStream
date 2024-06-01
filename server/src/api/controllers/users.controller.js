@@ -273,7 +273,7 @@ async function getFollowers(req, res) {
 
   // get the user from the database
   const user = await fetchUserByUsername(username);
-  if (user.error) return res.status(400).json(user.error);
+  if (user.error) return res.status(400).json({ error: user.error });
 
   // get the followers of the user
   const followers = await fetchFollowers(
@@ -304,7 +304,7 @@ async function getFollowings(req, res) {
 
   // get the user from the database
   const user = await fetchUserByUsername(username);
-  if (user.error) return res.status(400).json(user.error);
+  if (user.error) return res.status(400).json({ error: user.error });
 
   // get the followers of the user
   const followings = await fetchFollowings(

@@ -121,10 +121,12 @@ function UserProfileDetail({ username, backgroundImage }) {
               {/* <button onClick={followUser}>Follow</button>
               <button>Message</button> */}
             </div>
-            <div className="photo-detail-bar">
-              <h2>{backgroundImage.photoTitle}</h2>
-              <p>{backgroundImage.photoDes}</p>
-            </div>
+            {!backgroundImage.fallback && (
+              <div className="photo-detail-bar">
+                <h2>{backgroundImage.photoTitle}</h2>
+                <p>{backgroundImage.photoDes}</p>
+              </div>
+            )}
           </div>
         </div>
       </div>
