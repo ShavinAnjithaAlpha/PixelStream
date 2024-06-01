@@ -31,10 +31,10 @@ const {
 const fileUpload = multer();
 
 // endpoint for access the photos in various ways
-router.get("/", redisCacheMiddleware(), getPhotos);
+router.get("/", redisCacheMiddleware("photo"), getPhotos);
 router.get(
   "/random",
-  redisCacheMiddleware({
+  redisCacheMiddleware("photo", {
     EX: 60, // 1 minute
   }),
   getRandomPhoto
@@ -61,7 +61,7 @@ router.get("/:id/dislike", authorize, isDisliked);
 router.post("/:id/tags/remove", authorize, removeTags);
 router.post("/:id/tags", authorize, addTags);
 router.get("/:id/tags", getTags);
-router.get("/:id", redisCacheMiddleware(), getPhotoById);
+router.get("/:id", redisCacheMiddleware("photo"), getPhotoById);
 router.put("/:id", authorize, updatePhoto);
 router.delete("/:id", authorize, deletePhoto);
 

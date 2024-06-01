@@ -12,13 +12,18 @@ const {
   searchUsers,
 } = require("../controllers/search.controller");
 
-router.get("/photos", validateSearchPhoto, redisCacheMiddleware(), searchPhoto);
+router.get(
+  "/photos",
+  validateSearchPhoto,
+  redisCacheMiddleware("search"),
+  searchPhoto
+);
 router.get(
   "/collections",
   validateSearchCollection,
-  redisCacheMiddleware(),
+  redisCacheMiddleware("search"),
   searchCollection
 );
-router.get("/users", redisCacheMiddleware(), searchUsers);
+router.get("/users", redisCacheMiddleware("search"), searchUsers);
 
 module.exports = router;

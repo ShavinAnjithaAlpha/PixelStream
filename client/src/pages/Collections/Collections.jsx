@@ -3,6 +3,7 @@ import CollectionCard from "../../components/CollectionCard/CollectionCard";
 import Spinner from "../../components/Spinner/Spinner";
 import useGetCollections from "../../hooks/useGetCollections";
 import PageNavigationBar from "../../components/PageNavigationBar/PageNavigationBar";
+import NextPrevPage from "../../components/NextPrevPage/NextPrevPage";
 import "./Collections.css";
 
 function Collections() {
@@ -22,22 +23,30 @@ function Collections() {
         {loading && <Spinner />}
 
         <div className="global-collections-grid">
-          {collections &&
-            collections.map((collection) => (
+          {collections.collections &&
+            collections.collections.map((collection) => (
               <CollectionCard
                 key={collection.collectionId}
                 collection={collection}
               />
             ))}
         </div>
-        {collections.length === 0 && !loading && <h2>No collections</h2>}
+        {collections.total === 0 && !loading && <h2>No collections</h2>}
 
-        <div className="page-bar">
+        {/* <div className="page-bar">
           <PageNavigationBar
             max={20}
             limit={5}
             handlePageChange={handlePageChange}
             savedPage={parseInt(localStorage.getItem("page-collection")) || 1}
+          />
+        </div> */}
+
+        <div className="page-bar">
+          <NextPrevPage
+            initialPage={1}
+            handlePageChange={handlePageChange}
+            next={collections.total === collections.limit}
           />
         </div>
       </div>

@@ -49,16 +49,17 @@ async function writeData(key, data, options) {
   }
 }
 
-function requestKey(req) {
+function requestKey(req, label) {
   const reqDataToHash = {
     query: req.query,
     body: req.body,
   };
 
-  return `${req.path}@${hash(reqDataToHash)}`;
+  return `${label}/${req.path}@${hash(reqDataToHash)}`;
 }
 
 function redisCacheMiddleware(
+  label,
   options = {
     EX: 300, // 5 minutes
   },
@@ -67,7 +68,7 @@ function redisCacheMiddleware(
   return async (req, res, next) => {
     if (isRedisWorking()) {
       // first request the key
-      const key = requestKey(req);
+      const key = requestKey(req, label);
       // if there are some cach evalue lets retrieve it
       const cachedData = await redisClient.get(key);
 

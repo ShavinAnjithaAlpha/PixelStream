@@ -116,21 +116,20 @@ function UploadImages() {
         })
         .then((res) => {
           // remove that photo from the selected photos
+          // set the progress
+          setProgress(((index + 1) / selectedPhotos.length) * 100);
+          setSelectedPhotos(selectedPhotos.filter((p) => p !== photo));
         })
         .catch((err) => {
           console.log(err);
           setError(err.response.data.message || err.response.data.error);
         });
-
-      // set the progress
-      setProgress(((index + 1) / selectedPhotos.length) * 100);
     });
 
     // reset the progress
     setProgress(0);
     setUploading(false);
     setSuccess("Photos uploaded successfully");
-    setSelectedPhotos([]);
 
     setTimeout(() => {
       setSuccess("");
@@ -140,7 +139,9 @@ function UploadImages() {
   return (
     <div className="upload-photos">
       <div className="title-bar">
-        <div className="logo">PS</div>
+        <Link to="/">
+          <div className="logo">PS</div>
+        </Link>
         <h1>Uplaod Images</h1>
 
         <Popup

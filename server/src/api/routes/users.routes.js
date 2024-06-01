@@ -19,11 +19,11 @@ const {
 const router = express.Router();
 
 router.get("/:username/portfolio", getPortfolioOfUser);
-router.get("/:username/photos", redisCacheMiddleware(), getPhotosOfUser);
-router.get("/:username/likes", redisCacheMiddleware(), getLikesOfUsers);
+router.get("/:username/photos", redisCacheMiddleware("user"), getPhotosOfUser);
+router.get("/:username/likes", redisCacheMiddleware("user"), getLikesOfUsers);
 router.get(
   "/:username/collections",
-  redisCacheMiddleware(),
+  redisCacheMiddleware("user"),
   getCollectionOfUser
 );
 router.get("/:username/stat", getStatisticsOfUser);
@@ -33,7 +33,7 @@ router.get("/:username/follow", authorize, getFollower);
 router.post("/:username/follow", authorize, followUser);
 router.delete("/:username/follow", authorize, unfollowUser);
 router.get("/:username/interests", getInterestsOfUser);
-router.get("/:username", redisCacheMiddleware(), getUserByUsername);
-router.get("/", redisCacheMiddleware(), getUsers);
+router.get("/:username", redisCacheMiddleware("user"), getUserByUsername);
+router.get("/", redisCacheMiddleware("user"), getUsers);
 
 module.exports = router;

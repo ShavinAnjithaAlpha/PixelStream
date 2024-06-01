@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import imageIcon from "../../../assets/img/image-icon.png";
+import imageIcon from "../../../assets/img/photo-upload.png";
 import "./UploadImageTile.css";
 
 function UploadImageTile({ setSelectedPhotos, selectedPhotos }) {
@@ -83,7 +83,7 @@ function UploadImageTile({ setSelectedPhotos, selectedPhotos }) {
     <div className="upload-image-tile">
       <div className="image-box">
         <input type="file" accept="image/*" onChange={setImageUrl} />
-        <img src={photo} width={300} alt="upload" />
+        <img src={photo} width={150} alt="upload" />
       </div>
       <div className="image-input-form">
         <div className="input-field">
