@@ -10,13 +10,8 @@ function useUserLikesHandler(username) {
     axios
       .get(`users/${username}/likes?limit=18&page=${page}`)
       .then((res) => {
-        // rreformat the data to match the photo card component
-        const formattedPhotoData = [];
-        res.data.photos.forEach((photo) => {
-          formattedPhotoData.push(photo.Photo);
-        });
-        // set the formatted photo data as the state
-        setLikePhotos(formattedPhotoData);
+        // set the photo data as the state
+        setLikePhotos(res.data.photos);
         setLoading(false);
       })
       .catch((err) => {

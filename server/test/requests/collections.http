@@ -5,7 +5,7 @@
 @http = HTTP/1.1
 
 ### Get the collections;
-GET {{host}}/api/collections {{http}}
+GET {{host}}/api/collections?sortBy=title&limit=2 {{http}}
 Content-Type: {{contentType}}
 
 ### get the specific collection
@@ -13,7 +13,7 @@ GET {{host}}/api/collections/3 {{http}}
 Content-Type: {{contentType}}
 
 ### get the photos of the collection
-GET {{host}}/api/collections/3/photo {{http}}
+GET {{host}}/api/collections/1/photo?limit=25 {{http}}
 Content-Type: {{contentType}}
 
 ### new collection

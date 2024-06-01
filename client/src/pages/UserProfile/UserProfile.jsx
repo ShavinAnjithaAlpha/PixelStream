@@ -20,7 +20,7 @@ function UserProfile({ defaultTab = "photos" }) {
     axios
       .get(`/photos/random?userName=${username}&limit=1`)
       .then((res) => {
-        if (res.data.length > 0) setBackgroundImage(res.data[0]);
+        if (res.data.length > 0) setBackgroundImage(res.data.photos[0]);
         else
           setBackgroundImage({
             resizedPhotoUrl: fallBackImage,

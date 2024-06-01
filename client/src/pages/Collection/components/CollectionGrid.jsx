@@ -6,7 +6,7 @@ function CollectionGrid({ photos }) {
   return (
     <div className="col-photo-grid">
       {photos.map((photo) => (
-        <PhotoCard photo={photo.Photo} key={photo.Photo.photoId} />
+        <PhotoCard photo={photo} key={photo.photoId} />
       ))}
     </div>
   );

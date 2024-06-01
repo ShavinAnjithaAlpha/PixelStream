@@ -1,3 +1,5 @@
+const sequelize = require("sequelize");
+const { Op } = require("sequelize");
 const { Photo } = require("../models");
 const { User } = require("../models");
 const { UserAuth } = require("../models");
@@ -6,36 +8,13 @@ const { UserLikes } = require("../models");
 const { UserDisLikes } = require("../models");
 const { UserDownloads } = require("../models");
 const { PhotoTag } = require("../models");
-const { getUserIdByUserName } = require("./userTable");
-const sequelize = require("sequelize");
-const { Op } = require("sequelize");
-
-function getOrder(orderBy) {
-  var field = "createdAt";
-  var order = "DESC";
-  if (orderBy == "latest") {
-    field = "createdAt";
-  } else if (orderBy == "oldest") {
-    field = "createdAt";
-    order = "ASC";
-  } else if (orderBy == "title") {
-    field = "photoTitle";
-    order = "ASC";
-  } else if (orderBy == "size") {
-    field = "photoSize";
-    order = "ASC";
-  }
-
-  return { field, order };
-}
+const { buildPhotoSortByClause } = require("../util/sort");
 
 async function fetchPhotos(page, limit, orderBy) {
-  const { field, order } = getOrder(orderBy);
-
   const photos = await Photo.findAll({
     offset: (page - 1) * limit,
     limit: limit,
-    order: [[field, order]],
+    order: buildPhotoSortByClause(orderBy),
     include: [
       {
         model: User,
@@ -324,8 +303,6 @@ async function recalculatePhotoRating(photoId) {
 
 // function for fetching photos using search functionality
 async function fetchPhotoFromQuery(query, page, limit, orderBy) {
-  const { field, order } = getOrder(orderBy);
-
   // get the photos from the database according to the query
   const photos = await Photo.findAll({
     offset: (page - 1) * limit,
@@ -345,38 +322,51 @@ async function fetchPhotoFromQuery(query, page, limit, orderBy) {
         model: PhotoStat,
       },
     ],
-    order: [[field, order]],
+    order: buildPhotoSortByClause(orderBy),
   });
 
   return photos;
 }
 
-async function fetchUserLikePhotos(username, limit, page) {
-  // fetch the user id from the database
-  const userId = await getUserIdByUserName(username);
-  if (userId.error) return userId;
-
-  // fetch the user like photos from the database
-  const likedPhotos = await UserLikes.findAll({
+async function fetchUserLikePhotos(userId, limit, page, sort_by, query) {
+  let photoIds = await UserLikes.findAll({
     where: {
       userId: userId,
     },
-    limit: limit,
+    attributes: ["photoId"],
+  });
+  photoIds = photoIds.map((photo) => photo.photoId);
+
+  let whereClause = {
+    photoId: {
+      [Op.in]: photoIds,
+    },
+  };
+  if (query !== "") {
+    whereClause = {
+      ...whereClause,
+      [Op.or]: [
+        { photoTitle: { [Op.like]: `%${query}%` } },
+        { photoDes: { [Op.like]: `%${query}%` } },
+      ],
+    };
+  }
+
+  // fetch the user like photos from the database
+  const likedPhotos = await Photo.findAll({
     offset: (page - 1) * limit,
+    limit: limit,
+    where: whereClause,
     include: [
       {
-        model: Photo,
-        include: [
-          {
-            model: User,
-            include: [{ model: UserAuth, attributes: ["userName", "email"] }],
-          },
-          {
-            model: PhotoStat,
-          },
-        ],
+        model: User,
+        include: [{ model: UserAuth, attributes: ["userName", "email"] }],
+      },
+      {
+        model: PhotoStat,
       },
     ],
+    order: buildPhotoSortByClause(sort_by),
   });
 
   return likedPhotos;

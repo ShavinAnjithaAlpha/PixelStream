@@ -12,8 +12,8 @@ GET {{host}}/api/users?limit=3 {{http}}
 GET {{host}}/api/users/{{username}} {{http}}
 
 ### get the photos by username
-@username = komudi
-GET {{host}}/api/users/{{username}}/photos {{http}}
+@username = shavin
+GET {{host}}/api/users/shavin/photos?soryBy=title {{http}}
 
 
 ### get the personal site of the user
@@ -24,7 +24,7 @@ GET {{host}}/api/users/{{username}}/portfolio {{http}}
 GET {{host}}/api/users/shavin/collections {{http}}
 
 ### get the user liked photos
-GET {{host}}/api/users/komudi/likes {{http}}
+GET {{host}}/api/users/shavin/likes?query=Cactus {{http}}
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtvbXVkaSIsInVzZXJJZCI6MiwiaWF0IjoxNzA3MDQzMTcxLCJleHAiOjE3MDc0MDMxNzF9.VTjBe3REhKzqObkbgyP9rvuE3I0fDGpCJ87oIX3j_ZA
 
 ### get the stat of a user
@@ -43,5 +43,5 @@ GET {{host}}/api/users/shavin/followers?sortBy=username {{http}}
 Content-Type: {{contentType}}
 
 ### get the following
-GET {{host}}/api/users/sanjana/followings?sortBy=username {{http}}
+GET {{host}}/api/users/san5jana/followings?sortBy=username {{http}}
 Content-Type: {{contentType}}

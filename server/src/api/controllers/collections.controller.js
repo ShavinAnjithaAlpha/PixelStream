@@ -16,10 +16,16 @@ async function getCollections(req, res) {
   // get the query parameters page and per page
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 10;
+  const sortBy = req.query.sortBy || "latest";
 
   // get the collections from the database
-  const collections = await fetchCollections(page, limit);
-  return res.send(collections);
+  const collections = await fetchCollections(page, limit, sortBy);
+  return res.json({
+    collections: collections,
+    limit: limit,
+    page: page,
+    total: collections.length,
+  });
 }
 
 async function getCollectionById(req, res) {
@@ -39,18 +45,32 @@ async function getCollectionById(req, res) {
 async function getPhotosOfCollection(req, res) {
   const limit = parseInt(req.query.limit) || 18;
   const page = parseInt(req.query.page) || 1;
+  const query = req.query.query || "";
+  const sortBy = req.query.sortBy || "latest";
+
   // extract the collection id from the request
   const collectionId = parseInt(req.params.id) || -1;
   if (collectionId < 0)
     return res.status(400).json({ error: "Invalid Collection Id" });
 
   // get the photos of the collection
-  const photos = await fetchPhotosOfCollection(collectionId, page, limit);
+  const photos = await fetchPhotosOfCollection(
+    collectionId,
+    page,
+    limit,
+    sortBy,
+    query
+  );
   if (photos.error) {
     return res.status(400).send(photos.error);
   }
 
-  return res.json(photos);
+  return res.json({
+    ...photos,
+    limit: limit,
+    page: page,
+    total: photos.photos.length,
+  });
 }
 
 function getRelatedCollections(req, res) {}

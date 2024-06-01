@@ -6,8 +6,12 @@ const { UserAuth } = require("../models");
 const { PhotoStat } = require("../models");
 const { Op } = require("sequelize");
 const { getUserIdByUserName } = require("./userTable");
+const {
+  buildPhotoSortByClause,
+  buildCollectionSortByClause,
+} = require("../util/sort");
 
-async function fetchCollections(page, limit) {
+async function fetchCollections(page, limit, sortBy) {
   const collections = await Collection.findAll({
     limit: limit,
     offset: (page - 1) * limit,
@@ -25,6 +29,7 @@ async function fetchCollections(page, limit) {
         model: Photo,
       },
     ],
+    order: buildCollectionSortByClause(sortBy),
   });
 
   return collections;
@@ -80,10 +85,14 @@ async function fetchCollectionByUser(userId) {
   return collections;
 }
 
-async function fetchPhotosOfCollection(collectionId, page, limit) {
+async function fetchPhotosOfCollection(
+  collectionId,
+  page,
+  limit,
+  sortBy,
+  query = ""
+) {
   const collection = await Collection.findOne({
-    limit: limit,
-    offset: limit * (page - 1),
     where: {
       collectionId: collectionId,
     },
@@ -93,35 +102,54 @@ async function fetchPhotosOfCollection(collectionId, page, limit) {
       },
     ],
   });
-
   // return a error if the collection is not exists
   if (!collection) return { error: `Invalid collection id ${collectionId}` };
   // get the other collection of the user
   const userCollections = await fetchCollectionByUser(collection.userId);
-  // now find the associated photos of the collection
-  const photos = await PhotoCollection.findAll({
+  let photoIds = await PhotoCollection.findAll({
     where: {
       collectionId: collectionId,
     },
+    attributes: ["photoId"],
+  });
+  photoIds = photoIds.map((photo) => photo.photoId);
+
+  let whereClause = {
+    photoId: {
+      [Op.in]: photoIds,
+    },
+  };
+  if (query !== "") {
+    whereClause = {
+      ...whereClause,
+      [Op.or]: [
+        { photoTitle: { [Op.regexp]: `${query}` } },
+        { photoDes: { [Op.regexp]: `${query}` } },
+        { location: { [Op.regexp]: `${query}` } },
+      ],
+    };
+  }
+
+  // now find the associated photos of the collection
+  const photos = await Photo.findAll({
+    limit: limit,
+    offset: limit * (page - 1),
+    where: whereClause,
     include: [
       {
-        model: Photo,
+        model: User,
         include: [
           {
-            model: User,
-            include: [
-              {
-                model: UserAuth,
-                attributes: ["userName", "email"],
-              },
-            ],
-          },
-          {
-            model: PhotoStat,
+            model: UserAuth,
+            attributes: ["userName", "email"],
           },
         ],
       },
+      {
+        model: PhotoStat,
+      },
     ],
+    order: buildPhotoSortByClause(sortBy),
   });
 
   return { photos, userCollections };

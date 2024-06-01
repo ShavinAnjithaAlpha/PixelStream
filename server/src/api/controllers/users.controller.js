@@ -64,7 +64,7 @@ async function getPortfolioOfUser(req, res) {
   // fetch the user from the database
   const user = await fetchUserByUsername(username);
   // return the error if the user is not exists
-  if (user.error) res.status(400).send(user.error);
+  if (user.error) res.status(400).json({ error: user.error });
 
   // return the user's personal portfolio
   return res.send(user.User.personalSite || { status: "No personal site" });
@@ -74,10 +74,22 @@ async function getPhotosOfUser(req, res) {
   const username = req.params.username;
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 10;
+  const sortBy = req.query.sortBy || "latest";
+  const query = req.query.query || "";
+
+  // check weather if the user exists
+  const user = await fetchUserByUsername(username);
+  if (user.error) return res.status(400).json({ error: user.error });
 
   // get the user's photos from the database
-  const photos = await fetchPhotoFromUserName(username, page, limit);
-  if (photos.error) res.status(400).send(photos.error);
+  const photos = await fetchPhotoFromUserName(
+    user.userId,
+    page,
+    limit,
+    sortBy,
+    query
+  );
+  if (photos.error) return res.status(400).json({ error: photos.error });
 
   // get the photo count of the usre
   let photoCount = 0;
@@ -99,13 +111,21 @@ async function getLikesOfUsers(req, res) {
   const username = req.params.username;
   const limit = parseInt(req.query.limit) || 10;
   const page = parseInt(req.query.page) || 1;
+  const sortBy = req.query.sortBy || "latest";
+  const query = req.query.query || "";
 
   // check weather if the user exists
   const user = await fetchUserByUsername(username);
-  if (user.error) return res.status(400).send(user.error);
+  if (user.error) return res.status(400).json({ error: user.error });
 
   // fetch the user from the database
-  const likedPhotos = await fetchUserLikePhotos(username, limit, page);
+  const likedPhotos = await fetchUserLikePhotos(
+    user.userId,
+    limit,
+    page,
+    sortBy,
+    query
+  );
 
   let totalLikeCount = 0;
   if (likedPhotos.length !== 0) {
@@ -240,8 +260,9 @@ async function getUsers(req, res) {
   // extract the page and limit from the query
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 10;
+  const sortBy = req.query.sortBy || "latest";
 
-  const users = await fetchUsers(page, limit);
+  const users = await fetchUsers(page, limit, sortBy);
 
   return res.json(users);
 }

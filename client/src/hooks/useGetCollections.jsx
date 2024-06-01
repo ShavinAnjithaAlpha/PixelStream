@@ -13,7 +13,7 @@ function useGetCollections() {
     axios
       .get(`/collections?page=${page}&limit=${PAGE_LIMIT}`)
       .then((res) => {
-        setCollections(res.data);
+        setCollections(res.data.collections);
         setLoading(false);
       })
       .catch((err) => {

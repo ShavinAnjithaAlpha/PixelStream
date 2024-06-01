@@ -11,42 +11,12 @@ const { UserDownloads } = require("../models");
 const { Collection } = require("../models");
 const { PhotoCollection } = require("../models");
 const { PhotoTag } = require("../models");
+const {
+  buildUserSortByClause,
+  buildPhotoSortByClause,
+} = require("../util/sort");
 
 const hashSalt = 10;
-
-function buildSortByClause(option) {
-  let field = null,
-    order = null;
-  if (option == "latest") {
-    field = ["createdAt"];
-    order = "DESC";
-  } else if (option == "oldest") {
-    field = ["createdAt"];
-    order = "ASC";
-  } else if (option == "username") {
-    field = [UserAuth, "userName"];
-    order = "ASC";
-  } else if (option == "location") {
-    field = ["location"];
-    order = "ASC";
-  } else if (option == "random") {
-    field = ["photoId"];
-    order = "ASC";
-  } else if (option == "email") {
-    field = [UserAuth, "email"];
-    order = "DESC";
-  } else {
-    field = ["createdAt"];
-    order = "DESC";
-  }
-
-  const sortCluase = [
-    [...field, order],
-    ["userId", "DESC"],
-  ];
-
-  return sortCluase;
-}
 
 async function checkUserExists(username, email) {
   // check if wither email or username exists in the system
@@ -150,17 +120,25 @@ async function getUserIdByUserName(username) {
 }
 
 // function for fetch the photos of a given user
-async function fetchPhotoFromUserName(username, page, limit) {
-  // first fetch the user with the given username
-  const userId = await getUserIdByUserName(username);
-  if (userId.error) return { error: userId.error };
+async function fetchPhotoFromUserName(userId, page, limit, sort_by, query) {
+  let whereClause = {
+    userId: userId,
+  };
+  if (query !== "") {
+    whereClause = {
+      userId: userId,
+      [Op.or]: [
+        { photoTitle: { [Op.like]: `%${query}%` } },
+        { photoDes: { [Op.like]: `%${query}%` } },
+        { location: { [Op.like]: `%${query}%` } },
+      ],
+    };
+  }
 
   const photos = await Photo.findAll({
     offset: (page - 1) * limit,
     limit: limit,
-    where: {
-      userId: userId,
-    },
+    where: whereClause,
     include: [
       {
         model: User,
@@ -175,13 +153,14 @@ async function fetchPhotoFromUserName(username, page, limit) {
         model: PhotoStat,
       },
     ],
+    order: buildPhotoSortByClause(sort_by),
   });
 
   return photos;
 }
 
 // get the users from the database
-async function fetchUsers(page, limit) {
+async function fetchUsers(page, limit, sort_by) {
   const users = await User.findAll({
     offset: (page - 1) * limit,
     limit: limit,
@@ -191,6 +170,7 @@ async function fetchUsers(page, limit) {
         attributes: ["userName", "email"],
       },
     ],
+    order: buildUserSortByClause(sort_by),
   });
 
   return users;
@@ -503,7 +483,7 @@ async function fetchFollowers(userId, page, limit, sort_by = "", query = null) {
         attributes: ["userName", "email"],
       },
     ],
-    order: buildSortByClause(sort_by),
+    order: buildUserSortByClause(sort_by),
   });
 
   return followers;
@@ -553,7 +533,7 @@ async function fetchFollowings(
         attributes: ["userName", "email"],
       },
     ],
-    order: buildSortByClause(sort_by),
+    order: buildUserSortByClause(sort_by),
   });
 
   return follwings;
