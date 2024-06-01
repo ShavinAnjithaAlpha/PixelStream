@@ -10,7 +10,7 @@ function useUserPhotoHandler(username) {
     axios
       .get(`/users/${username}/photos?limit=18&page=${page}`)
       .then((res) => {
-        setPhotos(res.data.photos);
+        setPhotos(res.data);
         setLoading(false);
       })
       .catch((err) => {

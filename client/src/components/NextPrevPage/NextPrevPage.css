@@ -1,0 +1,29 @@
+.next-prev-page {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  /* border-top: 1px solid #cacaca55; */
+  width: 100%;
+  margin: 20px 0px 40px 0;
+}
+
+.next-prev-page button#prev,
+.next-prev-page button#next {
+  width: 100px;
+  background: none;
+  border: 2px solid #ffffff88;
+  color: white;
+  padding: 5px 20px;
+  border-radius: 50px;
+  outline: none;
+  cursor: pointer;
+  margin: 5px 20px;
+  transition: all 0.3s ease-in-out;
+}
+
+.next-prev-page button#prev:hover,
+.next-prev-page button#next:hover {
+  background: #ffffff22;
+  border: 2px solid #ffffff;
+}

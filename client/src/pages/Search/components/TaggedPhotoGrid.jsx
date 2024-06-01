@@ -4,6 +4,7 @@ import Spinner from "../../../components/Spinner/Spinner";
 import PageNavigationBar from "../../../components/PageNavigationBar/PageNavigationBar";
 import usePhotoSearch from "../../../hooks/usePhotoSearch";
 import "./TaggedPhotoGrid.css";
+import NextPrevPage from "../../../components/NextPrevPage/NextPrevPage";
 
 function TaggedPhotoGrid({ options }) {
   const { photos, loading, handlePageChange } = usePhotoSearch(options);
@@ -14,13 +15,14 @@ function TaggedPhotoGrid({ options }) {
 
   return (
     <Fragment>
-      {photos.length === 0 && (
+      {photos.total === 0 && (
         <p className="no-photos-msg">No Photos Available</p>
       )}
       <div className="tagged-photo-grid">
-        {photos.map((photo) => (
-          <TaggedPhotoCard photo={photo} key={photo.photoId} />
-        ))}
+        {photos.photos &&
+          photos.photos.map((photo) => (
+            <TaggedPhotoCard photo={photo} key={photo.photoId} />
+          ))}
       </div>
 
       <div className="page-bar">
@@ -31,6 +33,14 @@ function TaggedPhotoGrid({ options }) {
           savedPage={parseInt(localStorage.getItem("page-search-photo")) || 1}
         />
       </div>
+
+      {/* <div className="page-bar">
+        <NextPrevPage
+          initialPage={1}
+          handlePageChange={handlePageChange}
+          next={photos.total === photos.limit}
+        />
+      </div> */}
     </Fragment>
   );
 }

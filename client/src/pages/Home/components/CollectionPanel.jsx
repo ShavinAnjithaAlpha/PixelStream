@@ -13,7 +13,7 @@ function CollectionPanel() {
     axios
       .get(`collections?limit=5`)
       .then((res) => {
-        setCollections(res.data);
+        setCollections(res.data.collections);
       })
       .catch((err) => {
         console.log(err);

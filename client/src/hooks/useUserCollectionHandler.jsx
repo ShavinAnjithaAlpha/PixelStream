@@ -11,7 +11,7 @@ function useUserCollectionHandler(username) {
     axios
       .get(`users/${username}/collections?limit=18&page=${page}`)
       .then((res) => {
-        setCollections(res.data.collections);
+        setCollections(res.data);
         setLoading(false);
       })
       .catch((err) => {

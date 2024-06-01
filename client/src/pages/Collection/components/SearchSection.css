@@ -1,0 +1,60 @@
+.collection-search-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 20px;
+  width: 100%;
+}
+
+/* combo box styling */
+.collection-search-section .option-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+@media only screen and (max-width: 600px) {
+  .collection-search-section .option-bar {
+    flex-direction: column;
+  }
+}
+
+.collection-search-section .option-box {
+  padding: 0px 10px;
+  font-size: 0.9rem;
+  min-width: 100px;
+}
+
+/* search bar styling */
+.collection-search-section .search {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.collection-search-section .search p {
+  color: whitesmoke;
+}
+
+.collection-search-section .search .search-bar {
+  width: 300px;
+  padding: 10px 20px;
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid #cccccc77;
+  margin: 0 10px;
+  font-size: 0.9rem;
+  background-color: #00000055;
+  color: white;
+}
+
+.collection-search-section .search .search-bar:focus {
+  outline: none;
+}
+
+@media only screen and (max-width: 600px) {
+  .coll-section .button-bar .search .search-bar {
+    width: 250px;
+  }
+}

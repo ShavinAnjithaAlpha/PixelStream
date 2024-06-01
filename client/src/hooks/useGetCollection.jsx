@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import axios from "../axios";
 
-function useGetCollection(id) {
+const LIMIT = 12;
+
+function useGetCollection(id, options) {
   const [collection, setCollection] = useState({});
   const [photos, setPhotos] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    setLoading(true);
+  const getPhotosOfCollectionFromAPI = (id, options, page) => {
     // fetch the colection data from the API endpoints
     axios
       .get(`collections/${id}`)
@@ -20,7 +21,13 @@ function useGetCollection(id) {
 
     // fetch the photos from the API endpoints
     axios
-      .get(`collections/${id}/photo`)
+      .get(
+        `collections/${id}/photo?sortBy=${
+          options.sortBy || "latest"
+        }&orientation=${options.orientation || "all"}&query=${
+          options.search || ""
+        }&page=${page || 1}&limit=${LIMIT}`
+      )
       .then((res) => {
         setPhotos(res.data);
         setLoading(false);
@@ -29,9 +36,19 @@ function useGetCollection(id) {
         console.log(err);
         setLoading(false);
       });
-  }, [id]);
+  };
 
-  return { collection, photos, loading };
+  const handlePageChange = (page) => {
+    setLoading(true);
+    getPhotosOfCollectionFromAPI(id, options, page);
+  };
+
+  useEffect(() => {
+    setLoading(true);
+    getPhotosOfCollectionFromAPI(id, options, 1);
+  }, [id, options]);
+
+  return { collection, photos, loading, handlePageChange };
 }
 
 export default useGetCollection;

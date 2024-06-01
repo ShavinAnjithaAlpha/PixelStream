@@ -11,11 +11,10 @@ function useUserLikesHandler(username) {
       .get(`users/${username}/likes?limit=18&page=${page}`)
       .then((res) => {
         // set the photo data as the state
-        setLikePhotos(res.data.photos);
+        setLikePhotos(res.data);
         setLoading(false);
       })
       .catch((err) => {
-        console.log(err);
         setLoading(false);
       });
   };

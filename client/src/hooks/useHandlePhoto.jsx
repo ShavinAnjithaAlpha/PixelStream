@@ -190,7 +190,7 @@ function useHandlePhoto(id) {
     axios
       .get(`/collections?limit=5&page=1`)
       .then((res) => {
-        setRelatedCollections(res.data);
+        setRelatedCollections(res.data.collections);
       })
       .catch((err) => {
         console.log(err);

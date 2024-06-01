@@ -17,7 +17,7 @@ function usePhotoSearch(options) {
           }&sortBy=${options.sortBy || "latest"}&page=${page}`
         )
         .then((res) => {
-          setPhotos(res.data.photos);
+          setPhotos(res.data);
           setLoading(false);
         })
         .catch((err) => {

@@ -3,6 +3,7 @@ import PhotoGrid from "../../../components/PhotoGrid";
 import PageNavigationBar from "../../../components/PageNavigationBar/PageNavigationBar";
 import useUserPhotoHandler from "../../../hooks/useUserPhotoHandler";
 import Spinner from "../../../components/Spinner/Spinner";
+import NextPrevPage from "../../../components/NextPrevPage/NextPrevPage";
 import "./PhotoTab.css";
 
 function PhotoTab({ username }) {
@@ -19,14 +20,20 @@ function PhotoTab({ username }) {
       )}
 
       <div>
-        <PhotoGrid photos={photos} />
+        <PhotoGrid photos={photos.photos} />
       </div>
 
-      <PageNavigationBar
+      {/* <PageNavigationBar
         max={20}
         limit={5}
         handlePageChange={handlePageChange}
         savedPage={parseInt(localStorage.getItem("page-user-photo")) || 1}
+      /> */}
+
+      <NextPrevPage
+        initialPage={1}
+        handlePageChange={handlePageChange}
+        next={photos.total === photos.limit}
       />
     </div>
   );
