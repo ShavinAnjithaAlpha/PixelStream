@@ -39,9 +39,14 @@ GET {{host}}/api/users/shavin/interests {{http}}
 Content-Type: {{contentType}}
 
 ### get the followers
-GET {{host}}/api/users/shavin/followers?sortBy=username {{http}}
+GET {{host}}/api/users/shavin/followers {{http}}
 Content-Type: {{contentType}}
 
 ### get the following
-GET {{host}}/api/users/san5jana/followings?sortBy=username {{http}}
+GET {{host}}/api/users/shavin/followings?sortBy=username {{http}}
+Content-Type: {{contentType}}
+
+
+### get the stat about the user
+GET {{host}}/api/stats/user/shavin {{http}}
 Content-Type: {{contentType}}

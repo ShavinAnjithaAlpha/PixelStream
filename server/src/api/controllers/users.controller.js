@@ -297,7 +297,7 @@ async function getFollowers(req, res) {
   if (user.error) return res.status(400).json({ error: user.error });
 
   // get the followers of the user
-  const followers = await fetchFollowers(
+  const { followers, followersCount } = await fetchFollowers(
     user.userId,
     page,
     limit,
@@ -310,6 +310,7 @@ async function getFollowers(req, res) {
     page: page,
     limit: limit,
     total: followers.length,
+    count: followersCount,
   });
 }
 
@@ -328,7 +329,7 @@ async function getFollowings(req, res) {
   if (user.error) return res.status(400).json({ error: user.error });
 
   // get the followers of the user
-  const followings = await fetchFollowings(
+  const { followings, followingsCount } = await fetchFollowings(
     user.userId,
     page,
     limit,
@@ -341,6 +342,7 @@ async function getFollowings(req, res) {
     page: page,
     limit: limit,
     total: followings.length,
+    count: followingsCount,
   });
 }
 

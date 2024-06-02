@@ -8,6 +8,6 @@ const {
 
 router.get("/total", getTotalStatistics);
 router.get("/month", getLastMonthStatistics);
-router.get("/user/:id", getUserStatistics);
+router.get("/user/:username", getUserStatistics);
 
 module.exports = router;

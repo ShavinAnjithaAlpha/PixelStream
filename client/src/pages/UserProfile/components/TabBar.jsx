@@ -1,12 +1,31 @@
-import React from "react";
+import React, { useEffect } from "react";
 import TabButton from "./TabButton";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import CollectionsIcon from "@mui/icons-material/Collections";
 import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
 import AnalyticsIcon from "@mui/icons-material/Analytics";
+import GroupIcon from "@mui/icons-material/Group";
 import "./TabBar.css";
+import axios from "../../../axios";
 
-function TabBar({ setActiveTab, activeTab }) {
+function TabBar({ setActiveTab, activeTab, username }) {
+  const [stat, setStat] = React.useState({});
+
+  useEffect(() => {
+    axios
+      .get(`/stats/user/${username}`)
+      .then((res) => {
+        setStat(res.data);
+      })
+      .catch((err) => {
+        setStat({
+          photos: 0,
+          collections: 0,
+          likes: 0,
+        });
+      });
+  }, [username]);
+
   return (
     <div className="tab-bar">
       <TabButton
@@ -14,28 +33,33 @@ function TabBar({ setActiveTab, activeTab }) {
         icon={<InsertPhotoIcon />}
         isActive={activeTab === "photos"}
         setActiveTab={setActiveTab}
-        value={10}
+        value={stat.photos || "0"}
       />
       <TabButton
         label="Collections"
         icon={<CollectionsIcon />}
         isActive={activeTab === "collections"}
         setActiveTab={setActiveTab}
-        value={3}
+        value={stat.collections || "0"}
       />
       <TabButton
         label="Likes"
         icon={<FavoriteBorderIcon />}
         isActive={activeTab === "likes"}
         setActiveTab={setActiveTab}
-        value={20}
+        value={stat.likes || "0"}
       />
       <TabButton
         label="Stat"
         icon={<AnalyticsIcon />}
         isActive={activeTab === "stat"}
         setActiveTab={setActiveTab}
-        value={20}
+      />
+      <TabButton
+        label="Followers"
+        icon={<GroupIcon />}
+        isActive={activeTab === "followers"}
+        setActiveTab={setActiveTab}
       />
     </div>
   );

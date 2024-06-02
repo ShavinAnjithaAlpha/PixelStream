@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./NextPrevPage.css";
 
 function NextPrevPage({ initialPage, handlePageChange, next }) {
@@ -13,6 +13,8 @@ function NextPrevPage({ initialPage, handlePageChange, next }) {
     setCurrentPage(currentPage - 1);
     handlePageChange(currentPage - 1);
   };
+
+  useEffect(() => {}, [next]);
 
   return (
     <div className="next-prev-page">

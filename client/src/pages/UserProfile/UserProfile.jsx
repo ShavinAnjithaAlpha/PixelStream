@@ -9,6 +9,7 @@ import axios from "../../axios";
 import StatTab from "./components/StatTab";
 import fallBackImage from "../../assets/img/fallback.jpg";
 import "./UserProfile.css";
+import FollowersTab from "./components/FollowersTab";
 
 function UserProfile({ defaultTab = "photos" }) {
   const { username } = useParams();
@@ -45,13 +46,18 @@ function UserProfile({ defaultTab = "photos" }) {
           username={username}
           backgroundImage={backgroundImage}
         />
-        <TabBar setActiveTab={setActiveTab} activeTab={activeTab} />
+        <TabBar
+          setActiveTab={setActiveTab}
+          activeTab={activeTab}
+          username={username}
+        />
 
         <div className="tabs">
           {activeTab === "photos" && <PhotoTab username={username} />}
           {activeTab === "likes" && <LikesTab username={username} />}
           {activeTab === "collections" && <CollectionTab username={username} />}
           {activeTab === "stat" && <StatTab username={username} />}
+          {activeTab === "followers" && <FollowersTab username={username} />}
         </div>
       </div>
     </div>

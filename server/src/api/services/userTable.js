@@ -446,6 +446,13 @@ async function createProfileImage(userId, profileImageUrl) {
 }
 
 async function fetchFollowers(userId, page, limit, sort_by = "", query = null) {
+  // first find the number of folllowers
+  const followersCount = await Followers.count({
+    where: {
+      userId: userId,
+    },
+  });
+
   let userIds = await Followers.findAll({
     where: {
       userId: userId,
@@ -486,7 +493,7 @@ async function fetchFollowers(userId, page, limit, sort_by = "", query = null) {
     order: buildUserSortByClause(sort_by),
   });
 
-  return followers;
+  return { followers, followersCount };
 }
 
 async function fetchFollowings(
@@ -496,6 +503,12 @@ async function fetchFollowings(
   sort_by = "",
   query = null
 ) {
+  const followingsCount = await Followers.count({
+    where: {
+      followerId: userId,
+    },
+  });
+
   let userIds = await Followers.findAll({
     where: {
       followerId: userId,
@@ -525,7 +538,7 @@ async function fetchFollowings(
   }
 
   // fetch the users with the given userIds
-  const follwings = await User.findAll({
+  const followings = await User.findAll({
     where: whereClause,
     include: [
       {
@@ -536,7 +549,7 @@ async function fetchFollowings(
     order: buildUserSortByClause(sort_by),
   });
 
-  return follwings;
+  return { followings, followingsCount };
 }
 
 module.exports = {
