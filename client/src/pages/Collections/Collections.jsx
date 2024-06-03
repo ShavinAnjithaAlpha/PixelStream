@@ -2,7 +2,6 @@ import React from "react";
 import CollectionCard from "../../components/CollectionCard/CollectionCard";
 import Spinner from "../../components/Spinner/Spinner";
 import useGetCollections from "../../hooks/useGetCollections";
-import PageNavigationBar from "../../components/PageNavigationBar/PageNavigationBar";
 import NextPrevPage from "../../components/NextPrevPage/NextPrevPage";
 import "./Collections.css";
 

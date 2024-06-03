@@ -3,8 +3,6 @@ const { Tag } = require("../models");
 const { PhotoTag } = require("../models");
 const { CollectionTag } = require("../models");
 const { UserInterests } = require("../models");
-const { photoExists } = require("./photoTable");
-const { getUserIdByUserName } = require("./userTable");
 
 // function for createte a new tag
 async function createNewTag(tagName) {

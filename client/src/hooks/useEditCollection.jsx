@@ -81,15 +81,45 @@ function useEditCollection({ selectedCollection }) {
     if (collection.new_tags.length > 0) {
       // first remove existing tags in the remove_tags array
       const newTags = collection.new_tags.filter(
-        (tag) => !collection.remove_tags.includes(tag)
+        (tag) => !collection.removed_tags.includes(tag)
       );
+
+      const data = { tags: newTags };
+      axios
+        .post(`/collections/${collection.id}/tags`, data, {
+          headers: {
+            Authorization: `${authState.user}`,
+          },
+        })
+        .then((res) => {
+          setUpdate(true);
+        })
+        .catch((err) => {
+          setUpdate(true);
+          setError(err.response.data.error);
+        });
     }
 
     // remove the tags from the photo
-    if (collection.remove_tags.length > 0) {
-      const removedTags = collection.remove_tags.filter(
+    if (collection.removed_tags.length > 0) {
+      const removedTags = collection.removed_tags.filter(
         (tag) => !collection.new_tags.includes(tag)
       );
+
+      const data = { tags: removedTags };
+      axios
+        .post(`/collections/${collection.id}/tags/remove`, data, {
+          headers: {
+            Authorization: `${authState.user}`,
+          },
+        })
+        .then((res) => {
+          setUpdate(true);
+        })
+        .catch((err) => {
+          setUpdate(true);
+          setError(err.response.data.error);
+        });
     }
   };
 
@@ -116,7 +146,17 @@ function useEditCollection({ selectedCollection }) {
       });
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    // fetch the tags of the collection
+    axios
+      .get(`/collections/${collection.id}/tags`)
+      .then((res) => {
+        dispatch({ type: "SET_TAGS", payload: res.data });
+      })
+      .catch((err) => {
+        setError(err.response.data.error);
+      });
+  }, []);
 
   return {
     collection,

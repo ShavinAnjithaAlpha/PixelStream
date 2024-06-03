@@ -11,6 +11,7 @@ const {
   addPhotos,
   updateCollectionProfile,
   checkOwnerOfCollection,
+  getCollectionCountOfUser,
 } = require("../services/collectionTable");
 const {
   fetchTagOfCollection,
@@ -28,6 +29,7 @@ async function getCollections(req, res) {
 
   // get the collections from the database
   const collections = await fetchCollections(page, limit, sortBy);
+
   return res.json({
     collections: collections,
     limit: limit,
@@ -41,7 +43,7 @@ async function getCollectionById(req, res) {
   const collectionId = parseInt(req.params.id);
 
   // get the collection from the database
-  const collection = await fetchCollection(collectionId);
+  let collection = await fetchCollection(collectionId);
   if (collection.error) {
     return res.status(400).send(collection.error);
   }

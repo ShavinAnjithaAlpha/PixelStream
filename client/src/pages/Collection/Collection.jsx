@@ -6,10 +6,11 @@ import ProfileCard from "./components/ProfileCard";
 import useGetCollection from "../../hooks/useGetCollection";
 import { PopupContext } from "../../contexts/popup.context";
 import SearchSection from "./components/SearchSection";
-import "./Collection.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import NextPrevPage from "../../components/NextPrevPage/NextPrevPage";
+import { Tag } from "../../components/Tag/Tag";
+import "./Collection.css";
 
 function Collection() {
   const { id } = useParams();
@@ -66,6 +67,12 @@ function Collection() {
             </span>
           </h1>
           <p>{collection.collectionDescription}</p>
+        </div>
+        <div className="tag-bar">
+          {collection.tags &&
+            collection.tags.map((tag, index) => (
+              <Tag key={index} tagName={tag} />
+            ))}
         </div>
 
         <div className="button-bar">

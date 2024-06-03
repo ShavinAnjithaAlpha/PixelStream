@@ -14,6 +14,18 @@ function useGetCollection(id, options) {
       .get(`collections/${id}`)
       .then((res) => {
         setCollection(res.data);
+        // get the tags of the collection
+        axios
+          .get(`/collections/${id}/tags`)
+          .then((res) => {
+            setCollection((prev) => ({
+              ...prev,
+              tags: res.data,
+            }));
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       })
       .catch((err) => {
         console.log(err);

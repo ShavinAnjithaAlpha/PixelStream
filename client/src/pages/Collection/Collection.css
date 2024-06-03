@@ -88,6 +88,13 @@
   background: #ffffff22;
   border: 2px solid #ffffff;
 }
+.coll-section .tag-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 10px 20px;
+}
 
 .coll-section .button-bar {
   display: flex;
@@ -97,7 +104,7 @@
   justify-content: space-between;
   border-bottom: 1px solid #cacaca55;
   width: 100%;
-  margin: 40px 0px 20px 0;
+  margin: 10px 0px 10px 0;
 }
 
 @media only screen and (max-width: 600px) {

@@ -309,6 +309,16 @@ async function getCollectionCountOfUser(userId) {
   return count;
 }
 
+async function getCollectionPhotoCount(collectionId) {
+  const count = await PhotoCollection.count({
+    where: {
+      collectionId: collectionId,
+    },
+  });
+
+  return count;
+}
+
 async function updateCollectionProfile(collectionId, collectionData) {
   await Collection.update(collectionData, {
     where: {
@@ -343,6 +353,7 @@ module.exports = {
   searchCollectionByQuery,
   fetchCollectionByUserName,
   getCollectionCountOfUser,
+  getCollectionPhotoCount,
   updateCollectionProfile,
   checkOwnerOfCollection,
 };
