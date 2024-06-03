@@ -10,7 +10,15 @@ const {
   newCollection,
   addPhotos,
   updateCollectionProfile,
+  checkOwnerOfCollection,
 } = require("../services/collectionTable");
+const {
+  fetchTagOfCollection,
+  addTagToACollection,
+  removeTagsFromACollection,
+} = require("../services/tagTable");
+const { filterTagNames } = require("../util/filterTagNames");
+const { validateTagBody } = require("../validations/tags");
 
 async function getCollections(req, res) {
   // get the query parameters page and per page
@@ -163,6 +171,89 @@ async function addPhotoToCollection(req, res) {
   return res.send(result);
 }
 
+async function getCollectionTags(req, res) {
+  const collectionId = parseInt(req.params.id) || -1;
+  if (collectionId < 0)
+    return res.status(400).json({ error: "Invalid collection id" });
+
+  // check whether if the collection is exists
+  const collection = await fetchCollection(collectionId);
+  if (collection.error)
+    return res.status(400).json({ error: collection.error });
+
+  const tags = await fetchTagOfCollection(collectionId);
+
+  return res.json(filterTagNames(tags));
+}
+
+async function addTagsToCollection(req, res) {
+  // first validate the request body
+  const { error } = validateTagBody(req.body);
+  if (error) {
+    return res.status(400).json({ error: error.details[0].message });
+  }
+
+  // extract the collection id from the request parameter
+  const userId = req.user.userId;
+  const collectionId = parseInt(req.params.id);
+  const tags = req.body.tags;
+
+  // check whether if the collection is exists
+  const collection = await fetchCollection(collectionId);
+  if (collection.error)
+    return res.status(400).json({ error: collection.error });
+
+  // first check the owner of a photo
+  const status = await checkOwnerOfCollection(collectionId, userId);
+  if (!status)
+    return (
+      res.status(401),
+      json({
+        error:
+          "Unauthorized operation: You are not the owner of the collection",
+      })
+    );
+  // add the tags to the photo through the Tag and PhotoTag table
+  const result = await addTagToACollection(collectionId, tags);
+  if (result.error) return res.status(400).json({ error: result.error });
+
+  res.json(result);
+}
+
+async function removeTagsFromCollection(req, res) {
+  // first validate the request body
+  const { error } = validateTagBody(req.body);
+  if (error) {
+    return res.status(400).send(error.details[0].message);
+  }
+
+  // extract the photo id from the request parameter
+  const userId = req.user.userId;
+  const collectionId = parseInt(req.params.id);
+  const tags = req.body.tags;
+
+  // check whether if the collection is exists
+  const collection = await fetchCollection(collectionId);
+  if (collection.error)
+    return res.status(400).json({ error: collection.error });
+
+  // first check the owner of a photo
+  const status = await checkOwnerOfCollection(collectionId, userId);
+  if (!status)
+    return (
+      res.status(401),
+      json({
+        error:
+          "Unauthorized operation: You are not the owner of the collection",
+      })
+    );
+  // add the tags to the photo through the Tag and PhotoTag table
+  const result = await removeTagsFromACollection(collectionId, tags);
+  if (result.error) return res.status(400).json({ error: result.error });
+
+  res.json(result);
+}
+
 module.exports = {
   getCollections,
   getCollectionById,
@@ -172,4 +263,7 @@ module.exports = {
   updateCollection,
   deleteCollection,
   addPhotoToCollection,
+  getCollectionTags,
+  addTagsToCollection,
+  removeTagsFromCollection,
 };

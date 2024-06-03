@@ -56,7 +56,8 @@ async function fetchCollection(collectionId) {
     ],
   });
 
-  if (!collection) return { error: `Invalid collection id ${collectionId}` };
+  if (!collection)
+    return { error: `No collection with collection id ${collectionId}` };
 
   return collection;
 }
@@ -320,6 +321,19 @@ async function updateCollectionProfile(collectionId, collectionData) {
   return updatedCollection;
 }
 
+async function checkOwnerOfCollection(collectionId, userId) {
+  const collection = await Collection.findOne({
+    where: {
+      collectionId: collectionId,
+    },
+  });
+
+  if (!collection) return false;
+  if (collection.userId !== userId) return false;
+
+  return true;
+}
+
 module.exports = {
   fetchCollections,
   fetchCollection,
@@ -330,4 +344,5 @@ module.exports = {
   fetchCollectionByUserName,
   getCollectionCountOfUser,
   updateCollectionProfile,
+  checkOwnerOfCollection,
 };

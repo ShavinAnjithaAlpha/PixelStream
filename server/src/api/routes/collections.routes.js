@@ -8,6 +8,9 @@ const {
   updateCollection,
   deleteCollection,
   addPhotoToCollection,
+  addTagsToCollection,
+  getCollectionTags,
+  removeTagsFromCollection,
 } = require("../controllers/collections.controller");
 const { authorize } = require("../middleware/auth");
 const { redisCacheMiddleware } = require("../middleware/redis");
@@ -23,6 +26,9 @@ router.get(
   redisCacheMiddleware("collection"),
   getRelatedCollections
 ); // TODO: implement this
+router.get("/:id/tags", getCollectionTags);
+router.post("/:id/tags", authorize, addTagsToCollection);
+router.post("/:id/tags/remove", authorize, removeTagsFromCollection);
 router.get("/:id", getCollectionById);
 router.get("/", redisCacheMiddleware("collection"), getCollections);
 router.delete("/:id", authorize, deleteCollection);

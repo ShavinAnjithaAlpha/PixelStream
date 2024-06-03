@@ -218,6 +218,11 @@ async function addTags(req, res) {
   const photoId = parseInt(req.params.id);
   const tags = req.body.tags;
 
+  // first check whether the photo exists
+  const exists = await photoExists(photoId);
+  if (!exists)
+    return res.status(400).json({ error: `Invalid photo id ${photoId}` });
+
   // first check the owner of a photo
   const status = await checkOwnerOfPhoto(photoId, userId);
   if (!status)
@@ -245,6 +250,10 @@ async function removeTags(req, res) {
   const userId = req.user.userId;
   const photoId = parseInt(req.params.id);
   const tags = req.body.tags;
+
+  const exists = await photoExists(photoId);
+  if (!exists)
+    return res.status(400).json({ error: `Invalid photo id ${photoId}` });
 
   // first check the owner of a photo
   const status = await checkOwnerOfPhoto(photoId, userId);

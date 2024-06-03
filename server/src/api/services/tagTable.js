@@ -1,6 +1,7 @@
 const { Op } = require("sequelize");
 const { Tag } = require("../models");
 const { PhotoTag } = require("../models");
+const { CollectionTag } = require("../models");
 const { UserInterests } = require("../models");
 const { photoExists } = require("./photoTable");
 const { getUserIdByUserName } = require("./userTable");
@@ -61,10 +62,6 @@ async function createTags(tags) {
 
 // function for add tags to a photo
 async function addTagsToAPhoto(photoId, tags) {
-  // first check whether the photo exists
-  const exists = await photoExists(photoId);
-  if (!exists) return { error: `Invalid photo id ${photoId}` };
-
   // first fetch the tag ids from the database
   const tagIds = await createTags(tags);
   // loop through the tag ids array
@@ -81,10 +78,32 @@ async function addTagsToAPhoto(photoId, tags) {
   return { status: true, tags: tags };
 }
 
-async function removeTagFromAPhoto(photoId, tags) {
-  const exists = await photoExists(photoId);
-  if (!exists) return { error: `Invalid photo id ${photoId}` };
+async function addTagToACollection(collectionId, tags) {
+  // first fetch the tag ids from the database
+  const tagIds = await createTags(tags);
+  // loop through the tag ids array
+  for (let i = 0; i < tagIds.length; i++) {
+    const collTag = await CollectionTag.findOne({
+      where: {
+        collectionId: collectionId,
+        collectionTag: tagIds[i],
+      },
+    });
+    if (collTag) continue;
 
+    // create a new PhotoTag instance
+    const collectionTag = CollectionTag.build({
+      collectionId: collectionId,
+      collectionTag: parseInt(tagIds[i]),
+    });
+    // save the new PhotoTag instance
+    await collectionTag.save();
+  }
+
+  return { status: true, tags: tags };
+}
+
+async function removeTagFromAPhoto(photoId, tags) {
   // fetch the tag ids from the tag names
   let tagIds = await Tag.findAll({
     where: {
@@ -102,6 +121,32 @@ async function removeTagFromAPhoto(photoId, tags) {
     where: {
       photoId: photoId,
       photoTag: {
+        [Op.in]: tagIds,
+      },
+    },
+  });
+
+  return { status: true };
+}
+
+async function removeTagsFromACollection(collectionId, tags) {
+  // fetch the tag ids from the tag names
+  let tagIds = await Tag.findAll({
+    where: {
+      tagName: {
+        [Op.in]: tags,
+      },
+    },
+    attributes: ["tagId"],
+  });
+  // map the tagIds
+  tagIds = tagIds.map((tag) => tag.tagId);
+
+  // remove the tags from the photo
+  await CollectionTag.destroy({
+    where: {
+      collectionId: collectionId,
+      collectionTag: {
         [Op.in]: tagIds,
       },
     },
@@ -147,6 +192,22 @@ async function fetchTags(photoId) {
   return tags;
 }
 
+async function fetchTagOfCollection(collectionId) {
+  // fetch the tags from the database
+  const tags = await CollectionTag.findAll({
+    where: {
+      collectionId: collectionId,
+    },
+    include: {
+      model: Tag,
+      attributes: ["tagName"],
+    },
+  });
+
+  // return the tags
+  return tags;
+}
+
 // return the user inetreests of a user
 async function fetchTagsByUserId(userId) {
   // fetch the tags from the database
@@ -176,10 +237,13 @@ async function fetchAllTags(page, limit) {
 
 module.exports = {
   addTagsToAPhoto,
+  addTagToACollection,
   fetchTags,
+  fetchTagOfCollection,
   tagsExists,
   addTagsToUser,
   fetchTagsByUserId,
   fetchAllTags,
   removeTagFromAPhoto,
+  removeTagsFromACollection,
 };

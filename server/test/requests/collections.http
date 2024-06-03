@@ -9,7 +9,7 @@ GET {{host}}/api/collections?sortBy=title&limit=2 {{http}}
 Content-Type: {{contentType}}
 
 ### get the specific collection
-GET {{host}}/api/collections/3 {{http}}
+GET {{host}}/api/collections/1 {{http}}
 Content-Type: {{contentType}}
 
 ### get the photos of the collection
@@ -35,6 +35,30 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNoYXZpbiIs
 
 {
     "photoIds": [360]
+}
+
+
+### get the tags of the collection
+GET {{host}}/api/collections/1/tags {{http}}
+Content-Type: {{contentType}}
+
+### add new tags to the collection
+POST {{host}}/api/collections/1/tags {{http}}
+Content-Type: {{contentType}}
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNoYXZpbiIsInVzZXJJZCI6MSwiaWF0IjoxNzE3Mzk1NzE5LCJleHAiOjE3MTc3NTU3MTl9.5qxAhbs5lELoHjF2fjFc7NGFKJVnW7HdTD70NG_M1JA
+
+{
+    "tags": ["birds", "nature"]
+}
+
+### remove tags from the collection
+POST {{host}}/api/collections/1/tags/remove {{http}}
+Content-Type: {{contentType}}
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNoYXZpbiIsInVzZXJJZCI6MSwiaWF0IjoxNzE3Mzk1NzE5LCJleHAiOjE3MTc3NTU3MTl9.5qxAhbs5lELoHjF2fjFc7NGFKJVnW7HdTD70NG_M1JA
+
+{
+    "tags": ["birds"]
+
 }
 
 ### update collection
