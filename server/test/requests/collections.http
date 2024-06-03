@@ -12,6 +12,10 @@ Content-Type: {{contentType}}
 GET {{host}}/api/collections/1 {{http}}
 Content-Type: {{contentType}}
 
+### get related collections 
+GET {{host}}/api/collections/8/related {{http}}
+Content-Type: {{contentType}}
+
 ### get the photos of the collection
 GET {{host}}/api/collections/1/photo?limit=25 {{http}}
 Content-Type: {{contentType}}

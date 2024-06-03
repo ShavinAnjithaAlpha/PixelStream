@@ -157,12 +157,15 @@ function Photo() {
         <h2>Related Photos</h2>
         {!relatedPhotos && <FontAwesomeIcon icon={faSpinner} spin="true" />}
         {relatedPhotos && <PhotoGrid photos={relatedPhotos} />}
+        {relatedPhotos.length === 0 && <h3>No related Photos</h3>}
 
         {/* // related collection section */}
         <h2>Related Collections</h2>
         {!relatedCollections && (
           <FontAwesomeIcon icon={faSpinner} spin="true" />
         )}
+
+        {relatedCollections.length === 0 && <h3>No related Collections</h3>}
         <div className="photo-collections-grid">
           {relatedCollections.map((collection) => (
             <CollectionCard

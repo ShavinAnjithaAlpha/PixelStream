@@ -20,6 +20,7 @@ const {
 } = require("../services/tagTable");
 const { filterTagNames } = require("../util/filterTagNames");
 const { validateTagBody } = require("../validations/tags");
+const RelatedCollections = require("../classes/relatedCollections.class");
 
 async function getCollections(req, res) {
   // get the query parameters page and per page
@@ -83,7 +84,35 @@ async function getPhotosOfCollection(req, res) {
   });
 }
 
-function getRelatedCollections(req, res) {}
+async function getRelatedCollections(req, res) {
+  const limit = parseInt(req.query.limit) || 20;
+  const page = parseInt(req.query.page) || 1;
+  // get the photo id from the request parameter
+  const collectionId = parseInt(req.params.id);
+
+  // create related photo instance
+  const relatedCollectionInstance = new RelatedCollections(
+    0,
+    collectionId,
+    req.query,
+    limit,
+    (page - 1) * limit
+  );
+
+  // get the related photos
+  const relatedCollections =
+    await relatedCollectionInstance.getRelatedCollections();
+  if (relatedCollections.error) {
+    return res.status(400).json(relatedCollections);
+  }
+
+  return res.json({
+    collections: relatedCollections,
+    limit: limit,
+    page: page,
+    length: relatedCollections.length,
+  });
+}
 
 async function createNewCollection(req, res) {
   // first validate the request body

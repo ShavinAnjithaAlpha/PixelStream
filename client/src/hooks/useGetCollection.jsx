@@ -5,8 +5,18 @@ const LIMIT = 12;
 
 function useGetCollection(id, options) {
   const [collection, setCollection] = useState({});
+  const [relatedCollections, setRelatedCollections] = useState([]);
   const [photos, setPhotos] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const fetchRelatedCollectionsFromAPI = (id) => {
+    axios
+      .get(`/collections/${id}/related?limit=10&page=1`)
+      .then((res) => {
+        setRelatedCollections(res.data.collections);
+      })
+      .catch((err) => {});
+  };
 
   const getPhotosOfCollectionFromAPI = (id, options, page) => {
     // fetch the colection data from the API endpoints
@@ -58,9 +68,10 @@ function useGetCollection(id, options) {
   useEffect(() => {
     setLoading(true);
     getPhotosOfCollectionFromAPI(id, options, 1);
+    fetchRelatedCollectionsFromAPI(id);
   }, [id, options]);
 
-  return { collection, photos, loading, handlePageChange };
+  return { collection, relatedCollections, photos, loading, handlePageChange };
 }
 
 export default useGetCollection;

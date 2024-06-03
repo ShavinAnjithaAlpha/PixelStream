@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import NextPrevPage from "../../components/NextPrevPage/NextPrevPage";
 import { Tag } from "../../components/Tag/Tag";
+import CollectionCard from "../../components/CollectionCard/CollectionCard";
 import "./Collection.css";
 
 function Collection() {
@@ -17,10 +18,8 @@ function Collection() {
   const { authState } = useContext(AuthContext);
   const { popups, setPopups } = useContext(PopupContext);
   const [options, setOptions] = useState({});
-  const { collection, photos, loading, handlePageChange } = useGetCollection(
-    id,
-    options
-  );
+  const { collection, relatedCollections, photos, loading, handlePageChange } =
+    useGetCollection(id, options);
 
   const editCollection = () => {
     // set the selected collection
@@ -106,6 +105,22 @@ function Collection() {
             handlePageChange={handlePageChange}
             next={photos.total === photos.limit}
           />
+        </div>
+
+        {/* // related collection section */}
+        <h2>Related Collections</h2>
+        {!relatedCollections && (
+          <FontAwesomeIcon icon={faSpinner} spin="true" />
+        )}
+
+        {relatedCollections.length === 0 && <h3>No related Collections</h3>}
+        <div className="photo-collections-grid">
+          {relatedCollections.map((collection) => (
+            <CollectionCard
+              key={collection.collectionId}
+              collection={collection}
+            />
+          ))}
         </div>
       </div>
     </div>

@@ -178,9 +178,9 @@ function useHandlePhoto(id) {
 
     // fetch the related photos from the API
     axios
-      .get(`/photos?limit=10&page=2`)
+      .get(`/photos/${id}/related/photos?limit=10&page=1`)
       .then((res) => {
-        setRelatedPhotos(res.data);
+        setRelatedPhotos(res.data.photos);
       })
       .catch((err) => {
         console.log(err);
@@ -188,7 +188,7 @@ function useHandlePhoto(id) {
 
     // fetch related collections from the API
     axios
-      .get(`/collections?limit=5&page=1`)
+      .get(`/photos/${id}/related/collections?limit=5&page=1`)
       .then((res) => {
         setRelatedCollections(res.data.collections);
       })

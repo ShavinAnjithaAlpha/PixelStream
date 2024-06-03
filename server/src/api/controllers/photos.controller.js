@@ -40,6 +40,7 @@ const { getLikesOfUsers } = require("./users.controller");
 const extractPhotoColors = require("../util/extractColorData");
 const Random = require("../classes/random.class");
 const RelatedPhotos = require("../classes/relatedPhotos.class");
+const RelatedCollections = require("../classes/relatedCollections.class");
 
 async function getPhotos(req, res) {
   // first get the page and limit query parameters also order by if exists
@@ -401,6 +402,37 @@ async function getRelatedPhotos(req, res) {
   });
 }
 
+async function getRelatedCollections(req, res) {
+  const limit = parseInt(req.query.limit) || 20;
+  const page = parseInt(req.query.page) || 1;
+  // get the photo id from the request parameter
+  const photoId = parseInt(req.params.id) || 0;
+  if (photoId === 0) return res.status(400).json({ error: "Invalid photo id" });
+
+  // create related photo instance
+  const relatedCollectionInstance = new RelatedCollections(
+    photoId,
+    0,
+    req.query,
+    limit,
+    (page - 1) * limit
+  );
+
+  // get the related photos
+  const relatedCollections =
+    await relatedCollectionInstance.getRelatedCollections();
+  if (relatedCollections.error) {
+    return res.status(400).json(relatedCollections);
+  }
+
+  return res.json({
+    collections: relatedCollections,
+    limit: limit,
+    page: page,
+    length: relatedCollections.length,
+  });
+}
+
 async function updatePhoto(req, res) {
   const photoId = parseInt(req.params.id) || -1;
   if (photoId === -1)
@@ -469,6 +501,7 @@ module.exports = {
   removeDislikePhoto,
   getAllTags,
   getRelatedPhotos,
+  getRelatedCollections,
   updatePhoto,
   deletePhoto,
 };

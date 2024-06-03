@@ -204,14 +204,12 @@
 }
 
 .photo-page-box .photo-collections-grid {
-  grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   display: grid;
   grid-gap: 20px;
   grid-auto-rows: minmax(100px, auto);
   background: none;
-  margin-top: 20px;
-  margin-left: 2rem;
-  margin-right: 2rem;
+  margin: 2rem;
 }
 
 @media only screen and (max-width: 600px) {
@@ -228,6 +226,11 @@
   text-align: left;
   align-self: flex-start;
   margin-left: 5rem;
+}
+
+.photo-page-box h3 {
+  color: #ffffff77;
+  font-size: 1.5rem;
 }
 
 @media only screen and (max-width: 600px) {

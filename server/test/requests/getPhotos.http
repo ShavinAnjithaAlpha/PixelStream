@@ -71,7 +71,12 @@ Authorization: {{userToken}}
 }
 
 ### get realated photos
-GET {{host}}/api/photos/2/related/ {{http}}
+GET {{host}}/api/photos/19/related/photos?limit=10&page=1 {{http}}
+Content-Type: {{contentType}}
+
+
+### get related collections
+GET {{host}}/api/photos/19/related/collections {{http}}
 Content-Type: {{contentType}}
 
 ### update a photo

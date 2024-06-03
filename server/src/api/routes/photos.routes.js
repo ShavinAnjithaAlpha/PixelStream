@@ -26,6 +26,7 @@ const {
   getRelatedPhotos,
   updatePhoto,
   deletePhoto,
+  getRelatedCollections,
 } = require("../controllers/photos.controller");
 
 const fileUpload = multer();
@@ -40,7 +41,8 @@ router.get(
   getRandomPhoto
 );
 // endpoint for get related photos of a given photo
-router.get("/:id/related", getRelatedPhotos);
+router.get("/:id/related/photos", getRelatedPhotos);
+router.get("/:id/related/collections", getRelatedCollections);
 // endpoint for get statictics about a given photo
 router.get("/:id/statistics", getPhotoStat);
 // endpoint for mark a download of a photo to the system

@@ -25,7 +25,7 @@ router.get(
   "/:id/related",
   redisCacheMiddleware("collection"),
   getRelatedCollections
-); // TODO: implement this
+);
 router.get("/:id/tags", getCollectionTags);
 router.post("/:id/tags", authorize, addTagsToCollection);
 router.post("/:id/tags/remove", authorize, removeTagsFromCollection);

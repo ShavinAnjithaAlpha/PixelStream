@@ -40,8 +40,8 @@ function CollectionCard({ collection }) {
       </div>
       <div className="title">{collection.collectionName}</div>
       <div className="detail-bar">
-        <p>{collection.photoCount} Photos</p>
-        <p>{collection.User && collection.User.fullName}</p>
+        {/* <p>{collection.photoCount} Photos</p> {" |   "} */}
+        <p>From {collection.User && collection.User.fullName}</p>
       </div>
       <div className="tag-bar">
         {tags.map((tag, index) => (

@@ -21,6 +21,18 @@
   color: #777;
 }
 
+.coll-section h2 {
+  color: white;
+  margin-left: 2rem;
+  font-size: 2rem;
+}
+
+.coll-section h3 {
+  color: #ffffff77;
+  margin: 2rem;
+  font-size: 1.5rem;
+}
+
 .coll-section .cover-photo {
   max-height: 150px;
   width: 100%;
@@ -153,4 +165,13 @@
 .coll-wrapper .button-bar {
   background-color: #00000055;
   border-bottom: 1px solid #cacaca55;
+}
+
+.coll-section .photo-collections-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+  grid-auto-rows: minmax(100px, auto);
+  background: none;
+  margin: 2rem;
 }

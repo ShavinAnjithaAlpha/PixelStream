@@ -90,7 +90,9 @@ class RelatedPhotos {
     }
 
     const tagIds = await this.getPhotoTags();
-    const relatedPhotoIds = await this.findsPhotoWithTags(tagIds);
+    let relatedPhotoIds = await this.findsPhotoWithTags(tagIds);
+    // remove the seld photo id
+    relatedPhotoIds = relatedPhotoIds.filter((id) => id != this.photo_id);
 
     this.query = {
       where: {
