@@ -13,9 +13,9 @@ function Footer() {
     <footer>
       <div className="footer-content">
         <div className="footer-col">
-          <h3>PhotoStock</h3>
+          <h3>PixelStream</h3>
           <p>
-            PhotoStock is a platform to share and download high quality photos
+            PixelStream is a platform to share and download high quality photos
             for free. We are a community of photographers who loves to share
             their work with the world.
           </p>
@@ -75,7 +75,7 @@ function Footer() {
         </div>
       </div>
       <div className="footer-line">
-        <p>&copy; 2024 PhotoStock | All Right Reserved</p>
+        <p>&copy; 2024 PixelStream | All Right Reserved</p>
       </div>
     </footer>
   );

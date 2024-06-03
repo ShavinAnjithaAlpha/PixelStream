@@ -228,6 +228,13 @@ async function fetchAllTags(page, limit) {
   const tags = await Tag.findAll({
     page: page,
     limit: limit,
+    // randomly chooose the tags
+    // where: {
+    //   tagId: {
+    //     [Op.gt]: Math.floor(Math.random() * 100),
+    //   },
+    // },
+    // randomly order them
   });
 
   return tags;

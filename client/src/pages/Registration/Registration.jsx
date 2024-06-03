@@ -99,7 +99,8 @@ function Registration() {
                       <h2>Username and email</h2>
                       <p>
                         Please provide your username and email to complete your
-                        registration
+                        registration. Username must be unique and email must be
+                        a valid email address.
                       </p>
                       <div className="form-item">
                         <label htmlFor="username">
@@ -148,7 +149,7 @@ function Registration() {
                       <h2>Personal Informations</h2>
                       <p>
                         Please provide your personal information to complete
-                        your registration
+                        your registration.
                       </p>
 
                       <div className="profile-img">
@@ -221,7 +222,8 @@ function Registration() {
                       <h2>Profile Information</h2>
                       <p>
                         Please provide your profile information to complete your
-                        registration (Optional)
+                        registration. THis information helps us to provide you a
+                        better experience. This information is optional.
                       </p>
                       <div className="form-item">
                         <label htmlFor="location">Address</label>
@@ -272,7 +274,12 @@ function Registration() {
                       <h2>Account Passwords</h2>
                       <p>
                         Please provide your password to complete your
-                        registration
+                        registration. Password must be at least 6 characters and
+                        must contain at least one uppercase letter, one
+                        lowercase letter, one number and one special character.
+                        We store your passwords securely compliant with the
+                        latest security standards. We don't store your password
+                        in plain text.
                       </p>
                       <div className="form-item">
                         <label htmlFor="password">
