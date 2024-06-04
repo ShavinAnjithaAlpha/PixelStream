@@ -30,10 +30,10 @@ async function tagExists(tagName) {
 
 async function tagsExists(tags) {
   // check weather all the tags exists in the system
-  tags.forEach((tag) => {
-    const { status } = tagExists(tag);
+  for (let i = 0; i < tags.length; i++) {
+    const { status } = await tagExists(tags[i]);
     if (!status) return false;
-  });
+  }
 
   return true;
 }

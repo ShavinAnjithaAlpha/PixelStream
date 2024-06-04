@@ -62,8 +62,10 @@ async function fetchCollection(collectionId) {
   return collection;
 }
 
-async function fetchCollectionByUser(userId) {
+async function fetchCollectionByUser(userId, page, limit) {
   const collections = await Collection.findAll({
+    limit: limit,
+    offset: (page - 1) * limit,
     where: {
       userId: userId,
     },
@@ -106,7 +108,11 @@ async function fetchPhotosOfCollection(
   // return a error if the collection is not exists
   if (!collection) return { error: `Invalid collection id ${collectionId}` };
   // get the other collection of the user
-  const userCollections = await fetchCollectionByUser(collection.userId);
+  const userCollections = await fetchCollectionByUser(
+    collection.userId,
+    page,
+    limit
+  );
   let photoIds = await PhotoCollection.findAll({
     where: {
       collectionId: collectionId,
@@ -289,13 +295,13 @@ async function searchCollectionByQuery(query, page, limit) {
 }
 
 // get the collection bu username
-async function fetchCollectionByUserName(username) {
+async function fetchCollectionByUserName(username, page, limit) {
   // first get the user id by username
   const userId = await getUserIdByUserName(username);
   if (userId.error) return { error: userId.error };
 
   // now fetch the collections of the user
-  const collections = await fetchCollectionByUser(userId);
+  const collections = await fetchCollectionByUser(userId, page, limit);
   return collections;
 }
 

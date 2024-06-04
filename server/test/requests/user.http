@@ -21,7 +21,7 @@ GET {{host}}/api/users/shavin/photos?soryBy=title {{http}}
 GET {{host}}/api/users/{{username}}/portfolio {{http}}
 
 ### get collection of users
-GET {{host}}/api/users/shavin/collections {{http}}
+GET {{host}}/api/users/thejas/collections {{http}}
 
 ### get the user liked photos
 GET {{host}}/api/users/shavin/likes?query=Cactus {{http}}
