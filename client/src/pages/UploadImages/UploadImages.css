@@ -33,6 +33,11 @@
   margin: 5px;
 }
 
+.upload-photos p#uploading {
+  font-size: 1.5rem;
+  color: white;
+}
+
 .upload-photos h3#count {
   align-self: flex-start;
   color: white;

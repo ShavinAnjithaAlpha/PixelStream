@@ -5,7 +5,10 @@ import "./UploadedImageTile.css";
 
 function UploadedImageTile({ photo, onClose }) {
   return (
-    <div className="uploaded-image-tile">
+    <div
+      className="uploaded-image-tile"
+      style={{ borderBottom: photo.status ? "5px solid lime" : "none" }}
+    >
       <div className="image-box">
         <div className="close" onClick={(e) => onClose(photo)}>
           <FontAwesomeIcon icon={faClose} style={{ color: "white" }} />

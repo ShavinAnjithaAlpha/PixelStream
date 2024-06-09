@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import imageIcon from "../../../assets/img/photo-upload.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCity, faClose } from "@fortawesome/free-solid-svg-icons";
+import getLocations from "../../../utils/location";
 import "./UploadImageTile.css";
 
 function UploadImageTile({ setSelectedPhotos, selectedPhotos }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
+  const [locations, setLocations] = useState([]);
+  const [fetchLocations, setFetchLocations] = useState(true);
   const [tags, setTags] = useState([]);
   const [err, setErr] = useState(null);
   const [photo, setPhoto] = useState(imageIcon);
@@ -18,9 +23,24 @@ function UploadImageTile({ setSelectedPhotos, selectedPhotos }) {
     }
   };
 
+  const removeTag = (index) => {
+    const newTags = tags.filter((tag, i) => i !== index);
+    setTags(newTags);
+  };
+
+  const turnLocationFetchingOn = () => {
+    setFetchLocations(true);
+  };
+
   const setImageUrl = (e) => {
     setPhotoData(e.target.files[0]);
     setPhoto(URL.createObjectURL(e.target.files[0]));
+  };
+
+  const finalizedLocation = (location) => {
+    setLocation(location.formatted);
+    setLocations([]);
+    setFetchLocations(false);
   };
 
   const addPhoto = () => {
@@ -40,6 +60,7 @@ function UploadImageTile({ setSelectedPhotos, selectedPhotos }) {
       tags,
       photo,
       photoData,
+      status: false,
     };
 
     setSelectedPhotos([...selectedPhotos, newPhoto]);
@@ -51,33 +72,17 @@ function UploadImageTile({ setSelectedPhotos, selectedPhotos }) {
     setPhotoData(null);
   };
 
-  // const uploadImage = () => {
-  //   if (!title || !location) {
-  //     setErr("Title and location are required");
-  //     return;
-  //   }
+  useEffect(() => {
+    const timerId = setTimeout(async () => {
+      if (location.length > 0 && fetchLocations) {
+        const locations = await getLocations(location);
+        setLocations(locations);
+        setFetchLocations(false);
+      }
+    }, 500);
 
-  //   const payLoad = new FormData();
-  //   payLoad.append("title", title);
-  //   payLoad.append("description", description);
-  //   payLoad.append("location", location);
-  //   payLoad.append("file", image.file);
-
-  //   axios
-  //     .put("/photos/", payLoad, {
-  //       headers: {
-  //         "Content-Type": "multipart/form-data",
-  //         Authorization: `${user}`,
-  //       },
-  //     })
-  //     .then((response) => {
-  //       console.log(response);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //       setErr(err.response.data.message || err.response.data.error);
-  //     });
-  // };
+    return () => clearTimeout(timerId);
+  }, [location, fetchLocations]);
 
   return (
     <div className="upload-image-tile">
@@ -109,7 +114,25 @@ function UploadImageTile({ setSelectedPhotos, selectedPhotos }) {
             placeholder="Image Location"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
+            onKeyDown={turnLocationFetchingOn}
           />
+          {locations.length !== 0 && (
+            <div className="location-box">
+              <ul>
+                {locations.map((location, index) => (
+                  <li key={index} onClick={(e) => finalizedLocation(location)}>
+                    <span>
+                      <FontAwesomeIcon
+                        icon={faCity}
+                        style={{ marginRight: "10px" }}
+                      />
+                    </span>
+                    {location.formatted}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
 
         <p>Tags</p>
@@ -122,9 +145,15 @@ function UploadImageTile({ setSelectedPhotos, selectedPhotos }) {
           />
         </div>
         <div className="tag-list">
-          {tags.map((tag) => (
+          {tags.map((tag, index) => (
             <div className="tag" key={tag}>
-              {tag}
+              {tag}{" "}
+              <span onClick={(e) => removeTag(index)}>
+                <FontAwesomeIcon
+                  icon={faClose}
+                  style={{ marginLeft: "10px" }}
+                />
+              </span>
             </div>
           ))}
         </div>

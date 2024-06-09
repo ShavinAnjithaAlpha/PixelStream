@@ -46,9 +46,11 @@
 }
 
 .upload-image-tile .image-input-form .input-field {
+  position: relative;
   width: 100%;
   display: flex;
   align-items: flex-start;
+  flex-direction: column;
 }
 
 .upload-image-tile .image-input-form input,
@@ -115,9 +117,52 @@
   margin: 10px 0;
   font-weight: 700;
   padding: 10px;
-  trasition: all 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .upload-image-tile button.add-btn:hover {
   background-color: limegreen;
+}
+
+.upload-image-tile .location-box {
+  position: absolute;
+  top: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  margin: 10px 0;
+  border: 1px solid dodgerblue;
+  /* border-radius: 10px; */
+  z-index: 1002;
+}
+
+.upload-image-tile .location-box ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  max-height: 300px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  background-color: black;
+}
+
+.upload-image-tile .location-box ul::-webkit-scrollbar {
+  display: none;
+}
+
+.upload-image-tile .location-box ul li {
+  width: 360px;
+  color: white;
+  text-align: left;
+  padding: 10px;
+  border-bottom: 1px solid #cccccc44;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+.upload-image-tile .location-box ul li:hover {
+  background-color: dodgerblue;
+  cursor: pointer;
 }

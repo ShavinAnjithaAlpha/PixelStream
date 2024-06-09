@@ -93,13 +93,12 @@ function UploadImages() {
     setAuthState({ status: false });
   };
 
-  const uploadPhotos = () => {
+  const uploadPhotos = async () => {
     setUploading(true);
+    setProgress(0);
 
-    // iterate through each photo selected
-    selectedPhotos.forEach((photo, index) => {
-      // upload each photo separately
-      // build a new form data object for uplaod the photo
+    // map each photo to a promise
+    const promises = selectedPhotos.map((photo, index) => {
       const payLoad = new FormData();
       payLoad.append("title", photo.title);
       payLoad.append("description", photo.description);
@@ -107,7 +106,7 @@ function UploadImages() {
       payLoad.append("file", photo.photoData);
       payLoad.append("tags", photo.tags);
 
-      axios
+      return axios
         .put("/photos/", payLoad, {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -115,10 +114,8 @@ function UploadImages() {
           },
         })
         .then((res) => {
-          // remove that photo from the selected photos
-          // set the progress
           setProgress(((index + 1) / selectedPhotos.length) * 100);
-          setSelectedPhotos(selectedPhotos.filter((p) => p !== photo));
+          setSelectedPhotos([...selectedPhotos, { ...photo, status: true }]);
         })
         .catch((err) => {
           console.log(err);
@@ -126,11 +123,14 @@ function UploadImages() {
         });
     });
 
-    // reset the progress
+    // wait for all promises to resolve
+    await Promise.all(promises);
+
+    setSuccess("Photos uploaded successfully");
     setProgress(0);
     setUploading(false);
-    setSuccess("Photos uploaded successfully");
-
+    setSelectedPhotos([]);
+    // run your code here
     setTimeout(() => {
       setSuccess("");
     }, 3000);
@@ -187,7 +187,18 @@ function UploadImages() {
         {MAXIMUM_COUNT - selectedPhotos.length} more photo remaining
       </h3>
 
-      {uploading && <p>{progress}% Complete...</p>}
+      {uploading && (
+        <p id="uploading">
+          <span>
+            <FontAwesomeIcon
+              icon={faSpinner}
+              spin
+              style={{ marginRight: "10px" }}
+            />
+          </span>
+          {progress}% Complete...
+        </p>
+      )}
       <div className="upload-photo-grid">
         {selectedPhotos.length < MAXIMUM_COUNT && (
           <UploadImageTile
