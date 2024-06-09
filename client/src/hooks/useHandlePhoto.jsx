@@ -9,6 +9,7 @@ function useHandlePhoto(id) {
   const { authState } = useContext(AuthContext);
   const { popups, setPopups } = useContext(PopupContext);
   const [photo, setPhoto] = useState({});
+  const [comments, setComments] = useState([]);
   const [tags, setTags] = useState([]);
   const [like, setLike] = useState({});
   const [dislike, setDislike] = useState({});
@@ -160,6 +161,40 @@ function useHandlePhoto(id) {
     });
   };
 
+  const addNewComment = (comment) => {
+    axios
+      .post(
+        `/photos/comment/${photo.photoId}`,
+        { comment },
+        {
+          headers: {
+            Authorization: `${authState.user}`,
+          },
+        }
+      )
+      .then((res) => {
+        fetchComments(photo.photoId, 1);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const fetchComments = (photoId, page) => {
+    axios
+      .get(`/photos/comment/${photoId}?page=${page}&limit=20`)
+      .then((res) => {
+        setComments(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const updateComment = (comment) => {};
+
+  const deleteComment = (comment) => {};
+
   useEffect(() => {
     axios.get(`/photos/${id}`).then((res) => {
       setPhoto(res.data);
@@ -209,10 +244,13 @@ function useHandlePhoto(id) {
       .catch((err) => {
         console.log(err);
       });
+
+    fetchComments(id, 1);
   }, [id, authState]);
 
   return {
     photo,
+    comments,
     setPhoto,
     tags,
     like,
@@ -223,6 +261,9 @@ function useHandlePhoto(id) {
     dislikeThePhoto,
     setImageViewerPhoto,
     addToNewCollection,
+    addNewComment,
+    updateComment,
+    deleteComment,
   };
 }
 

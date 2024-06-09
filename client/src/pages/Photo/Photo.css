@@ -17,8 +17,8 @@
 .photo-page {
   display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
+  align-items: flex-start;
+  justify-content: space-between;
   margin: auto;
   width: 100%;
   padding: 20px;
@@ -46,6 +46,166 @@
   image-rendering: pixelated;
   object-fit: fill;
   object-position: center;
+}
+
+.photo-page .comment-wrapper {
+  max-height: 80vh;
+  min-width: 20%;
+  max-width: 40%;
+  overflow: scroll;
+  overflow-x: hidden;
+  border: 1px solid #ffffff33;
+  border-radius: 10px;
+}
+
+.photo-page .comment-wrapper .comment-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 20px;
+  border-radius: 10px;
+  background: #000000aa;
+  min-height: 100%;
+  width: 100%;
+  border: 1px solid #ffffff33;
+}
+
+.photo-page .comment-section h1 {
+  color: #fff;
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin: 10px 0px;
+}
+
+.photo-page .comment-section .view-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 15px;
+}
+
+.photo-page .comment-section .view-bar p {
+  color: #fff;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.photo-page .comment-section .view-bar p span {
+  color: #ffffffaa;
+  margin-left: 10px;
+}
+
+.photo-page .comment-section p {
+  font-size: 0.8rem;
+  color: #ffffffdd;
+}
+
+.photo-page .comment-section h2 {
+  color: #fff;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 10px 0px;
+}
+
+.photo-page .comment-section h2 span {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.photo-page .comment-section .comment-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  margin: 10px 0px;
+  height: 80%;
+}
+
+.photo-page .comment-section .comment-list .comment {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+  margin: 10px 0px;
+  background-color: #55555555;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.photo-page .comment-section .comment-list .comment .comment-text {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+  margin: 0px 55px;
+}
+
+.photo-page .comment-section .comment-list .comment .user-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 0px 10px;
+}
+
+.photo-page .comment-section .comment-list .comment .user-bar p {
+  color: #fff;
+  font-size: 12px;
+  margin: 0px 10px;
+  font-weight: 400;
+}
+
+.photo-page .comment-section .comment-list .comment .user-bar p span {
+  color: gray;
+  margin-left: 10px;
+}
+
+.photo-page .comment-section .comment-list .comment .user-bar .profile-pic {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  overflow: hidden;
+}
+
+.photo-page .comment-section .add-comment {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  margin: 0px 0px;
+}
+
+.photo-page .comment-section .add-comment input {
+  min-width: 300px;
+  margin: 10px 20px;
+  width: 80%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ffffff55;
+  background: #000000aa;
+  color: #fff;
+}
+
+.photo-page .comment-section .add-comment button {
+  padding: 5px 15px;
+  border-radius: 5px;
+  border: 2px solid dodgerblue;
+  background-color: transparent;
+  color: dodgerblue;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.photo-page .comment-section .add-comment button:hover {
+  background: dodgerblue;
+  color: black;
+  transition: all 0.2s ease-in-out;
 }
 
 .photo-page .detail-tab {
@@ -95,29 +255,34 @@
   margin: 0 20px 0 0;
 }
 
-.photo-page .detail-tab .photo-detail-panel .title-tab .btn-bar {
+.photo-page .comment-section .btn-bar {
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 
-.photo-page .detail-tab .photo-detail-panel .title-tab .btn-bar .btn {
+.photo-page .comment-section .btn-bar .btn {
   background-color: #ffffff80;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 15px;
-  height: 45px;
-  width: 45px;
+  height: 40px;
+  padding: 5px 10px;
   margin-right: 15px;
   transition: all 0.1s ease-in-out;
   cursor: pointer;
 }
 
-.photo-page .detail-tab .photo-detail-panel .title-tab .btn-bar .btn:hover {
+.photo-page .comment-section .btn-bar .btn span {
+  margin-left: 10px;
+}
+
+.photo-page .comment-section .btn-bar .btn:hover {
   background-color: #ffffffaa;
 }
 
-.photo-page .detail-tab .photo-detail-panel .title-tab .btn-bar .btn img {
+.photo-page .comment-section .btn-bar .btn img {
   height: 30px;
   width: 30px;
   object-fit: cover;
@@ -134,21 +299,22 @@
   line-height: normal;
 }
 
-.photo-page .detail-tab .photo-detail-panel button.photo-view-btn {
-  padding: 10px 15px;
-  margin: 5px 10px;
-  background-color: transparent;
-  border-radius: 5px;
-  cursor: pointer;
-  border: 2px solid limegreen;
-  color: white;
+.photo-page .comment-section .btn-bar button.photo-view-btn {
+  padding: 5px 10px;
+  margin: 0 10px;
+  background-color: #ffffff80;
+  border: none;
+  border-radius: 15px;
+  color: black;
   font-size: 15px;
+  height: 40px;
+  width: 40px;
   transition: all 0.2s ease-in-out;
-  justify-self: flex-start;
+  cursor: pointer;
 }
 
-.photo-page .detail-tab .photo-detail-panel button.photo-view-btn:hover {
-  background-color: limegreen;
+.photo-page .comment-section .btn-bar button.photo-view-btn:hover {
+  background-color: #ffffffaa;
   color: black;
   transition: all 0.2s ease-in-out;
 }
@@ -239,4 +405,20 @@
     margin-left: 1rem;
     text-align: center;
   }
+}
+
+.comment-wrapper::-webkit-scrollbar {
+  width: 10px;
+}
+
+.comment-wrapper::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.comment-wrapper::-webkit-scrollbar-thumb {
+  background-color: #888;
+}
+
+.comment-wrapper::-webkit-scrollbar-thumb:hover {
+  background: #999;
 }

@@ -29,6 +29,7 @@ async function fetchComments(photoId, limit, page) {
         ],
       },
     ],
+    order: [["createdAt", "DESC"]],
   });
   // get the total number of comments
   const totalComments = await Comment.count({

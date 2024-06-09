@@ -63,6 +63,7 @@ async function login(req, res) {
     return res.json({
       message: "User successfully login!",
       username: user.userName,
+      userId: user.userId,
       accessToken: accessToken,
     });
   });

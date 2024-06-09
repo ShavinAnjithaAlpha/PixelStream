@@ -1,13 +1,14 @@
 .download-button {
   all: unset;
-  background-color: #00b2ff;
-  border-radius: 10px;
+  background-color: dodgerblue;
+  border-radius: 15px;
   box-sizing: border-box;
-  height: 42px;
+  height: 40px;
   position: relative;
-  width: 155px;
+  width: 40px;
   transition: all 0.2s ease-in-out;
   cursor: pointer;
+  color: black;
 }
 
 .download-button:hover {

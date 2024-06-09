@@ -14,6 +14,7 @@ function App() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     const username = localStorage.getItem("username");
+    const userId = localStorage.getItem("userId");
 
     if (token && username) {
       const decodedToken = jwtDecode(token);
@@ -23,12 +24,19 @@ function App() {
         // delete the token and username from the local storage
         localStorage.removeItem("token");
         localStorage.removeItem("username");
+        localStorage.removeToken("userId");
         // set the auth state to false
-        setAuthState({ user: null, username: null, status: false });
+        setAuthState({
+          user: null,
+          username: null,
+          userId: null,
+          status: false,
+        });
       } else {
         setAuthState({
           user: token,
           username: username,
+          userId: userId,
           status: true,
         });
       }

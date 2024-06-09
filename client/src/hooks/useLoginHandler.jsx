@@ -19,10 +19,12 @@ function useLoginHandler() {
         // save the access token in the local storage for house keeping
         localStorage.setItem("token", res.data.accessToken);
         localStorage.setItem("username", res.data.username);
+        localStorage.setItem("userId", res.data.userId);
         // save the user's access token in the session storage
         setAuthState({
           user: res.data.accessToken,
           username: res.data.username,
+          uderId: res.data.userId,
           status: true,
         });
         // redirect to the Home page with successfull login

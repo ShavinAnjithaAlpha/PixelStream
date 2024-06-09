@@ -1,8 +1,10 @@
 import React from "react";
-import "./DownloadButton.css";
 import { useContext } from "react";
 import { AuthContext } from "../../../contexts/auth.context";
 import axios from "../../../axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
+import "./DownloadButton.css";
 
 export const DownloadButton = ({ photoId, setPhoto, photo }) => {
   const { authState } = useContext(AuthContext);
@@ -43,7 +45,8 @@ export const DownloadButton = ({ photoId, setPhoto, photo }) => {
   return (
     <a onClick={downloadPhoto} href={photo.photoUrl}>
       <button className={`download-button`}>
-        <div className={`text-wrapper`}>Download</div>
+        {/* <div className={`text-wrapper`}>Download</div> */}
+        <FontAwesomeIcon icon={faArrowDown} size="xl" />
       </button>
     </a>
   );
