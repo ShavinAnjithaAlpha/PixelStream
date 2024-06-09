@@ -34,6 +34,12 @@ const {
   photoParser,
   authorizePhoto,
 } = require("../middleware/photo.middleware/photo_parser");
+const {
+  addComment,
+  getComments,
+  updateComment,
+  deleteComment,
+} = require("../controllers/comment.controller");
 
 const fileUpload = multer();
 
@@ -64,6 +70,17 @@ router.get("/:id/get", validateId, downloadWithoutUser);
 router.put("/", authorize, fileUpload.single("file"), uploadPhoto);
 // end points for get tags
 router.get("/tags", queryParser, getAllTags);
+// endpoints related to comments
+router.post("/comment/:id", authorize, validateId, photoParser, addComment);
+router.get("/comment/:id", queryParser, validateId, photoParser, getComments);
+router.put("/comment/:id", authorize, validateId, photoParser, updateComment);
+router.delete(
+  "/comment/:id",
+  authorize,
+  validateId,
+  photoParser,
+  deleteComment
+);
 // endpoint for like and dislike a photo
 router.post("/likes", authorize, getLikesOfUser);
 router.post("/:id/like", authorize, validateId, likeAPhoto);
