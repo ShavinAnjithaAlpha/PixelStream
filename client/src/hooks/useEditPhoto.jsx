@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import axios from "../axios";
 import { AuthContext } from "../contexts/auth.context";
+import getLocations from "../utils/location";
 
 function useEditPhoto({ selectedPhoto }) {
   const reducer = (state, action) => {
@@ -35,6 +36,9 @@ function useEditPhoto({ selectedPhoto }) {
   const { authState } = useContext(AuthContext);
   const [update, setUpdate] = React.useState(true);
   const [error, setError] = React.useState("");
+  const [locations, setLocations] = React.useState([]);
+  const [locationQuery, setLocationQuery] = React.useState("");
+  const [locationFetching, setLocationFetching] = React.useState(true);
   const [photo, dispatch] = React.useReducer(reducer, {
     id: selectedPhoto.photoId,
     title: selectedPhoto.photoTitle,
@@ -50,7 +54,7 @@ function useEditPhoto({ selectedPhoto }) {
     setUpdate(false);
     const data = {
       title: photo.title,
-      location: photo.location,
+      location: locationQuery,
       description: photo.description,
       capturedFrom: photo.capturedFrom,
     };
@@ -138,6 +142,16 @@ function useEditPhoto({ selectedPhoto }) {
     dispatch({ type: "REMOVE_TAG", payload: index });
   };
 
+  const onLocationFetching = (e) => {
+    setLocationFetching(true);
+  };
+
+  const finalizedLocation = (location) => {
+    setLocationQuery(location.formatted);
+    setLocations([]);
+    setLocationFetching(false);
+  };
+
   useEffect(() => {
     axios
       .get(`/photos/${photo.id}/tags`, {
@@ -153,6 +167,19 @@ function useEditPhoto({ selectedPhoto }) {
       });
   }, []);
 
+  useEffect(() => {
+    const timerId = setTimeout(async () => {
+      if (locationQuery.length > 0 && locationFetching) {
+        const locations = await getLocations(locationQuery);
+        setLocations(locations);
+      } else {
+        setLocations([]);
+      }
+    }, 500);
+
+    return () => clearTimeout(timerId);
+  }, [locationQuery, locationFetching]);
+
   return {
     photo,
     dispatch,
@@ -162,6 +189,12 @@ function useEditPhoto({ selectedPhoto }) {
     deletePhoto,
     addTag,
     removeTag,
+    locations,
+    setLocations,
+    locationQuery,
+    setLocationQuery,
+    finalizedLocation,
+    onLocationFetching,
   };
 }
 

@@ -1,10 +1,16 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { PopupContext } from "../../../contexts/popup.context";
 import PopupWindow from "../../PopupWindow/PopupWindow";
 import TabBar from "../TabBar";
 import useEditPhoto from "../../../hooks/useEditPhoto";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClose, faSpinner } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCity,
+  faClose,
+  faLocation,
+  faLocationPin,
+  faSpinner,
+} from "@fortawesome/free-solid-svg-icons";
 import "./EditPhoto.css";
 
 const TAB_MAP = ["General", "Tags", "Exif", "Other"];
@@ -21,6 +27,11 @@ function EditPhoto({ show, selectedPhoto }) {
     deletePhoto,
     addTag,
     removeTag,
+    locations,
+    locationQuery,
+    setLocationQuery,
+    finalizedLocation,
+    onLocationFetching,
   } = useEditPhoto({ selectedPhoto });
 
   const closePopup = () => {
@@ -30,6 +41,8 @@ function EditPhoto({ show, selectedPhoto }) {
       selectedPhoto: null,
     });
   };
+
+  useEffect(() => {}, [locations]);
 
   return (
     <PopupWindow show={show} setShow={closePopup}>
@@ -66,22 +79,41 @@ function EditPhoto({ show, selectedPhoto }) {
                       }
                     />
                   </div>
+
                   <div className="input-field">
                     <label htmlFor="photo-location">Location</label>
                     <input
                       type="text"
                       id="photo-location"
-                      maxLength={255}
-                      value={photo.location}
-                      placeholder="Enter location"
-                      onChange={(e) =>
-                        dispatch({
-                          type: "SET_LOCATION",
-                          payload: e.target.value,
-                        })
-                      }
-                    ></input>
+                      value={locationQuery}
+                      onChange={(e) => setLocationQuery(e.target.value)}
+                      onKeyDownCapture={onLocationFetching}
+                      placeholder="Search for a location"
+                    />
+                    {locations.length !== 0 && (
+                      <div className="location-box">
+                        {locations.length > 0 && (
+                          <ul>
+                            {locations.map((location, index) => (
+                              <li
+                                key={index}
+                                onClick={(e) => finalizedLocation(location)}
+                              >
+                                <span>
+                                  <FontAwesomeIcon
+                                    icon={faCity}
+                                    style={{ marginRight: "10px" }}
+                                  />
+                                </span>
+                                {location.formatted}{" "}
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
+                    )}
                   </div>
+
                   <div className="input-field">
                     <label htmlFor="photo-description">Description</label>
                     <textarea

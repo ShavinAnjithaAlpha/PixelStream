@@ -68,6 +68,7 @@
 }
 
 .edit-area .input-field {
+  position: relative;
   margin-bottom: 10px;
   width: 100%;
   font-size: 1rem;
@@ -231,4 +232,45 @@
   color: white;
   border-radius: 5px;
   padding: 10px;
+}
+
+.edit-photo-wrapper .input-field .location-box {
+  position: absolute;
+  top: 100px;
+  width: 500px;
+  background-color: black;
+  border-radius: 5px;
+  z-index: 1002;
+  border: 1px solid dodgerblue;
+  padding: 5px;
+}
+
+.edit-photo-wrapper .input-field .location-box ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  width: 490px;
+  max-height: 300px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  background-color: black;
+}
+
+.edit-photo-wrapper .input-field .location-box ul::-webkit-scrollbar {
+  display: none;
+}
+
+.edit-photo-wrapper .input-field .location-box ul li {
+  color: white;
+  text-align: left;
+  padding: 10px;
+  border-bottom: 1px solid #cccccc44;
+  width: 490px;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+.edit-photo-wrapper .input-field .location-box ul li:hover {
+  background-color: dodgerblue;
+  cursor: pointer;
 }
