@@ -518,6 +518,7 @@ async function removePhoto(photoId) {
 module.exports = {
   fetchPhotos,
   fetchPhotoStat,
+  fetchPhotoById,
   createPhoto,
   updateDownloadStat,
   markAsDownload,

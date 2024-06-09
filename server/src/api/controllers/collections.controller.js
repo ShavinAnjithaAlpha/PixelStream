@@ -5,13 +5,10 @@ const {
 } = require("../validations/collection");
 const {
   fetchCollections,
-  fetchCollection,
   fetchPhotosOfCollection,
   newCollection,
   addPhotos,
   updateCollectionProfile,
-  checkOwnerOfCollection,
-  getCollectionCountOfUser,
 } = require("../services/collectionTable");
 const {
   fetchTagOfCollection,
@@ -23,80 +20,55 @@ const { validateTagBody } = require("../validations/tags");
 const RelatedCollections = require("../classes/relatedCollections.class");
 
 async function getCollections(req, res) {
-  // get the query parameters page and per page
-  const page = parseInt(req.query.page) || 1;
-  const limit = parseInt(req.query.limit) || 10;
-  const sortBy = req.query.sortBy || "latest";
-
   // get the collections from the database
-  const collections = await fetchCollections(page, limit, sortBy);
+  const collections = await fetchCollections(req.page, req.limit, req.sortBy);
 
   return res.json({
     collections: collections,
-    limit: limit,
-    page: page,
+    limit: req.limit,
+    page: req.page,
     total: collections.length,
   });
 }
 
 async function getCollectionById(req, res) {
-  // extract the collection id from the request
-  const collectionId = parseInt(req.params.id);
-
-  // get the collection from the database
-  let collection = await fetchCollection(collectionId);
-  if (collection.error) {
-    return res.status(400).send(collection.error);
-  }
-
   // return the collection
-  return res.json(collection);
+  return res.json(req.collection);
 }
 
 async function getPhotosOfCollection(req, res) {
-  const limit = parseInt(req.query.limit) || 18;
-  const page = parseInt(req.query.page) || 1;
   const query = req.query.query || "";
-  const sortBy = req.query.sortBy || "latest";
-
-  // extract the collection id from the request
-  const collectionId = parseInt(req.params.id) || -1;
-  if (collectionId < 0)
-    return res.status(400).json({ error: "Invalid Collection Id" });
+  const collectionId = req.id;
 
   // get the photos of the collection
   const photos = await fetchPhotosOfCollection(
     collectionId,
-    page,
-    limit,
-    sortBy,
+    req.user.userId,
+    req.page,
+    req.limit,
+    req.sortBy,
     query
   );
-  if (photos.error) {
-    return res.status(400).send(photos.error);
-  }
 
   return res.json({
     ...photos,
-    limit: limit,
-    page: page,
+    limit: req.limit,
+    page: req.page,
     total: photos.photos.length,
   });
 }
 
 async function getRelatedCollections(req, res) {
-  const limit = parseInt(req.query.limit) || 20;
-  const page = parseInt(req.query.page) || 1;
   // get the photo id from the request parameter
-  const collectionId = parseInt(req.params.id);
+  const collectionId = req.id;
 
   // create related photo instance
   const relatedCollectionInstance = new RelatedCollections(
     0,
     collectionId,
     req.query,
-    limit,
-    (page - 1) * limit
+    req.limit,
+    (req.page - 1) * req.limit
   );
 
   // get the related photos
@@ -108,8 +80,8 @@ async function getRelatedCollections(req, res) {
 
   return res.json({
     collections: relatedCollections,
-    limit: limit,
-    page: page,
+    limit: req.limit,
+    page: req.page,
     length: relatedCollections.length,
   });
 }
@@ -134,19 +106,7 @@ async function createNewCollection(req, res) {
 }
 
 async function updateCollection(req, res) {
-  // extract the collection id from the request
-  const collectionId = parseInt(req.params.id);
-
-  // check whether there is a collection with this id
-  const collection = await fetchCollection(collectionId);
-  if (collection.error) {
-    return res.status(400).send(collection.error);
-  }
-
-  // check whether the user is the owner of the collection
-  if (collection.userId !== parseInt(req.user.userId)) {
-    return res.status(401).send("Unauthorized access");
-  }
+  const collection = req.collection;
 
   // validate the request body
   const { error } = validateUpdateCollectionBody(req.body);
@@ -155,28 +115,14 @@ async function updateCollection(req, res) {
   }
 
   // update the collection
-  const updatedCollection = await updateCollectionProfile(
-    collectionId,
-    req.body
-  );
+  const updatedCollection = await updateCollectionProfile(req.id, req.body);
 
   return res.json({ status: "success", collection: updatedCollection });
 }
 
 async function deleteCollection(req, res) {
   // extract the collection id from the request
-  const collectionId = parseInt(req.params.id);
-
-  // check whether there is a collection with this id
-  const collection = await fetchCollection(collectionId);
-  if (collection.error) {
-    return res.status(400).send(collection.error);
-  }
-
-  // check whether the user is the owner of the collection
-  if (collection.userId !== parseInt(req.user.userId)) {
-    return res.status(401).send("Unauthorized access");
-  }
+  const collection = req.collection;
 
   // delete the collection
   await collection.destroy();
@@ -185,8 +131,7 @@ async function deleteCollection(req, res) {
 }
 
 async function addPhotoToCollection(req, res) {
-  const collectionId = parseInt(req.params.id) || -1;
-  if (collectionId < 0) return res.status(400).send("Invalid collection id");
+  const collectionId = req.id;
   // first validate the request body
   const { error } = validateCollectionUpdate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
@@ -203,16 +148,8 @@ async function addPhotoToCollection(req, res) {
 }
 
 async function getCollectionTags(req, res) {
-  const collectionId = parseInt(req.params.id) || -1;
-  if (collectionId < 0)
-    return res.status(400).json({ error: "Invalid collection id" });
-
-  // check whether if the collection is exists
-  const collection = await fetchCollection(collectionId);
-  if (collection.error)
-    return res.status(400).json({ error: collection.error });
-
-  const tags = await fetchTagOfCollection(collectionId);
+  // get the tags of the collection
+  const tags = await fetchTagOfCollection(req.id);
 
   return res.json(filterTagNames(tags));
 }
@@ -225,28 +162,11 @@ async function addTagsToCollection(req, res) {
   }
 
   // extract the collection id from the request parameter
-  const userId = req.user.userId;
-  const collectionId = parseInt(req.params.id);
+  const collectionId = req.id;
   const tags = req.body.tags;
 
-  // check whether if the collection is exists
-  const collection = await fetchCollection(collectionId);
-  if (collection.error)
-    return res.status(400).json({ error: collection.error });
-
-  // first check the owner of a photo
-  const status = await checkOwnerOfCollection(collectionId, userId);
-  if (!status)
-    return (
-      res.status(401),
-      json({
-        error:
-          "Unauthorized operation: You are not the owner of the collection",
-      })
-    );
   // add the tags to the photo through the Tag and PhotoTag table
   const result = await addTagToACollection(collectionId, tags);
-  if (result.error) return res.status(400).json({ error: result.error });
 
   res.json(result);
 }
@@ -259,28 +179,10 @@ async function removeTagsFromCollection(req, res) {
   }
 
   // extract the photo id from the request parameter
-  const userId = req.user.userId;
-  const collectionId = parseInt(req.params.id);
+  const collectionId = req.id;
   const tags = req.body.tags;
-
-  // check whether if the collection is exists
-  const collection = await fetchCollection(collectionId);
-  if (collection.error)
-    return res.status(400).json({ error: collection.error });
-
-  // first check the owner of a photo
-  const status = await checkOwnerOfCollection(collectionId, userId);
-  if (!status)
-    return (
-      res.status(401),
-      json({
-        error:
-          "Unauthorized operation: You are not the owner of the collection",
-      })
-    );
   // add the tags to the photo through the Tag and PhotoTag table
   const result = await removeTagsFromACollection(collectionId, tags);
-  if (result.error) return res.status(400).json({ error: result.error });
 
   res.json(result);
 }

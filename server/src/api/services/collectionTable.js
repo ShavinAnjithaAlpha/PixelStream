@@ -56,9 +56,6 @@ async function fetchCollection(collectionId) {
     ],
   });
 
-  if (!collection)
-    return { error: `No collection with collection id ${collectionId}` };
-
   return collection;
 }
 
@@ -90,29 +87,14 @@ async function fetchCollectionByUser(userId, page, limit) {
 
 async function fetchPhotosOfCollection(
   collectionId,
+  userId,
   page,
   limit,
   sortBy,
   query = ""
 ) {
-  const collection = await Collection.findOne({
-    where: {
-      collectionId: collectionId,
-    },
-    include: [
-      {
-        model: Photo,
-      },
-    ],
-  });
-  // return a error if the collection is not exists
-  if (!collection) return { error: `Invalid collection id ${collectionId}` };
   // get the other collection of the user
-  const userCollections = await fetchCollectionByUser(
-    collection.userId,
-    page,
-    limit
-  );
+  const userCollections = await fetchCollectionByUser(userId, page, limit);
   let photoIds = await PhotoCollection.findAll({
     where: {
       collectionId: collectionId,

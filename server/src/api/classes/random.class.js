@@ -11,10 +11,10 @@ const {
 const { getUserIdByUserName } = require("../services/userTable");
 
 module.exports = class Random {
-  constructor(options, limit = 20, offset = 0) {
+  constructor(options, limit = 20, page = 1) {
     this.options = options;
     this.limit = limit;
-    this.offset = offset;
+    this.offset = (page - 1) * limit;
   }
 
   async getPhotos() {

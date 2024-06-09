@@ -2,6 +2,7 @@ const { createClient } = require("redis");
 const hash = require("object-hash");
 const logger = require("../start/logger");
 
+const REDIS_TIMEOUT = 30; // 30 seconds
 let redisClient = null;
 
 async function connectToRedis() {
@@ -61,7 +62,7 @@ function requestKey(req, label) {
 function redisCacheMiddleware(
   label,
   options = {
-    EX: 300, // 5 minutes
+    EX: REDIS_TIMEOUT, // 30 seconds
   },
   compresssion = false
 ) {

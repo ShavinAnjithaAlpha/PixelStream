@@ -8,7 +8,7 @@ GET {{host}}/api/photos?limit=12&page=1 {{http}}
 Content-Type: {{contentType}}
 
 ### get photo by its id
-@photoId = 21
+@photoId = 15
 GET {{host}}/api/photos/{{photoId}} {{http}}
 Content-Type: {{contentType}}
 

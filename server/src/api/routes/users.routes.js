@@ -16,6 +16,7 @@ const {
   getFollowers,
   getFollowings,
 } = require("../controllers/users.controller");
+const { queryParser } = require("../middleware/query_parser");
 const router = express.Router();
 
 router.get("/:username/portfolio", getPortfolioOfUser);
@@ -24,6 +25,7 @@ router.get("/:username/likes", redisCacheMiddleware("user"), getLikesOfUsers);
 router.get(
   "/:username/collections",
   redisCacheMiddleware("user"),
+  queryParser,
   getCollectionOfUser
 );
 router.get("/:username/stat", getStatisticsOfUser);

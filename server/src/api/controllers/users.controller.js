@@ -142,12 +142,14 @@ async function getLikesOfUsers(req, res) {
 
 async function getCollectionOfUser(req, res) {
   const username = req.params.username || "";
-  const page = parseInt(req.query.page) || 1;
-  const limit = parseInt(req.query.limit) || 10;
 
   // fetch the collections from the database according to the username
-  const collections = await fetchCollectionByUserName(username, page, limit);
-  if (collections.error) res.status(400).send(collections.error);
+  const collections = await fetchCollectionByUserName(
+    username,
+    req.page,
+    req.limit
+  );
+  if (collections.error) res.status(400).json({ error: collections.error });
 
   let collectionCount = 0;
   if (collections.length !== 0) {
@@ -156,8 +158,8 @@ async function getCollectionOfUser(req, res) {
   // return the collections
   return res.json({
     collections: collections,
-    page: page,
-    limit: limit,
+    page: req.page,
+    limit: req.limit,
     total: collectionCount,
   });
 }

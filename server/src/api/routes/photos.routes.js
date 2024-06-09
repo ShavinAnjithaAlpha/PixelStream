@@ -28,43 +28,83 @@ const {
   deletePhoto,
   getRelatedCollections,
 } = require("../controllers/photos.controller");
+const { queryParser } = require("../middleware/query_parser");
+const { validateId } = require("../middleware/validate_id");
+const {
+  photoParser,
+  authorizePhoto,
+} = require("../middleware/photo.middleware/photo_parser");
 
 const fileUpload = multer();
 
 // endpoint for access the photos in various ways
-router.get("/", redisCacheMiddleware("photo"), getPhotos);
+router.get("/", redisCacheMiddleware("photo"), queryParser, getPhotos);
 router.get(
   "/random",
   redisCacheMiddleware("photo", {
     EX: 60, // 1 minute
   }),
+  queryParser,
   getRandomPhoto
 );
 // endpoint for get related photos of a given photo
-router.get("/:id/related/photos", getRelatedPhotos);
-router.get("/:id/related/collections", getRelatedCollections);
+router.get("/:id/related/photos", queryParser, validateId, getRelatedPhotos);
+router.get(
+  "/:id/related/collections",
+  queryParser,
+  validateId,
+  getRelatedCollections
+);
 // endpoint for get statictics about a given photo
-router.get("/:id/statistics", getPhotoStat);
+router.get("/:id/statistics", validateId, getPhotoStat);
 // endpoint for mark a download of a photo to the system
-router.get("/:id/download", authorize, downloadPhoto);
-router.get("/:id/get", downloadWithoutUser);
+router.get("/:id/download", authorize, validateId, downloadPhoto);
+router.get("/:id/get", validateId, downloadWithoutUser);
 // endpoint for the upload a photo
 router.put("/", authorize, fileUpload.single("file"), uploadPhoto);
 // end points for get tags
-router.get("/tags", getAllTags);
+router.get("/tags", queryParser, getAllTags);
 // endpoint for like and dislike a photo
 router.post("/likes", authorize, getLikesOfUser);
-router.post("/:id/like", authorize, likeAPhoto);
-router.delete("/:id/like", authorize, removeLikePhoto);
-router.post("/:id/dislike", authorize, dislikeAPhoto);
-router.delete("/:id/dislike", authorize, removeDislikePhoto);
-router.get("/:id/like", authorize, isLiked);
-router.get("/:id/dislike", authorize, isDisliked);
-router.post("/:id/tags/remove", authorize, removeTags);
-router.post("/:id/tags", authorize, addTags);
-router.get("/:id/tags", getTags);
-router.get("/:id", redisCacheMiddleware("photo"), getPhotoById);
-router.put("/:id", authorize, updatePhoto);
-router.delete("/:id", authorize, deletePhoto);
+router.post("/:id/like", authorize, validateId, likeAPhoto);
+router.delete("/:id/like", authorize, validateId, removeLikePhoto);
+router.post("/:id/dislike", authorize, validateId, dislikeAPhoto);
+router.delete("/:id/dislike", authorize, validateId, removeDislikePhoto);
+router.get("/:id/like", authorize, validateId, photoParser, isLiked);
+router.get("/:id/dislike", authorize, validateId, photoParser, isDisliked);
+router.post(
+  "/:id/tags/remove",
+  authorize,
+  validateId,
+  photoParser,
+  authorizePhoto,
+  removeTags
+);
+router.post(
+  "/:id/tags",
+  authorize,
+  validateId,
+  photoParser,
+  authorizePhoto,
+  addTags
+);
+router.get("/:id/tags", validateId, photoParser, getTags);
+router.get("/:id", redisCacheMiddleware("photo"), validateId, getPhotoById);
+router.put(
+  "/:id",
+  authorize,
+  validateId,
+  photoParser,
+  authorizePhoto,
+  updatePhoto
+);
+router.delete(
+  "/:id",
+  authorize,
+  validateId,
+  photoParser,
+  authorizePhoto,
+  deletePhoto
+);
 
 module.exports = router;
