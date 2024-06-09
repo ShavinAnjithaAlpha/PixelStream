@@ -87,14 +87,19 @@ async function fetchCollectionByUser(userId, page, limit) {
 
 async function fetchPhotosOfCollection(
   collectionId,
-  userId,
+  collection,
   page,
   limit,
   sortBy,
   query = ""
 ) {
+  const userCollections = await fetchCollectionByUser(
+    collection.userId,
+    page,
+    limit
+  );
+
   // get the other collection of the user
-  const userCollections = await fetchCollectionByUser(userId, page, limit);
   let photoIds = await PhotoCollection.findAll({
     where: {
       collectionId: collectionId,

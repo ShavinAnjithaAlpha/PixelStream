@@ -14,7 +14,7 @@ function CollectionTab({ username }) {
     <div className="user-collection-tab">
       {loading && <Spinner />}
 
-      {!collections.total && (
+      {!loading && !collections.total && (
         <div className="no-collections">
           <h1>No collections</h1>
         </div>

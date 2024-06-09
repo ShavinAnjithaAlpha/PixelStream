@@ -12,9 +12,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHeart,
   faPlus,
-  faHeartCrack,
   faSpinner,
   faEye,
+  faThumbsDown,
 } from "@fortawesome/free-solid-svg-icons";
 import PhotoGrid from "../../components/PhotoGrid";
 import CollectionCard from "../../components/CollectionCard/CollectionCard";
@@ -35,6 +35,7 @@ function Photo() {
     likedThePhoto,
     dislikeThePhoto,
     setImageViewerPhoto,
+    addToNewCollection,
   } = useHandlePhoto(id);
   const [addCollectionBox, setAddCollectionBox] = useState(false);
 
@@ -70,17 +71,14 @@ function Photo() {
                   </div>
                   <div className="btn" onClick={dislikeThePhoto}>
                     <FontAwesomeIcon
-                      icon={faHeartCrack}
+                      icon={faThumbsDown}
                       size="2xl"
                       style={{
-                        color: dislike ? "orange" : "black",
+                        color: dislike ? "#770000" : "black",
                       }}
                     />
                   </div>
-                  <div
-                    className="btn"
-                    onClick={(e) => setAddCollectionBox(true)}
-                  >
+                  <div className="btn" onClick={addToNewCollection}>
                     <FontAwesomeIcon icon={faPlus} size="2xl" />
                   </div>
 

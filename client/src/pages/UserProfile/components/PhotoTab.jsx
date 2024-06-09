@@ -2,7 +2,6 @@ import React from "react";
 import PhotoGrid from "../../../components/PhotoGrid";
 import PageNavigationBar from "../../../components/PageNavigationBar/PageNavigationBar";
 import useUserPhotoHandler from "../../../hooks/useUserPhotoHandler";
-import Spinner from "../../../components/Spinner/Spinner";
 import NextPrevPage from "../../../components/NextPrevPage/NextPrevPage";
 import "./PhotoTab.css";
 
@@ -11,9 +10,7 @@ function PhotoTab({ username }) {
 
   return (
     <div className="user-photo-tab">
-      {loading && <Spinner />}
-
-      {photos.length === 0 && (
+      {!loading && photos.length === 0 && (
         <div className="no-photos">
           <h1>No photos</h1>
         </div>

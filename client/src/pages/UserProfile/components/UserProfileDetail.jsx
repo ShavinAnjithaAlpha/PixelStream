@@ -87,17 +87,19 @@ function UserProfileDetail({ username, backgroundImage }) {
               </span>
               {userProfile.User && userProfile.User.location}
             </p>
-            <p>
-              <span>
-                <FontAwesomeIcon
-                  icon={faLink}
-                  style={{ marginRight: "10px" }}
-                />
-              </span>
-              <a href={userProfile.User && userProfile.User.personalSite}>
-                {(userProfile.User && userProfile.User.personalSite) || "-"}
-              </a>
-            </p>
+            {userProfile.User && userProfile.User.personalSite && (
+              <p>
+                <span>
+                  <FontAwesomeIcon
+                    icon={faLink}
+                    style={{ marginRight: "10px" }}
+                  />
+                </span>
+                <a href={userProfile.User && userProfile.User.personalSite}>
+                  {(userProfile.User && userProfile.User.personalSite) || "-"}
+                </a>
+              </p>
+            )}
             <div className="stat-bar">
               <StatCard label="Followers" value={userProfile.followers} />
               <StatCard label="Followings" value={userProfile.followings} />

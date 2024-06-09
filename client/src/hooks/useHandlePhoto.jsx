@@ -15,6 +15,20 @@ function useHandlePhoto(id) {
   const [relatedPhotos, setRelatedPhotos] = useState([]);
   const [relatedCollections, setRelatedCollections] = useState([]);
 
+  const addToNewCollection = () => {
+    // if the user is not logged in, redirect to login page
+    if (!authState.status) {
+      navigate("/login");
+      return;
+    }
+
+    setPopups({
+      ...popups,
+      selectedPhoto: photo,
+      addToCollection: !popups.addToCollection,
+    });
+  };
+
   const likedThePhoto = (e) => {
     if (!authState.status) {
       navigate("/login");
@@ -208,6 +222,7 @@ function useHandlePhoto(id) {
     likedThePhoto,
     dislikeThePhoto,
     setImageViewerPhoto,
+    addToNewCollection,
   };
 }
 

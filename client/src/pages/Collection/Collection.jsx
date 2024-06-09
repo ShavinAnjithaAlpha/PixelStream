@@ -67,12 +67,14 @@ function Collection() {
           </h1>
           <p>{collection.collectionDescription}</p>
         </div>
-        <div className="tag-bar">
-          {collection.tags &&
-            collection.tags.map((tag, index) => (
-              <Tag key={index} tagName={tag} />
-            ))}
-        </div>
+        {collection.tags && collection.tags.length > 0 && (
+          <div className="tag-bar">
+            {collection.tags &&
+              collection.tags.map((tag, index) => (
+                <Tag key={index} tagName={tag} />
+              ))}
+          </div>
+        )}
 
         <div className="button-bar">
           <SearchSection

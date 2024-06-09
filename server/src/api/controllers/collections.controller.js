@@ -43,7 +43,7 @@ async function getPhotosOfCollection(req, res) {
   // get the photos of the collection
   const photos = await fetchPhotosOfCollection(
     collectionId,
-    req.user.userId,
+    req.collection,
     req.page,
     req.limit,
     req.sortBy,

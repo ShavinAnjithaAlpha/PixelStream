@@ -7,8 +7,10 @@
   position: relative;
   width: 900px;
   height: 40px;
-  background-color: #ffffff33;
+  background-color: #55555533;
+  color: white;
   border: 1px solid #ffffff55;
+  border-bottom: 3px solid dodgerblue;
   border-radius: 5px;
   outline: none;
   padding: 5px 25px;

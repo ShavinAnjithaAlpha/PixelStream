@@ -1,7 +1,7 @@
 import React from "react";
 import defaultProfilePic from "../../assets/img/default-profile-icon.png";
-import "./UserCard.css";
 import { useNavigate } from "react-router-dom";
+import "./UserCard.css";
 
 function UserCard({ user }) {
   const navigate = useNavigate();

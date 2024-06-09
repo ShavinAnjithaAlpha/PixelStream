@@ -14,7 +14,7 @@ function LikesTab({ username }) {
     <div className="user-likes-tab">
       {loading && <Spinner />}
 
-      {likePhotos.total === 0 && (
+      {!loading && likePhotos.photos.length === 0 && (
         <div className="no-photos">
           <h1>No photos</h1>
         </div>

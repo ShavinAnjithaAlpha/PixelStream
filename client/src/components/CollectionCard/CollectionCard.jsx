@@ -27,9 +27,9 @@ function CollectionCard({ collection }) {
   return (
     <div className="collection-card" onClick={handleClick}>
       <div className="cover-image">
-        {collection.Photo && collection.Photo.photoUrl && (
+        {collection.Photo && collection.Photo.resizedPhotoUrl && (
           <img
-            src={collection.Photo.photoUrl}
+            src={collection.Photo.resizedPhotoUrl}
             alt={collection.Photo.photoTitle}
             width={400}
             onError={(e) => {
