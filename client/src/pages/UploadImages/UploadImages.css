@@ -20,12 +20,14 @@
   color: white;
   font-size: 3rem;
   font-weight: 700;
+  font-family: "PT Serif", serif;
 }
 
 .upload-photos h1 {
   color: white;
   font-size: 3rem;
   margin: 10px;
+  font-family: "PT Serif", serif;
 }
 
 .upload-photos p {

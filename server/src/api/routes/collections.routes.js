@@ -80,6 +80,7 @@ router.post(
   "/:id",
   authorize,
   validateId,
+  parseCollection,
   authorizeCollection,
   addPhotoToCollection
 );

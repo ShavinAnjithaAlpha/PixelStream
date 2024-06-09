@@ -76,6 +76,7 @@
   font-size: 2.4rem;
   font-weight: 700;
   margin: 10px 0px;
+  text-align: left;
 }
 
 .photo-page .comment-section .view-bar {
@@ -141,6 +142,7 @@
   font-size: 14px;
   font-weight: 400;
   margin: 0px 55px;
+  text-align: left;
 }
 
 .photo-page .comment-section .comment-list .comment .user-bar {
@@ -170,6 +172,19 @@
   object-fit: cover;
   object-position: center;
   overflow: hidden;
+}
+
+.photo-page .comment-section .comment-list .comment button {
+  background: none;
+  border: none;
+  margin-left: 10px;
+  color: white;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.photo-page .comment-section .comment-list .comment button:hover {
+  color: dodgerblue;
 }
 
 .photo-page .comment-section .add-comment {

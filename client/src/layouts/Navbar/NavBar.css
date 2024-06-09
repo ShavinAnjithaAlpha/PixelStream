@@ -43,17 +43,18 @@
 
 .nav .logo-search .logo {
   font-size: 2.2rem;
-  font-weight: 700;
+  font-weight: 900;
   color: white;
   font-style: normal;
   margin-right: 10px;
+  font-family: "PT Serif", serif;
 }
 
 .nav .nav-links .nav-item a {
   color: white;
   transition: all 0.2s ease-in-out;
   padding: 5px 10px;
-  font-weight: bold;
+  font-weight: 600;
 }
 
 .nav .nav-links .nav-item a:hover {

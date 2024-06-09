@@ -20,8 +20,8 @@ function validateUserProfile(data) {
   const profileSchema = Joi.object({
     username: Joi.string().min(3).max(255).required(),
     email: Joi.string().email().required(),
-    firstname: Joi.string().min(3).max(255).required(),
-    lastname: Joi.string().min(3).max(255).required(),
+    firstName: Joi.string().min(3).max(255).required(),
+    lastName: Joi.string().min(3).max(255).required(),
     location: Joi.string().max(255).optional(),
     bio: Joi.string().max(512).optional(),
     profile: Joi.string().optional(),

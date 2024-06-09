@@ -165,8 +165,8 @@ function ProfileDetails({ user }) {
         const profileData = {
           username: res.data.userName,
           email: res.data.email,
-          firstname: res.data.User.firstName,
-          lastname: res.data.User.lastName,
+          firstName: res.data.User.firstName,
+          lastName: res.data.User.lastName,
           location: res.data.User.location,
           personalSite: res.data.User.personalSite,
           Bio: res.data.User.Bio,
@@ -240,10 +240,10 @@ function ProfileDetails({ user }) {
                 id="username"
                 maxLength={255}
                 minLength={3}
-                value={profile.firstname}
+                value={profile.firstName}
                 placeholder="Username"
                 onChange={(e) =>
-                  setProfile({ ...profile, firstname: e.target.value })
+                  setProfile({ ...profile, firstName: e.target.value })
                 }
               />
             </div>
@@ -255,10 +255,10 @@ function ProfileDetails({ user }) {
                 id="username"
                 maxLength={255}
                 minLength={3}
-                value={profile.lastname}
+                value={profile.lastName}
                 placeholder="Username"
                 onChange={(e) =>
-                  setProfile({ ...profile, lastname: e.target.value })
+                  setProfile({ ...profile, lastName: e.target.value })
                 }
               />
             </div>

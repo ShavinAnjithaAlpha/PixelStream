@@ -4,12 +4,13 @@
 @contentType = application/json
 @http = HTTP/1.1
 
+### login
 POST {{host}}/api/auth/login {{http}}
 Content-Type: {{contentType}}
 
 {
-    "email" : "shavin.anjitha@gmail.com",
-    "password": "shavin"
+    "email" : "thejas@gmail.com",
+    "password": "thejas"
 }
 
 ###

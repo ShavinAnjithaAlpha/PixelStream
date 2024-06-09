@@ -23,4 +23,6 @@ h1.search-keyword-title {
 h1.search-keyword-title span {
   color: #087dca;
   font-size: 3rem;
+  font-family: "PT Serif", serif;
+  margin-left: 1rem;
 }

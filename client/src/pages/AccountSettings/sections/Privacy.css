@@ -16,6 +16,7 @@
   color: white;
   text-align: left;
   align-self: flex-start;
+  font-family: "PT Serif", serif;
 }
 
 .privacy-section h2 {
@@ -24,6 +25,7 @@
   color: white;
   text-align: left;
   margin-left: 20px;
+  font-family: "PT Serif", serif;
 }
 
 .privacy-section p {

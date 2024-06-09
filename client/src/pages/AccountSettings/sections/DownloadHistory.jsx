@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "../../../axios";
-import getFormattedDate from "../../../utils/DateFormatter";
+import moment from "moment";
 import "./DownloadHistory.css";
 
 function DownloadHistory({ user }) {
@@ -61,7 +61,7 @@ function DownloadHistory({ user }) {
             </div>
 
             <p>
-              Downloaded on {download && getFormattedDate(download.createdAt)}
+              Downloaded on {download && moment(download.createdAt).fromNow()}
             </p>
             <button
               type="submit"

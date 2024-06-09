@@ -1,7 +1,8 @@
 import React from "react";
+import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart, faHeartBroken } from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
 import "./StatPhotoCard.css";
 
 function StatPhotoCard({ photo, index }) {
@@ -22,7 +23,9 @@ function StatPhotoCard({ photo, index }) {
       </div>
       <div className="stat-content">
         <div className="index">#{index}</div>
-        <div className="time">Published on 24 July, 2023</div>
+        <div className="time">
+          Published on {moment(photo.createdAt).fromNow()}
+        </div>
         <div className="values">
           <div className="views">
             <span>Views</span>
@@ -53,9 +56,9 @@ function StatPhotoCard({ photo, index }) {
           <div className="dislikes">
             <span>
               <FontAwesomeIcon
-                icon={faHeartBroken}
+                icon={faThumbsDown}
                 size="xl"
-                style={{ color: "yellow" }}
+                style={{ color: "white" }}
               />
             </span>
             <span className="value">

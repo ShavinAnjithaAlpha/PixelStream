@@ -1,13 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
+import moment from "moment";
 import { useParams } from "react-router-dom";
-import { StatCard } from "./components/StatCard";
 import { DownloadButton } from "./components/DownloadButton";
 import { ProfileCard } from "./components/ProfileCard";
 import { TagBar } from "./components/TagBar";
-import AddToCollectionBox from "../../components/EditComponents/AddToCollectionBox/AddToCollectionBox";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
-import CameraIcon from "@mui/icons-material/Camera";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SendIcon from "@mui/icons-material/Send";
 import {
@@ -17,17 +13,14 @@ import {
   faEye,
   faThumbsDown,
   faTrash,
-  faMapLocation,
-  faLocationPin,
   faLocationDot,
   faCamera,
 } from "@fortawesome/free-solid-svg-icons";
 import PhotoGrid from "../../components/PhotoGrid";
 import CollectionCard from "../../components/CollectionCard/CollectionCard";
-import getFormattedDate from "../../utils/DateFormatter";
 import useHandlePhoto from "../../hooks/useHandlePhoto";
-import "./Photo.css";
 import { AuthContext } from "../../contexts/auth.context";
+import "./Photo.css";
 
 function Photo() {
   const { id } = useParams();
@@ -49,7 +42,6 @@ function Photo() {
     editComment,
     deleteComment,
   } = useHandlePhoto(id);
-  const [addCollectionBox, setAddCollectionBox] = useState(false);
 
   useEffect(() => {}, [photo]);
 
@@ -77,7 +69,7 @@ function Photo() {
               <div className="view-bar">
                 <p>
                   {photo.PhotoStat && photo.PhotoStat.views} views
-                  <span>{getFormattedDate(photo.createdAt)}</span>
+                  <span>{moment(photo.createdAt).fromNow()}</span>
                 </p>
               </div>
               <div className="view-bar">
@@ -178,7 +170,7 @@ function Photo() {
                         </div>
                         <p>
                           {comment.User.fullName}{" "}
-                          <span>{getFormattedDate(comment.createdAt)} </span>
+                          <span>{moment(comment.createdAt).fromNow()} </span>
                         </p>
 
                         {comment.User.userId === authState.userId && (

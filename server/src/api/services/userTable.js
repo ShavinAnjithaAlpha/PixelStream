@@ -322,6 +322,18 @@ async function updateProfile(userId, profileData) {
     },
   });
 
+  await UserAuth.update(
+    {
+      userName: profileData.username,
+      email: profileData.email,
+    },
+    {
+      where: {
+        userId: userId,
+      },
+    }
+  );
+
   return true;
 }
 
