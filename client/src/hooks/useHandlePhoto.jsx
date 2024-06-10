@@ -1,8 +1,9 @@
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "../axios";
 import { AuthContext } from "../contexts/auth.context";
 import { PopupContext } from "../contexts/popup.context";
+import axios from "../axios";
+import { toast } from "react-toastify";
 
 function useHandlePhoto(id) {
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ function useHandlePhoto(id) {
   const [dislike, setDislike] = useState({});
   const [relatedPhotos, setRelatedPhotos] = useState([]);
   const [relatedCollections, setRelatedCollections] = useState([]);
+  const [commentPage, setCommentPage] = useState(1);
 
   const addToNewCollection = () => {
     // if the user is not logged in, redirect to login page
@@ -191,9 +193,71 @@ function useHandlePhoto(id) {
       });
   };
 
-  const updateComment = (comment) => {};
+  const updateComment = (comment, index) => {
+    axios
+      .put(
+        `/photos/comment/${photo.photoId}`,
+        { comment },
+        {
+          headers: {
+            Authorization: `${authState.user}`,
+          },
+        }
+      )
+      .then((res) => {
+        // update the relevant comment in thecomments state
+        const updatedComments = [...comments.comments];
+        updatedComments[index] = res.data;
+        setComments({
+          comments: updatedComments,
+          total: comments.total,
+          page: comments.page,
+        });
+        toast.success("Comment updated successfully");
+      })
+      .catch((err) => {
+        toast.error("Error updating comment");
+      });
+  };
 
-  const deleteComment = (comment) => {};
+  const deleteComment = (comment, index) => {
+    axios
+      .delete(`/photos/comment/${photo.photoId}`, {
+        headers: {
+          Authorization: `${authState.user}`,
+        },
+        data: { commentId: comment.commentId },
+      })
+      .then((res) => {
+        // update the comments state
+        const updatedComments = comments.comments.filter((c, i) => i !== index);
+        setComments({
+          comments: updatedComments,
+          total: comments.total - 1,
+          page: comments.page,
+        });
+        toast.success("Comment deleted successfully");
+      })
+      .catch((err) => {
+        toast.error("Error deleting comment");
+      });
+  };
+
+  const loadMoreComment = () => {
+    setCommentPage(commentPage + 1);
+    axios
+      .get(`/photos/comment/${photo.photoId}?page=${commentPage + 1}&limit=20`)
+      .then((res) => {
+        setComments({
+          comments: [...comments.comments, ...res.data.comments],
+          total: res.data.total,
+          page: res.data.page,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   useEffect(() => {
     axios.get(`/photos/${id}`).then((res) => {
@@ -245,7 +309,7 @@ function useHandlePhoto(id) {
         console.log(err);
       });
 
-    fetchComments(id, 1);
+    fetchComments(id, commentPage);
   }, [id, authState]);
 
   return {
@@ -264,6 +328,7 @@ function useHandlePhoto(id) {
     addNewComment,
     updateComment,
     deleteComment,
+    loadMoreComment,
   };
 }
 

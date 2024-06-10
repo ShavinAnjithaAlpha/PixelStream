@@ -35,6 +35,11 @@
 }
 
 .login-container .col .logo h1 a {
+  font-family: "PT Serif", serif;
+  font-size: 3rem;
+}
+
+.login-container .col .logo h1 a {
   font-size: 2rem;
   font-weight: 900;
   color: white;

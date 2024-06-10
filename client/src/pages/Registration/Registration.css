@@ -34,10 +34,12 @@
   font-size: 5rem;
   text-align: left;
   line-height: 1;
+  font-family: "PT Serif", serif;
 }
 
 .image-box span {
   font-size: 1.5rem;
+  font-family: "PT Serif", serif;
 }
 
 .image-box img {

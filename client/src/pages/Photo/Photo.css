@@ -30,10 +30,11 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  width: 700px;
-  height: 600px;
+  max-width: 60%;
+  height: 80vh;
   overflow: hidden;
   border: 1px solid #ffffff22;
+  margin-left: 4rem;
 }
 
 @media only screen and (max-width: 600px) {
@@ -51,7 +52,7 @@
 .photo-page .comment-wrapper {
   max-height: 80vh;
   min-width: 20%;
-  max-width: 40%;
+  max-width: 35%;
   overflow: scroll;
   overflow-x: hidden;
   border: 1px solid #ffffff33;
@@ -185,6 +186,15 @@
 
 .photo-page .comment-section .comment-list .comment button:hover {
   color: dodgerblue;
+}
+
+.photo-page .comment-section .comment-list button#load-more {
+  background: none;
+  border: none;
+  color: white;
+  margin: 10px 0px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
 }
 
 .photo-page .comment-section .add-comment {

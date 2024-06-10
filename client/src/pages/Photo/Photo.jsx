@@ -15,6 +15,7 @@ import {
   faTrash,
   faLocationDot,
   faCamera,
+  faShare,
 } from "@fortawesome/free-solid-svg-icons";
 import PhotoGrid from "../../components/PhotoGrid";
 import CollectionCard from "../../components/CollectionCard/CollectionCard";
@@ -41,6 +42,7 @@ function Photo() {
     addNewComment,
     editComment,
     deleteComment,
+    loadMoreComment,
   } = useHandlePhoto(id);
 
   useEffect(() => {}, [photo]);
@@ -60,6 +62,11 @@ function Photo() {
               src={photo.photoUrl}
               alt={photo.photoDes}
               width={700}
+              style={{
+                objectFit: "contain",
+                height: "auto",
+                maxHeight: "80vh",
+              }}
             />
           </div>
 
@@ -122,8 +129,16 @@ function Photo() {
                 >
                   <FontAwesomeIcon icon={faEye} size="xl" />
                 </button>
+                <div className="btn">
+                  <FontAwesomeIcon icon={faShare} size="xl" />
+                  {photo.PhotoStat && photo.PhotoStat.dislikes > 0 && (
+                    <span>{photo.PhotoStat.dislikes}</span>
+                  )}
+                </div>
 
-                <p>{photo.PhotoStat && photo.PhotoStat.downloads} downloads</p>
+                <p style={{ marginLeft: "10px" }}>
+                  {photo.PhotoStat && photo.PhotoStat.downloads} downloads
+                </p>
               </div>
 
               <TagBar tags={tags} />
@@ -188,6 +203,12 @@ function Photo() {
                       <div className="comment-text">{comment.comment}</div>
                     </div>
                   ))}
+                {comments.comments &&
+                  comments.total > comments.comments.length && (
+                    <button id="load-more" onCLick={loadMoreComment}>
+                      Load More
+                    </button>
+                  )}
               </div>
             </div>
           </div>
