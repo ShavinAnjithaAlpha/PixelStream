@@ -1,4 +1,6 @@
 import React, { useContext, useState } from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { PopupContext } from "../../../contexts/popup.context";
 import PopupWindow from "../../PopupWindow/PopupWindow";
 import TabBar from "../TabBar";
@@ -16,7 +18,6 @@ function EditCollection({ show, selectedCollection }) {
     collection,
     dispatch,
     update,
-    error,
     addTag,
     removeTag,
     updateCollection,
@@ -131,11 +132,6 @@ function EditCollection({ show, selectedCollection }) {
             )}
           </div>
           <div className="buttons">
-            {error && (
-              <div className="error">
-                <p>{error}</p>
-              </div>
-            )}
             <button className="cancel" onClick={closePopup}>
               Cancel
             </button>
@@ -151,6 +147,19 @@ function EditCollection({ show, selectedCollection }) {
           </div>
         </div>
       </div>
+
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </PopupWindow>
   );
 }

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 import defaultProfileImage from "../../../assets/img/default-profile-icon.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import axios from "../../../axios";
+import "react-toastify/dist/ReactToastify.css";
 import "./ProfileDetails.css";
 
 function ProfileDetails({ user }) {
@@ -16,8 +18,6 @@ function ProfileDetails({ user }) {
   });
   const [newProfileImage, setNewProfileImage] = useState(null);
   const [profileUrl, setProfileUrl] = useState(null);
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
   const [saving, setSaving] = useState(false);
 
   const setProfileImage = (e) => {
@@ -53,102 +53,115 @@ function ProfileDetails({ user }) {
 
   const handleSave = () => {
     setSaving(true);
-    // save the profile details
-    if (!user.username || !user.user) {
-      return navigate("/login");
-    }
 
-    axios
-      .post(`account/${user.username}`, profile, {
-        headers: {
-          Authorization: `${user.user}`,
-        },
-      })
-      .then((res) => {
-        setSaving(false);
-        setSuccess("Profile Updated Successfully");
-        setTimeout(() => {
-          setSuccess("");
-        }, 2000);
-      })
-      .catch((err) => {
-        setError(err.response.data.error || "Some Error happened");
-        setSaving(false);
-
-        setTimeout(() => {
-          setError("");
-        }, 2000);
-      });
-
-    // if profile image changes update the profile image also
-    if (newProfileImage) {
-      // create new form data
-      const formData = new FormData();
-      formData.append("file", newProfileImage);
-
-      axios
-        .post(`account/${user.username}/change-profile-image`, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `${user.user}`,
-          },
-        })
-        .then((res) => {
-          setSaving(false);
-          setSuccess("Profile Image Updated Successfully");
-          setTimeout(() => {
-            setSuccess("");
-          }, 2000);
-        })
-        .catch((err) => {
-          setError(
-            err.response.data.error ||
-              "Some Error happened while profile image uploading"
-          );
-          setSaving(false);
-
-          setTimeout(() => {
-            setError("");
-          }, 2000);
-        });
-    }
-
-    // save the new user interests
-    // firs tclean the new tags and removed tags
-    if (userInterests.new_tags.length !== 0) {
-      // first remove items that are already in the removed tags
-      const newTags = userInterests.new_tags.filter(
-        (tag) => !userInterests.removed_tags.includes(tag)
-      );
-
-      axios
-        .post(
-          `account/${user.username}/interest`,
-          { tags: newTags },
-          {
+    const profileUpdate = new Promise((resolve, reject) => {
+      if (!user.username || !user.user) {
+        reject("User not logged in");
+        navigate("/login");
+      } else {
+        axios
+          .post(`account/${user.username}`, profile, {
             headers: {
               Authorization: `${user.user}`,
             },
-          }
-        )
-        .then((res) => {
-          setSaving(false);
-          setSuccess("User Interests Updated Successfully");
-          setTimeout(() => {
-            setSuccess("");
-          }, 2000);
-        })
-        .catch((err) => {
-          setError(
-            err.response.data.error ||
-              "Some Error happened while saving user interests"
-          );
-          setSaving(false);
+          })
+          .then((res) => {
+            setSaving(false);
+            resolve(res);
+          })
+          .catch((err) => {
+            setSaving(false);
+            reject(err);
+          });
+      }
+    });
 
-          setTimeout(() => {
-            setError("");
-          }, 2000);
-        });
+    toast.promise(profileUpdate, {
+      pending: "Saving Profile Details...",
+      success: "Profile Updated Successfully",
+      error: {
+        render({ data }) {
+          return data.response.data.error || "Some Error happened";
+        },
+      },
+    });
+
+    // if profile image changes update the profile image also
+    if (newProfileImage) {
+      const profileImageUpdate = new Promise((resolve, reject) => {
+        // create new form data
+        const formData = new FormData();
+        formData.append("file", newProfileImage);
+
+        axios
+          .post(`account/${user.username}/change-profile-image`, formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `${user.user}`,
+            },
+          })
+          .then((res) => {
+            setSaving(false);
+            resolve(res);
+          })
+          .catch((err) => {
+            setSaving(false);
+            reject(err);
+          });
+      });
+
+      toast.promise(profileImageUpdate, {
+        pending: "Saving Profile Image...",
+        success: "Profile Image Updated Successfully",
+        error: {
+          render({ data }) {
+            return (
+              data.response.data.error ||
+              "Some Error happened while profile image uploading"
+            );
+          },
+        },
+      });
+    }
+
+    // save the new user interests
+    // first clean the new tags and removed tags
+    if (userInterests.new_tags.length !== 0) {
+      const userInterestsUpdate = new Promise((resolve, reject) => {
+        // first remove items that are already in the removed tags
+        const newTags = userInterests.new_tags.filter(
+          (tag) => !userInterests.removed_tags.includes(tag)
+        );
+
+        axios
+          .post(
+            `account/${user.username}/interest`,
+            { tags: newTags },
+            {
+              headers: {
+                Authorization: `${user.user}`,
+              },
+            }
+          )
+          .then((res) => {
+            setSaving(false);
+            resolve(res);
+          })
+          .catch((err) => {
+            setSaving(false);
+            reject(err);
+          });
+      });
+
+      toast.promise(userInterestsUpdate, {
+        pending: "Saving User Interests...",
+        success: "User Interests Updated Successfully",
+        error: {
+          render({ data }) {
+            return data.response.data.error || "Some Error happened";
+          },
+        },
+      });
     }
   };
 
@@ -205,10 +218,6 @@ function ProfileDetails({ user }) {
         Set your login preferences, help us personalize your experinece and make
         big account changes here
       </p>
-
-      {error && <div className="error-msg">{error}</div>}
-
-      {success && <div className="success-msg">{success}</div>}
 
       <div className="personal-detail-section">
         <h2>Personal Details</h2>
@@ -387,6 +396,19 @@ function ProfileDetails({ user }) {
           {saving && <FontAwesomeIcon icon={faSpinner} spin="true" />}
         </span>
       </button>
+
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </div>
   );
 }

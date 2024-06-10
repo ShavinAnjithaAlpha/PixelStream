@@ -1,16 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { PopupContext } from "../../../contexts/popup.context";
 import PopupWindow from "../../PopupWindow/PopupWindow";
 import TabBar from "../TabBar";
 import useEditPhoto from "../../../hooks/useEditPhoto";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCity,
-  faClose,
-  faLocation,
-  faLocationPin,
-  faSpinner,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCity, faClose, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import "./EditPhoto.css";
 
 const TAB_MAP = ["General", "Tags", "Exif", "Other"];
@@ -22,7 +18,6 @@ function EditPhoto({ show, selectedPhoto }) {
     photo,
     dispatch,
     update,
-    error,
     updatePhoto,
     deletePhoto,
     addTag,
@@ -209,11 +204,6 @@ function EditPhoto({ show, selectedPhoto }) {
             )}
           </div>
           <div className="buttons">
-            {error && (
-              <div className="error">
-                <p>{error}</p>
-              </div>
-            )}
             <button className="cancel" onClick={closePopup}>
               Cancel
             </button>
@@ -229,6 +219,19 @@ function EditPhoto({ show, selectedPhoto }) {
           </div>
         </div>
       </div>
+
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </PopupWindow>
   );
 }

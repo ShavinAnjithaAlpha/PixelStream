@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import TabButton from "./TabButton";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import CollectionsIcon from "@mui/icons-material/Collections";
@@ -7,8 +7,10 @@ import AnalyticsIcon from "@mui/icons-material/Analytics";
 import GroupIcon from "@mui/icons-material/Group";
 import "./TabBar.css";
 import axios from "../../../axios";
+import { AuthContext } from "../../../contexts/auth.context";
 
 function TabBar({ setActiveTab, activeTab, username }) {
+  const { authState } = useContext(AuthContext);
   const [stat, setStat] = React.useState({});
 
   useEffect(() => {
@@ -49,12 +51,14 @@ function TabBar({ setActiveTab, activeTab, username }) {
         setActiveTab={setActiveTab}
         value={stat.likes || "0"}
       />
-      <TabButton
-        label="Stat"
-        icon={<AnalyticsIcon />}
-        isActive={activeTab === "stat"}
-        setActiveTab={setActiveTab}
-      />
+      {authState.username === username && (
+        <TabButton
+          label="Stat"
+          icon={<AnalyticsIcon />}
+          isActive={activeTab === "stat"}
+          setActiveTab={setActiveTab}
+        />
+      )}
       <TabButton
         label="Followers"
         icon={<GroupIcon />}

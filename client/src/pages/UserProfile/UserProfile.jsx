@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
+import { AuthContext } from "../../contexts/auth.context";
 import UserProfileDetail from "./components/UserProfileDetail";
 import PhotoTab from "./components/PhotoTab";
 import LikesTab from "./components/LikesTab";
@@ -13,6 +14,7 @@ import FollowersTab from "./components/FollowersTab";
 
 function UserProfile({ defaultTab = "photos" }) {
   const { username } = useParams();
+  const { authState } = useContext(AuthContext);
   const [activeTab, setActiveTab] = React.useState(defaultTab);
   const [backgroundImage, setBackgroundImage] = useState("");
 
@@ -56,7 +58,9 @@ function UserProfile({ defaultTab = "photos" }) {
           {activeTab === "photos" && <PhotoTab username={username} />}
           {activeTab === "likes" && <LikesTab username={username} />}
           {activeTab === "collections" && <CollectionTab username={username} />}
-          {activeTab === "stat" && <StatTab username={username} />}
+          {authState.username === username && activeTab === "stat" && (
+            <StatTab username={username} />
+          )}
           {activeTab === "followers" && <FollowersTab username={username} />}
         </div>
       </div>

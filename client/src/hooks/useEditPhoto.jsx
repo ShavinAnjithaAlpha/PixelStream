@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from "react";
+import { toast } from "react-toastify";
 import axios from "../axios";
 import { AuthContext } from "../contexts/auth.context";
 import getLocations from "../utils/location";
@@ -35,7 +36,6 @@ function useEditPhoto({ selectedPhoto }) {
 
   const { authState } = useContext(AuthContext);
   const [update, setUpdate] = React.useState(true);
-  const [error, setError] = React.useState("");
   const [locations, setLocations] = React.useState([]);
   const [locationQuery, setLocationQuery] = React.useState("");
   const [locationFetching, setLocationFetching] = React.useState(true);
@@ -52,84 +52,130 @@ function useEditPhoto({ selectedPhoto }) {
 
   const updatePhoto = () => {
     setUpdate(false);
-    const data = {
-      title: photo.title,
-      location: locationQuery,
-      description: photo.description,
-      capturedFrom: photo.capturedFrom,
-    };
-    axios
-      .put(`/photos/${photo.id}`, data, {
-        headers: {
-          Authorization: `${authState.user}`,
-        },
-      })
-      .then((res) => {
-        setUpdate(true);
-      })
-      .catch((err) => {
-        setError(err.response.data.error);
-        setUpdate(true);
-      });
+    // update the photo details
+    const updatePhotodetails = new Promise((resolve, reject) => {
+      const data = {
+        title: photo.title,
+        location: locationQuery,
+        description: photo.description,
+        capturedFrom: photo.capturedFrom,
+      };
+      axios
+        .put(`/photos/${photo.id}`, data, {
+          headers: {
+            Authorization: `${authState.user}`,
+          },
+        })
+        .then((res) => {
+          setUpdate(true);
+          resolve(res);
+        })
+        .catch((err) => {
+          setUpdate(true);
+          reject(err);
+        });
+    });
+
+    toast.promise(updatePhotodetails, {
+      pending: "Updating photo...",
+      success: "Photo updated successfully",
+      error: "Failed to update photo",
+    });
 
     // update the tags of the photo
     // first add new tags to the photo
     if (photo.new_tags.length > 0) {
-      // first remove existing tags in the remove_tags array
-      const newTags = photo.new_tags.filter(
-        (tag) => !photo.remove_tags.includes(tag)
-      );
-      axios
-        .post(
-          `/photos/${photo.id}/tags`,
-          { tags: newTags },
-          {
-            headers: {
-              Authorization: `${authState.user}`,
-            },
-          }
-        )
-        .then((res) => {})
-        .catch((err) => {
-          setError(err.response.data.error);
-        });
+      const tagUpdate = new Promise((resolve, reject) => {
+        // first remove existing tags in the remove_tags array
+        const newTags = photo.new_tags.filter(
+          (tag) => !photo.remove_tags.includes(tag)
+        );
+        axios
+          .post(
+            `/photos/${photo.id}/tags`,
+            { tags: newTags },
+            {
+              headers: {
+                Authorization: `${authState.user}`,
+              },
+            }
+          )
+          .then((res) => {
+            resolve(res);
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
+
+      toast.promise(tagUpdate, {
+        pending: "Updating tags...",
+        success: "Tags updated successfully",
+        error: {
+          render({ data }) {
+            return data.response.data.error || "Failed to update tags";
+          },
+        },
+      });
     }
 
     // remove the tags from the photo
     if (photo.remove_tags.length > 0) {
-      const removedTags = photo.remove_tags.filter(
-        (tag) => !photo.new_tags.includes(tag)
-      );
-      axios
-        .post(
-          `/photos/${photo.id}/tags/remove`,
-          { tags: removedTags },
-          {
-            headers: {
-              Authorization: `${authState.user}`,
-            },
-          }
-        )
-        .then((res) => {})
-        .catch((err) => {
-          setError(err.response.data.error);
-        });
+      const removeTags = new Promise((resolve, reject) => {
+        const removedTags = photo.remove_tags.filter(
+          (tag) => !photo.new_tags.includes(tag)
+        );
+        axios
+          .post(
+            `/photos/${photo.id}/tags/remove`,
+            { tags: removedTags },
+            {
+              headers: {
+                Authorization: `${authState.user}`,
+              },
+            }
+          )
+          .then((res) => {
+            resolve(res);
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
+
+      toast.promise(removeTags, {
+        pending: "Removing tags...",
+        success: "Tags removed successfully",
+        error: {
+          render({ data }) {
+            return data.response.data.error || "Failed to remove tags";
+          },
+        },
+      });
     }
   };
 
   const deletePhoto = () => {
-    axios
-      .delete(`/photos/${photo.id}`, {
-        headers: {
-          Authorization: `${authState.user}`,
-        },
-      })
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => {
-        setError(err.response.data.error);
-      });
+    const deletePhoto = new Promise((resolve, reject) => {
+      axios
+        .delete(`/photos/${photo.id}`, {
+          headers: {
+            Authorization: `${authState.user}`,
+          },
+        })
+        .then((res) => {
+          resolve(res);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+
+    toast.promise(deletePhoto, {
+      pending: "Deleting photo...",
+      success: "Photo deleted successfully",
+      error: "Failed to delete photo",
+    });
   };
 
   const addTag = (event) => {
@@ -163,7 +209,7 @@ function useEditPhoto({ selectedPhoto }) {
         dispatch({ type: "SET_TAGS", payload: res.data });
       })
       .catch((err) => {
-        setError(err.response.data.error);
+        toast.error(err.response.data.error || "Failed to fetch tags");
       });
   }, []);
 
@@ -184,7 +230,6 @@ function useEditPhoto({ selectedPhoto }) {
     photo,
     dispatch,
     update,
-    error,
     updatePhoto,
     deletePhoto,
     addTag,

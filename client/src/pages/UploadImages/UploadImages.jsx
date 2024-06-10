@@ -1,5 +1,7 @@
 import React, { useState, useContext } from "react";
 import styled from "styled-components";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "../../contexts/auth.context";
 import UploadImageTile from "./components/UploadImageTile";
 import UploadedImageTile from "./components/UploadedImageTile";
@@ -97,43 +99,52 @@ function UploadImages() {
     setUploading(true);
     setProgress(0);
 
-    // map each photo to a promise
-    const promises = selectedPhotos.map((photo, index) => {
-      const payLoad = new FormData();
-      payLoad.append("title", photo.title);
-      payLoad.append("description", photo.description);
-      payLoad.append("location", photo.location);
-      payLoad.append("file", photo.photoData);
-      payLoad.append("tags", photo.tags);
+    const photoUploadPromise = new Promise(async (resolve, reject) => {
+      // map each photo to a promise
+      const promises = selectedPhotos.map((photo, index) => {
+        const payLoad = new FormData();
+        payLoad.append("title", photo.title);
+        payLoad.append("description", photo.description);
+        payLoad.append("location", photo.location);
+        payLoad.append("file", photo.photoData);
+        payLoad.append("tags", photo.tags);
 
-      return axios
-        .put("/photos/", payLoad, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `${authState.user}`,
-          },
-        })
-        .then((res) => {
-          setProgress(((index + 1) / selectedPhotos.length) * 100);
-          setSelectedPhotos([...selectedPhotos, { ...photo, status: true }]);
-        })
-        .catch((err) => {
-          console.log(err);
-          setError(err.response.data.message || err.response.data.error);
-        });
+        return axios
+          .put("/photos/", payLoad, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `${authState.user}`,
+            },
+          })
+          .then((res) => {
+            setProgress(((index + 1) / selectedPhotos.length) * 100);
+            setSelectedPhotos([...selectedPhotos, { ...photo, status: true }]);
+          })
+          .catch((err) => {
+            setError(err.response.data.message || err.response.data.error);
+            return reject(err);
+          });
+      });
+
+      // wait for all promises to resolve
+      await Promise.all(promises);
+
+      setSuccess("Photos uploaded successfully");
+      setProgress(0);
+      setUploading(false);
+      setSelectedPhotos([]);
+      setTimeout(() => {
+        setSuccess("");
+      }, 3000);
+
+      return resolve();
     });
 
-    // wait for all promises to resolve
-    await Promise.all(promises);
-
-    setSuccess("Photos uploaded successfully");
-    setProgress(0);
-    setUploading(false);
-    setSelectedPhotos([]);
-    // run your code here
-    setTimeout(() => {
-      setSuccess("");
-    }, 3000);
+    toast.promise(photoUploadPromise, {
+      pending: "Uploading photos...",
+      success: "Photos uploaded successfully",
+      error: "Error uploading photos",
+    });
   };
 
   return (
@@ -227,6 +238,19 @@ function UploadImages() {
           </span>
         )}
       </button>
+
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </div>
   );
 }

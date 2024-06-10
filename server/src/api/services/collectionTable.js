@@ -80,6 +80,7 @@ async function fetchCollectionByUser(userId, page, limit) {
         model: Photo,
       },
     ],
+    order: [["createdAt", "DESC"]],
   });
 
   return collections;
