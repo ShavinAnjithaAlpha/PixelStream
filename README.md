@@ -7,7 +7,7 @@
     <!-- <img src="images/logo.png" alt="Logo" width="80" height="80"> -->
   </a>
 
-<h1 align="center">PixelStream - Photo Streaming Platform</h1>
+<h1 align="center">PixelStream - Stock Photography Platform</h1>
 
   <p align="center">
     An awesome photo streaming platform for photographers and photo enthusiasts!
@@ -74,9 +74,12 @@ PixelStream is a web-based application that operates its user interface directly
 
 ### Built With
 
-- [![React][React.js]][React-url]
-- <img src="">
-  <img src="https://static-00.iconduck.com/assets.00/node-js-icon-227x256-913nazt0.png" width=30>
+<!-- - [![React][React.js]][React-url] -->
+
+- Backend and API: **Node.js with Express**
+- Database: **MySQL**
+- Cache: **Redis**
+- Frontend: **React with Vanilla CSS**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
