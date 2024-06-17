@@ -59,116 +59,24 @@ PixelStream is a photo streaming platform for photographers and photo enthusiast
 
 ### Features of PixelStream
 
-- Create photographer profiles
-- Upload photos
-- Photo Collections
-- Like/Dislike on photos
-- Search for photos, collections and photographers
-- Follow/Unfollow photographers
-- Track photo views, downloads, and likes
-- View your profile and stats
-- View other photographers' profiles and stats
+- **Photo Uploading**: Easily upload images along with relevant information such as properties, camera specifications, and tags.
+- **Collection Management**: Customize and manage collections, include related photos, and edit collection properties.
+- **Profile Management**: Showcase your work to the public and connect with other users through profile management. folow other users and get followed by other users. Also tracked the liked photos and downloaded photos.
+- **Content Searching**: advanced searching capabilities for photos, collections, and users using tags and properties.
+- **Unique UI**: Experience a unique user interface with a dynamic background and a modern dark color theme for a seamless user experience.
+- **Photo Management**: manage your photos by editing their properties, adding tags, and viewing their statistics.
+- **Engagement Featured**: Easily manage your photos by expressing your preferences through liking or disliking, and download them for convenient access. Leave comments to provide feedback and engage with others.
+- **Statistics Tracking**: Track the statistics of your photos, collections, and user profile to understand your audience and improve your content.
 
-PixelStream is a web-based application that operates its user interface directly in the browser. Its server-side backend is constructed entirely with Node.js and Express.js, which provides a RESTful API for the frontend to consume. The frontend, on the other hand, is built with React.js and employs the React Context API for efficient state management. Additionally, the application uses Vanilla CSS for styling and is designed as a single-page application (SPA) that relies on React Router for navigation.
-
-### Architeture of the Backend
-
-The backend of the application is constructed using Node.js and Express.js. To facilitate communication with the frontend, it employs a RESTful API. This API can be adapted and integrated with other applications, such as mobile apps, with the appropriate customizations and permissions. The backend utilizes MySQL as its database to store all data. Additionally, Azure Blob Storage is employed to store images uploaded by users.
-
-The architecture of the backend is typical three layered architecture that most of the web applications and API services use. The three layers are:
-
-- <b>Controller Layer</b>
-
-  The controller layer is responsible for handling the incoming requests from the frontend and sending the response back to the frontend. The controller layer is the entry point of the backend server. It is responsible for routing the requests to the appropriate service layer and sending the response back to the frontend.
-
-- <b>Service Layer</b>
-
-  The service layer is responsible for handling the business logic of the application. It is responsible for processing the data and sending it to the database layer for storage. The service layer is the core of the backend server. It is responsible for processing the data and sending it to the database layer for storage.
-
-- <b>Data Access Layer</b>
-
-  The data access layer is responsible for interacting with the database. It is responsible for fetching the data from the database and sending it to the service layer for processing. The data access layer is the interface between the backend server and the database. It is responsible for fetching the data from the database and sending it to the service layer for processing.
-
-### RESTful API Endpoints
-
-#### 1. `/api/auth`
-
-- `POST /api/auth/register` - Create a new user account
-- `POST /api/auth/login` - Login to an existing user account
-- `POST /api/auth/change-password` - Change the password of the user account (<span style="color:blue">Authenticated</span>)
-
-#### 2. `/api/account` (<span style="color:blue">Authenticated</span>)
-
-- `POST /api/account/:username/` - Update the user account
-- `DELETE /api/account/:username/` - Delete the user account
-- `GET /api/account/:username/downloads` - Get the downloads of the user account
-- `POST /api/account/:username/interrest` - Update the interrest of the user account
-- `POST /api/account/:username/change-profile-image` - Change the profile image of the user account
-
-#### 3. `/api/photos`
-
-- `GET /api/photos` - Get photos with paginations
-- `GET /api/photos/:id` - Get a photo by id
-- `POST /api/photos` - Upload a new photo (<span style="color:blue">Authenticated</span>)
-- `POST /api/photos/:id/like` - Like a photo (<span style="color:blue">Authenticated</span>)
-- `POST /api/photos/:id/dislike` - Dislike a photo (<span style="color:blue">Authenticated</span>)
-- `POST /api/photos/:id/download` - Download a photo with user tracking (<span style="color:blue">Authenticated</span>)
-- `GET /api/photos/:id/get` - download a photo without user tracking
-- `GET /api/photos/random` - Get random photo/s based on teh query parameters
-- `GET /api/photos/:id/statistics` - Get the statistics of a photo
-- `GET /api/photos/tags` - Get all the tags with paginations
-- `POST /api/photos/likes` - Get all the likes related with a user
-- `DELETE /api/photos/:id/like` - Delete a like from a photo (<span style="color:blue">Authenticated</span>)
-- `DELETE /api/photos/:id/dislike` - Delete a dislike from a photo (<span style="color:blue">Authenticated</span>)
-- `GET /api/photos/:id/tags` - Get all the tags related with a photo
-- `POST /api/photos/:id/tags` - Add new tags to a photo (<span style="color:blue">Authenticated</span>)
-- `GET /api/photos/:id/like` - Get the like status of a photo (<span style="color:blue">Authenticated</span>)
-- `GET /api/photos/:id/dislike` - Get the dislike status of a photo (<span style="color:blue">Authenticated</span>)
-
-#### 4. `/api/collections`
-
-- `GET /api/collections` - Get all the collections with paginations
-- `GET /api/collections/:id` - Get a collection by id
-- `POST /api/collections` - Create a new collection (<span style="color:blue">Authenticated</span>)
-- `PUT /api/collections/:id` - Update a collection (<span style="color:blue">Authenticated</span>)
-- `DELETE /api/collections/:id` - Delete a collection (<span style="color:blue">Authenticated</span>)
-- `GET /api/collections/:id/photos` - Get all the photos related with a collection
-- `POST /api/collections/:id` - Add a photo to a collection (<span style="color:blue">Authenticated</span>)
-- `GET /api/colletions/:id/related` - Get all the related collections with a collection
-
-#### 5. `/api/search`
-
-- `GET /api/search/photos` - Search photos with paginations
-- `GET /api/search/collections` - Search collections with paginations
-- `GET /api/search/users` - Search users with paginations
-
-#### 6. `/api/stats`
-
-- `GET /api/stats/total` - Get the total statistics of the platform
-- `GET /api/stats/month` - Get the monthly statistics of the platform
-
-#### 7. `/api/users`
-
-- `GET /api/users` - Get all the users with paginations
-- `GET /api/users/:username` - Get a public profile of a user by username
-- `GET /api/users/:username/intereests` - Get the interrests of a user
-- `GET /api/users/:username/photos` - Get all the photos uploaded by a user
-- `GET /api/users/:username/collections` - Get all the collections created by a user
-- `GET /api/users/:username/likes` - Get all the likes of a user
-- `GET /api/users/:username/stat` - Get the statistics of a user
-- `POST /api/users/:username/follow` - Follow a user
-- `GET /api/users/:username/portfolio` - Get the portfolio of a user
-
-#### Special Notes
-
-- The endpoints marked with <span style="color:blue">Authenticated</span> are protected routes. The user must be authenticated to access these routes. The user must provide a valid JWT token in the Authorization header to access these routes.
+PixelStream is a web-based application that operates its user interface directly in the browser. Its server-side backend is constructed entirely with Node.js and Express.js, which provides a RESTful API for the frontend to consume. The frontend, on the other hand, is built with React.js and employs the React Context API for efficient state management. Additionally, the application uses Vanilla CSS for styling and is designed as a single-page application (SPA) that relies on React Router for navigation. Redis is used as a http cache between the backend and the frontend to improve the performance of the application.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Built With
 
 - [![React][React.js]][React-url]
-- [![Node][Node.js]][Node-url]
+- <img src="">
+  <img src="https://static-00.iconduck.com/assets.00/node-js-icon-227x256-913nazt0.png" width=30>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -220,19 +128,11 @@ To get a local copy up and running follow these simple steps.
    npm install
    ```
 
-4. Setup the MySQL database
-
-   ```sh
-   cd server/src/config
-   ```
-
-   open the config.json and update the database credentials and configurations for the development environment
-
-5. Setup the Azure blob storage account
+4. Setup the Azure blob storage account
 
    create an azure blob storage account and get the nessasary credentials and urls mentioned in the `.env.axample` file
 
-6. Create the `.env` file for the server
+5. Create the `.env` file for the server
 
    use the template procide in the `.env.example` file and create a new `.env` file in the `server` folder. Update the values with the actual values.
 
@@ -244,18 +144,49 @@ To get a local copy up and running follow these simple steps.
    AZURE_STORAGE_ACCOUNT={azure storage account}
    NEW_RELIC_APP_NAME={new relic app name} // optional
    NEW_RELIC_LICENSE_KEY={new relic license key} // optional
+
+   REDIS_URL={redis url}
+
+   // database configurations (ldevelopment database)
+   MYSQL_HOST={database hostname}
+   MYSQL_USER={database username}
+   MYSQL_PASSWORD={database password}
+   MYSQL_DATABASE={database name} // default: pixelstream
+   MYSQL_PORT={database port} // default: 3306
+
+   // optional (only if you use a production database)
+   MYSQL_HOST_PROD={production database hostname}
+   MYSQL_USER_PROD={production database username}
+   MYSQL_PASSWORD_PROD={production database password}
+   MYSQL_DATABASE_PROD={production database name} // default: pixelstream
+   MYSQL_PORT_PROD={production database port} // default: 3306
    ```
 
    **Note**: The `NEW_RELIC_APP_NAME` and `NEW_RELIC_LICENSE_KEY` are optional. If you want to use the new relic monitoring you can add these values to the `.env` file.
+   Also, production database confogurations are optional, only use if you have a production database.
 
-7. Start the backend server
+6. Create the `.env` file for the frontend
+7. use the template procide in the `.env.example` file and create a new `.env` file in the `client` folder. Update the values with the actual values.
+
+   ```js
+   VITE_PORT={PORT}
+   VITE_APP_API_URL={backend api url}
+
+   VITE_LOCATION_API_URL={geoapify api url}
+   VITE_LOCATION_API_KEY={geoapify api key}
+
+   ```
+
+   **Note**: The `VITE_REDIS_URL` is optional. If you want to use the redis cache you can add this value to the `.env` file.
+
+8. Start the backend server
 
    ```sh
    cd server
    npm start
    ```
 
-8. Run the frontend server
+9. Run the frontend server
 
    ```sh
    cd client
@@ -273,23 +204,6 @@ To get a local copy up and running follow these simple steps.
 <!-- USAGE EXAMPLES -->
 
 ## Usage
-
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- ROADMAP -->
-
-## Roadmap
-
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-  - [ ] Nested Feature
-
-See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -323,7 +237,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 ## Contact
 
 - Shavin Anjitha ([shavin@shavin.live](mailto:shavin@shavin.live))
-  ([LinkedIn](https://www.linkedin.com/in/shavin-anjitha-chandrawansha-555323229/))
+  ([LinkedIn](https://www.linkedin.com/in/shavin-anjitha-chandrawansha-555323229/)) ([Portfolio](https://shavinanjitha.me))
 
 - Project Link: [https://github.com/ShavinAnjithaAlpha/PixelStream](https://github.com/ShavinAnjithaAlpha/game-of-life)
 
@@ -335,7 +249,10 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 - [Choose an Open Source License](https://choosealicense.com)
 - [GitHub Pages](https://pages.github.com)
-- [Chart.js](https://www.chartjs.org/)
+- [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
+- [Redis](https://redis.io/)
+- [Font Awesome Icons](https://fontawesome.com)
+- [Material UI Icons](https://mui.com/material-ui/material-icons/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
