@@ -53,7 +53,7 @@
 
 ## About The Project
 
-![image](https://github.com/ShavinAnjithaAlpha/PhotoShav/assets/85817726/b7a3d12f-2d63-47a1-90cc-8118fe4cabe4)
+![PixelStream-final-25](https://github.com/ShavinAnjithaAlpha/PixelStream/assets/85817726/dbc3837a-1c17-41cf-aa09-011d64139ac5)
 
 PixelStream is a photo streaming platform for photographers and photo enthusiasts. It allows users to upload, share, and view photos from around the world. The platform provides a simple and intuitive interface for users to interact with the photos and photographers they love. Also, it provides a platform for photographers to showcase their work and connect with other photographers, so they can learn and grow together.
 
@@ -207,6 +207,29 @@ To get a local copy up and running follow these simple steps.
 <!-- USAGE EXAMPLES -->
 
 ## Usage
+
+Here are some screenshots of the PixelStream Web platform:
+
+![PixelStream-final-8](https://github.com/ShavinAnjithaAlpha/PixelStream/assets/85817726/4cd410bf-f132-4a4f-9971-7778e9a662af)
+<br />
+![PixelStream-final-14](https://github.com/ShavinAnjithaAlpha/PixelStream/assets/85817726/cbc3a991-c1e5-4f1b-97a5-1d07c3f1fd78)
+<br />
+![PixelStream-final-19](https://github.com/ShavinAnjithaAlpha/PixelStream/assets/85817726/080aa64c-c9ac-43e6-8ac7-b95e1aa501c5)
+<br />
+![PixelStream-final-20](https://github.com/ShavinAnjithaAlpha/PixelStream/assets/85817726/95e82381-a418-444d-b3dc-1af07e954bfb)
+<br />
+![PixelStream-final-21](https://github.com/ShavinAnjithaAlpha/PixelStream/assets/85817726/28c92ec5-cf5b-452b-a063-59794f0c27b2)
+<br />
+![PixelStream-final-22](https://github.com/ShavinAnjithaAlpha/PixelStream/assets/85817726/ebeaf75d-f0db-4e53-871b-1c2880322d8f)
+<br />
+![PixelStream-final-28](https://github.com/ShavinAnjithaAlpha/PixelStream/assets/85817726/e24ac255-2db0-4a1b-a17a-84af0d98382e)
+<br />
+![PixelStream-final-30](https://github.com/ShavinAnjithaAlpha/PixelStream/assets/85817726/38c06b45-fb52-49c0-8bf6-b546061c7af6)
+<br />
+![PixelStream-final-13](https://github.com/ShavinAnjithaAlpha/PixelStream/assets/85817726/599e0c00-779a-4252-a0a8-cdd9e32fce8d)
+<br />
+![PixelStream-final-10](https://github.com/ShavinAnjithaAlpha/PixelStream/assets/85817726/ebedc5b2-0c59-4602-92d5-e27e189d472a)
+<br />
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
