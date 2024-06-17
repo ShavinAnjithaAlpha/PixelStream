@@ -62,11 +62,11 @@ function Photo() {
               src={photo.photoUrl}
               alt={photo.photoDes}
               width={700}
-              style={{
-                objectFit: "contain",
-                height: "auto",
-                maxHeight: "80vh",
-              }}
+              // style={{
+              //   objectFit: "contain",
+              //   height: "auto",
+              //   maxHeight: "80vh",
+              // }}
             />
           </div>
 

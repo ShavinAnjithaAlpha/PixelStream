@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PhotoGrid from "../../components/PhotoGrid";
 import PageNavigationBar from "../../components/PageNavigationBar/PageNavigationBar";
 import TopicBar from "../../components/TopicBar/TopicBar";
@@ -10,6 +10,10 @@ import "./Home.css";
 function Home() {
   const { photos, status, handlePageChange, handleSearch, randomPhoto } =
     useGetPhotos();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [photos]);
 
   return (
     <div

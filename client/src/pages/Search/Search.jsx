@@ -18,9 +18,11 @@ function Search() {
     axios
       .get("/photos/random?limit=1")
       .then((res) => {
-        setBackgroundImage(res.data.photos[0].photoUrl);
+        setBackgroundImage(res.data.photos[0].resizedPhotoUrl);
       })
       .catch((err) => console.log(err));
+
+    window.scrollTo(0, 0);
   }, []);
 
   return (

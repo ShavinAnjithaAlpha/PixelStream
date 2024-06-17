@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect} from "react";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../../contexts/auth.context";
 import CollectionGrid from "./components/CollectionGrid";
@@ -29,6 +29,10 @@ function Collection() {
       selectedCollection: collection,
     });
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [photos]);
 
   return (
     <div
@@ -90,12 +94,11 @@ function Collection() {
           </div>
         )}
 
-        {loading && (
+        {/* {loading && (
           <div className="loading">
-            {/* <Spinner /> */}
             <FontAwesomeIcon icon={faSpinner} spin={true} />
           </div>
-        )}
+        )} */}
 
         {!photos ||
           !photos.photos ||

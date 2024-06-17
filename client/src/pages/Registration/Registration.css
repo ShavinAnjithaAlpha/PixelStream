@@ -3,6 +3,7 @@
 .register-page {
   width: 100%;
   height: 100vh;
+  background-color: black;
   background-position: center;
   background-size: cover;
 }
@@ -39,7 +40,6 @@
 
 .image-box span {
   font-size: 1.5rem;
-  font-family: "PT Serif", serif;
 }
 
 .image-box img {

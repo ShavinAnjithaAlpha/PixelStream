@@ -14,7 +14,9 @@ function AddCollectionCard({ collection, onAdd }) {
       {collection.Photo && (
         <div
           className={`add-collection-card ${added ? "added" : ""}`}
-          style={{ backgroundImage: `url('${collection.Photo.photoUrl}')` }}
+          style={{
+            backgroundImage: `url('${collection.Photo.resizedPhotoUrl}')`,
+          }}
           onClick={addToCollection}
         >
           <h1>{collection.collectionName}</h1>
