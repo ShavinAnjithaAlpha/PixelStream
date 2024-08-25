@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import { HashRouter as Router } from "react-router-dom";
 import { AuthContext } from "./contexts/auth.context";
 import { SearchContextProvider } from "./contexts/search.context";
 import { PopupContextProvider } from "./contexts/popup.context";
