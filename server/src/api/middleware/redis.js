@@ -7,9 +7,16 @@ let redisClient = null;
 
 async function connectToRedis() {
   const redisUrl = process.env.REDIS_URL;
+  const redisPort = process.env.REDIS_PORT;
+  const redisPassword = process.env.REDIS_PASSWORD;
+
   if (redisUrl) {
     redisClient = createClient({
-      url: redisUrl,
+      socket: {
+        host: redisUrl,
+        port: redisPort,
+      },
+      password: redisPassword,
     });
     redisClient.on("error", (error) => {
       logger.error("Redis error: ", error);

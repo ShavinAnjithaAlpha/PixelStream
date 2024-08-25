@@ -45,7 +45,7 @@ app.use(helmet()); // apply the helmet middleware to secure the app by setting v
 
 app.get("/", (req, res) => {
   res.send(
-    "Welcome to PhotoShav! This is the public API endpoints of the PhotoShav Web App."
+    "welcome to pixel-stream-api! This is the public api endpoints of the pixelstream web app."
   );
 });
 require("./api/start/routes")(app); // create the routes
