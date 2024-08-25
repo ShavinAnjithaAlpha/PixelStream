@@ -49,7 +49,6 @@ jobs:
 
       - name: Unzip artifact for deployment
         run: unzip release.zip
-        working-directory: server # Change to the server directory if needed
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
@@ -58,4 +57,4 @@ jobs:
           app-name: 'pixelstream-api'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5DEF7771143D48F69F6EB889E577ADE6 }}
-          package: server # Change path to include server directory
+          # Change path to include server directory
