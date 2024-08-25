@@ -22,11 +22,11 @@ jobs:
         run: |
           npm install
           npm run build --if-present
-        working-directory: ./server # Change to the server directory
+        working-directory: server # Change to the server directory
 
       - name: Zip artifact for deployment
         run: zip release.zip ./* -r
-        working-directory: ./server # Change to the server directory
+        working-directory: server # Change to the server directory
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
@@ -49,7 +49,7 @@ jobs:
 
       - name: Unzip artifact for deployment
         run: unzip release.zip
-        working-directory: ./server # Change to the server directory if needed
+        working-directory: server # Change to the server directory if needed
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
@@ -58,4 +58,4 @@ jobs:
           app-name: 'pixelstream-api'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5DEF7771143D48F69F6EB889E577ADE6 }}
-          package: ./server # Change path to include server directory
+          package: server # Change path to include server directory
