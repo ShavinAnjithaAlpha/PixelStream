@@ -21,7 +21,6 @@ jobs:
       - name: npm install, build, and test
         run: |
           npm ci
-          npm run build --if-present
         working-directory: server # Change to the server directory
 
       - name: Zip artifact for deployment
@@ -58,3 +57,4 @@ jobs:
           slot-name: "Production"
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5DEF7771143D48F69F6EB889E577ADE6 }}
           # Change path to include server directory
+          path: server
